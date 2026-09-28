@@ -1,0 +1,1093 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>リアルタイムお迎え動向共有システム｜プロトタイプ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --o:#F2913F;            /* メインのオレンジ */
+  --o-d:#E4762A;
+  --o-l:#FDEBDD;          /* 淡いオレンジ面 */
+  --o-l2:#FEF5EE;
+  --side:#FFF9F4;         /* サイドバー */
+  --peach:#FDF4EF;        /* 画面背景 */
+  --card:#FFFFFF;
+  --ink:#3D332C;
+  --ink-2:#9A8C81;
+  --line:#F1E8E1;
+  --pink:#F2A7BC;
+  --pri-bg:#FBE4DE; --pri-tx:#D9755C;   /* 優先順位 */
+  --ok-bg:#E4F4E9;  --ok-tx:#3E9A62;    /* 承認済み・未到着 */
+  --am-bg:#FDF0D9;  --am-tx:#D2941A;    /* まもなく */
+  --rd-bg:#FCE6E2;  --rd-tx:#DB5A45;    /* 遅延 */
+  --mint:#B4E3CC;   --mint-tx:#2E8B5F;
+  --memo-bg:#FFFAEC; --memo-bd:#F0D9A8;
+  --disp:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --body:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#EDE4DC;font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased;padding-bottom:40px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;padding:0}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--ink)}
+:focus-visible{outline:3px solid #F2B77E;outline-offset:2px;border-radius:6px}
+svg{display:block}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== プロトタイプ操作バー（アプリの外側） ===== */
+.harness{position:sticky;top:0;z-index:60;background:#3A2E27;color:#E3D6CB;border-bottom:2px solid var(--o)}
+.harness-in{max-width:1200px;margin:0 auto;padding:9px 16px;display:flex;flex-wrap:wrap;gap:9px 16px;align-items:center}
+.harness .brand{font-family:var(--disp);font-weight:700;color:#fff;font-size:14px}
+.harness .brand span{color:#F2B77E;font-size:11px;font-family:var(--mono);margin-left:8px;letter-spacing:.08em}
+.hgroup{display:flex;gap:6px;align-items:center;margin-left:auto;flex-wrap:wrap}
+.hctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htoggle{display:none}
+.hbtn{font-size:12px;padding:5px 11px;border-radius:999px;background:#503F35;color:#E9DCD1;border:1px solid #6A5648}
+.hbtn:hover{background:#63503f}
+.hbtn.on{background:var(--o);color:#fff;border-color:var(--o)}
+.hnow{font-family:var(--mono);font-size:12px;color:#C7A98F}
+.hid{font-family:var(--mono);font-size:11px;color:#3A2E27;background:#F2C79A;padding:3px 8px;border-radius:5px;font-weight:600}
+
+/* ===== 端末フレーム ===== */
+.stage{max-width:1200px;margin:22px auto;padding:0 16px;display:flex;justify-content:center}
+.phone{width:392px;max-width:100%;border-radius:38px;border:9px solid #221B16;box-shadow:0 26px 60px rgba(60,40,25,.3);overflow:hidden;display:flex;flex-direction:column;height:800px;
+       background:linear-gradient(180deg,#FFF7F0 0%,#FDEDE1 58%,#FCE7D8 100%)}
+.tablet{width:100%;max-width:1080px;border-radius:22px;border:9px solid #221B16;box-shadow:0 26px 60px rgba(60,40,25,.3);overflow:hidden;display:flex;flex-direction:column;height:740px;background:var(--peach)}
+.statusbar{display:flex;justify-content:space-between;font-size:12px;padding:9px 20px 3px;color:#6A5D53;font-family:var(--disp);font-weight:700}
+.scr{flex:1;display:flex;flex-direction:column;min-height:0}
+.roll{flex:1;overflow-y:auto;overscroll-behavior:contain}
+.roll::-webkit-scrollbar{width:7px}
+.roll::-webkit-scrollbar-thumb{background:#E3D2C4;border-radius:4px}
+
+/* ===== 共通 ===== */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;font-family:var(--disp);white-space:nowrap}
+.pill.green{background:var(--ok-bg);color:var(--ok-tx)}
+.pill.amber{background:var(--am-bg);color:var(--am-tx)}
+.pill.red{background:var(--rd-bg);color:var(--rd-tx)}
+.pill.gray{background:#F0EBE6;color:#96887C}
+.pill.pri{background:var(--pri-bg);color:var(--pri-tx)}
+.pill.orange{background:var(--o-l);color:var(--o-d)}
+.muted{color:var(--ink-2)}
+.tiny{font-size:11.5px}
+.card{background:var(--card);border-radius:18px;box-shadow:0 1px 3px rgba(120,90,60,.07)}
+.note{background:var(--o-l2);border-radius:14px;padding:14px 16px;font-size:12.5px;color:#8A7365;line-height:1.75;display:flex;gap:10px}
+.memo-row{background:var(--memo-bg);border:1px solid var(--memo-bd);border-radius:10px}
+.err{background:var(--rd-bg);border:1px solid #F2C4BB;color:#B4402C;padding:12px 14px;border-radius:14px;font-size:12.5px;line-height:1.7}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#3A2E27;color:#fff;padding:12px 22px;border-radius:999px;font-size:13px;z-index:90;box-shadow:0 10px 30px rgba(0,0,0,.28);font-family:var(--disp);font-weight:700;animation:up .25s ease}
+@keyframes up{from{opacity:0;transform:translate(-50%,12px)}}
+.fieldl{display:block;font-size:12.5px;font-weight:700;margin:15px 0 6px;color:#7A6B60;font-family:var(--disp)}
+.inp{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:13px;background:#fff}
+.inp:focus{border-color:#F2C08A}
+.sec{font-family:var(--disp);font-weight:700;font-size:15px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.sec:first-child{margin-top:0}
+
+/* ===== タブレット：サイドバー ===== */
+.t-wrap{display:flex;height:100%;min-height:0}
+.side{width:214px;flex:none;background:var(--side);border-right:1px solid #F3E7DD;display:flex;flex-direction:column}
+.side .logo{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700;font-size:17px}
+.side .items{padding:12px 10px;overflow-y:auto;flex:1}
+.side .items::-webkit-scrollbar{width:0}
+.sidebtn{display:flex;gap:12px;align-items:center;width:100%;padding:11px 12px;border-radius:13px;font-family:var(--disp);font-weight:700;font-size:14px;color:#7C6A5D;text-align:left;margin-bottom:3px}
+.sidebtn svg{color:#C99C6E}
+.sidebtn:hover{background:#FDEEE2}
+.sidebtn.on{background:var(--o-l);color:var(--o-d)}
+.sidebtn.on svg{color:var(--o)}
+.sidebtn[disabled]{opacity:.5;cursor:default}
+.side .me{border-top:1px solid #F3E7DD;padding:11px 13px;display:flex;gap:10px;align-items:center;background:#FFF4EC}
+.side .me b{font-family:var(--disp);font-size:13px;display:block}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--peach)}
+
+/* ===== タブレット：ヘッダー ===== */
+.thead{background:var(--peach);padding:18px 26px 10px;display:flex;align-items:flex-start;gap:12px}
+.thead h2{margin:0;font-family:var(--disp);font-weight:700;font-size:23px;display:flex;align-items:center;gap:11px}
+.thead .sub{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+.thead .right{margin-left:auto;display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.hpill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);color:#8A7A6D;font-size:13px;font-family:var(--disp);font-weight:700;padding:9px 16px;border-radius:999px}
+.hpill:hover{background:#FFF8F3}
+.hpill.solid{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;border:none;box-shadow:0 3px 8px rgba(240,140,59,.32)}
+.tbody{flex:1;overflow-y:auto;padding:8px 26px 26px}
+.tbody::-webkit-scrollbar{width:7px}
+.tbody::-webkit-scrollbar-thumb{background:#E3D2C4;border-radius:4px}
+.tabs{display:flex;gap:9px;padding:0 26px 12px;flex-wrap:wrap;align-items:center}
+.tab{font-size:13px;font-family:var(--disp);font-weight:700;padding:8px 16px;border-radius:999px;background:#fff;color:#9A8C81;border:1px solid var(--line)}
+.tab.on{background:var(--o);color:#fff;border-color:var(--o)}
+
+/* タブレット下部ナビ */
+.tnav{background:#fff;border-top:1px solid var(--line);display:flex;align-items:flex-end;justify-content:space-around;padding:7px 0 9px;position:relative}
+.tnav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-family:var(--disp);font-weight:700;color:#B2A499;flex:1}
+.tnav button.on{color:var(--o)}
+.tnav .fab{width:52px;height:52px;border-radius:50%;background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;display:grid;place-items:center;margin-top:-24px;box-shadow:0 5px 14px rgba(240,140,59,.4)}
+.tnav .fabwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;color:var(--o);font-family:var(--disp);font-weight:700}
+.badge{position:absolute;top:-4px;right:-9px;background:#EE5A48;color:#fff;font-size:9.5px;min-width:16px;height:16px;border-radius:9px;display:grid;place-items:center;font-family:var(--disp);font-weight:700;padding:0 4px}
+
+/* ===== 代理人リスト（画像1） ===== */
+.pxcard{background:#fff;border-radius:18px;padding:20px;display:flex;gap:20px;align-items:flex-start;margin-bottom:16px;box-shadow:0 1px 3px rgba(120,90,60,.07);width:100%;text-align:left}
+.pxcard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
+.pxphoto{width:132px;height:150px;border-radius:12px;overflow:hidden;flex:none;background:#EFEBE7}
+.pxinfo{flex:1;min-width:0}
+.pxtop{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.pxname{font-family:var(--disp);font-weight:700;font-size:25px;letter-spacing:.01em}
+.pxname small{font-size:15px;color:#7E7168;font-weight:500;margin-left:6px}
+.dl{margin-top:10px}
+.dl .row{display:flex;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid #F4EEE9;font-size:14px}
+.dl .row:last-child{border-bottom:none}
+.dl .row .lb{color:#8B7E74;width:96px;flex:none;font-size:13.5px}
+.dl .row svg{color:#BCADA1;flex:none}
+.dl .row.memo{background:var(--memo-bg);border:1px solid var(--memo-bd);border-radius:10px;padding:9px 12px;margin:4px 0}
+.dl .row.memo svg{color:#D6A94E}
+.dl .row.memo b{font-weight:700}
+.chev{align-self:center;color:#C9BAAE;flex:none}
+
+/* ===== 職員タイムライン（画像2） ===== */
+.composer{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.compbox{flex:1;background:#fff;border-radius:16px;border:1px solid var(--line);padding:8px 8px 8px 20px;display:flex;align-items:center;gap:10px}
+.compbox input{flex:1;border:none;outline:none;font-size:15px;background:transparent}
+.compbox input::placeholder{color:#BEB1A6}
+.daysep{display:flex;justify-content:center;margin:6px 0 20px}
+.daysep span{background:#fff;border-radius:999px;padding:9px 26px;font-family:var(--disp);font-weight:700;font-size:14px;color:#7A6B60;box-shadow:0 1px 3px rgba(120,90,60,.08)}
+.post{display:flex;gap:16px;position:relative;padding-bottom:16px}
+.post:not(:last-child):before{content:"";position:absolute;left:26px;top:56px;bottom:0;width:2px;background:#EFE4DA}
+.post .bub{background:#fff;border-radius:18px;padding:16px 20px;flex:1;box-shadow:0 1px 3px rgba(120,90,60,.07);min-width:0}
+.post .who{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.post .who b{font-family:var(--disp);font-size:15px;color:var(--pink)}
+.post .who .t{font-size:13px;color:#A79A8F;font-family:var(--mono)}
+.post .who .more{margin-left:auto;color:#C4B6AA}
+.post.teacher .who b{color:var(--o)}
+.post.sys .who b{color:#5EA8C9}
+.post .txt{font-size:15px;line-height:1.75}
+.reacts{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.react{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:12.5px;color:#8B7E74;background:#fff}
+.react.on{background:var(--ok-bg);border-color:#C6E6D2;color:var(--ok-tx)}
+
+/* ===== お帰りタイムライン ===== */
+.ccard{display:flex;align-items:center;gap:15px;background:#fff;border-radius:16px;padding:14px 18px;width:100%;text-align:left;margin-bottom:11px;box-shadow:0 1px 3px rgba(120,90,60,.07);border-left:6px solid #DDD2C8}
+.ccard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
+.ccard.green{border-left-color:#5FBF8B}.ccard.amber{border-left-color:#EDB53F}
+.ccard.red{border-left-color:#E8735C}.ccard.gray{border-left-color:#D8CDC4;opacity:.75}
+.ccard .nm{font-family:var(--disp);font-weight:700;font-size:17px;margin-top:1px}
+.ccard .meta{font-size:12px;color:var(--ink-2);margin-top:3px}
+.count{margin-left:auto;text-align:right;min-width:118px}
+.count .num{font-family:var(--disp);font-weight:900;font-size:15px;color:#8B7E74;margin-top:6px;font-variant-numeric:tabular-nums}
+.count .num b{font-size:30px;line-height:1}
+.count.green .num b{color:var(--ok-tx)}.count.amber .num b{color:var(--am-tx)}.count.red .num b{color:var(--rd-tx)}
+.nowbar{display:flex;align-items:center;gap:10px;margin:6px 0 16px;color:var(--rd-tx);font-family:var(--disp);font-weight:700;font-size:12.5px}
+.nowbar:after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,#F0B3A6 0 8px,transparent 8px 14px)}
+.chgtag{display:inline-block;font-size:11px;background:var(--o-l);color:var(--o-d);padding:3px 9px;border-radius:7px;margin-top:5px;font-family:var(--disp);font-weight:700}
+.stat{background:#fff;border-radius:18px;padding:17px 19px;box-shadow:0 1px 3px rgba(120,90,60,.07)}
+.stat b{display:block;font-family:var(--disp);font-size:30px;color:var(--ink);line-height:1.25;font-variant-numeric:tabular-nums}
+.stat small{font-size:12px;color:var(--ink-2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.tile{background:#fff;border-radius:18px;padding:17px 19px;text-align:left;box-shadow:0 1px 3px rgba(120,90,60,.07)}
+.tile:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
+.tile b{display:block;font-family:var(--disp);font-size:15px;margin:9px 0 3px}
+.tile small{color:var(--ink-2);font-size:12px}
+table.tbl{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:16px;overflow:hidden;font-size:13.5px;box-shadow:0 1px 3px rgba(120,90,60,.07)}
+table.tbl th{background:#FBF3EC;text-align:left;padding:11px 15px;font-size:12px;color:#8B7E74;font-family:var(--disp);font-weight:700}
+table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
+.btn{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;font-family:var(--disp);font-weight:700;font-size:14px;padding:13px 24px;border-radius:14px;box-shadow:0 3px 8px rgba(240,140,59,.3);display:inline-flex;align-items:center;gap:8px}
+.btn.g{background:#fff;color:#7A6B60;border:1.5px solid var(--line);box-shadow:none}
+.btn.ok{background:linear-gradient(100deg,#6DC79A,#48A876);box-shadow:0 3px 8px rgba(72,168,118,.3)}
+.btn.ng{background:#fff;color:var(--rd-tx);border:1.5px solid #F2C4BB;box-shadow:none}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+
+/* ===== 保護者アプリ（画像3） ===== */
+.phead{display:flex;align-items:center;padding:10px 18px 12px;gap:10px}
+.phead .ttl{flex:1;text-align:center;font-family:var(--disp);font-weight:700;font-size:19px}
+.pbody{padding:0 18px 26px;position:relative}
+.kidcard{background:#fff;border-radius:20px;padding:14px 16px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 8px rgba(150,110,70,.09)}
+.kidcard .nm{font-family:var(--disp);font-weight:700;font-size:19px}
+.kidcard .cls{font-size:13px;color:#8B7E74}
+.timebox{background:var(--o-l);border-radius:13px;padding:7px 14px;text-align:center;margin-left:auto}
+.timebox small{display:block;font-size:10.5px;color:#A88355}
+.timebox b{font-family:var(--disp);font-weight:900;font-size:25px;color:var(--o-d);line-height:1.15;font-variant-numeric:tabular-nums}
+.leadline{text-align:center;font-family:var(--disp);font-weight:700;font-size:17px;margin:20px 0 14px;position:relative;z-index:1}
+.bigchoice{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.bigchoice button{border-radius:18px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:19px;position:relative}
+.bigchoice .cc{width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.bigchoice .late{background:#FBEEE4;color:#B98A5E}
+.bigchoice .late.on{background:linear-gradient(160deg,#F5A55E,#EE8531);color:#fff;box-shadow:0 6px 16px rgba(238,133,49,.35);outline:2.5px solid #E4762A;outline-offset:2px}
+.bigchoice .early{background:#E6F5ED;color:#5FA484}
+.bigchoice .early.on{background:var(--mint);color:#1F7A50;box-shadow:0 6px 16px rgba(110,190,150,.35);outline:2.5px solid #6FC49B;outline-offset:2px}
+.bigchoice .arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.7}
+.panel{background:#FDEDE1;border-radius:20px;padding:18px 16px;margin-top:18px;position:relative}
+.panel:before{content:"";position:absolute;top:-9px;width:20px;height:20px;background:#FDEDE1;transform:rotate(45deg);border-radius:4px}
+.panel.left:before{left:66px}
+.panel.right:before{right:66px}
+.panel h4{margin:0 0 4px;font-family:var(--disp);font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.panel .hint{font-size:12.5px;color:#8B7E74;margin-bottom:13px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slots button{background:#fff;border-radius:15px;padding:14px 6px;text-align:center;box-shadow:0 1px 3px rgba(150,110,70,.1);position:relative}
+.slots button b{font-family:var(--disp);font-weight:900;font-size:31px;color:var(--o);font-variant-numeric:tabular-nums;line-height:1}
+.slots button b i{font-size:15px;font-style:normal;margin-left:1px}
+.slots button small{display:block;font-size:11.5px;color:#8B7E74;margin-top:2px}
+.slots button.on{outline:2.5px solid var(--o);background:#FFF7F0}
+.tipbox{background:#FFFAEA;border-radius:14px;padding:12px 14px;display:flex;gap:10px;font-size:12.5px;color:#8A7549;line-height:1.7;margin-top:14px}
+.rowbtn{background:#fff;border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:11px;width:100%;font-family:var(--disp);font-weight:700;font-size:14.5px;margin-top:12px;box-shadow:0 1px 3px rgba(150,110,70,.09)}
+.rowbtn .chev{margin-left:auto}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(100deg,#F5A55E,#EE8531);color:#fff;font-family:var(--disp);font-weight:700;font-size:17px;padding:16px;border-radius:16px;box-shadow:0 6px 14px rgba(238,133,49,.32)}
+.cta:active{transform:translateY(1px)}
+.cta.ghost{background:#fff;color:#7A6B60;box-shadow:0 1px 3px rgba(150,110,70,.1)}
+.cta:disabled{opacity:.5;box-shadow:none}
+.pnav{background:#fff;display:flex;padding:8px 4px 11px;box-shadow:0 -1px 6px rgba(150,110,70,.08)}
+.pnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-family:var(--disp);font-weight:700;color:#B2A499}
+.pnav button .ib{padding:5px 16px;border-radius:999px}
+.pnav button.on{color:var(--o)}
+.pnav button.on .ib{background:var(--o-l)}
+.deco{position:absolute;pointer-events:none}
+
+.modal{position:fixed;inset:0;background:rgba(58,46,39,.5);display:grid;place-items:center;z-index:80;padding:20px}
+.modal .box{background:#fff;border-radius:20px;padding:24px;max-width:660px;width:100%;max-height:80vh;overflow:auto}
+.maprow{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #F4EEE9;font-size:13.5px}
+.maprow code{font-family:var(--mono);font-size:11px;background:#FBF0E6;color:var(--o-d);padding:3px 7px;border-radius:5px}
+.maprow button{margin-left:auto;font-size:12px;color:var(--o-d);font-family:var(--disp);font-weight:700}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+.drawerbtn{display:none}
+.scrim{display:none}
+.roll,.tbody,.side .items{-webkit-overflow-scrolling:touch}
+
+/* ===== 実機（スマホ・タブレット）で画面いっぱいに表示 ===== */
+@media (max-width:1100px), (pointer:coarse){
+  html,body{height:100%}
+  body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0;overscroll-behavior:none}
+  .stage{flex:1;min-height:0;margin:0;padding:0;max-width:none}
+  .phone,.tablet{width:100%;height:100%;max-width:none;border:0;border-radius:0;box-shadow:none}
+  .phone{max-width:560px;margin:0 auto}
+  .statusbar{display:none}
+  .pnav{padding-bottom:calc(11px + env(safe-area-inset-bottom))}
+  .tnav{padding-bottom:calc(9px + env(safe-area-inset-bottom))}
+  button,.tab,.hpill,.react{-webkit-tap-highlight-color:rgba(242,145,63,.16)}
+  .inp,input,select,textarea{font-size:16px}
+  .tab,.hpill{min-height:42px}
+}
+
+/* ===== 幅の狭い端末：サイドバーを引き出しメニューに ===== */
+@media (max-width:900px){
+  .harness-in{padding:7px 12px;gap:7px 10px}
+  .harness .brand{font-size:12.5px}
+  .harness .brand span{display:none}
+  .hctrls{display:none;width:100%;gap:6px;flex-wrap:wrap}
+  .hctrls.open{display:flex}
+  .htoggle{display:inline-flex!important}
+
+  .side{position:fixed;top:0;left:0;bottom:0;z-index:70;width:262px;transform:translateX(-101%);
+        box-shadow:8px 0 28px rgba(60,40,25,.28);transition:transform .22s ease;padding-bottom:env(safe-area-inset-bottom)}
+  .side.open{transform:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(58,46,39,.42);z-index:69}
+  .drawerbtn{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#fff;color:#8B7E74;
+             box-shadow:0 1px 3px rgba(120,90,60,.1);flex:none;margin-top:2px}
+
+  .thead{padding:12px 14px 6px;flex-wrap:wrap;align-items:center}
+  .thead h2{font-size:19px;gap:8px}
+  .thead .sub{font-size:11.5px}
+  .thead .right{width:100%;margin-left:0;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:2px 0 4px}
+  .thead .right::-webkit-scrollbar{height:0}
+  .tbody{padding:6px 14px 18px}
+  .tabs{padding:0 14px 10px;flex-wrap:nowrap;overflow-x:auto}
+  .tabs::-webkit-scrollbar{height:0}
+  .grid2{grid-template-columns:1fr;gap:11px}
+  .grid3{grid-template-columns:repeat(3,1fr);gap:9px}
+  .stat{padding:13px 12px}.stat b{font-size:23px}.stat small{font-size:10.5px}
+  table.tbl{min-width:660px}
+
+  .pxcard{padding:15px;gap:14px}
+  .pxphoto{width:96px;height:112px}
+  .pxname{font-size:20px}
+  .pxname small{display:block;margin:2px 0 0;font-size:12.5px}
+  .dl .row{flex-wrap:wrap;gap:8px;font-size:13px}
+  .dl .row .lb{width:74px;font-size:12.5px}
+  .pxcard .chev{display:none}
+
+  .post{gap:11px}
+  .post:not(:last-child):before{left:22px;top:50px}
+  .post .bub{padding:13px 15px}
+  .post .txt{font-size:14px}
+  .composer{gap:10px}
+  .compbox{padding:6px 6px 6px 14px}
+  .compbox input{font-size:14.5px;min-width:0}
+
+  .pbody{padding:0 14px 22px}
+  .phead{padding:8px 12px 10px}
+  .bigchoice button{font-size:17px;padding:15px 10px}
+  .slots button b{font-size:27px}
+}
+
+/* ===== さらに狭い端末（スマホ縦） ===== */
+@media (max-width:560px){
+  .ccard{gap:11px;padding:12px 13px}
+  .ccard .nm{font-size:15.5px}
+  .ccard .meta{font-size:10.5px}
+  .ccard .chev{display:none}
+  .count{min-width:84px}
+  .count .num b{font-size:24px}
+  .count .pill{font-size:10.5px;padding:3px 8px}
+  .grid3{grid-template-columns:1fr 1fr}
+  .thead h2{font-size:18px}
+  .modal .box{padding:18px;border-radius:16px}
+}
+</style>
+
+<div class="harness">
+  <div class="harness-in">
+    <div class="brand">リアルタイムお迎え動向共有システム<span>PROTOTYPE</span></div>
+    <div class="hgroup">
+      <span class="hid" id="hid">S01</span>
+      <span class="hnow" id="hnow">--:--</span>
+      <button class="hbtn htoggle" onclick="act('hbar')">デモ操作 ≡</button>
+    </div>
+    <div class="hctrls" id="hctrls">
+      <button class="hbtn" onclick="act('ff',5)">＋5分</button>
+      <button class="hbtn" onclick="act('ff',15)">＋15分</button>
+      <button class="hbtn" id="errbtn" onclick="act('toggleErr')">通信エラー再現</button>
+      <button class="hbtn" onclick="act('map')">画面一覧</button>
+      <button class="hbtn" onclick="act('reset')">リセット</button>
+    </div>
+  </div>
+</div>
+<div class="stage" id="stage"></div>
+<div id="overlay"></div>
+
+<script>
+/* =========================================================
+   アイコン
+   ========================================================= */
+const ICON={
+chat:'<path d="M4.5 6.6A2.6 2.6 0 017 4h10a2.6 2.6 0 012.6 2.6v5.8A2.6 2.6 0 0117 15H9.6L6 18.3V15a1.5 1.5 0 01-1.5-1.5z"/>',
+book:'<path d="M6 3.8h10a1.6 1.6 0 011.6 1.6v14.8H7.6A1.6 1.6 0 016 18.6z"/><path d="M9 8h6M9 11.5h6"/>',
+users:'<circle cx="9" cy="8.4" r="3"/><path d="M3.6 19c.5-3.1 2.7-4.8 5.4-4.8s4.9 1.7 5.4 4.8"/><path d="M15.6 6.1a3 3 0 010 5.4M17 14.6c2 .6 3.2 2.2 3.5 4.4"/>',
+clock:'<circle cx="12" cy="12" r="8.2"/><path d="M12 7.4V12l3 1.8"/>',
+note:'<rect x="5" y="3.8" width="14" height="16.4" rx="2.4"/><path d="M8.6 8.4h6.8M8.6 12h6.8M8.6 15.6h4"/>',
+cal:'<rect x="4" y="5.6" width="16" height="14.4" rx="2.6"/><path d="M4 10h16M8.6 3.6v3.6M15.4 3.6v3.6"/>',
+clip:'<rect x="5" y="4.8" width="14" height="15.4" rx="2.4"/><path d="M9 4.8V3.6h6v1.2"/><path d="M8.8 10.5h6.4M8.8 14h4.4"/>',
+photo:'<rect x="3.6" y="5" width="16.8" height="14" rx="2.6"/><circle cx="9" cy="10" r="1.6"/><path d="M4.4 17l4.4-4.2 3.4 3 2.8-2.4 4.4 4"/>',
+gear:'<circle cx="12" cy="12" r="3.1"/><path d="M12 3.4v2.2M12 18.4v2.2M20.6 12h-2.2M5.6 12H3.4M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6M18.1 18.1l-1.6-1.6M7.5 7.5L5.9 5.9"/>',
+home:'<path d="M4 11.2L12 4.4l8 6.8"/><path d="M6.2 10.4V19a1 1 0 001 1h3.2v-5h3.2v5H17a1 1 0 001-1v-8.6"/>',
+bell:'<path d="M6.4 10a5.6 5.6 0 1111.2 0c0 4.6 1.8 5.8 1.8 5.8H4.6S6.4 14.6 6.4 10z"/><path d="M10.2 19a2 2 0 003.6 0"/>',
+menu:'<path d="M4.4 7h15.2M4.4 12h15.2M4.4 17h15.2"/>',
+car:'<path d="M4.2 15.4v-2.2l1.8-4.4A2 2 0 017.9 7.6h8.2a2 2 0 011.9 1.2l1.8 4.4v2.2"/><path d="M4.2 15.4h15.6v2.2h-2.6v-2.2M6.8 15.4v2.2H4.2"/><circle cx="8" cy="12.6" r=".9"/><circle cx="16" cy="12.6" r=".9"/>',
+phone:'<rect x="7.4" y="3.4" width="9.2" height="17.2" rx="2.2"/><path d="M11 17.6h2"/>',
+idcard:'<rect x="3.4" y="5.6" width="17.2" height="12.8" rx="2.4"/><circle cx="8.6" cy="11.2" r="1.8"/><path d="M5.8 15.8c.4-1.5 1.5-2.2 2.8-2.2s2.4.7 2.8 2.2M14 10h4.2M14 13.4h4.2"/>',
+shield:'<path d="M12 3.4l7 2.8v5.2c0 4.6-2.9 6.8-7 8.8-4.1-2-7-4.2-7-8.8V6.2z"/>',
+pencil:'<path d="M4.6 19.4l4.2-1 9.4-9.4-3.2-3.2L5.6 15.2z"/><path d="M14.4 5.4l3.2 3.2"/>',
+user:'<circle cx="12" cy="8.2" r="3.2"/><path d="M5.6 19.4c.7-3.4 3.2-5.2 6.4-5.2s5.7 1.8 6.4 5.2"/>',
+search:'<circle cx="11" cy="11" r="6.2"/><path d="M15.6 15.6l4 4"/>',
+filter:'<path d="M4.6 6h14.8l-5.6 6.6v5.2l-3.6 2v-7.2z"/>',
+dots:'<circle cx="6" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.2" fill="currentColor" stroke="none"/>',
+plus:'<path d="M12 5.4v13.2M5.4 12h13.2"/>',
+chev:'<path d="M9.4 5.6l6.4 6.4-6.4 6.4"/>',
+bulb:'<path d="M9 16.4a5.4 5.4 0 116 0v1.8H9z"/><path d="M10 20.4h4"/>',
+info:'<circle cx="12" cy="12" r="8.4"/><path d="M12 11v5.2M12 7.9v.2"/>',
+check:'<circle cx="12" cy="12" r="8.4"/><path d="M8.2 12.2l2.6 2.6 5-5.4"/>',
+run:'<circle cx="14.4" cy="5.2" r="1.9"/><path d="M6 20l3-4.4 1.6-3.4-1 1-3.2 1.6M10.6 12.2l3.4-2.6 2.6 2.4 2.6.8M13.2 14.2l1.6 2.4.8 3.4"/>',
+smile:'<circle cx="12" cy="12" r="8.2"/><path d="M9.2 14.4c.9.9 1.9 1.3 2.8 1.3s1.9-.4 2.8-1.3"/><path d="M9.4 10v.2M14.6 10v.2"/>',
+thumb:'<path d="M8 20.2V10.6l4-6.4c1.4 0 2.2 1 2.2 2.2v3.2h4a1.8 1.8 0 011.8 2.2l-1.4 6a2 2 0 01-2 1.6z"/><path d="M4.6 10.6H8v9.6H4.6z"/>',
+mail:'<rect x="3.6" y="5.6" width="16.8" height="12.8" rx="2.4"/><path d="M4.4 7.6l7.6 5.2 7.6-5.2"/>',
+back:'<path d="M14.6 5.6L8.2 12l6.4 6.4"/>',
+board:'<rect x="3.6" y="4.6" width="16.8" height="14.8" rx="2.6"/><path d="M3.6 9.4h16.8M9.4 9.4v10"/>',
+school:'<path d="M4 20V9.4l8-5 8 5V20"/><path d="M9.6 20v-5.2h4.8V20"/>',
+};
+function ic(n,size,color){size=size||20;return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color||'currentColor'}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICON[n]||''}</svg>`;}
+
+/* 園のロゴ（おひさま） */
+function sun(size){size=size||30;return `<svg viewBox="0 0 40 40" width="${size}" height="${size}"><g fill="#FFD25E">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return `<ellipse cx="${20+13*Math.cos(a)}" cy="${20+13*Math.sin(a)}" rx="4.6" ry="3.4" transform="rotate(${i*30} ${20+13*Math.cos(a)} ${20+13*Math.sin(a)})"/>`;}).join('')}</g><circle cx="20" cy="20" r="12.4" fill="#FFE9A8"/><circle cx="16" cy="19" r="1.5" fill="#7A5B2E"/><circle cx="24" cy="19" r="1.5" fill="#7A5B2E"/><path d="M16.6 23.4q3.4 2.6 6.8 0" stroke="#7A5B2E" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="13.4" cy="22.4" r="1.7" fill="#FFB9A8"/><circle cx="26.6" cy="22.4" r="1.7" fill="#FFB9A8"/></svg>`;}
+/* 職員アバター（花） */
+function flower(color,size){size=size||46;const petals=Array.from({length:5},(_,i)=>{const a=(i*72-90)*Math.PI/180;return `<circle cx="${24+9*Math.cos(a)}" cy="${24+9*Math.sin(a)}" r="7.4" fill="#fff"/>`;}).join('');
+ return `<svg viewBox="0 0 48 48" width="${size}" height="${size}"><circle cx="24" cy="24" r="24" fill="${color}"/>${petals}<circle cx="24" cy="24" r="5" fill="${color}"/></svg>`;}
+/* 園児アバター（顔イラスト） */
+const KID=[['#F6D3B8','#4A342A','#F7B7C4'],['#F3D0B4','#2F2723','#A9D3EF'],['#F8D9C2','#6B4A32','#FBD9A0'],['#F2CDB0','#3B2E28','#C7E3C0'],['#F7D6BC','#54382A','#E5CDEF'],['#F4D2B6','#251E1A','#F9C9B0']];
+function kid(id,size){size=size||46;const k=KID[(id.charCodeAt(id.length-1)||0)%KID.length];
+ return `<svg viewBox="0 0 48 48" width="${size}" height="${size}"><circle cx="24" cy="24" r="24" fill="${k[2]}"/>
+ <circle cx="24" cy="26" r="14" fill="${k[0]}"/>
+ <path d="M10 25c0-9 6-14 14-14s14 5 14 14c0-4.6-4-8-14-8s-14 3.4-14 8z" fill="${k[1]}"/>
+ <circle cx="19" cy="26" r="1.9" fill="#3A2B22"/><circle cx="29" cy="26" r="1.9" fill="#3A2B22"/>
+ <path d="M21 31.4q3 2.4 6 0" stroke="#C4796A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+ <circle cx="15.6" cy="29.4" r="2.2" fill="#F6A99B" opacity=".65"/><circle cx="32.4" cy="29.4" r="2.2" fill="#F6A99B" opacity=".65"/></svg>`;}
+/* 大人の登録写真（イラスト） */
+function adult(size,style){const s=style||0;const hair=['#4A3A31','#8E8E8E'][s],skin='#F3D3B9';
+ return `<svg viewBox="0 0 100 114" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"><rect width="100" height="114" fill="#F3EEE9"/>
+ <ellipse cx="50" cy="102" rx="34" ry="26" fill="#EFEFEF"/>
+ <path d="M20 114c2-18 14-26 30-26s28 8 30 26z" fill="#FBFBFB"/>
+ <ellipse cx="50" cy="48" rx="22" ry="26" fill="${skin}"/>
+ <path d="M27 47c0-19 10-28 23-28s23 9 23 28c1-12-4-17-8-18-6 3-22 4-30 0-5 2-8 7-8 18z" fill="${hair}"/>
+ ${s?'<path d="M31 45h16M53 45h16M47 47h6" stroke="#5E5E5E" stroke-width="2" fill="none"/><circle cx="39" cy="47" r="8" stroke="#5E5E5E" stroke-width="2" fill="none"/><circle cx="61" cy="47" r="8" stroke="#5E5E5E" stroke-width="2" fill="none"/>':''}
+ <circle cx="39" cy="47" r="2.6" fill="#39291F"/><circle cx="61" cy="47" r="2.6" fill="#39291F"/>
+ <path d="M43 60q7 5 14 0" stroke="#C4796A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+ <circle cx="32" cy="53" r="3.4" fill="#F0A996" opacity=".5"/><circle cx="68" cy="53" r="3.4" fill="#F0A996" opacity=".5"/></svg>`;}
+/* 未登録シルエット */
+function silhouette(){return `<svg viewBox="0 0 100 114" width="100%" height="100%"><rect width="100" height="114" fill="#EFEDEA"/><circle cx="50" cy="44" r="19" fill="#C3C4CC"/><path d="M15 114c0-20 15-32 35-32s35 12 35 32z" fill="#C3C4CC"/></svg>`;}
+
+/* =========================================================
+   状態
+   ========================================================= */
+let state, lastSig='';
+function baseChildren(){
+  const n=Date.now(); const mk=o=>({...o,pickupAt:n+o.offset*60000,planAt:n+o.offset*60000,changed:null});
+  return [
+    mk({id:'c1',name:'山田 ひなた',sfx:'ちゃん',cls:'ひまわり組',age:'5歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
+    mk({id:'c2',name:'佐藤 蓮',sfx:'くん',cls:'ひまわり組',age:'5歳児',offset:3,by:'母 佐藤 美咲',st:'waiting'}),
+    mk({id:'c3',name:'鈴木 あかり',sfx:'ちゃん',cls:'ゆり組',age:'4歳児',offset:1,by:'祖父 鈴木 一郎',st:'waiting',proxy:true}),
+    mk({id:'c4',name:'田中 大和',sfx:'くん',cls:'ゆり組',age:'4歳児',offset:-5,by:'父 田中 健',st:'waiting'}),
+    mk({id:'c5',name:'髙橋 結衣',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-12,by:'母 髙橋 沙織',st:'arrived'}),
+    mk({id:'c6',name:'伊藤 悠真',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-20,by:'母 伊藤 彩',st:'released'}),
+  ];
+}
+function baseProxies(){return{
+  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'顔認証（写真登録済み）',memo:'',prio:1,ok:true},
+      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'認証済み（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true}],
+  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'認証済み（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true}],
+};}
+function reset(){
+  state={role:null,screen:'S01',offset:0,err:false,children:baseChildren(),proxies:baseProxies(),
+    posts:[{id:'m1',who:'事務スタッフ',kind:'clerk',t:Date.now()-8*60000,txt:'田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。',ack:1},
+           {id:'m2',who:'担任',kind:'teacher',t:Date.now()-6*60000,txt:'鈴木 あかりちゃんは絵本を読んで待機しています。',ack:0}],
+    diary:{c1:[{d:'昨日',temp:'36.6',mood:'良好',txt:'夜はよく眠れました。朝の食欲もあります。',reply:'園でも元気に過ごしていました。'}]},
+    absences:[],filter:'all',thr:{soon:5,show:10},
+    sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},
+    toast:null,modal:null,childId:'c1',pxPhoto:false,loginErr:false,sendErr:false,drawer:false,hbar:false};
+}
+reset();
+
+/* =========================================================
+   時刻・ステータス
+   ========================================================= */
+const now=()=>Date.now()+state.offset;
+const pad=n=>String(n).padStart(2,'0');
+const hm=ts=>{const d=new Date(ts);return d.getHours()+':'+pad(d.getMinutes());};
+const md=ts=>{const d=new Date(ts);return (d.getMonth()+1)+'月'+d.getDate()+'日';};
+const wd=ts=>'日月火水木金土'[new Date(ts).getDay()];
+const child=id=>state.children.find(c=>c.id===id);
+const proxiesOf=id=>state.proxies[id]||[{id:'px_'+id,name:(child(id).by||'').split(' ').slice(1).join(' '),kana:'',rel:(child(id).by||'').split(' ')[0],tel:'—',photo:0,auth:'認証済み（事前登録）',memo:'未登録',prio:1,ok:true}];
+function stat(c){
+  if(c.st==='released')return{k:'released',label:'降園済み',tone:'gray'};
+  if(c.st==='arrived') return{k:'arrived',label:'到着済み',tone:'gray'};
+  const m=(c.pickupAt-now())/60000;
+  if(m<0)return{k:'late',label:'遅延中',tone:'red'};
+  if(m<=state.thr.soon)return{k:'soon',label:'まもなく到着',tone:'amber'};
+  return{k:'waiting',label:'未到着',tone:'green'};
+}
+function countText(c){
+  const s=stat(c);
+  if(s.k==='released')return{big:'降園済み',sub:'受け渡し完了',plain:1};
+  if(s.k==='arrived') return{big:'到着済み',sub:hm(c.pickupAt)+'に到着',plain:1};
+  const d=(c.pickupAt-now())/60000;
+  if(d<0)return{big:Math.max(1,Math.floor(-d)),sub:hm(c.pickupAt)+'を'+Math.max(1,Math.floor(-d))+'分過ぎています',pre:'あと'};
+  return{big:Math.max(0,Math.ceil(d)),sub:hm(c.pickupAt)+'に到着予定',pre:'あと'};
+}
+
+/* =========================================================
+   ルーティング
+   ========================================================= */
+const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',S04:'お迎え変更完了',S05:'欠席・遅刻連絡',S06:'連絡帳',
+ S07:'代理人管理（保護者）',S08:'お迎えカード',S09:'園側ホーム',S10:'お帰りタイムライン',S11:'園児詳細',S12:'代理人リスト・照合',
+ S13:'照合結果',S14:'引き渡し完了',S15:'職員用タイムライン',S16:'メモ入力',S17:'代理入力',S18:'園児・代理人情報管理',
+ S19:'管理者ダッシュボード',S20:'園情報管理'};
+const PARENT=['S02','S03','S04','S05','S06','S07','S08'];
+const SCR={};
+
+function render(){
+  const p=state.screen;
+  document.getElementById('hid').textContent=p;
+  document.getElementById('hnow').textContent=md(now())+'('+wd(now())+') '+hm(now());
+  document.getElementById('errbtn').classList.toggle('on',state.err);
+  document.getElementById('hctrls').className='hctrls'+(state.hbar?' open':'');
+  const isPhone = p==='S01'||PARENT.includes(p);
+  const inner = p==='S01'?SCR.S01():(isPhone?phoneShell(SCR[p]()):tabletShell(SCR[p]()));
+  document.getElementById('stage').innerHTML=
+    `<div class="${isPhone?'phone':'tablet'}">
+       <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
+       <div class="scr">${inner}</div></div>`;
+  drawOverlay(); lastSig=sig();
+}
+function drawOverlay(){
+  let h='';
+  if(state.toast)h+=`<div class="toast">${state.toast}</div>`;
+  if(state.modal==='map')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">画面一覧（設計書 §3 に対応）</div>
+    ${Object.keys(TITLES).map(k=>`<div class="maprow"><code>${k}</code><span>${TITLES[k]}</span><button onclick="act('jump','${k}')">開く</button></div>`).join('')}
+    <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
+  document.getElementById('overlay').innerHTML=h;
+}
+function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=setTimeout(()=>{state.toast=null;drawOverlay();},2400);}
+
+/* =========================================================
+   保護者アプリ 外枠（画像3）
+   ========================================================= */
+function phoneShell(inner){
+  const nav=[['S02','ホーム','home'],['S06','連絡帳','cal'],['S03','お迎え連絡','car'],['S05','お知らせ','mail'],['S07','メニュー','menu']];
+  return `<div class="roll">${inner}</div>
+  <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib">${ic(i,22)}</span>${l}</button>`).join('')}</div>`;
+}
+function phead(title,back,bell){
+  return `<div class="phead">
+    ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74">${ic('back',22)}</button>`
+          :`<span style="width:26px;display:grid;place-items:center">${sun(26)}</span>`}
+    <div class="ttl">${title}</div>
+    <button style="color:#8B7E74;position:relative">${ic('bell',22)}${bell?'<span class="badge" style="top:-2px;right:-4px">1</span>':''}</button></div>`;
+}
+
+/* =========================================================
+   園側アプリ 外枠（画像1・2）
+   ========================================================= */
+function tabletShell(inner){
+  const staffMenu=[['S15','タイムライン','chat'],['S10','お帰りタイムライン','clock'],['S06','連絡帳','book'],
+                   ['S18','園児一覧','users'],['S17','代理入力','phone'],['S12','代理人リスト','idcard']];
+  const adminMenu=[['S19','ダッシュボード','board'],['S20','園情報管理','school'],['S10','園の画面を確認','clock']];
+  const menu=state.role==='admin'?adminMenu:staffMenu;
+  const soon=[['おたより','note'],['行事予定','cal'],['業務日誌','clip'],['写真','photo'],['設定','gear']];
+  const me=state.role==='clerk'?['渡辺 さくら','事務スタッフ','#F2A7BC']
+        :state.role==='admin'?['川崎市 保育課','自治体管理者','#8FC3E8']
+        :['佐々木 みなみ','ひまわり組 担任','#F5C842'];
+  const nav=[['S09','ホーム','home'],['S15','タイムライン','chat'],['FAB','投稿','pencil'],['S10','お帰り','clock'],['S18','メニュー','menu']];
+  const unread=state.posts.filter(p=>!p.ack).length;
+  return `<div class="t-wrap">
+    ${state.drawer?`<div class="scrim" onclick="act('drawer')"></div>`:''}
+    <div class="side ${state.drawer?'open':''}">
+      <div class="logo">${sun(30)}${state.role==='admin'?'川崎市 保育課':'さくら保育園'}
+        <button class="drawerbtn" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
+      <div class="items">
+        ${menu.map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}</button>`).join('')}
+        ${state.role==='admin'?'':soon.map(([l,i])=>`<button class="sidebtn" disabled>${ic(i,21)}${l}</button>`).join('')}
+      </div>
+      <div class="me">${flower(me[2],38)}<div style="flex:1"><b>${me[0]}</b><span class="tiny muted">${me[1]}</span></div><span style="color:#C9BAAE">${ic('chev',16)}</span></div>
+    </div>
+    <div class="main">
+      <div style="flex:1;display:flex;flex-direction:column;min-height:0">${inner}</div>
+      <div class="tnav">
+        ${nav.map(([id,l,i])=>id==='FAB'
+          ?`<div class="fabwrap"><button class="fab" onclick="act('go','S16')">${ic('pencil',24)}</button>投稿</div>`
+          :`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span style="position:relative">${ic(i,22)}${(id==='S15'&&unread)?`<span class="badge">${unread}</span>`:''}</span>${l}</button>`).join('')}
+      </div>
+    </div></div>`;
+}
+function thead(title,iconName,sub,right){
+  return `<div class="thead">
+    <button class="drawerbtn" onclick="act('drawer')">${ic('menu',24)}</button>
+    <div><h2>${ic(iconName,26,'#F2913F')}${title}</h2>${sub?`<div class="sub">${sub}</div>`:''}</div>
+    ${right?`<div class="right">${right}</div>`:''}</div>`;
+}
+
+/* =========================================================
+   S01 ログイン
+   ========================================================= */
+SCR.S01=()=>{
+  const roles=[['parent','保護者','山田 ひなたちゃんの保護者','user'],['teacher','保育士','ひまわり組 担任','users'],
+               ['clerk','事務スタッフ','さくら保育園 事務室','phone'],['admin','自治体管理者','川崎市 保育課','board']];
+  return `<div class="roll"><div class="pbody" style="padding-top:34px">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="display:grid;place-items:center">${sun(64)}</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
+      <div class="tiny muted" style="margin-top:5px">川崎市 公立認可保育所 お迎え動向共有システム</div>
+    </div>
+    <label class="fieldl">利用者ID</label><input class="inp" id="lid" value="kawasaki-demo">
+    <label class="fieldl">パスワード</label><input class="inp" id="lpw" type="password" value="demo1234">
+    ${state.loginErr?`<div class="err" style="margin-top:12px">パスワードが違います。もう一度入力してください。</div>`:''}
+    <div class="fieldl" style="margin-top:18px">ログインする立場を選ぶ</div>
+    <div style="display:grid;gap:9px">
+      ${roles.map(([r,n,s,i])=>`<button class="rowbtn" style="margin-top:0" onclick="act('login','${r}')">
+        <span style="color:var(--o)">${ic(i,22)}</span><span>${n}<br><small style="font-weight:500;color:#9A8C81;font-size:11.5px">${s}</small></span>
+        <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
+    </div>
+    <div class="note" style="margin-top:18px">${ic('info',18,'#D6A94E')}<div>認証後、利用者区分に応じて保護者ホーム・園側ホーム・管理者ダッシュボードへ自動で切り替わります。</div></div>
+  </div></div>`;
+};
+
+/* =========================================================
+   保護者側
+   ========================================================= */
+SCR.S02=()=>{
+  const c=child('c1');
+  return `${phead('ホーム','',true)}<div class="pbody">
+    <div class="kidcard">${kid(c.id,54)}
+      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
+      <div class="timebox"><small>${c.changed?'変更後のお迎え':'通常のお迎え時間'}</small><b>${hm(c.pickupAt)}</b></div></div>
+    ${c.changed?`<div class="tipbox">${ic('check',20,'#D6A94E')}<div>${hm(c.planAt)} から <b>${hm(c.pickupAt)}</b> に変更済みです。園に共有されています。</div></div>`:''}
+    <div class="leadline" style="margin:22px 0 12px">今日はどうしますか？</div>
+    <button class="cta" onclick="act('go','S03')">${ic('car',24)}お迎えの状況を知らせる</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px">
+      ${[['S05','欠席・遅刻の連絡','通院・お休みの申請','cal'],['S06','連絡帳','体調・様子の記入','book'],
+         ['S07','代理人の登録',(state.proxies.c1||[]).length+'人を登録中','users'],['S08','お迎えカード','園の入口で提示','idcard']]
+        .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,24)}</span><b>${t}</b><small>${s}</small></button>`).join('')}
+    </div>
+    <div class="sec">園からのお知らせ</div>
+    <div class="card" style="padding:15px 17px;font-size:13px;line-height:1.75">
+      <b style="font-family:var(--disp)">プールの持ち物について</b>
+      <div class="tiny muted" style="margin-top:2px">さくら保育園・${md(now()-86400000)}</div>
+      <div style="margin-top:6px">明日は水遊びを行います。タオルと着替えをお持ちください。</div></div>
+  </div>`;
+};
+
+SCR.S03=()=>{
+  const c=child('c1'),sel=state.sel,newAt=calcNew();
+  const deco=`<svg class="deco" width="150" height="86" style="right:-4px;top:6px" viewBox="0 0 150 86" fill="none">
+    <ellipse cx="26" cy="16" rx="21" ry="9" fill="#CFE9F5"/><ellipse cx="44" cy="14" rx="14" ry="7" fill="#DCF0FA"/>
+    <path d="M92 84V54l19-15 19 15v30z" fill="#F7C98E"/><path d="M87 55l24-19 24 19z" fill="#E9A45E"/>
+    <rect x="104" y="64" width="14" height="20" fill="#FBEBD6"/>
+    <path d="M60 84c0-12 5-20 11-20s11 8 11 20z" fill="#B6DCB4"/><rect x="69" y="76" width="4" height="9" fill="#9C7C58"/></svg>`;
+  return `${phead('お迎え連絡','S02',true)}<div class="pbody">
+    <div class="kidcard">${kid(c.id,52)}
+      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
+      <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hm(c.pickupAt)}</b></div></div>
+    <div style="position:relative">${deco}<div class="leadline">お迎えの状況をお知らせください</div></div>
+    <div class="bigchoice">
+      <button class="late ${sel.dir==='late'?'on':''}" onclick="act('dir','late')">
+        <span class="cc">${ic('clock',26,'#EE8531')}</span>遅れます<span class="arrow">${ic('chev',18)}</span></button>
+      <button class="early ${sel.dir==='early'?'on':''}" onclick="act('dir','early')">
+        <span class="cc">${ic('run',26,'#2E8B5F')}</span>早く行けそう<span class="arrow">${ic('chev',18)}</span></button>
+    </div>
+    <div class="panel ${sel.dir==='late'?'left':'right'}">
+      <h4>${ic('clock',20,'#EE8531')}${sel.dir==='late'?'どのくらい遅れそうですか？':'どのくらい早く着けそうですか？'}</h4>
+      <div class="hint">お迎え予定時刻からの${sel.dir==='late'?'遅れ':'前倒し'}時間を選択してください。</div>
+      <div class="slots">${[10,15,20].map(m=>`<button class="${sel.min===m?'on':''}" onclick="act('min',${m})">
+        <b>${m}<i>分</i></b><small>${sel.dir==='late'?'遅れます':'早く着きます'}</small></button>`).join('')}</div>
+      <div class="tipbox">${ic('bulb',20,'#D6A94E')}<div>選択された内容は、施設の先生にすぐ共有されます。<br>いつもご協力ありがとうございます。</div></div>
+      <button class="rowbtn" onclick="act('focusCustom')">${ic('pencil',20,'#B69C7E')}その他の時間を入力する<span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>
+      <input class="inp" id="custom" type="time" value="${sel.custom}" onchange="act('custom',this.value)" style="margin-top:10px;${sel.custom||state.showCustom?'':'display:none'}">
+    </div>
+    ${newAt?`<div class="tipbox" style="background:#FFF;box-shadow:0 1px 3px rgba(150,110,70,.09)">${ic('check',20,'#5FBF8B')}
+      <div>変更後のお迎え予定：<b style="font-size:15px;color:var(--o-d)">${hm(newAt)}</b>（現在 ${hm(c.pickupAt)}）</div></div>`:''}
+    ${state.sendErr?`<div class="err" style="margin-top:12px"><b>送信できませんでした。</b><br>通信が不安定です。電波の良い場所で「変更を送信する」をもう一度押してください。二重に登録されることはありません。</div>`:''}
+    <div style="margin-top:14px"><button class="cta" ${newAt?'':'disabled'} onclick="act('submitPickup')">この内容で送信する</button></div>
+  </div>`;
+};
+function calcNew(){
+  const c=child('c1'),sel=state.sel;
+  if(sel.custom){const[h,m]=sel.custom.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);return d.getTime();}
+  if(sel.min)return c.pickupAt+(sel.dir==='late'?1:-1)*sel.min*60000;
+  return null;
+}
+
+SCR.S04=()=>{
+  const c=child('c1');
+  return `${phead('送信しました','S02')}<div class="pbody" style="text-align:center;padding-top:26px">
+    <div style="width:88px;height:88px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',48,'#48A876')}</div>
+    <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:16px">園に伝えました</div>
+    <div class="muted" style="font-size:13.5px;margin-top:6px;line-height:1.8">${c.name.split(' ')[1]}${c.sfx}のお迎え予定を変更しました。<br>先生の画面にすぐ反映されています。</div>
+    <div class="card" style="padding:20px;margin:20px 0;text-align:left">
+      <div class="tiny muted">変更前</div>
+      <div style="font-family:var(--disp);font-size:18px;text-decoration:line-through;color:#B2A499">${hm(c.planAt)}</div>
+      <div class="tiny muted" style="margin-top:12px">変更後のお迎え予定</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:34px;color:var(--o-d);line-height:1.2">${hm(c.pickupAt)}</div>
+      <span class="pill orange" style="margin-top:10px">園のタイムラインに反映済み</span></div>
+    <button class="cta ghost" onclick="act('go','S02')">ホームへ戻る</button></div>`;
+};
+
+SCR.S05=()=>{
+  return `${phead('欠席・遅刻の連絡','S02')}<div class="pbody">
+    <label class="fieldl" style="margin-top:4px">連絡の種類</label>
+    <select class="inp" id="abType"><option>欠席</option><option>遅刻（登園が遅れます）</option><option>通院のため一時外出</option><option>長期のお休み</option></select>
+    <label class="fieldl">対象の日</label><input class="inp" id="abDate" type="date" value="${new Date(now()).toISOString().slice(0,10)}">
+    <label class="fieldl">園に伝えること</label><textarea class="inp" id="abTxt" rows="3" placeholder="例）朝から熱があるため受診します。"></textarea>
+    <div style="margin-top:16px"><button class="cta" onclick="act('submitAbsence')">連絡を送信する</button></div>
+    <div class="sec">送信した連絡</div>
+    ${state.absences.length?state.absences.map(a=>`<div class="card" style="padding:14px 16px;margin-bottom:9px">
+      <div style="display:flex;align-items:center;gap:8px"><span class="pill orange">${a.type}</span><span class="tiny muted">${a.date}</span>
+      <span class="pill green" style="margin-left:auto">園が確認済み</span></div>
+      <div style="font-size:13px;margin-top:8px">${a.txt||'（記入なし）'}</div></div>`).join('')
+     :`<div class="card" style="padding:26px;text-align:center;color:var(--ink-2);font-size:13px">まだ連絡はありません。<br>お休みや通院が決まったら、ここから送信できます。</div>`}</div>`;
+};
+
+SCR.S06=()=>{
+  const list=state.diary.c1,isStaff=state.role!=='parent';
+  const form=`<div class="card" style="padding:17px">
+      <div style="font-family:var(--disp);font-weight:700;margin-bottom:8px">${md(now())}（${wd(now())}）の記録</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+        <div><label class="fieldl" style="margin-top:0">体温</label><input class="inp" id="dTemp" value="36.5"></div>
+        <div><label class="fieldl" style="margin-top:0">機嫌</label><select class="inp" id="dMood"><option>良好</option><option>ふつう</option><option>少し不調</option></select></div></div>
+      <label class="fieldl">お家での様子</label><textarea class="inp" id="dTxt" rows="3" placeholder="例）朝はしっかり食べました。少し咳が出ています。"></textarea>
+      <div style="margin-top:14px"><button class="${isStaff?'btn':'cta'}" onclick="act('saveDiary')">記録を保存する</button></div></div>
+    <div class="sec">これまでの記録</div>
+    ${list.map(d=>`<div class="card" style="padding:15px 17px;margin-bottom:10px">
+      <div style="display:flex;gap:8px;align-items:center"><b style="font-family:var(--disp);font-size:14px">${d.d}</b>
+        <span class="pill gray">体温 ${d.temp}℃</span><span class="pill gray">機嫌 ${d.mood}</span></div>
+      <div style="font-size:13px;margin-top:8px;line-height:1.8">${d.txt}</div>
+      ${d.reply?`<div style="margin-top:10px;background:var(--o-l2);border-radius:12px;padding:11px 13px;font-size:13px">
+        <b class="tiny" style="color:var(--o-d)">園から</b><br>${d.reply}</div>`:''}</div>`).join('')}`;
+  if(isStaff)return thead('連絡帳','book','山田 ひなたちゃん（ひまわり組）')+`<div class="tbody" style="max-width:760px">${form}</div>`;
+  return phead('連絡帳','S02')+`<div class="pbody">${form}</div>`;
+};
+
+/* --- S07 代理人管理（保護者側・画像1の様式） --- */
+SCR.S07=()=>{
+  const ps=state.proxies.c1||[];
+  return `${phead('代理人リスト','S02')}<div class="pbody">
+    <div class="note">${ic('info',18,'#D6A94E')}<div>お迎えを代理で行うことができる方の一覧です。顔写真の登録は任意で、ない場合は特徴メモで先生が確認します。</div></div>
+    ${ps.map(p=>`<div class="card" style="padding:15px;margin-top:12px;display:flex;gap:13px">
+      <div style="width:76px;height:88px;border-radius:11px;overflow:hidden;flex:none">${p.photo?adult(0,p.style):silhouette()}</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span class="pill pri">優先順位 ${p.prio}</span>${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</div>
+        <div style="font-family:var(--disp);font-weight:700;font-size:17px;margin-top:6px">${p.name}<small style="font-size:12px;color:#8B7E74;font-weight:500">（${p.kana||''}）</small></div>
+        <div class="tiny muted" style="margin-top:3px">${p.rel}・${p.tel||'—'}</div>
+        ${p.photo?'<span class="pill green" style="margin-top:7px">顔認証（写真登録済み）</span>'
+                 :`<div class="memo-row" style="margin-top:7px;padding:7px 10px;display:flex;gap:7px;font-size:12.5px;color:#8A7549">${ic('pencil',16,'#D6A94E')}<b>${p.memo||'特徴メモ 未入力'}</b></div>`}
+      </div></div>`).join('')}
+    <div class="sec">代理人を追加する</div>
+    <div class="card" style="padding:17px">
+      <label class="fieldl" style="margin-top:0">氏名</label><input class="inp" id="pxName" placeholder="例）山田 太郎">
+      <label class="fieldl">続柄</label><input class="inp" id="pxRel" placeholder="例）祖父">
+      <label class="fieldl">電話番号</label><input class="inp" id="pxTel" placeholder="090-0000-0000">
+      <label class="fieldl">顔写真（任意）</label>
+      <button class="cta ghost" onclick="act('pxPhoto')">${state.pxPhoto?'写真を登録しました（取り消す）':'写真を選ぶ'}</button>
+      <label class="fieldl">写真がない場合の特徴メモ</label><input class="inp" id="pxMemo" placeholder="例）眼鏡をかけた白髪の男性">
+      <div style="margin-top:15px"><button class="cta" onclick="act('savePx')">保存する</button></div>
+      <div class="tiny muted" style="margin-top:9px">代理人の追加・変更は、園の承認が完了すると利用できます。</div></div></div>`;
+};
+
+SCR.S08=()=>{
+  const c=child('c1');
+  return `${phead('お迎えカード','S02')}<div class="pbody">
+    <div style="background:linear-gradient(155deg,#F7AE6A,#EE8531);border-radius:24px;padding:22px;color:#fff;box-shadow:0 8px 20px rgba(238,133,49,.3)">
+      <div style="display:flex;align-items:center;gap:10px">${sun(28)}<b style="font-family:var(--disp);font-size:16px">さくら保育園</b>
+        <span class="pill" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff">有効</span></div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:23px;margin-top:16px">${c.name}${c.sfx}</div>
+      <div class="tiny" style="opacity:.9">${c.cls}・${c.age}</div>
+      <div style="background:#fff;border-radius:16px;padding:14px;margin-top:16px;display:grid;place-items:center">${qrSVG('KWS-'+c.id)}</div>
+      <div class="tiny" style="opacity:.9;margin-top:12px;line-height:1.7">お迎え担当：${c.by}<br>有効期間：2025年4月1日 〜 2026年3月31日</div></div>
+    <button class="rowbtn" onclick="act('wallet')">${ic('idcard',20,'#B69C7E')}スマホのウォレットに追加<span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>
+    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>園の入口でこの画面を提示してください。先生の端末で読み取ると代理人照合の画面が開きます。<br>※ウォレット連携の方式は資料では未確定のため、実装時に別途仕様決定が必要です。</div></div></div>`;
+};
+function qrSVG(seed){
+  let h=0;for(const ch of seed)h=(h*31+ch.charCodeAt(0))>>>0;
+  const n=21,cells=[];const fin=(x,y)=>(x<7&&y<7)||(x>=n-7&&y<7)||(x<7&&y>=n-7);
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){
+    if(fin(x,y)){const fx=x<7?x:x-(n-7),fy=y<7?y:y-(n-7);
+      if((fx===0||fx===6||fy===0||fy===6)||(fx>=2&&fx<=4&&fy>=2&&fy<=4))cells.push([x,y]);}
+    else{h=(h*1103515245+12345)>>>0;if((h>>>16)%100<47)cells.push([x,y]);}}
+  return `<svg viewBox="0 0 ${n} ${n}" width="152" height="152" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/>
+    ${cells.map(([x,y])=>`<rect x="${x}" y="${y}" width="1" height="1" fill="#3D332C"/>`).join('')}</svg>`;
+}
+
+/* =========================================================
+   園側
+   ========================================================= */
+SCR.S09=()=>{
+  const cs=state.children,late=cs.filter(c=>stat(c).k==='late').length,soon=cs.filter(c=>stat(c).k==='soon').length,
+        yet=cs.filter(c=>c.st==='waiting').length;
+  return thead('ホーム','home',md(now())+'（'+wd(now())+'）さくら保育園')+`<div class="tbody">
+    <div class="grid3">
+      <div class="stat"><b>${yet}</b><small>未降園の園児</small></div>
+      <div class="stat"><b style="color:var(--am-tx)">${soon}</b><small>まもなく到着</small></div>
+      <div class="stat"><b style="color:var(--rd-tx)">${late}</b><small>お迎え時間を超過</small></div></div>
+    <div class="sec">よく使う画面</div>
+    <div class="grid2">
+      ${[['S10','お帰りタイムライン','夕方はこの画面を開いたままに','clock'],['S15','職員用タイムライン','未読 '+state.posts.filter(p=>!p.ack).length+'件','chat'],
+         ['S17','代理入力','電話で受けた連絡を登録','phone'],['S12','代理人リスト','お迎えに来た方の照合','idcard']]
+       .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,26)}</span><b>${t}</b><small>${s}</small></button>`).join('')}</div>
+    <div class="sec">直近の連絡</div>
+    ${state.posts.slice(-2).reverse().map(p=>`<div class="card" style="padding:13px 16px;margin-bottom:9px;font-size:13px">
+      <b class="tiny" style="color:${p.kind==='clerk'?'var(--pink)':'var(--o)'}">${p.who}</b> <span class="tiny muted">${hm(p.t)}</span>
+      <div style="margin-top:4px">${p.txt}</div></div>`).join('')}</div>`;
+};
+
+/* --- S10 お帰りタイムライン --- */
+SCR.S10=()=>{
+  const f=state.filter,all=state.children.slice();
+  const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='done'&&(k==='arrived'||k==='released'))||(f==='late'&&k==='late');};
+  const waiting=all.filter(c=>c.st==='waiting').sort((a,b)=>a.pickupAt-b.pickupAt);
+  const done=all.filter(c=>c.st!=='waiting').sort((a,b)=>b.pickupAt-a.pickupAt);
+  const past=waiting.filter(c=>c.pickupAt<now()).filter(match),future=waiting.filter(c=>c.pickupAt>=now()).filter(match),doneF=done.filter(match);
+  const counts={all:all.length,yet:waiting.filter(c=>c.pickupAt>=now()).length,done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length};
+  const right=`<button class="hpill">${ic('filter',18)}絞り込み</button><button class="hpill">${ic('clock',18)}自動更新中</button>`;
+  return thead('お帰りタイムライン','clock',md(now())+'（'+wd(now())+'）お迎え予定時刻の'+state.thr.show+'分前から強調表示します',right)
+   +`<div class="tabs">${[['all','すべて'],['yet','未到着'],['done','到着済み'],['late','遅延']].map(([k,l])=>
+       `<button class="tab ${f===k?'on':''}" onclick="act('filter','${k}')">${l}（${counts[k]}）</button>`).join('')}</div>
+     <div class="tbody">
+      ${past.map(cardRow).join('')}
+      ${(past.length&&future.length)?`<div class="nowbar">現在 ${hm(now())}</div>`:''}
+      ${future.map(cardRow).join('')}
+      ${doneF.length?`<div class="sec" style="color:var(--ink-2);font-size:13px">受け渡し済み</div>`+doneF.map(cardRow).join(''):''}
+      ${(!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">この条件に当てはまる園児はいません。</div>`:''}
+     </div>`;
+};
+function cardRow(c){
+  const s=stat(c),t=countText(c);
+  return `<button class="ccard ${s.tone}" data-cid="${c.id}" onclick="act('openChild','${c.id}')">
+    ${kid(c.id,46)}
+    <div style="min-width:0">
+      <div class="tiny muted">${c.cls}（${c.age}）</div>
+      <div class="nm">${c.name}${c.sfx}</div>
+      <div class="meta">お迎え予定：${hm(c.pickupAt)}　${c.by}${c.proxy?'（代理人）':''}</div>
+      ${c.changed?`<span class="chgtag">${hm(c.planAt)} → ${hm(c.pickupAt)} に変更</span>`:''}</div>
+    <div class="count ${s.tone}">
+      <span class="pill ${s.tone}">${s.label}</span>
+      <div class="num">${t.plain?`<b style="font-size:16px">${t.big}</b>`:`${t.pre} <b class="js-big">${t.big}</b> 分`}</div>
+      <div class="tiny muted js-sub">${t.sub}</div></div>
+    <span class="chev">${ic('chev',18)}</span></button>`;
+}
+
+/* --- S11 園児詳細 --- */
+SCR.S11=()=>{
+  const c=child(state.childId),s=stat(c),t=countText(c),ps=proxiesOf(c.id);
+  return thead('園児詳細','users','',`<button class="hpill" onclick="act('go','S10')">${ic('back',18)}お帰りタイムライン</button>`)
+  +`<div class="tbody" style="max-width:880px">
+    <div class="card" style="padding:20px;display:flex;gap:18px;align-items:center">
+      ${kid(c.id,72)}
+      <div style="flex:1"><div class="tiny muted">${c.cls}（${c.age}）</div>
+        <div style="font-family:var(--disp);font-weight:900;font-size:24px">${c.name}${c.sfx}</div>
+        <div class="tiny muted" style="margin-top:3px">本日のお迎え担当：${c.by}</div></div>
+      <div style="text-align:right"><span class="pill ${s.tone}">${s.label}</span>
+        <div style="font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);margin-top:6px">${hm(c.pickupAt)}</div>
+        <div class="tiny muted">${t.plain?t.big:t.pre+' '+t.big+' 分'}</div></div></div>
+    <div class="grid2" style="margin-top:15px">
+      <div class="card" style="padding:18px"><div class="sec" style="margin:0 0 9px">本日の連絡</div>
+        <div style="font-size:13px;line-height:1.9">
+          ${c.changed?`・保護者からお迎え時間の変更（${hm(c.planAt)}→${hm(c.pickupAt)}）<br>`:''}
+          ・連絡帳：体温 36.5℃／機嫌 良好<br>・アレルギー等の申し送りなし</div></div>
+      <div class="card" style="padding:18px"><div class="sec" style="margin:0 0 9px">登録されている代理人</div>
+        ${ps.map(p=>`<div style="display:flex;gap:11px;align-items:center;margin-bottom:10px">
+          <div style="width:40px;height:46px;border-radius:9px;overflow:hidden;flex:none">${p.photo?adult(0,p.style):silhouette()}</div>
+          <div style="flex:1;font-size:13px"><b>${p.name}</b> <span class="muted tiny">（${p.rel}）</span>
+            <div class="tiny muted">${p.photo?'顔写真 登録済み':'特徴メモ：'+(p.memo||'未登録')}</div></div></div>`).join('')}</div></div>
+    <div style="display:flex;gap:11px;margin-top:18px;flex-wrap:wrap">
+      <button class="btn" onclick="act('go','S12')">${ic('idcard',20)}代理人を確認する</button>
+      <button class="btn g" onclick="act('goHandover','${c.id}')">保護者本人のため そのまま引き渡す</button></div></div>`;
+};
+
+/* --- S12 代理人リスト（画像1をそのまま再現） --- */
+SCR.S12=()=>{
+  const c=child(state.childId),ps=proxiesOf(c.id);
+  const right=`<button class="hpill solid" onclick="act('go','S18')">${ic('plus',18)}代理人を追加</button>`;
+  return thead('代理人リスト','users','お子さまのお迎えを代理で行うことができる方の一覧です。',right)
+  +`<div class="tbody">
+    <div style="margin-bottom:12px"><button class="hpill" onclick="act('go','S11')">${ic('back',18)}${c.name}${c.sfx}の詳細へ戻る</button></div>
+    ${ps.map(p=>`<button class="pxcard" onclick="act('pickProxy','${p.id}')">
+      <div class="pxphoto">${p.photo?adult(0,p.style):silhouette()}</div>
+      <div class="pxinfo">
+        <div class="pxtop"><span class="pill pri">優先順位 ${p.prio}</span>
+          <span style="margin-left:auto">${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</span></div>
+        <div class="pxname">${p.name}<small>（${p.kana||''}）</small></div>
+        <div class="dl">
+          <div class="row">${ic('user',19)}<span class="lb">続柄</span><span>${p.rel}</span></div>
+          <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
+          <div class="row">${ic('idcard',19)}<span class="lb">認証方法</span><span>${p.auth||(p.photo?'顔認証（写真登録済み）':'認証済み（事前登録）')}</span></div>
+          ${p.photo?'':`<div class="row memo">${ic('pencil',19)}<span class="lb">特徴メモ</span><b>${p.memo||'未入力'}</b></div>`}
+          <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div>
+        </div></div>
+      <span class="chev">${ic('chev',24)}</span></button>`).join('')}
+    <div class="note">${ic('info',22,'#C9AE8E')}<div>代理人の追加・変更は、保護者の申請と園の承認が必要です。<br>顔写真や特徴メモを必ず確認し、本人確認を徹底してください。</div></div></div>`;
+};
+
+/* --- S13 照合結果 --- */
+SCR.S13=()=>{
+  const c=child(state.childId),p=proxiesOf(c.id).find(x=>x.id===state.sel.proxy)||proxiesOf(c.id)[0];
+  return thead('照合結果','idcard',c.name+c.sfx+'（'+c.cls+'）のお迎え',`<button class="hpill" onclick="act('go','S12')">${ic('back',18)}代理人リストへ戻る</button>`)
+  +`<div class="tbody"><div class="grid2" style="align-items:start">
+    <div class="card" style="padding:18px">
+      ${p.photo?`<div style="border-radius:14px;overflow:hidden;aspect-ratio:1/1.05">${adult(0,p.style)}</div>
+                 <div class="tiny muted" style="margin-top:9px">事前登録された顔写真</div>`
+               :`<div class="memo-row" style="padding:26px;font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.8;color:#8A7549;text-align:center">${p.memo||'特徴メモが未登録です'}</div>
+                 <div class="tiny muted" style="margin-top:9px">顔写真がないため、特徴メモで確認します</div>`}</div>
+    <div>
+      <div style="display:flex;gap:9px"><span class="pill pri">優先順位 ${p.prio}</span>${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:28px;margin-top:8px">${p.name}</div>
+      <div class="muted" style="font-size:13.5px">（${p.kana||''}）</div>
+      <div class="card" style="padding:6px 16px;margin-top:14px"><div class="dl">
+        <div class="row">${ic('user',19)}<span class="lb">続柄</span><span>${p.rel}</span></div>
+        <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
+        <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${c.name}${c.sfx}（${c.cls}）</span></div>
+        <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div></div></div>
+      <div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>画面の内容と目の前の方を見比べて、一致するか確認してください。担任以外の職員でも判断できます。</div></div>
+      <div style="display:flex;gap:11px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn ok" onclick="act('matchOk')">${ic('check',20)}一致した　引き渡しへ進む</button>
+        <button class="btn ng" onclick="act('matchNg')">確認できない</button></div>
+    </div></div></div>`;
+};
+
+/* --- S14 引き渡し完了 --- */
+SCR.S14=()=>{
+  const c=child(state.childId),who=state.sel.proxyName||c.by;
+  return thead('引き渡し完了','check')+`<div class="tbody" style="max-width:660px">
+    <div class="card" style="padding:32px;text-align:center">
+      <div style="width:92px;height:92px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',50,'#48A876')}</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:23px;margin-top:16px">引き渡しを記録しました</div>
+      <div class="card" style="padding:6px 18px;margin-top:18px;text-align:left;box-shadow:none;background:#FBF6F1"><div class="dl">
+        <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${c.name}${c.sfx}（${c.cls}）</span></div>
+        <div class="row">${ic('user',19)}<span class="lb">引き渡した方</span><span>${who}</span></div>
+        <div class="row">${ic('clock',19)}<span class="lb">時刻</span><span>${hm(now())}</span></div>
+        <div class="row">${ic('idcard',19)}<span class="lb">対応した職員</span><span>${state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'}</span></div></div></div>
+      <div class="note" style="margin-top:16px;text-align:left">${ic('info',20,'#C9AE8E')}<div>「完了」を押すと園児のステータスが降園済みに変わり、お帰りタイムラインの未降園一覧から外れます。</div></div>
+      <div style="margin-top:18px"><button class="btn" onclick="act('release')">完了</button></div></div></div>`;
+};
+
+/* --- S15 職員用タイムライン（画像2をそのまま再現） --- */
+SCR.S15=()=>{
+  const right=`<button class="hpill">${ic('search',18)}検索</button><button class="hpill">${ic('filter',18)}絞り込み</button><button class="hpill">${ic('dots',18)}その他</button>`;
+  return thead('職員用タイムライン','chat','',right)+`<div class="tbody">
+    <div class="composer">${flower(state.role==='clerk'?'#F2A7BC':'#F5C842',46)}
+      <div class="compbox"><input id="quick" placeholder="タイムラインに投稿する" onkeydown="if(event.key==='Enter')act('quickPost')">
+        <button class="hpill solid" onclick="act('quickPost')">${ic('pencil',18)}投稿</button></div></div>
+    <div class="daysep"><span>今日</span></div>
+    ${state.posts.map(p=>`<div class="post ${p.kind}">
+      ${flower(p.kind==='clerk'?'#F2A7BC':p.kind==='sys'?'#8FC3E8':'#F5C842',52)}
+      <div class="bub"><div class="who"><b>${p.who}</b><span class="t">${hm(p.t)}</span><span class="more">${ic('dots',18)}</span></div>
+        <div class="txt">${p.txt}</div>
+        <div class="reacts"><button class="react ${p.ack?'on':''}" onclick="act('ack','${p.id}')">${ic('smile',17)}了解しました</button>
+          ${p.ack?`<span class="react">${ic('thumb',17)}${p.ack}</span>`:''}</div></div></div>`).join('')}
+  </div>`;
+};
+
+/* --- S16 メモ入力 --- */
+SCR.S16=()=>thead('メモを追加','pencil','',`<button class="hpill" onclick="act('go','S15')">${ic('back',18)}タイムラインへ戻る</button>`)
+ +`<div class="tbody" style="max-width:680px"><div class="card" style="padding:20px">
+    <label class="fieldl" style="margin-top:0">関係する園児（任意）</label>
+    <select class="inp" id="memoChild"><option value="">指定しない</option>
+      ${state.children.map(c=>`<option value="${c.id}">${c.name}${c.sfx}（${c.cls}）</option>`).join('')}</select>
+    <label class="fieldl">引き継ぐ内容</label>
+    <textarea class="inp" id="memoTxt" rows="4" placeholder="例）ひなたちゃんは園庭で待機しています。"></textarea>
+    <div style="margin-top:15px;display:flex;gap:11px"><button class="btn" onclick="act('postMemo')">${ic('pencil',20)}投稿する</button>
+      <button class="btn g" onclick="act('go','S15')">やめる</button></div>
+    <div class="tiny muted" style="margin-top:11px">投稿者と時刻が記録され、他の職員の端末にすぐ表示されます。</div></div></div>`;
+
+/* --- S17 代理入力 --- */
+SCR.S17=()=>thead('代理入力','phone','電話で受けた連絡を、園児の予定と職員タイムラインへ同時に反映します。')
+ +`<div class="tbody" style="max-width:720px"><div class="card" style="padding:20px">
+    <label class="fieldl" style="margin-top:0">園児</label>
+    <select class="inp" id="agChild">${state.children.filter(c=>c.st==='waiting').map(c=>`<option value="${c.id}">${c.name}${c.sfx}（${c.cls}）　現在の予定 ${hm(c.pickupAt)}</option>`).join('')}</select>
+    <label class="fieldl">連絡の種類</label>
+    <select class="inp" id="agType"><option value="late">お迎えが遅くなる</option><option value="early">お迎えが早くなる</option>
+      <option value="proxy">代理人がお迎えに来る</option><option value="absent">早退・欠席</option></select>
+    <label class="fieldl">変更後のお迎え時刻</label>
+    <input class="inp" id="agTime" type="time" value="${pad(new Date(now()).getHours())}:${pad(new Date(now()).getMinutes())}">
+    <label class="fieldl">受電メモ</label><textarea class="inp" id="agMemo" rows="3" placeholder="例）電車遅延のため15分ほど遅れるとのこと。"></textarea>
+    <div style="margin-top:15px"><button class="btn" onclick="act('submitAgent')">${ic('chat',20)}登録して全職員に共有</button></div>
+    <div class="tiny muted" style="margin-top:11px">登録者：渡辺 さくら（事務スタッフ）／受電時刻：${hm(now())}</div></div></div>`;
+
+/* --- S18 園児・代理人情報管理 --- */
+SCR.S18=()=>thead('園児一覧','users','さくら保育園')+`<div class="tbody">
+  <div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>クラス</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>
+  ${state.children.map(c=>{const s=stat(c);
+    return `<tr><td><b>${c.name}${c.sfx}</b></td><td>${c.cls}</td><td>${hm(c.pickupAt)}</td><td>${c.by}</td>
+      <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）'+(p.photo?'📷':'📝')).join('<br>')}</td>
+      <td><span class="pill ${s.tone}">${s.label}</span></td></tr>`;}).join('')}</table></div>
+  <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>📷 顔写真あり／📝 特徴メモで確認。代理人の追加・変更は保護者の申請と園の承認が必要です。</div></div></div>`;
+
+/* --- S19 / S20 自治体 --- */
+SCR.S19=()=>{
+  const changed=state.children.filter(c=>c.changed).length;
+  return thead('管理者ダッシュボード','board','川崎市 保育・幼児教育部 保育課')+`<div class="tbody">
+    <div class="grid3"><div class="stat"><b>50</b><small>導入済みの公立認可保育所</small></div>
+      <div class="stat"><b>4,820</b><small>利用中の世帯</small></div>
+      <div class="stat"><b>${changed}</b><small>本日のお迎え時間変更（さくら保育園）</small></div></div>
+    <div class="sec">園別の利用状況</div>
+    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>園児数</th><th>本日の変更連絡</th><th>電話での連絡</th><th>状態</th></tr>
+      <tr><td><b>さくら保育園</b></td><td>中原区</td><td>112</td><td>${changed}件</td><td>1件</td><td><span class="pill green">稼働中</span></td></tr>
+      <tr><td>あおば保育園</td><td>高津区</td><td>96</td><td>7件</td><td>0件</td><td><span class="pill green">稼働中</span></td></tr>
+      <tr><td>みなみ保育園</td><td>川崎区</td><td>134</td><td>11件</td><td>2件</td><td><span class="pill green">稼働中</span></td></tr>
+      <tr><td>ひがし保育園</td><td>幸区</td><td>88</td><td>—</td><td>—</td><td><span class="pill amber">導入準備中</span></td></tr></table></div>
+    <div style="margin-top:16px"><button class="btn" onclick="act('go','S20')">${ic('school',20)}園情報管理へ</button></div>
+    <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>※管理項目・権限管理の詳細は資料で定義されていないため、実装前に追加仕様の決定が必要です。</div></div></div>`;
+};
+SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
+ +`<div class="tbody" style="max-width:780px">
+  <div class="card" style="padding:6px 18px"><div class="dl">
+    <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市中原区（デモ）</span></div>
+    <div class="row">${ic('users',19)}<span class="lb">園児 / 職員</span><span>112名 / 24名</span></div>
+    <div class="row">${ic('photo',19)}<span class="lb">表示端末</span><span>玄関タブレット 2台・保育室 4台</span></div>
+    <div class="row">${ic('cal',19)}<span class="lb">利用開始日</span><span>2026年4月1日</span></div></div></div>
+  <div class="sec">お帰りタイムラインの色分け条件</div>
+  <div class="card" style="padding:18px">
+    <div class="tiny muted" style="margin-bottom:10px">資料では緑・黄・赤の色分けのみが示され、時間条件は未定義でした。ここで園ごとに設定します。</div>
+    <label class="fieldl" style="margin-top:0">黄（まもなく到着）に切り替える　お迎え予定の何分前から</label>
+    <input class="inp" id="thrSoon" type="number" min="1" max="30" value="${state.thr.soon}">
+    <label class="fieldl">タイムラインで強調を始める　お迎え予定の何分前から</label>
+    <input class="inp" id="thrShow" type="number" min="5" max="60" value="${state.thr.show}">
+    <div class="tiny muted" style="margin-top:9px">赤（遅延中）はお迎え予定時刻を過ぎた時点で自動的に切り替わります。</div>
+    <div style="margin-top:15px"><button class="btn" onclick="act('saveThr')">保存する</button></div></div></div>`;
+
+/* =========================================================
+   アクション
+   ========================================================= */
+function act(name,arg){
+  switch(name){
+    case 'go': state.screen=arg; state.sendErr=false; state.drawer=false; break;
+    case 'drawer': state.drawer=!state.drawer; break;
+    case 'hbar': state.hbar=!state.hbar; break;
+    case 'jump': state.modal=null;
+      state.role=arg==='S01'?null:PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20')?'admin':(arg==='S17'?'clerk':'teacher');
+      state.screen=arg; state.drawer=false; break;
+    case 'login':{const pw=document.getElementById('lpw');
+      if(pw&&pw.value!=='demo1234'){state.loginErr=true;break;}
+      state.loginErr=false;state.role=arg;state.screen=arg==='parent'?'S02':arg==='admin'?'S19':'S09';
+      toast(arg==='parent'?'保護者としてログインしました':arg==='admin'?'自治体管理者としてログインしました':'園の職員としてログインしました');break;}
+    case 'dir': state.sel.dir=arg;state.sel.min=null;state.sel.custom='';break;
+    case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
+    case 'custom': state.sel.custom=arg;state.sel.min=null;break;
+    case 'focusCustom': state.showCustom=true;break;
+    case 'submitPickup':{const nt=calcNew();if(!nt)break;
+      if(state.err){state.sendErr=true;toast('送信に失敗しました');break;}
+      const c=child('c1'),before=c.pickupAt;if(!c.changed)c.planAt=before;
+      c.pickupAt=nt;c.changed='保護者アプリ';
+      addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(nt)}</b> に変わります。`);
+      state.sendErr=false;state.sel.min=null;state.sel.custom='';state.screen='S04';toast('園のタイムラインに反映しました');break;}
+    case 'submitAbsence':{const t=document.getElementById('abType').value,d=document.getElementById('abDate').value,x=document.getElementById('abTxt').value;
+      state.absences.unshift({type:t,date:d,txt:x});const c=child('c1');
+      addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者から「${t}」の連絡がありました。${x?'（'+x+'）':''}`);
+      toast('園に送信しました');break;}
+    case 'saveDiary':{const temp=document.getElementById('dTemp').value||'—',mood=document.getElementById('dMood').value,txt=document.getElementById('dTxt').value;
+      state.diary.c1.unshift({d:md(now())+'（'+wd(now())+'）',temp,mood,txt:txt||'（記入なし）',reply:''});toast('連絡帳を保存しました');break;}
+    case 'pxPhoto': state.pxPhoto=!state.pxPhoto;toast(state.pxPhoto?'顔写真を選びました（デモ）':'顔写真の登録を取り消しました');break;
+    case 'savePx':{const n=document.getElementById('pxName').value.trim();
+      if(!n){toast('氏名を入力してください');break;}
+      (state.proxies.c1=state.proxies.c1||[]).push({id:'px'+Date.now(),name:n,kana:'',rel:document.getElementById('pxRel').value||'—',
+        tel:document.getElementById('pxTel').value,photo:state.pxPhoto?1:0,style:0,auth:state.pxPhoto?'顔認証（写真登録済み）':'認証待ち',
+        memo:document.getElementById('pxMemo').value,prio:(state.proxies.c1||[]).length+1,ok:false});
+      state.pxPhoto=false;toast('保存しました。園の承認をお待ちください');break;}
+    case 'wallet': toast('ウォレット連携は仕様検討中です');break;
+    case 'filter': state.filter=arg;break;
+    case 'openChild': state.childId=arg;state.screen='S11';break;
+    case 'goHandover': state.childId=arg;state.sel.proxyName=child(arg).by;state.screen='S14';break;
+    case 'pickProxy': state.sel.proxy=arg;state.screen='S13';break;
+    case 'matchOk':{const p=proxiesOf(state.childId).find(x=>x.id===state.sel.proxy)||proxiesOf(state.childId)[0];
+      state.sel.proxyName=p.name+'（'+p.rel+'）';state.screen='S14';break;}
+    case 'matchNg': state.screen='S12';toast('引き渡しは保留です。保護者に確認してください');break;
+    case 'release':{const c=child(state.childId);c.st='released';
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+        `${c.name}${c.sfx}を${state.sel.proxyName||c.by}へ引き渡しました。（${hm(now())}）`);
+      state.screen='S10';toast('降園済みにしました');break;}
+    case 'ack':{const p=state.posts.find(x=>x.id===arg);if(p)p.ack=p.ack?0:(p.ack||0)+1;break;}
+    case 'quickPost':{const el=document.getElementById('quick');const txt=(el&&el.value||'').trim();
+      if(!txt){toast('投稿する内容を入力してください');break;}
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',txt);toast('全職員に共有しました');break;}
+    case 'postMemo':{const txt=document.getElementById('memoTxt').value.trim(),cid=document.getElementById('memoChild').value;
+      if(!txt){toast('内容を入力してください');break;}
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',(cid?`${child(cid).name}${child(cid).sfx}：`:'')+txt);
+      state.screen='S15';toast('全職員に共有しました');break;}
+    case 'submitAgent':{const cid=document.getElementById('agChild').value,ty=document.getElementById('agType').value,
+        tm=document.getElementById('agTime').value,memo=document.getElementById('agMemo').value,c=child(cid),before=c.pickupAt;
+      if(tm&&(ty==='late'||ty==='early')){const[h,m]=tm.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);
+        if(!c.changed)c.planAt=before;c.pickupAt=d.getTime();c.changed='事務スタッフ 代理入力';}
+      if(ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
+      const label={late:'お迎えが遅くなる',early:'お迎えが早くなる',proxy:'代理人がお迎え',absent:'早退・欠席'}[ty];
+      addPost('事務スタッフ','clerk',`【代理入力】${c.name}${c.sfx}：${label}。${(ty==='late'||ty==='early')?`お迎え予定 ${hm(before)} → <b>${hm(c.pickupAt)}</b>。`:''}${memo||''}`);
+      state.screen='S15';toast('全職員の端末に反映しました');break;}
+    case 'saveThr': state.thr.soon=Math.max(1,+document.getElementById('thrSoon').value||5);
+      state.thr.show=Math.max(5,+document.getElementById('thrShow').value||10);toast('色分け条件を保存しました');break;
+    case 'ff': state.offset+=arg*60000;toast(arg+'分進めました');break;
+    case 'toggleErr': state.err=!state.err;toast(state.err?'送信時に通信エラーを再現します':'通信エラーの再現をやめました');break;
+    case 'map': state.modal='map';break;
+    case 'closeModal': state.modal=null;break;
+    case 'reset': reset();toast('初期状態に戻しました');break;
+  }
+  render();
+}
+function addPost(who,kind,txt){state.posts.push({id:'m'+Date.now()+Math.random().toString(36).slice(2,5),who,kind,t:now(),txt,ack:0});}
+
+/* =========================================================
+   毎秒の更新
+   ========================================================= */
+function sig(){return state.children.map(c=>c.id+stat(c).k+(c.pickupAt<now()?'p':'f')).join('|');}
+function tickLoop(){
+  const hn=document.getElementById('hnow');if(hn)hn.textContent=md(now())+'('+wd(now())+') '+hm(now());
+  if(state.screen==='S10'||state.screen==='S11'){
+    if(sig()!==lastSig){render();return;}
+    document.querySelectorAll('[data-cid]').forEach(el=>{
+      const c=child(el.dataset.cid);if(!c)return;const t=countText(c);
+      const b=el.querySelector('.js-big'),s=el.querySelector('.js-sub');
+      if(b)b.textContent=t.big;if(s)s.textContent=t.sub;});
+  }
+}
+setInterval(tickLoop,1000);
+render();
+</script>
