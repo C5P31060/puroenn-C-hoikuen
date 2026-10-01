@@ -166,6 +166,37 @@ svg{display:block}
 .ccard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
 .ccard.green{border-left-color:#5FBF8B}.ccard.amber{border-left-color:#EDB53F}
 .ccard.red{border-left-color:#E8735C}.ccard.gray{border-left-color:#D8CDC4;opacity:.75}
+.ccard.orange{border-left-color:var(--o);background:#FFF9F3}
+.count.orange .num b{color:var(--o-d)}
+.arrsec{background:#FFF4EA;border:1px solid #F6DCC4;border-radius:18px;padding:14px 15px;margin-bottom:16px}
+.arrsec .hd{font-family:var(--disp);font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:11px;color:var(--o-d)}
+.camwrap{position:relative;border-radius:18px;overflow:hidden;background:#241C17;aspect-ratio:4/3;display:grid;place-items:center}
+.camwrap video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block}
+.camwrap .guide{position:absolute;left:24%;right:24%;top:10%;bottom:14%;border:3px dashed rgba(255,255,255,.7);border-radius:50% 50% 46% 46%}
+.camwrap .ph{color:#B9A896;font-size:13px;text-align:center;padding:24px;line-height:1.8}
+.shutter{width:76px;height:76px;border-radius:50%;background:#fff;border:6px solid var(--o);margin:14px auto 0;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.shutter:active{transform:scale(.96)}
+.kiosk{max-width:860px;margin:0 auto;text-align:center}
+.kiosk h3{font-family:var(--disp);font-weight:900;font-size:26px;margin:4px 0 6px}
+.kiosk .lead{font-size:15px;color:var(--ink-2);margin-bottom:18px}
+.pickgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.pickcard{background:#fff;border-radius:18px;padding:16px 12px;box-shadow:0 1px 3px rgba(120,90,60,.08);display:grid;justify-items:center;gap:8px}
+.pickcard:hover{box-shadow:0 5px 16px rgba(120,90,60,.16)}
+.pickcard b{font-family:var(--disp);font-size:16px}
+.pickcard small{color:var(--ink-2);font-size:11.5px}
+.arrbig{background:#fff;border-radius:20px;padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:12px;
+        box-shadow:0 4px 18px rgba(228,118,42,.18);border:2px solid #F3C089;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 4px 18px rgba(228,118,42,.18)}50%{box-shadow:0 4px 26px rgba(228,118,42,.34)}}
+.arrbig .big{font-family:var(--disp);font-weight:900;font-size:27px;line-height:1.2}
+.arrbig .room{font-family:var(--disp);font-weight:700;font-size:15px;color:var(--o-d);margin-top:3px}
+.arrbig .elapse{font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);font-variant-numeric:tabular-nums}
+.arrbig .thumbs{display:flex;gap:8px;align-items:center}
+.arrbig .th{width:62px;height:72px;border-radius:12px;overflow:hidden;background:#EFEDEA;flex:none}
+.arrbig .th img{width:100%;height:100%;object-fit:cover;display:block}
+.arrbig .acts{margin-left:auto;display:grid;gap:8px;justify-items:stretch}
+@media(max-width:820px){.arrbig{flex-wrap:wrap}.arrbig .acts{margin-left:0;width:100%;grid-template-columns:1fr 1fr}}
+.shotbox{border-radius:18px;overflow:hidden;aspect-ratio:1/1.05;background:#EFEDEA}
+.shotbox img{width:100%;height:100%;object-fit:cover;display:block}
 .ccard .nm{font-family:var(--disp);font-weight:700;font-size:17px;margin-top:1px}
 .ccard .meta{font-size:12px;color:var(--ink-2);margin-top:3px}
 .count{margin-left:auto;text-align:right;min-width:118px}
@@ -225,7 +256,11 @@ table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
 .slots button small{display:block;font-size:11.5px;color:#8B7E74;margin-top:2px}
 .slots button.on{outline:2.5px solid var(--o);background:#FFF7F0}
 .tipbox{background:#FFFAEA;border-radius:14px;padding:12px 14px;display:flex;gap:10px;font-size:12.5px;color:#8A7549;line-height:1.7;margin-top:14px}
-.rowbtn{background:#fff;border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:11px;width:100%;font-family:var(--disp);font-weight:700;font-size:14.5px;margin-top:12px;box-shadow:0 1px 3px rgba(150,110,70,.09)}
+.rowbtn{background:#fff;border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:11px;width:100%;text-align:left;font-family:var(--disp);font-weight:700;font-size:14.5px;margin-top:12px;box-shadow:0 1px 3px rgba(150,110,70,.09)}
+.rowbtn .gr{flex:1;min-width:0}
+.rowbtn .gr small{display:block;font-weight:500;color:#9A8C81;font-size:11.5px;margin-top:2px}
+.cardbtn{text-align:left}
+.stat,.tile,.card{text-align:left}
 .rowbtn .chev{margin-left:auto}
 .cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(100deg,#F5A55E,#EE8531);color:#fff;font-family:var(--disp);font-weight:700;font-size:17px;padding:16px;border-radius:16px;box-shadow:0 6px 14px rgba(238,133,49,.32)}
 .cta:active{transform:translateY(1px)}
@@ -243,6 +278,17 @@ table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
 .maprow{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #F4EEE9;font-size:13.5px}
 .maprow code{font-family:var(--mono);font-size:11px;background:#FBF0E6;color:var(--o-d);padding:3px 7px;border-radius:5px}
 .maprow button{margin-left:auto;font-size:12px;color:var(--o-d);font-family:var(--disp);font-weight:700}
+.vobar{background:#FFF3D6;border-bottom:1px solid #F0DCA8;color:#8A7549;font-size:12.5px;padding:9px 16px;display:flex;align-items:center;gap:9px}
+.vobar svg{flex:none;color:#D6A94E}
+.vobar button{margin-left:auto;font-family:var(--disp);font-weight:700;color:var(--o-d);text-decoration:underline;white-space:nowrap}
+.ampm{font-size:.55em;margin-left:4px;font-weight:700;letter-spacing:.02em}
+.sw{width:48px;height:28px;border-radius:999px;background:#E3DAD2;position:relative;transition:background .18s;flex:none}
+.sw span{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .18s}
+.sw.on{background:var(--o)}
+.sw.on span{transform:translateX(20px)}
+.chk{display:flex;gap:11px;align-items:flex-start;text-align:left;background:#fff;border-radius:14px;padding:13px 15px;margin-bottom:9px;width:100%;text-align:left;box-shadow:0 1px 3px rgba(120,90,60,.07);font-size:13.5px;line-height:1.6}
+.chk .box{width:22px;height:22px;border-radius:7px;border:2px solid #D8CDC4;flex:none;display:grid;place-items:center;color:#fff;margin-top:1px}
+.chk.on .box{background:var(--ok-tx);border-color:var(--ok-tx)}
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
 .drawerbtn{display:none}
 .scrim{display:none}
@@ -341,6 +387,7 @@ table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
       <button class="hbtn" onclick="act('ff',5)">＋5分</button>
       <button class="hbtn" onclick="act('ff',15)">＋15分</button>
       <button class="hbtn" id="errbtn" onclick="act('toggleErr')">通信エラー再現</button>
+      <button class="hbtn" onclick="act('accounts')">アカウント</button>
       <button class="hbtn" onclick="act('map')">画面一覧</button>
       <button class="hbtn" onclick="act('reset')">リセット</button>
     </div>
@@ -415,6 +462,61 @@ function adult(size,style){const s=style||0;const hair=['#4A3A31','#8E8E8E'][s],
  <circle cx="39" cy="47" r="2.6" fill="#39291F"/><circle cx="61" cy="47" r="2.6" fill="#39291F"/>
  <path d="M43 60q7 5 14 0" stroke="#C4796A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
  <circle cx="32" cy="53" r="3.4" fill="#F0A996" opacity=".5"/><circle cx="68" cy="53" r="3.4" fill="#F0A996" opacity=".5"/></svg>`;}
+/* 登録写真（端末から選んだ画像があればそれを表示） */
+function pic(p){return p&&p.src?`<img src="${p.src}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`
+  :(p&&p.photo?adult(0,p.style||0):silhouette());}
+function face(c,size){return c&&c.src
+  ?`<span style="display:block;width:${size}px;height:${size}px;border-radius:50%;overflow:hidden;flex:none"><img src="${c.src}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></span>`
+  :kid(c.id,size);}
+/* 画像を読み込んで縮小し、data URL で返す */
+function readImage(file,cb){
+  if(!file)return;
+  if(!/^image\//.test(file.type)){toast('画像ファイルを選んでください');return;}
+  const fr=new FileReader();
+  fr.onload=e=>{const img=new Image();
+    img.onload=()=>{const max=720,sc=Math.min(1,max/Math.max(img.width,img.height));
+      const cv=document.createElement('canvas');cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);
+      cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+      cb(cv.toDataURL('image/jpeg',0.85));};
+    img.onerror=()=>toast('この画像は読み込めませんでした');
+    img.src=e.target.result;};
+  fr.onerror=()=>toast('画像を読み込めませんでした');
+  fr.readAsDataURL(file);
+}
+/* ---- 受付カメラ ---- */
+let camStream=null;
+function camAvailable(){return typeof navigator!=='undefined'&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia;}
+function startCam(){
+  if(camStream||!camAvailable()){if(!camAvailable())state.camErr='unsupported';render();return;}
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280}},audio:false})
+    .then(st=>{camStream=st;state.camErr='';render();})
+    .catch(()=>{state.camErr='denied';render();});
+}
+function stopCam(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}}
+function attachCam(){const v=document.getElementById('camView');
+  if(v&&camStream&&v.srcObject!==camStream){v.srcObject=camStream;const pr=v.play&&v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
+function shoot(){
+  const v=document.getElementById('camView');
+  if(!v||!v.videoWidth){toast('カメラの準備ができていません');return;}
+  const max=720,sc=Math.min(1,max/Math.max(v.videoWidth,v.videoHeight));
+  const cv=document.createElement('canvas');
+  cv.width=Math.round(v.videoWidth*sc);cv.height=Math.round(v.videoHeight*sc);
+  const g=cv.getContext('2d');g.translate(cv.width,0);g.scale(-1,1);
+  g.drawImage(v,0,0,cv.width,cv.height);
+  state.shot=cv.toDataURL('image/jpeg',0.85);
+  stopCam();checkIn();
+}
+/* 受付の確定：園児を「到着」にして、保育士の画面へ大きく出す */
+function checkIn(){
+  const c=child(state.camChild);if(!c)return;
+  const p=proxiesOf(c.id).find(x=>x.id===state.camProxy)||proxiesOf(c.id)[0];
+  c.st='arrived';c.arrivedAt=now();c.arrivedBy=p.name+'（'+p.rel+'）';
+  c.shot=state.cam.keep?state.shot:'';c.verified=p.id;c.prep='';
+  addPost('受付カメラ','sys',`【到着】${c.name}${c.sfx}：${p.name}さん（${p.rel}）が玄関で受付しました。${c.cls}の保育室で引き渡しをお願いします。`);
+  state.notices.unshift({id:'n'+Date.now(),kind:'お迎え連絡',title:'受付が完了しました',
+    body:c.name+c.sfx+'の先生にお迎えをお知らせしました。保育室でお待ちください。',t:now(),read:false});
+  state.camStep='done';state.shotTmp=state.shot;state.shot='';render();
+}
 /* 未登録シルエット */
 function silhouette(){return `<svg viewBox="0 0 100 114" width="100%" height="100%"><rect width="100" height="114" fill="#EFEDEA"/><circle cx="50" cy="44" r="19" fill="#C3C4CC"/><path d="M15 114c0-20 15-32 35-32s35 12 35 32z" fill="#C3C4CC"/></svg>`;}
 
@@ -434,18 +536,26 @@ function baseChildren(){
   ];
 }
 function baseProxies(){return{
-  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'顔認証（写真登録済み）',memo:'',prio:1,ok:true},
-      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'認証済み（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true}],
-  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'認証済み（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true}],
+  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'写真を見て確認（登録済み）',memo:'',prio:1,ok:true},
+      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true}],
+  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true}],
 };}
 function reset(){
   state={role:null,screen:'S01',offset:0,err:false,children:baseChildren(),proxies:baseProxies(),
     posts:[{id:'m1',who:'事務スタッフ',kind:'clerk',t:Date.now()-8*60000,txt:'田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。',ack:1},
            {id:'m2',who:'担任',kind:'teacher',t:Date.now()-6*60000,txt:'鈴木 あかりちゃんは絵本を読んで待機しています。',ack:0}],
-    diary:{c1:[{d:'昨日',temp:'36.6',mood:'良好',txt:'夜はよく眠れました。朝の食欲もあります。',reply:'園でも元気に過ごしていました。'}]},
+    diary:{c1:[{d:'昨日',temp:'36.6',mood:'良好',txt:'夜はよく眠れました。朝の食欲もあります。',reply:'園でも元気に過ごしていました。'}],
+           c2:[{d:'今日',temp:'36.8',mood:'ふつう',txt:'少し咳が出ています。外遊びは様子を見てください。',reply:''}],
+           c4:[{d:'今日',temp:'37.0',mood:'少し不調',txt:'朝ごはんをあまり食べませんでした。',reply:''}]},
     absences:[],filter:'all',thr:{soon:5,show:10},
+    notices:[{id:'n1',kind:'園からのお知らせ',title:'プールの持ち物について',body:'明日は水遊びを行います。タオルと着替えをお持ちください。',t:Date.now()-86400000,read:false},
+             {id:'n2',kind:'連絡帳',title:'園から返信がありました',body:'園でも元気に過ごしていました。',t:Date.now()-3*3600000,read:false}],
+    records:[],pending:null,hold:null,q:'',pfilter:'all',showSearch:false,
+    ag:{cls:'',q:'',cid:'c1'},dcls:'',dq:'',diaryChild:'',schoolId:'sakura',focusId:'',absMulti:false,
+    loginId:'',loginPw:'',settings:{pickup:true,diary:true,news:true},clock24:false,
+    cam:{on:true,keep:false},shot:'',camChild:'',camProxy:'',camErr:'',camStep:'pick',
     sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},
-    toast:null,modal:null,childId:'c1',pxPhoto:false,loginErr:false,sendErr:false,drawer:false,hbar:false};
+    toast:null,modal:null,childId:'c1',pxPhoto:false,pxSrc:'',loginErr:'',sendErr:false,drawer:false,hbar:false};
 }
 reset();
 
@@ -454,14 +564,19 @@ reset();
    ========================================================= */
 const now=()=>Date.now()+state.offset;
 const pad=n=>String(n).padStart(2,'0');
-const hm=ts=>{const d=new Date(ts);return d.getHours()+':'+pad(d.getMinutes());};
+function hmParts(ts){const d=new Date(ts),h=d.getHours(),m=pad(d.getMinutes());
+  if(state.clock24)return{t:h+':'+m,ap:''};
+  const ap=h<12?'AM':'PM';let h12=h%12;if(h12===0)h12=12;
+  return{t:h12+':'+m,ap};}
+const hm=ts=>{const p=hmParts(ts);return p.ap?p.t+' '+p.ap:p.t;};
+const hmx=ts=>{const p=hmParts(ts);return p.t+(p.ap?`<span class="ampm">${p.ap}</span>`:'');};
 const md=ts=>{const d=new Date(ts);return (d.getMonth()+1)+'月'+d.getDate()+'日';};
 const wd=ts=>'日月火水木金土'[new Date(ts).getDay()];
 const child=id=>state.children.find(c=>c.id===id);
-const proxiesOf=id=>state.proxies[id]||[{id:'px_'+id,name:(child(id).by||'').split(' ').slice(1).join(' '),kana:'',rel:(child(id).by||'').split(' ')[0],tel:'—',photo:0,auth:'認証済み（事前登録）',memo:'未登録',prio:1,ok:true}];
+const proxiesOf=id=>state.proxies[id]||[{id:'px_'+id,name:(child(id).by||'').split(' ').slice(1).join(' '),kana:'',rel:(child(id).by||'').split(' ')[0],tel:'—',photo:0,auth:'特徴メモで確認（事前登録）',memo:'未登録',prio:1,ok:true}];
 function stat(c){
   if(c.st==='released')return{k:'released',label:'降園済み',tone:'gray'};
-  if(c.st==='arrived') return{k:'arrived',label:'到着済み',tone:'gray'};
+  if(c.st==='arrived') return{k:'arrived',label:'お迎えの方が到着',tone:'orange'};
   const m=(c.pickupAt-now())/60000;
   if(m<0)return{k:'late',label:'遅延中',tone:'red'};
   if(m<=state.thr.soon)return{k:'soon',label:'まもなく到着',tone:'amber'};
@@ -470,7 +585,7 @@ function stat(c){
 function countText(c){
   const s=stat(c);
   if(s.k==='released')return{big:'降園済み',sub:'受け渡し完了',plain:1};
-  if(s.k==='arrived') return{big:'到着済み',sub:hm(c.pickupAt)+'に到着',plain:1};
+  if(s.k==='arrived') return{big:'引き渡し待ち',sub:hm(c.arrivedAt||c.pickupAt)+'に到着',plain:1};
   const d=(c.pickupAt-now())/60000;
   if(d<0)return{big:Math.max(1,Math.floor(-d)),sub:hm(c.pickupAt)+'を'+Math.max(1,Math.floor(-d))+'分過ぎています',pre:'あと'};
   return{big:Math.max(0,Math.ceil(d)),sub:hm(c.pickupAt)+'に到着予定',pre:'あと'};
@@ -482,8 +597,15 @@ function countText(c){
 const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',S04:'お迎え変更完了',S05:'欠席・遅刻連絡',S06:'連絡帳',
  S07:'代理人管理（保護者）',S08:'お迎えカード',S09:'園側ホーム',S10:'お帰りタイムライン',S11:'園児詳細',S12:'代理人リスト・照合',
  S13:'照合結果',S14:'引き渡し完了',S15:'職員用タイムライン',S16:'メモ入力',S17:'代理入力',S18:'園児・代理人情報管理',
- S19:'管理者ダッシュボード',S20:'園情報管理'};
-const PARENT=['S02','S03','S04','S05','S06','S07','S08'];
+ S19:'管理者ダッシュボード',S20:'園情報管理',S21:'お知らせ（保護者）',S22:'メニュー（保護者）',
+ S23:'連絡帳（園側）',S24:'引き渡し保留・確認手順',S25:'引き渡し記録',S26:'園の切り替え（自治体）',
+ S27:'受付カメラ（お迎え受付）',S28:'カメラ照合の結果'};
+const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
+const SCHOOLS=[{id:'sakura',name:'さくら保育園',ward:'中原区',n:112,data:true},
+               {id:'aoba',name:'あおば保育園',ward:'高津区',n:96},
+               {id:'minami',name:'みなみ保育園',ward:'川崎区',n:134},
+               {id:'higashi',name:'ひがし保育園',ward:'幸区',n:88,prep:true}];
+const curSchool=()=>SCHOOLS.find(x=>x.id===state.schoolId)||SCHOOLS[0];
 const SCR={};
 
 function render(){
@@ -498,11 +620,20 @@ function render(){
     `<div class="${isPhone?'phone':'tablet'}">
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
        <div class="scr">${inner}</div></div>`;
+  if(p==='S27'&&state.camStep==='shoot')attachCam();else if(p!=='S27')stopCam();
   drawOverlay(); lastSig=sig();
+  if(state.focusId){const el=document.getElementById(state.focusId);
+    if(el){el.focus();try{el.setSelectionRange(el.value.length,el.value.length);}catch(e){}}}
 }
 function drawOverlay(){
   let h='';
   if(state.toast)h+=`<div class="toast">${state.toast}</div>`;
+  if(state.modal==='acc')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">アカウント（動作確認用）</div>
+    ${ACCOUNTS.map(a=>`<button class="rowbtn" onclick="act('useAcc','${a.id}')">${ic(a.ic,20,'#B69C7E')}
+      <span class="gr">${a.label}<small>${a.who}　ID：${a.id}／PW：${a.pw}</small></span>
+      <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
+    <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   if(state.modal==='map')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">画面一覧（設計書 §3 に対応）</div>
     ${Object.keys(TITLES).map(k=>`<div class="maprow"><code>${k}</code><span>${TITLES[k]}</span><button onclick="act('jump','${k}')">開く</button></div>`).join('')}
@@ -515,27 +646,29 @@ function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=se
    保護者アプリ 外枠（画像3）
    ========================================================= */
 function phoneShell(inner){
-  const nav=[['S02','ホーム','home'],['S06','連絡帳','cal'],['S03','お迎え連絡','car'],['S05','お知らせ','mail'],['S07','メニュー','menu']];
+  const nav=[['S02','ホーム','home'],['S06','連絡帳','cal'],['S03','お迎え連絡','car'],['S21','お知らせ','mail'],['S22','メニュー','menu']];
   return `<div class="roll">${inner}</div>
   <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib">${ic(i,22)}</span>${l}</button>`).join('')}</div>`;
 }
-function phead(title,back,bell){
+function phead(title,back){
+  const un=(state.notices||[]).filter(n=>!n.read).length;
   return `<div class="phead">
     ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74">${ic('back',22)}</button>`
           :`<span style="width:26px;display:grid;place-items:center">${sun(26)}</span>`}
     <div class="ttl">${title}</div>
-    <button style="color:#8B7E74;position:relative">${ic('bell',22)}${bell?'<span class="badge" style="top:-2px;right:-4px">1</span>':''}</button></div>`;
+    <button style="color:#8B7E74;position:relative" onclick="act('go','S21')">${ic('bell',22)}${un?`<span class="badge" style="top:-2px;right:-4px">${un}</span>`:''}</button></div>`;
 }
 
 /* =========================================================
    園側アプリ 外枠（画像1・2）
    ========================================================= */
 function tabletShell(inner){
-  const staffMenu=[['S15','タイムライン','chat'],['S10','お帰りタイムライン','clock'],['S06','連絡帳','book'],
-                   ['S18','園児一覧','users'],['S17','代理入力','phone'],['S12','代理人リスト','idcard']];
-  const adminMenu=[['S19','ダッシュボード','board'],['S20','園情報管理','school'],['S10','園の画面を確認','clock']];
+  const staffMenu=[['S15','タイムライン','chat'],['S10','お帰りタイムライン','clock']]
+    .concat(state.cam.on?[['S27','受付カメラ','idcard']]:[])
+    .concat([['S23','連絡帳','book'],['S18','園児一覧','users'],['S17','代理入力','phone'],['S25','引き渡し記録','clip']]);
+  const adminMenu=[['S19','ダッシュボード','board'],['S20','園情報管理','school'],['S26','園の画面を確認','clock']];
   const menu=state.role==='admin'?adminMenu:staffMenu;
-  const soon=[['おたより','note'],['行事予定','cal'],['業務日誌','clip'],['写真','photo'],['設定','gear']];
+  const extra=state.role==='admin'?[]:[['S20','設定','gear']];
   const me=state.role==='clerk'?['渡辺 さくら','事務スタッフ','#F2A7BC']
         :state.role==='admin'?['川崎市 保育課','自治体管理者','#8FC3E8']
         :['佐々木 みなみ','ひまわり組 担任','#F5C842'];
@@ -544,19 +677,21 @@ function tabletShell(inner){
   return `<div class="t-wrap">
     ${state.drawer?`<div class="scrim" onclick="act('drawer')"></div>`:''}
     <div class="side ${state.drawer?'open':''}">
-      <div class="logo">${sun(30)}${state.role==='admin'?'川崎市 保育課':'さくら保育園'}
+      <div class="logo">${sun(30)}${state.role==='admin'?'川崎市 保育課':curSchool().name}
         <button class="drawerbtn" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
       <div class="items">
-        ${menu.map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}</button>`).join('')}
-        ${state.role==='admin'?'':soon.map(([l,i])=>`<button class="sidebtn" disabled>${ic(i,21)}${l}</button>`).join('')}
+        ${menu.concat(extra).map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}</button>`).join('')}
       </div>
       <div class="me">${flower(me[2],38)}<div style="flex:1"><b>${me[0]}</b><span class="tiny muted">${me[1]}</span></div><span style="color:#C9BAAE">${ic('chev',16)}</span></div>
     </div>
     <div class="main">
+      ${(state.role==='admin'&&!['S19','S20','S26'].includes(state.screen))?`<div class="vobar">${ic('info',18)}
+        <span>保育課のアカウントで<b>${curSchool().name}</b>を閲覧しています。投稿・引き渡しなどの操作はできません。</span>
+        <button onclick="act('go','S26')">園を切り替える</button></div>`:''}
       <div style="flex:1;display:flex;flex-direction:column;min-height:0">${inner}</div>
       <div class="tnav">
         ${nav.map(([id,l,i])=>id==='FAB'
-          ?`<div class="fabwrap"><button class="fab" onclick="act('go','S16')">${ic('pencil',24)}</button>投稿</div>`
+          ?`<div class="fabwrap"><button class="fab" onclick="act('${state.role==='admin'?'viewonly':"go','S16"}')">${ic('pencil',24)}</button>投稿</div>`
           :`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span style="position:relative">${ic(i,22)}${(id==='S15'&&unread)?`<span class="badge">${unread}</span>`:''}</span>${l}</button>`).join('')}
       </div>
     </div></div>`;
@@ -571,27 +706,25 @@ function thead(title,iconName,sub,right){
 /* =========================================================
    S01 ログイン
    ========================================================= */
-SCR.S01=()=>{
-  const roles=[['parent','保護者','山田 ひなたちゃんの保護者','user'],['teacher','保育士','ひまわり組 担任','users'],
-               ['clerk','事務スタッフ','さくら保育園 事務室','phone'],['admin','自治体管理者','川崎市 保育課','board']];
-  return `<div class="roll"><div class="pbody" style="padding-top:34px">
-    <div style="text-align:center;margin-bottom:24px">
+const ACCOUNTS=[
+ {id:'yamada-h',  pw:'sakura0401', role:'parent', label:'保護者',      who:'山田 花子（ひなたちゃんの母）', ic:'user'},
+ {id:'sasaki-m',  pw:'hoiku0415',  role:'teacher',label:'保育士',      who:'佐々木 みなみ（ひまわり組 担任）',ic:'users'},
+ {id:'watanabe-s',pw:'jimu0620',   role:'clerk',  label:'事務スタッフ',who:'渡辺 さくら（さくら保育園 事務室）',ic:'phone'},
+ {id:'kawasaki-k',pw:'shisei0901', role:'admin',  label:'自治体管理者',who:'川崎市 保育課',                  ic:'board'},
+];
+SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
+    <div style="text-align:center;margin-bottom:26px">
       <div style="display:grid;place-items:center">${sun(64)}</div>
       <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
-      <div class="tiny muted" style="margin-top:5px">川崎市 公立認可保育所 お迎え動向共有システム</div>
+      <div class="tiny muted" style="margin-top:5px">川崎市 公立認可保育所</div>
     </div>
-    <label class="fieldl">利用者ID</label><input class="inp" id="lid" value="kawasaki-demo">
-    <label class="fieldl">パスワード</label><input class="inp" id="lpw" type="password" value="demo1234">
-    ${state.loginErr?`<div class="err" style="margin-top:12px">パスワードが違います。もう一度入力してください。</div>`:''}
-    <div class="fieldl" style="margin-top:18px">ログインする立場を選ぶ</div>
-    <div style="display:grid;gap:9px">
-      ${roles.map(([r,n,s,i])=>`<button class="rowbtn" style="margin-top:0" onclick="act('login','${r}')">
-        <span style="color:var(--o)">${ic(i,22)}</span><span>${n}<br><small style="font-weight:500;color:#9A8C81;font-size:11.5px">${s}</small></span>
-        <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
-    </div>
-    <div class="note" style="margin-top:18px">${ic('info',18,'#D6A94E')}<div>認証後、利用者区分に応じて保護者ホーム・園側ホーム・管理者ダッシュボードへ自動で切り替わります。</div></div>
+    <label class="fieldl">利用者ID</label><input class="inp" id="lid" value="${state.loginId||''}" placeholder="例）yamada-h" autocapitalize="off">
+    <label class="fieldl">パスワード</label><input class="inp" id="lpw" type="password" value="${state.loginPw||''}" placeholder="パスワード">
+    ${state.loginErr?`<div class="err" style="margin-top:12px">${state.loginErr}</div>`:''}
+    <div style="margin-top:18px"><button class="cta" onclick="act('login')">ログイン</button></div>
+    <div class="tiny muted" style="margin-top:16px;text-align:center;line-height:1.8">
+      IDとパスワードは入園時に園からお渡ししています。<br>分からないときは園にお問い合わせください。</div>
   </div></div>`;
-};
 
 /* =========================================================
    保護者側
@@ -599,10 +732,15 @@ SCR.S01=()=>{
 SCR.S02=()=>{
   const c=child('c1');
   return `${phead('ホーム','',true)}<div class="pbody">
-    <div class="kidcard">${kid(c.id,54)}
+    <div class="kidcard">${face(c,54)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
-      <div class="timebox"><small>${c.changed?'変更後のお迎え':'通常のお迎え時間'}</small><b>${hm(c.pickupAt)}</b></div></div>
-    ${c.changed?`<div class="tipbox">${ic('check',20,'#D6A94E')}<div>${hm(c.planAt)} から <b>${hm(c.pickupAt)}</b> に変更済みです。園に共有されています。</div></div>`:''}
+      <div class="timebox"><small>${c.changed?'変更後のお迎え':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
+    ${state.pending?`<div class="err" style="margin-top:12px"><b>園に届いていない連絡があります。</b><br>
+      ${hm(state.pending.at)}に送信した「${state.pending.label}」は通信が切れたため届いていません。<br>
+      <div style="display:flex;gap:9px;margin-top:9px;flex-wrap:wrap">
+        <button class="btn" style="padding:9px 16px;font-size:13px" onclick="act('go','S03')">もう一度送る</button>
+        <button class="btn g" style="padding:9px 16px;font-size:13px" onclick="act('callSchool')">園に電話する</button></div></div>`:''}
+    ${c.changed?`<div class="tipbox">${ic('check',20,'#D6A94E')}<div>${hm(c.planAt)} から <b>${hm(c.pickupAt)}</b> に変更済みです。園に共有されています（${hm(c.changedAt||now())}送信）。</div></div>`:''}
     <div class="leadline" style="margin:22px 0 12px">今日はどうしますか？</div>
     <button class="cta" onclick="act('go','S03')">${ic('car',24)}お迎えの状況を知らせる</button>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px">
@@ -626,9 +764,9 @@ SCR.S03=()=>{
     <rect x="104" y="64" width="14" height="20" fill="#FBEBD6"/>
     <path d="M60 84c0-12 5-20 11-20s11 8 11 20z" fill="#B6DCB4"/><rect x="69" y="76" width="4" height="9" fill="#9C7C58"/></svg>`;
   return `${phead('お迎え連絡','S02',true)}<div class="pbody">
-    <div class="kidcard">${kid(c.id,52)}
+    <div class="kidcard">${face(c,52)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
-      <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hm(c.pickupAt)}</b></div></div>
+      <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
     <div style="position:relative">${deco}<div class="leadline">お迎えの状況をお知らせください</div></div>
     <div class="bigchoice">
       <button class="late ${sel.dir==='late'?'on':''}" onclick="act('dir','late')">
@@ -668,16 +806,26 @@ SCR.S04=()=>{
       <div class="tiny muted">変更前</div>
       <div style="font-family:var(--disp);font-size:18px;text-decoration:line-through;color:#B2A499">${hm(c.planAt)}</div>
       <div class="tiny muted" style="margin-top:12px">変更後のお迎え予定</div>
-      <div style="font-family:var(--disp);font-weight:900;font-size:34px;color:var(--o-d);line-height:1.2">${hm(c.pickupAt)}</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:34px;color:var(--o-d);line-height:1.2">${hmx(c.pickupAt)}</div>
       <span class="pill orange" style="margin-top:10px">園のタイムラインに反映済み</span></div>
     <button class="cta ghost" onclick="act('go','S02')">ホームへ戻る</button></div>`;
 };
 
 SCR.S05=()=>{
+  const today=new Date(now()).toISOString().slice(0,10);
   return `${phead('欠席・遅刻の連絡','S02')}<div class="pbody">
     <label class="fieldl" style="margin-top:4px">連絡の種類</label>
     <select class="inp" id="abType"><option>欠席</option><option>遅刻（登園が遅れます）</option><option>通院のため一時外出</option><option>長期のお休み</option></select>
-    <label class="fieldl">対象の日</label><input class="inp" id="abDate" type="date" value="${new Date(now()).toISOString().slice(0,10)}">
+    <label class="fieldl">対象の日</label>
+    <div class="bigchoice" style="grid-template-columns:1fr 1fr;gap:10px">
+      <button class="late ${state.absMulti?'':'on'}" style="padding:12px 8px;font-size:14px" onclick="act('absMulti',0)">1日だけ</button>
+      <button class="late ${state.absMulti?'on':''}" style="padding:12px 8px;font-size:14px" onclick="act('absMulti',1)">期間を指定</button>
+    </div>
+    ${state.absMulti?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div><label class="fieldl" style="margin-top:0">開始日</label><input class="inp" id="abFrom" type="date" value="${today}"></div>
+        <div><label class="fieldl" style="margin-top:0">終了日</label><input class="inp" id="abTo" type="date" value="${today}"></div></div>
+      <div class="tiny muted" style="margin-top:7px">長期のお休みは、開始日と終了日をまとめて連絡できます。土日祝は園の休園日として扱われます。</div>`
+      :`<input class="inp" id="abDate" type="date" value="${today}" style="margin-top:10px">`}
     <label class="fieldl">園に伝えること</label><textarea class="inp" id="abTxt" rows="3" placeholder="例）朝から熱があるため受診します。"></textarea>
     <div style="margin-top:16px"><button class="cta" onclick="act('submitAbsence')">連絡を送信する</button></div>
     <div class="sec">送信した連絡</div>
@@ -689,38 +837,38 @@ SCR.S05=()=>{
 };
 
 SCR.S06=()=>{
-  const list=state.diary.c1,isStaff=state.role!=='parent';
-  const form=`<div class="card" style="padding:17px">
+  const list=state.diary.c1||[];
+  return `${phead('連絡帳','S02')}<div class="pbody">
+    <div class="card" style="padding:17px">
       <div style="font-family:var(--disp);font-weight:700;margin-bottom:8px">${md(now())}（${wd(now())}）の記録</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
         <div><label class="fieldl" style="margin-top:0">体温</label><input class="inp" id="dTemp" value="36.5"></div>
         <div><label class="fieldl" style="margin-top:0">機嫌</label><select class="inp" id="dMood"><option>良好</option><option>ふつう</option><option>少し不調</option></select></div></div>
       <label class="fieldl">お家での様子</label><textarea class="inp" id="dTxt" rows="3" placeholder="例）朝はしっかり食べました。少し咳が出ています。"></textarea>
-      <div style="margin-top:14px"><button class="${isStaff?'btn':'cta'}" onclick="act('saveDiary')">記録を保存する</button></div></div>
+      <div style="margin-top:14px"><button class="cta" onclick="act('saveDiary')">記録を保存する</button></div></div>
     <div class="sec">これまでの記録</div>
     ${list.map(d=>`<div class="card" style="padding:15px 17px;margin-bottom:10px">
       <div style="display:flex;gap:8px;align-items:center"><b style="font-family:var(--disp);font-size:14px">${d.d}</b>
         <span class="pill gray">体温 ${d.temp}℃</span><span class="pill gray">機嫌 ${d.mood}</span></div>
       <div style="font-size:13px;margin-top:8px;line-height:1.8">${d.txt}</div>
       ${d.reply?`<div style="margin-top:10px;background:var(--o-l2);border-radius:12px;padding:11px 13px;font-size:13px">
-        <b class="tiny" style="color:var(--o-d)">園から</b><br>${d.reply}</div>`:''}</div>`).join('')}`;
-  if(isStaff)return thead('連絡帳','book','山田 ひなたちゃん（ひまわり組）')+`<div class="tbody" style="max-width:760px">${form}</div>`;
-  return phead('連絡帳','S02')+`<div class="pbody">${form}</div>`;
+        <b class="tiny" style="color:var(--o-d)">園から</b><br>${d.reply}</div>`:''}</div>`).join('')}
+  </div>`;
 };
 
 /* --- S07 代理人管理（保護者側・画像1の様式） --- */
 SCR.S07=()=>{
   const ps=state.proxies.c1||[];
   return `${phead('代理人リスト','S02')}<div class="pbody">
-    <div class="note">${ic('info',18,'#D6A94E')}<div>お迎えを代理で行うことができる方の一覧です。顔写真の登録は任意で、ない場合は特徴メモで先生が確認します。</div></div>
+    <div class="note">${ic('info',18,'#D6A94E')}<div>お迎えを代理でお願いできる方の一覧です。顔写真の登録は任意です。</div></div>
     ${ps.map(p=>`<div class="card" style="padding:15px;margin-top:12px;display:flex;gap:13px">
-      <div style="width:76px;height:88px;border-radius:11px;overflow:hidden;flex:none">${p.photo?adult(0,p.style):silhouette()}</div>
+      <div style="width:76px;height:88px;border-radius:11px;overflow:hidden;flex:none">${pic(p)}</div>
       <div style="flex:1;min-width:0">
         <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
           <span class="pill pri">優先順位 ${p.prio}</span>${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</div>
         <div style="font-family:var(--disp);font-weight:700;font-size:17px;margin-top:6px">${p.name}<small style="font-size:12px;color:#8B7E74;font-weight:500">（${p.kana||''}）</small></div>
         <div class="tiny muted" style="margin-top:3px">${p.rel}・${p.tel||'—'}</div>
-        ${p.photo?'<span class="pill green" style="margin-top:7px">顔認証（写真登録済み）</span>'
+        ${p.photo?'<span class="pill green" style="margin-top:7px">写真あり（登録済み）</span>'
                  :`<div class="memo-row" style="margin-top:7px;padding:7px 10px;display:flex;gap:7px;font-size:12.5px;color:#8A7549">${ic('pencil',16,'#D6A94E')}<b>${p.memo||'特徴メモ 未入力'}</b></div>`}
       </div></div>`).join('')}
     <div class="sec">代理人を追加する</div>
@@ -729,7 +877,14 @@ SCR.S07=()=>{
       <label class="fieldl">続柄</label><input class="inp" id="pxRel" placeholder="例）祖父">
       <label class="fieldl">電話番号</label><input class="inp" id="pxTel" placeholder="090-0000-0000">
       <label class="fieldl">顔写真（任意）</label>
-      <button class="cta ghost" onclick="act('pxPhoto')">${state.pxPhoto?'写真を登録しました（取り消す）':'写真を選ぶ'}</button>
+      <div style="display:flex;gap:13px;align-items:center">
+        <div style="width:76px;height:88px;border-radius:11px;overflow:hidden;flex:none;background:#EFEDEA">${state.pxSrc?`<img src="${state.pxSrc}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`:silhouette()}</div>
+        <div style="flex:1">
+          <input type="file" id="pxFile" accept="image/*" style="display:none" onchange="act('pxFile',this)">
+          <button class="cta ghost" onclick="document.getElementById('pxFile').click()">${state.pxSrc?'写真を選び直す':'写真を選ぶ'}</button>
+          ${state.pxSrc?`<button class="hpill" style="margin-top:9px;width:100%;justify-content:center" onclick="act('pxClear')">写真を削除する</button>`:''}
+          <div class="tiny muted" style="margin-top:8px">カメラで撮るか、端末の写真から選べます。</div>
+        </div></div>
       <label class="fieldl">写真がない場合の特徴メモ</label><input class="inp" id="pxMemo" placeholder="例）眼鏡をかけた白髪の男性">
       <div style="margin-top:15px"><button class="cta" onclick="act('savePx')">保存する</button></div>
       <div class="tiny muted" style="margin-top:9px">代理人の追加・変更は、園の承認が完了すると利用できます。</div></div></div>`;
@@ -745,8 +900,7 @@ SCR.S08=()=>{
       <div class="tiny" style="opacity:.9">${c.cls}・${c.age}</div>
       <div style="background:#fff;border-radius:16px;padding:14px;margin-top:16px;display:grid;place-items:center">${qrSVG('KWS-'+c.id)}</div>
       <div class="tiny" style="opacity:.9;margin-top:12px;line-height:1.7">お迎え担当：${c.by}<br>有効期間：2025年4月1日 〜 2026年3月31日</div></div>
-    <button class="rowbtn" onclick="act('wallet')">${ic('idcard',20,'#B69C7E')}スマホのウォレットに追加<span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>
-    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>園の入口でこの画面を提示してください。先生の端末で読み取ると代理人照合の画面が開きます。<br>※ウォレット連携の方式は資料では未確定のため、実装時に別途仕様決定が必要です。</div></div></div>`;
+    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>代理人の方が来るときや、園から提示をお願いされたときにこの画面を見せてください。いつものお迎えでは必要ありません。</div></div></div>`;
 };
 function qrSVG(seed){
   let h=0;for(const ch of seed)h=(h*31+ch.charCodeAt(0))>>>0;
@@ -766,14 +920,19 @@ SCR.S09=()=>{
   const cs=state.children,late=cs.filter(c=>stat(c).k==='late').length,soon=cs.filter(c=>stat(c).k==='soon').length,
         yet=cs.filter(c=>c.st==='waiting').length;
   return thead('ホーム','home',md(now())+'（'+wd(now())+'）さくら保育園')+`<div class="tbody">
+    ${state.children.filter(c=>c.st==='arrived').length?`<div class="arrsec" style="margin-bottom:16px">
+      <div class="hd">${ic('check',19)}お迎えの方が到着しています（${state.children.filter(c=>c.st==='arrived').length}名）</div>
+      <button class="btn" onclick="act('go','S10')">お帰りタイムラインを開く</button></div>`:''}
     <div class="grid3">
       <div class="stat"><b>${yet}</b><small>未降園の園児</small></div>
       <div class="stat"><b style="color:var(--am-tx)">${soon}</b><small>まもなく到着</small></div>
       <div class="stat"><b style="color:var(--rd-tx)">${late}</b><small>お迎え時間を超過</small></div></div>
     <div class="sec">よく使う画面</div>
     <div class="grid2">
-      ${[['S10','お帰りタイムライン','夕方はこの画面を開いたままに','clock'],['S15','職員用タイムライン','未読 '+state.posts.filter(p=>!p.ack).length+'件','chat'],
-         ['S17','代理入力','電話で受けた連絡を登録','phone'],['S12','代理人リスト','お迎えに来た方の照合','idcard']]
+      ${[['S10','お帰りタイムライン','夕方はこの画面を開いたままに','clock']]
+        .concat(state.cam.on?[['S27','受付カメラ','玄関でお迎えの方を受け付ける','idcard']]:[])
+        .concat([['S15','職員用タイムライン','未読 '+state.posts.filter(p=>!p.ack).length+'件','chat'],
+         ['S17','代理入力','電話で受けた連絡を登録','phone']])
        .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,26)}</span><b>${t}</b><small>${s}</small></button>`).join('')}</div>
     <div class="sec">直近の連絡</div>
     ${state.posts.slice(-2).reverse().map(p=>`<div class="card" style="padding:13px 16px;margin-bottom:9px;font-size:13px">
@@ -783,28 +942,62 @@ SCR.S09=()=>{
 
 /* --- S10 お帰りタイムライン --- */
 SCR.S10=()=>{
-  const f=state.filter,all=state.children.slice();
-  const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='done'&&(k==='arrived'||k==='released'))||(f==='late'&&k==='late');};
+  const f=state.filter,all=curSchool().data?state.children.slice():[];
+  const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='arr'&&k==='arrived')||(f==='done'&&k==='released')||(f==='late'&&k==='late');};
+  const arrived=all.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||a.pickupAt)-(b.arrivedAt||b.pickupAt)).filter(match);
   const waiting=all.filter(c=>c.st==='waiting').sort((a,b)=>a.pickupAt-b.pickupAt);
-  const done=all.filter(c=>c.st!=='waiting').sort((a,b)=>b.pickupAt-a.pickupAt);
+  const done=all.filter(c=>c.st==='released').sort((a,b)=>b.pickupAt-a.pickupAt);
   const past=waiting.filter(c=>c.pickupAt<now()).filter(match),future=waiting.filter(c=>c.pickupAt>=now()).filter(match),doneF=done.filter(match);
-  const counts={all:all.length,yet:waiting.filter(c=>c.pickupAt>=now()).length,done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length};
+  const counts={all:all.length,arr:all.filter(c=>c.st==='arrived').length,yet:waiting.filter(c=>c.pickupAt>=now()).length,
+                done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length};
   const right=`<button class="hpill">${ic('filter',18)}絞り込み</button><button class="hpill">${ic('clock',18)}自動更新中</button>`;
-  return thead('お帰りタイムライン','clock',md(now())+'（'+wd(now())+'）お迎え予定時刻の'+state.thr.show+'分前から強調表示します',right)
-   +`<div class="tabs">${[['all','すべて'],['yet','未到着'],['done','到着済み'],['late','遅延']].map(([k,l])=>
+  return thead('お帰りタイムライン','clock',md(now())+'（'+wd(now())+'）'+curSchool().name,right)
+   +`<div class="tabs">${[['all','すべて'],['arr','到着'],['yet','未到着'],['late','遅延'],['done','受け渡し済み']].map(([k,l])=>
        `<button class="tab ${f===k?'on':''}" onclick="act('filter','${k}')">${l}（${counts[k]}）</button>`).join('')}</div>
      <div class="tbody">
+      ${arrived.length?`<div class="arrsec"><div class="hd">${ic('check',19)}お迎えの方が到着しています（${arrived.length}名）</div>
+        ${arrived.map(arrivedRow).join('')}</div>`:''}
       ${past.map(cardRow).join('')}
       ${(past.length&&future.length)?`<div class="nowbar">現在 ${hm(now())}</div>`:''}
       ${future.map(cardRow).join('')}
       ${doneF.length?`<div class="sec" style="color:var(--ink-2);font-size:13px">受け渡し済み</div>`+doneF.map(cardRow).join(''):''}
-      ${(!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">この条件に当てはまる園児はいません。</div>`:''}
+      ${(!arrived.length&&!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">${curSchool().data?'この条件に当てはまる園児はいません。':'本日のお迎え予定はまだ登録されていません。'}</div>`:''}
      </div>`;
 };
+function elapsedText(c){
+  const sec=Math.max(0,Math.floor((now()-(c.arrivedAt||now()))/1000));
+  return sec<60?sec+'秒':Math.floor(sec/60)+'分'+pad(sec%60)+'秒';
+}
+function arrivedRow(c){
+  const p=proxiesOf(c.id).find(x=>x.id===c.verified)||proxiesOf(c.id)[0];
+  return `<div class="arrbig" data-arr="${c.id}">
+    ${face(c,76)}
+    <div style="min-width:0;flex:1">
+      <div class="tiny muted">${c.cls}（${c.age}）</div>
+      <div class="big">${c.name}${c.sfx}</div>
+      <div class="room">${c.cls}の保育室へ向かっています</div>
+      <div class="meta" style="margin-top:5px">お迎え：${c.arrivedBy||c.by}　${hm(c.arrivedAt||now())}受付
+        ${c.prep?`<span class="pill green" style="margin-left:6px">${c.prep}が準備中</span>`:''}</div>
+    </div>
+    <div class="thumbs">
+      <div style="text-align:center"><div class="th">${c.shot?`<img src="${c.shot}" alt="">`:pic(p)}</div>
+        <div class="tiny muted" style="margin-top:3px">${c.shot?'受付の写真':'登録写真'}</div></div>
+      <div style="text-align:center"><div class="th">${pic(p)}</div>
+        <div class="tiny muted" style="margin-top:3px">登録写真</div></div>
+    </div>
+    <div style="text-align:center;min-width:92px">
+      <div class="tiny muted">到着から</div>
+      <div class="elapse js-arr">${elapsedText(c)}</div></div>
+    <div class="acts">
+      <button class="btn g" style="padding:10px 14px" onclick="act('camCheck','${c.id}')">写真を確認</button>
+      ${c.prep?'':`<button class="btn g" style="padding:10px 14px" onclick="act('prepStart','${c.id}')">準備を始める</button>`}
+      <button class="btn ok" style="padding:11px 16px" onclick="act('quickRelease','${c.id}')">${ic('check',18)}引き渡し完了</button></div>
+  </div>`;
+}
 function cardRow(c){
   const s=stat(c),t=countText(c);
   return `<button class="ccard ${s.tone}" data-cid="${c.id}" onclick="act('openChild','${c.id}')">
-    ${kid(c.id,46)}
+    ${face(c,46)}
     <div style="min-width:0">
       <div class="tiny muted">${c.cls}（${c.age}）</div>
       <div class="nm">${c.name}${c.sfx}</div>
@@ -823,12 +1016,12 @@ SCR.S11=()=>{
   return thead('園児詳細','users','',`<button class="hpill" onclick="act('go','S10')">${ic('back',18)}お帰りタイムライン</button>`)
   +`<div class="tbody" style="max-width:880px">
     <div class="card" style="padding:20px;display:flex;gap:18px;align-items:center">
-      ${kid(c.id,72)}
+      ${face(c,72)}
       <div style="flex:1"><div class="tiny muted">${c.cls}（${c.age}）</div>
         <div style="font-family:var(--disp);font-weight:900;font-size:24px">${c.name}${c.sfx}</div>
         <div class="tiny muted" style="margin-top:3px">本日のお迎え担当：${c.by}</div></div>
       <div style="text-align:right"><span class="pill ${s.tone}">${s.label}</span>
-        <div style="font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);margin-top:6px">${hm(c.pickupAt)}</div>
+        <div style="font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);margin-top:6px">${hmx(c.pickupAt)}</div>
         <div class="tiny muted">${t.plain?t.big:t.pre+' '+t.big+' 分'}</div></div></div>
     <div class="grid2" style="margin-top:15px">
       <div class="card" style="padding:18px"><div class="sec" style="margin:0 0 9px">本日の連絡</div>
@@ -837,7 +1030,7 @@ SCR.S11=()=>{
           ・連絡帳：体温 36.5℃／機嫌 良好<br>・アレルギー等の申し送りなし</div></div>
       <div class="card" style="padding:18px"><div class="sec" style="margin:0 0 9px">登録されている代理人</div>
         ${ps.map(p=>`<div style="display:flex;gap:11px;align-items:center;margin-bottom:10px">
-          <div style="width:40px;height:46px;border-radius:9px;overflow:hidden;flex:none">${p.photo?adult(0,p.style):silhouette()}</div>
+          <div style="width:40px;height:46px;border-radius:9px;overflow:hidden;flex:none">${pic(p)}</div>
           <div style="flex:1;font-size:13px"><b>${p.name}</b> <span class="muted tiny">（${p.rel}）</span>
             <div class="tiny muted">${p.photo?'顔写真 登録済み':'特徴メモ：'+(p.memo||'未登録')}</div></div></div>`).join('')}</div></div>
     <div style="display:flex;gap:11px;margin-top:18px;flex-wrap:wrap">
@@ -853,7 +1046,7 @@ SCR.S12=()=>{
   +`<div class="tbody">
     <div style="margin-bottom:12px"><button class="hpill" onclick="act('go','S11')">${ic('back',18)}${c.name}${c.sfx}の詳細へ戻る</button></div>
     ${ps.map(p=>`<button class="pxcard" onclick="act('pickProxy','${p.id}')">
-      <div class="pxphoto">${p.photo?adult(0,p.style):silhouette()}</div>
+      <div class="pxphoto">${pic(p)}</div>
       <div class="pxinfo">
         <div class="pxtop"><span class="pill pri">優先順位 ${p.prio}</span>
           <span style="margin-left:auto">${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</span></div>
@@ -861,12 +1054,14 @@ SCR.S12=()=>{
         <div class="dl">
           <div class="row">${ic('user',19)}<span class="lb">続柄</span><span>${p.rel}</span></div>
           <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
-          <div class="row">${ic('idcard',19)}<span class="lb">認証方法</span><span>${p.auth||(p.photo?'顔認証（写真登録済み）':'認証済み（事前登録）')}</span></div>
+          <div class="row">${ic('idcard',19)}<span class="lb">確認方法</span><span>${p.auth||(p.photo?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）')}</span></div>
           ${p.photo?'':`<div class="row memo">${ic('pencil',19)}<span class="lb">特徴メモ</span><b>${p.memo||'未入力'}</b></div>`}
           <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div>
         </div></div>
       <span class="chev">${ic('chev',24)}</span></button>`).join('')}
-    <div class="note">${ic('info',22,'#C9AE8E')}<div>代理人の追加・変更は、保護者の申請と園の承認が必要です。<br>顔写真や特徴メモを必ず確認し、本人確認を徹底してください。</div></div></div>`;
+    <button class="btn g" style="width:100%;justify-content:center;margin-bottom:14px" onclick="act('holdStart')">
+      ${ic('info',20)}リストにない方が来た／本人か分からない</button>
+    <div class="note">${ic('info',22,'#C9AE8E')}<div>写真や特徴メモと見比べて、職員が確認してください。代理人の追加・変更には保護者の申請と園の承認が必要です。</div></div></div>`;
 };
 
 /* --- S13 照合結果 --- */
@@ -875,8 +1070,8 @@ SCR.S13=()=>{
   return thead('照合結果','idcard',c.name+c.sfx+'（'+c.cls+'）のお迎え',`<button class="hpill" onclick="act('go','S12')">${ic('back',18)}代理人リストへ戻る</button>`)
   +`<div class="tbody"><div class="grid2" style="align-items:start">
     <div class="card" style="padding:18px">
-      ${p.photo?`<div style="border-radius:14px;overflow:hidden;aspect-ratio:1/1.05">${adult(0,p.style)}</div>
-                 <div class="tiny muted" style="margin-top:9px">事前登録された顔写真</div>`
+      ${p.photo?`<div style="border-radius:14px;overflow:hidden;aspect-ratio:1/1.05">${pic(p)}</div>
+                 <div class="tiny muted" style="margin-top:9px">保護者が登録した写真</div>`
                :`<div class="memo-row" style="padding:26px;font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.8;color:#8A7549;text-align:center">${p.memo||'特徴メモが未登録です'}</div>
                  <div class="tiny muted" style="margin-top:9px">顔写真がないため、特徴メモで確認します</div>`}</div>
     <div>
@@ -888,10 +1083,11 @@ SCR.S13=()=>{
         <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
         <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${c.name}${c.sfx}（${c.cls}）</span></div>
         <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div></div></div>
-      <div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>画面の内容と目の前の方を見比べて、一致するか確認してください。担任以外の職員でも判断できます。</div></div>
+      <div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>写真・特徴メモと見比べて確認してください。確認方法と担当した職員が記録に残ります。</div></div>
       <div style="display:flex;gap:11px;margin-top:16px;flex-wrap:wrap">
-        <button class="btn ok" onclick="act('matchOk')">${ic('check',20)}一致した　引き渡しへ進む</button>
-        <button class="btn ng" onclick="act('matchNg')">確認できない</button></div>
+        <button class="btn ok" onclick="act('matchOk')">${ic('check',20)}本人と確認できた｜引き渡しへ</button>
+        ${state.cam.on?`<button class="btn g" onclick="act('camFrom','${p.id}')">${ic('idcard',20)}カメラで照合する</button>`:''}
+        <button class="btn ng" onclick="act('matchNg')">確認できない｜保留にする</button></div>
     </div></div></div>`;
 };
 
@@ -907,24 +1103,33 @@ SCR.S14=()=>{
         <div class="row">${ic('user',19)}<span class="lb">引き渡した方</span><span>${who}</span></div>
         <div class="row">${ic('clock',19)}<span class="lb">時刻</span><span>${hm(now())}</span></div>
         <div class="row">${ic('idcard',19)}<span class="lb">対応した職員</span><span>${state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'}</span></div></div></div>
-      <div class="note" style="margin-top:16px;text-align:left">${ic('info',20,'#C9AE8E')}<div>「完了」を押すと園児のステータスが降園済みに変わり、お帰りタイムラインの未降園一覧から外れます。</div></div>
       <div style="margin-top:18px"><button class="btn" onclick="act('release')">完了</button></div></div></div>`;
 };
 
-/* --- S15 職員用タイムライン（画像2をそのまま再現） --- */
+/* --- S15 職員用タイムライン（検索・絞り込みを実装） --- */
 SCR.S15=()=>{
-  const right=`<button class="hpill">${ic('search',18)}検索</button><button class="hpill">${ic('filter',18)}絞り込み</button><button class="hpill">${ic('dots',18)}その他</button>`;
+  const q=(state.q||'').trim(), pf=state.pfilter;
+  const right=`<button class="hpill ${state.showSearch?'solid':''}" onclick="act('toggleSearch')">${ic('search',18)}検索</button>
+    <button class="hpill ${pf!=='all'?'solid':''}" onclick="act('cyclePF')">${ic('filter',18)}${pf==='all'?'絞り込み':pf==='clerk'?'事務のみ':pf==='teacher'?'担任のみ':'自動通知のみ'}</button>
+    <button class="hpill" onclick="act('go','S25')">${ic('clip',18)}引き渡し記録</button>`;
+  const list=state.posts.filter(p=>(pf==='all'||p.kind===pf)&&(!q||(p.txt+p.who).replace(/<[^>]+>/g,'').includes(q)));
+  const admin=state.role==='admin';
   return thead('職員用タイムライン','chat','',right)+`<div class="tbody">
-    <div class="composer">${flower(state.role==='clerk'?'#F2A7BC':'#F5C842',46)}
+    ${state.showSearch?`<div class="compbox" style="margin-bottom:14px">${ic('search',18,'#BCADA1')}
+      <input id="tlSearch" value="${state.q||''}" placeholder="園児名・内容・投稿者で検索" oninput="act('tlq',this.value)">
+      ${q?`<button class="hpill" onclick="act('tlq','')">消す</button>`:''}</div>`:''}
+    ${admin?`<div class="note" style="margin-bottom:14px">${ic('info',20,'#C9AE8E')}<div>保育課のアカウントは閲覧のみです。</div></div>`
+      :`<div class="composer">${flower(state.role==='clerk'?'#F2A7BC':'#F5C842',46)}
       <div class="compbox"><input id="quick" placeholder="タイムラインに投稿する" onkeydown="if(event.key==='Enter')act('quickPost')">
-        <button class="hpill solid" onclick="act('quickPost')">${ic('pencil',18)}投稿</button></div></div>
-    <div class="daysep"><span>今日</span></div>
-    ${state.posts.map(p=>`<div class="post ${p.kind}">
+        <button class="hpill solid" onclick="act('quickPost')">${ic('pencil',18)}投稿</button></div></div>`}
+    <div class="daysep"><span>今日${(q||pf!=='all')?`　${list.length}件`:''}</span></div>
+    ${list.length?list.map(p=>`<div class="post ${p.kind}">
       ${flower(p.kind==='clerk'?'#F2A7BC':p.kind==='sys'?'#8FC3E8':'#F5C842',52)}
       <div class="bub"><div class="who"><b>${p.who}</b><span class="t">${hm(p.t)}</span><span class="more">${ic('dots',18)}</span></div>
         <div class="txt">${p.txt}</div>
         <div class="reacts"><button class="react ${p.ack?'on':''}" onclick="act('ack','${p.id}')">${ic('smile',17)}了解しました</button>
-          ${p.ack?`<span class="react">${ic('thumb',17)}${p.ack}</span>`:''}</div></div></div>`).join('')}
+          ${p.ack?`<span class="react">${ic('thumb',17)}${p.ack}</span>`:''}</div></div></div>`).join('')
+     :`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2)">該当する投稿はありません。</div>`}
   </div>`;
 };
 
@@ -938,30 +1143,47 @@ SCR.S16=()=>thead('メモを追加','pencil','',`<button class="hpill" onclick="
     <textarea class="inp" id="memoTxt" rows="4" placeholder="例）ひなたちゃんは園庭で待機しています。"></textarea>
     <div style="margin-top:15px;display:flex;gap:11px"><button class="btn" onclick="act('postMemo')">${ic('pencil',20)}投稿する</button>
       <button class="btn g" onclick="act('go','S15')">やめる</button></div>
-    <div class="tiny muted" style="margin-top:11px">投稿者と時刻が記録され、他の職員の端末にすぐ表示されます。</div></div></div>`;
+    <div class="tiny muted" style="margin-top:11px">投稿者と時刻が記録されます。</div></div></div>`;
 
-/* --- S17 代理入力 --- */
-SCR.S17=()=>thead('代理入力','phone','電話で受けた連絡を、園児の予定と職員タイムラインへ同時に反映します。')
- +`<div class="tbody" style="max-width:720px"><div class="card" style="padding:20px">
-    <label class="fieldl" style="margin-top:0">園児</label>
-    <select class="inp" id="agChild">${state.children.filter(c=>c.st==='waiting').map(c=>`<option value="${c.id}">${c.name}${c.sfx}（${c.cls}）　現在の予定 ${hm(c.pickupAt)}</option>`).join('')}</select>
+/* --- S17 代理入力（園児をクラスと名前で絞り込み） --- */
+SCR.S17=()=>{
+  const waiting=state.children.filter(c=>c.st==='waiting');
+  const classes=[...new Set(state.children.map(c=>c.cls))];
+  const q=(state.ag.q||'').trim();
+  const list=waiting.filter(c=>(!state.ag.cls||c.cls===state.ag.cls)&&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
+  const sel=child(state.ag.cid)||list[0]||waiting[0];
+  return thead('代理入力','phone','電話で受けた連絡を登録します。')
+  +`<div class="tbody" style="max-width:760px"><div class="card" style="padding:20px">
+    <label class="fieldl" style="margin-top:0">園児をさがす</label>
+    <div class="tabs" style="padding:0 0 9px">
+      <button class="tab ${!state.ag.cls?'on':''}" onclick="act('agCls','')">すべて</button>
+      ${classes.map(cl=>`<button class="tab ${state.ag.cls===cl?'on':''}" onclick="act('agCls','${cl}')">${cl}</button>`).join('')}</div>
+    <div class="compbox" style="margin-bottom:10px">${ic('search',18,'#BCADA1')}
+      <input id="agSearch" value="${state.ag.q||''}" placeholder="園児の名前で検索（例：やまと）" oninput="act('agq',this.value)"></div>
+    <div style="max-height:200px;overflow-y:auto;display:grid;gap:7px">
+      ${list.length?list.map(c=>`<button class="chk ${sel&&sel.id===c.id?'on':''}" style="margin:0" onclick="act('agPick','${c.id}')">
+        <span class="box">${ic('check',14)}</span>
+        <span style="flex:1"><b>${c.name}${c.sfx}</b> <span class="tiny muted">${c.cls}</span>
+          <span class="tiny muted" style="display:block">現在の予定 ${hm(c.pickupAt)}／${c.by}</span></span></button>`).join('')
+       :`<div class="tiny muted" style="padding:14px">該当する園児がいません。クラスや名前を変えてさがしてください。</div>`}</div>
     <label class="fieldl">連絡の種類</label>
     <select class="inp" id="agType"><option value="late">お迎えが遅くなる</option><option value="early">お迎えが早くなる</option>
       <option value="proxy">代理人がお迎えに来る</option><option value="absent">早退・欠席</option></select>
     <label class="fieldl">変更後のお迎え時刻</label>
     <input class="inp" id="agTime" type="time" value="${pad(new Date(now()).getHours())}:${pad(new Date(now()).getMinutes())}">
     <label class="fieldl">受電メモ</label><textarea class="inp" id="agMemo" rows="3" placeholder="例）電車遅延のため15分ほど遅れるとのこと。"></textarea>
-    <div style="margin-top:15px"><button class="btn" onclick="act('submitAgent')">${ic('chat',20)}登録して全職員に共有</button></div>
+    <div style="margin-top:15px"><button class="btn" ${sel?'':'disabled'} onclick="act('submitAgent')">${ic('chat',20)}${sel?sel.name+sel.sfx+'の連絡を登録':'園児を選んでください'}</button></div>
     <div class="tiny muted" style="margin-top:11px">登録者：渡辺 さくら（事務スタッフ）／受電時刻：${hm(now())}</div></div></div>`;
+};
 
 /* --- S18 園児・代理人情報管理 --- */
 SCR.S18=()=>thead('園児一覧','users','さくら保育園')+`<div class="tbody">
   <div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>クラス</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>
   ${state.children.map(c=>{const s=stat(c);
     return `<tr><td><b>${c.name}${c.sfx}</b></td><td>${c.cls}</td><td>${hm(c.pickupAt)}</td><td>${c.by}</td>
-      <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）'+(p.photo?'📷':'📝')).join('<br>')}</td>
+      <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）<span class="pill '+(p.photo?'green':'amber')+'" style="margin-left:5px">'+(p.photo?'写真':'メモ')+'</span>').join('<br>')}</td>
       <td><span class="pill ${s.tone}">${s.label}</span></td></tr>`;}).join('')}</table></div>
-  <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>📷 顔写真あり／📝 特徴メモで確認。代理人の追加・変更は保護者の申請と園の承認が必要です。</div></div></div>`;
+  <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>代理人の追加・変更には、保護者の申請と園の承認が必要です。</div></div></div>`;
 
 /* --- S19 / S20 自治体 --- */
 SCR.S19=()=>{
@@ -977,18 +1199,29 @@ SCR.S19=()=>{
       <tr><td>みなみ保育園</td><td>川崎区</td><td>134</td><td>11件</td><td>2件</td><td><span class="pill green">稼働中</span></td></tr>
       <tr><td>ひがし保育園</td><td>幸区</td><td>88</td><td>—</td><td>—</td><td><span class="pill amber">導入準備中</span></td></tr></table></div>
     <div style="margin-top:16px"><button class="btn" onclick="act('go','S20')">${ic('school',20)}園情報管理へ</button></div>
-    <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>※管理項目・権限管理の詳細は資料で定義されていないため、実装前に追加仕様の決定が必要です。</div></div></div>`;
+    </div>`;
 };
 SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
  +`<div class="tbody" style="max-width:780px">
   <div class="card" style="padding:6px 18px"><div class="dl">
-    <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市中原区（デモ）</span></div>
+    <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市中原区上小田中</span></div>
     <div class="row">${ic('users',19)}<span class="lb">園児 / 職員</span><span>112名 / 24名</span></div>
     <div class="row">${ic('photo',19)}<span class="lb">表示端末</span><span>玄関タブレット 2台・保育室 4台</span></div>
     <div class="row">${ic('cal',19)}<span class="lb">利用開始日</span><span>2026年4月1日</span></div></div></div>
+  <div class="sec">受付カメラ</div>
+  <div class="card" style="padding:4px 16px">
+    ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と並べて確認します'],
+       ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
+      <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
+        <span style="flex:1">${t}<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">${sub}</small></span>
+        <button class="sw ${state.cam[k]?'on':''}" onclick="act('camSet','${k}')"><span></span></button></div>`).join('')}
+    <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;font-size:14px">
+      <span style="flex:1">時刻を24時間表示にする<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">オフのときは AM・PM で表示します</small></span>
+      <button class="sw ${state.clock24?'on':''}" onclick="act('clock24')"><span></span></button></div>
+  </div>
   <div class="sec">お帰りタイムラインの色分け条件</div>
   <div class="card" style="padding:18px">
-    <div class="tiny muted" style="margin-bottom:10px">資料では緑・黄・赤の色分けのみが示され、時間条件は未定義でした。ここで園ごとに設定します。</div>
+    <div class="tiny muted" style="margin-bottom:10px">お迎え予定時刻までの残り時間に応じて、園児カードの色が変わります。</div>
     <label class="fieldl" style="margin-top:0">黄（まもなく到着）に切り替える　お迎え予定の何分前から</label>
     <input class="inp" id="thrSoon" type="number" min="1" max="30" value="${state.thr.soon}">
     <label class="fieldl">タイムラインで強調を始める　お迎え予定の何分前から</label>
@@ -997,52 +1230,392 @@ SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class
     <div style="margin-top:15px"><button class="btn" onclick="act('saveThr')">保存する</button></div></div></div>`;
 
 /* =========================================================
+   追加画面（フィードバック対応）
+   ========================================================= */
+
+/* --- S21 お知らせ・通知（保護者） --- */
+SCR.S21=()=>{
+  const ns=(state.notices||[]).slice().sort((a,b)=>b.t-a.t), un=ns.filter(n=>!n.read).length;
+  return `${phead('お知らせ','S02')}<div class="pbody">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <span class="pill orange">未読 ${un}件</span>
+      ${un?`<button class="hpill" style="margin-left:auto;min-height:36px" onclick="act('readAll')">すべて既読にする</button>`:''}</div>
+    ${ns.length?ns.map(n=>`<button class="card" style="padding:15px 17px;margin-bottom:10px;width:100%;text-align:left;${n.read?'opacity:.72':''}"
+        onclick="act('readNotice','${n.id}')">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="pill ${n.kind==='お迎え連絡'?'green':n.kind==='連絡帳'?'orange':'gray'}">${n.kind}</span>
+        <span class="tiny muted">${md(n.t)} ${hm(n.t)}</span>
+        ${n.read?'':'<span style="margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--o)"></span>'}</div>
+      <b style="font-family:var(--disp);display:block;margin-top:7px">${n.title}</b>
+      <div style="font-size:13px;margin-top:4px;line-height:1.7">${n.body}</div></button>`).join('')
+     :`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2);font-size:13px">お知らせはありません。</div>`}
+  </div>`;
+};
+
+/* --- S22 メニュー（保護者） --- */
+SCR.S22=()=>{
+  const rows=[['S07','代理人の登録・確認','お迎えをお願いできる方','users'],
+              ['S08','お迎えカード','代理人の方が来るときに提示','idcard'],
+              ['S05','欠席・遅刻の連絡','通院・長期のお休み','cal'],
+              ['S06','連絡帳','体調・様子の記入','book'],
+              ['S21','お知らせ','園からの連絡','mail']];
+
+  return `${phead('メニュー','S02')}<div class="pbody">
+    <div class="card" style="padding:15px 17px;display:flex;gap:12px;align-items:center">
+      ${face(child('c1'),46)}<div style="flex:1"><b style="font-family:var(--disp)">山田 花子 さま</b>
+        <div class="tiny muted">山田 ひなたちゃん（ひまわり組）の保護者</div>
+        <div class="tiny muted">ID：yamada-h</div></div>
+      <input type="file" id="kidFile" accept="image/*" style="display:none" onchange="act('kidFile',this)">
+      <button class="hpill" onclick="document.getElementById('kidFile').click()">写真を変更</button></div>
+    <div class="sec">よく使う機能</div>
+    ${rows.map(([id,t,sub,i])=>`<button class="rowbtn" onclick="act('go','${id}')">${ic(i,20,'#B69C7E')}
+      <span class="gr">${t}<small>${sub}</small></span>
+      <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
+    <div class="sec">お知らせの受け取り</div>
+    <div class="card" style="padding:4px 16px">
+      ${[['pickup','お迎え時間の変更'],['diary','連絡帳の返信'],['news','園からのお知らせ']].map(([k,t])=>`
+        <div class="row" style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
+          <span style="flex:1">${t}</span>
+          <button class="sw ${state.settings[k]?'on':''}" onclick="act('toggleSet','${k}')"><span></span></button></div>`).join('')}
+      <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
+        <span style="flex:1">時刻を24時間表示にする</span>
+        <button class="sw ${state.clock24?'on':''}" onclick="act('clock24')"><span></span></button></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;font-size:14px">
+        <span style="flex:1">園の連絡先</span>
+        <button class="hpill" style="min-height:36px" onclick="act('callSchool')">${ic('phone',16)}044-000-0000</button></div>
+    </div>
+    <div style="margin-top:18px"><button class="cta ghost" onclick="act('logout')">ログアウト</button></div>
+  </div>`;
+};
+
+/* --- S23 連絡帳（園側：園児を選んで確認・返信） --- */
+SCR.S23=()=>{
+  const classes=[...new Set(state.children.map(c=>c.cls))];
+  const q=(state.dq||'').trim();
+  const list=state.children.filter(c=>(!state.dcls||c.cls===state.dcls)&&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
+  const sel=state.diaryChild?child(state.diaryChild):null;
+  const entries=sel?(state.diary[sel.id]||[]):[];
+  const admin=state.role==='admin';
+  return thead('連絡帳','book',curSchool().name)
+  +`<div class="tabs"><button class="tab ${!state.dcls?'on':''}" onclick="act('dcls','')">すべて</button>
+     ${classes.map(cl=>`<button class="tab ${state.dcls===cl?'on':''}" onclick="act('dcls','${cl}')">${cl}</button>`).join('')}</div>
+   <div class="tbody"><div class="grid2" style="align-items:start">
+    <div>
+      <div class="compbox" style="margin-bottom:11px">${ic('search',18,'#BCADA1')}
+        <input id="dSearch" value="${state.dq||''}" placeholder="園児の名前で検索" oninput="act('dq',this.value)"></div>
+      ${list.map(c=>{const e=(state.diary[c.id]||[])[0];
+        return `<button class="ccard ${e?(e.reply?'gray':'amber'):'green'}" style="margin-bottom:9px" onclick="act('pickDiary','${c.id}')">
+          ${face(c,42)}
+          <div style="min-width:0"><div class="tiny muted">${c.cls}</div><div class="nm">${c.name}${c.sfx}</div>
+            <div class="meta">${e?(e.reply?'返信済み':'保護者の記入あり・未返信'):'本日の記入なし'}</div></div>
+          <span class="chev" style="margin-left:auto">${ic('chev',18)}</span></button>`;}).join('')}
+      ${list.length?'':`<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">該当する園児がいません。</div>`}
+    </div>
+    <div>${sel?`
+      <div class="card" style="padding:18px">
+        <div style="display:flex;gap:12px;align-items:center">${face(sel,46)}
+          <div><b style="font-family:var(--disp);font-size:17px">${sel.name}${sel.sfx}</b>
+            <div class="tiny muted">${sel.cls}（${sel.age}）</div></div></div>
+        ${entries.length?entries.map(d=>`<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:13px">
+          <div style="display:flex;gap:8px;align-items:center"><b style="font-family:var(--disp);font-size:14px">${d.d}</b>
+            <span class="pill gray">体温 ${d.temp}℃</span><span class="pill gray">機嫌 ${d.mood}</span></div>
+          <div style="font-size:13px;margin-top:8px;line-height:1.8">${d.txt}</div>
+          ${d.reply?`<div style="margin-top:10px;background:var(--o-l2);border-radius:12px;padding:11px 13px;font-size:13px">
+            <b class="tiny" style="color:var(--o-d)">園から</b><br>${d.reply}</div>`:''}</div>`).join('')
+         :`<div class="tiny muted" style="margin-top:14px">本日の記入はまだありません。</div>`}
+        ${admin?`<div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>保育課のアカウントは閲覧のみです。</div></div>`
+         :`<label class="fieldl">園からの返信</label>
+          <textarea class="inp" id="dReply" rows="3" placeholder="例）園でも元気に過ごしていました。咳は見られませんでした。"></textarea>
+          <div style="margin-top:12px"><button class="btn" onclick="act('saveReply')">${ic('mail',20)}返信を送る</button></div>`}
+      </div>`
+     :`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2);font-size:13px">
+        左の一覧から園児を選ぶと、連絡帳の内容が表示されます。</div>`}</div>
+   </div></div>`;
+};
+
+/* --- S24 引き渡し保留・確認手順 --- */
+SCR.S24=()=>{
+  const c=child(state.childId), h=state.hold||{steps:{},who:''};
+  const ps=proxiesOf(c.id), tel=(ps[0]||{}).tel||'—';
+  const steps=[['s1','園児を保育室で待たせ、その場を離れない'],
+               ['s2','保護者（'+tel+'）に電話で確認する'],
+               ['s3','担任・主任に状況を伝える'],
+               ['s4','来園した方の氏名・特徴を記録する']];
+  const canPass=h.steps&&h.steps.s2;
+  return thead('引き渡しの保留','info',c.name+c.sfx+'（'+c.cls+'）',`<button class="hpill" onclick="act('go','S12')">${ic('back',18)}代理人リストへ</button>`)
+  +`<div class="tbody" style="max-width:760px">
+    <div class="err" style="margin-bottom:16px"><b>本人確認ができるまで引き渡さないでください。</b><br>
+      登録のない方、写真や特徴メモと一致しない方には、園児をお渡ししません。確認が取れるまでこの画面の手順で対応します。</div>
+    <div class="sec">確認の手順</div>
+    ${steps.map(([k,t])=>`<button class="chk ${h.steps&&h.steps[k]?'on':''}" onclick="act('holdStep','${k}')">
+      <span class="box">${ic('check',14)}</span><span>${t}</span></button>`).join('')}
+    <div class="card" style="padding:17px;margin-top:6px">
+      <label class="fieldl" style="margin-top:0">来園した方の氏名・特徴（記録に残ります）</label>
+      <input class="inp" id="holdWho" value="${h.who||''}" placeholder="例）鈴木と名乗る60代くらいの男性、黒い帽子">
+      <div style="display:flex;gap:11px;margin-top:15px;flex-wrap:wrap">
+        <button class="btn ok" ${canPass?'':'disabled'} onclick="act('holdOk')">${ic('check',20)}保護者に確認が取れた｜引き渡しへ</button>
+        <button class="btn ng" onclick="act('holdNg')">引き渡さずに記録する</button></div>
+      <div class="tiny muted" style="margin-top:10px">対応した職員と時刻が記録に残ります。</div>
+    </div></div>`;
+};
+
+/* --- S25 引き渡し記録 --- */
+SCR.S25=()=>{
+  const rs=(state.records||[]).slice().reverse();
+  return thead('引き渡し記録','clip',md(now())+'（'+wd(now())+'）')+`<div class="tbody">
+    ${rs.length?`<div class="tablewrap"><table class="tbl">
+      <tr><th>時刻</th><th>園児</th><th>渡した相手</th><th>確認方法</th><th>対応した職員</th><th>結果</th></tr>
+      ${rs.map(r=>`<tr><td>${hm(r.t)}</td><td><b>${r.child}</b></td>
+        <td>${r.shot?`<img src="${r.shot}" alt="" style="width:34px;height:40px;object-fit:cover;border-radius:7px;vertical-align:middle;margin-right:7px">`:''}${r.to}</td>
+        <td>${r.how}</td><td>${r.staff}</td>
+        <td><span class="pill ${r.ng?'red':'green'}">${r.ng?'引き渡さず':'引き渡し済み'}</span></td></tr>`).join('')}</table></div>`
+     :`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2);font-size:13px">
+        まだ記録はありません。お帰りタイムラインから引き渡しを行うと、ここに残ります。</div>`}
+    </div>`;
+};
+
+/* --- S26 園の切り替え（自治体管理者） --- */
+SCR.S26=()=>thead('園の画面を確認','school','')
+ +`<div class="tbody"><div class="grid2">
+  ${SCHOOLS.map(sc=>`<button class="tile" onclick="act('school','${sc.id}')" style="display:flex;gap:13px;align-items:center;${state.schoolId===sc.id?'outline:2.5px solid var(--o)':''}">
+    <span style="color:var(--o)">${ic('school',26)}</span>
+    <span style="flex:1;text-align:left"><b style="margin:0">${sc.name}</b>
+      <small>${sc.ward}・園児 ${sc.n}名${sc.prep?'／導入準備中':''}</small></span>
+    ${sc.prep?'<span class="pill amber">導入準備中</span>':'<span class="pill green">稼働中</span>'}</button>`).join('')}
+  </div></div>`;
+
+/* =========================================================
+   受付カメラ（玄関のタブレット）
+   ========================================================= */
+SCR.S27=()=>{
+  const step=state.camStep||'pick';
+  const sel=child(state.camChild);
+
+  if(step==='done'){
+    const c=sel||state.children[0];
+    return `<div class="tbody"><div class="kiosk" style="padding-top:26px">
+      <div style="width:104px;height:104px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',56,'#48A876')}</div>
+      <h3 style="margin-top:18px">受付が完了しました</h3>
+      <div class="lead">${c.name}${c.sfx}の先生にお知らせしました。<br>${c.cls}の保育室でお待ちください。</div>
+      <div class="card" style="padding:18px;display:inline-flex;gap:14px;align-items:center;text-align:left">
+        ${face(c,56)}<div><b style="font-family:var(--disp);font-size:18px">${c.name}${c.sfx}</b>
+          <div class="tiny muted">${c.cls}／受付 ${hm(now())}</div></div></div>
+      <div style="margin-top:22px"><button class="btn" onclick="act('camReset')">最初の画面に戻る</button></div>
+    </div></div>`;
+  }
+
+  if(step==='who'&&sel){
+    const ps=proxiesOf(sel.id);
+    return `<div class="tbody"><div class="kiosk" style="padding-top:14px">
+      <h3>どなたがお迎えですか？</h3>
+      <div class="lead">${sel.name}${sel.sfx}（${sel.cls}）</div>
+      <div class="pickgrid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">
+        ${ps.map(pp=>`<button class="pickcard" onclick="act('camWho','${pp.id}')">
+          <div style="width:84px;height:96px;border-radius:14px;overflow:hidden;background:#EFEDEA">${pic(pp)}</div>
+          <b>${pp.name}</b><small>${pp.rel}</small></button>`).join('')}
+      </div>
+      <div style="margin-top:20px"><button class="btn g" onclick="act('camReset')">お子さまを選び直す</button></div>
+    </div></div>`;
+  }
+
+  if(step==='shoot'&&sel){
+    const p=proxiesOf(sel.id).find(x=>x.id===state.camProxy)||proxiesOf(sel.id)[0];
+    const err=state.camErr;
+    return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
+      <h3>カメラに顔を向けてください</h3>
+      <div class="lead">${sel.name}${sel.sfx}のお迎え／${p.name}さん（${p.rel}）</div>
+      <div class="camwrap">
+        ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="guide"></div>`
+         :err?`<div class="ph">カメラを使えませんでした。<br>${err==='denied'?'ブラウザでカメラの使用を許可してください。':'この端末ではカメラを直接使えません。'}<br>下のボタンから撮影できます。</div>`
+         :`<div class="ph">「カメラを開始」を押してください。</div>`}
+      </div>
+      ${camStream?`<button class="shutter" onclick="act('shoot')">${ic('idcard',30,'#E4762A')}</button>
+        <div class="tiny muted" style="margin-top:8px">ボタンを押すと撮影し、受付が完了します</div>`
+       :`<div style="margin-top:14px;display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
+          <button class="btn" onclick="act('camStart')">${ic('idcard',20)}カメラを開始</button>
+          <input type="file" id="camFile" accept="image/*" capture="user" style="display:none" onchange="act('camFile',this)">
+          <button class="btn g" onclick="document.getElementById('camFile').click()">端末のカメラで撮影</button></div>`}
+      <div style="margin-top:18px"><button class="btn g" onclick="act('camReset')">はじめに戻る</button></div>
+    </div></div>`;
+  }
+
+  const classes=[...new Set(state.children.map(c=>c.cls))];
+  const q=(state.camq||'').trim();
+  const list=state.children.filter(c=>c.st==='waiting'&&(!state.camcls||c.cls===state.camcls)
+    &&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
+  return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
+    <h3>お迎えの受付</h3>
+    <div class="lead">お子さまを選んでください</div>
+    <div class="tabs" style="padding:0 0 10px;justify-content:center">
+      <button class="tab ${!state.camcls?'on':''}" onclick="act('camCls','')">すべて</button>
+      ${classes.map(cl=>`<button class="tab ${state.camcls===cl?'on':''}" onclick="act('camCls','${cl}')">${cl}</button>`).join('')}</div>
+    <div class="compbox" style="max-width:420px;margin:0 auto 14px">${ic('search',18,'#BCADA1')}
+      <input id="camSearch" value="${state.camq||''}" placeholder="お名前で検索" oninput="act('camq',this.value)"></div>
+    <div class="pickgrid">
+      ${list.map(c=>`<button class="pickcard" onclick="act('camPick','${c.id}')">
+        ${face(c,72)}<b>${c.name}${c.sfx}</b><small>${c.cls}／お迎え ${hm(c.pickupAt)}</small></button>`).join('')}
+    </div>
+    ${list.length?'':`<div class="card" style="padding:28px;color:var(--ink-2);font-size:13.5px">本日の未降園の園児はいません。</div>`}
+  </div></div>`;
+};
+
+/* --- S28 受付写真の確認（保育士側） --- */
+SCR.S28=()=>{
+  const c=child(state.camChild)||state.children[0];
+  const p=proxiesOf(c.id).find(x=>x.id===c.verified)||proxiesOf(c.id)[0];
+  return thead('受付写真の確認','idcard',c.name+c.sfx+'（'+c.cls+'）',`<button class="hpill" onclick="act('go','S10')">${ic('back',18)}お帰りタイムライン</button>`)
+  +`<div class="tbody"><div class="grid2" style="align-items:start">
+    <div class="card" style="padding:18px">
+      <div class="shotbox">${c.shot?`<img src="${c.shot}" alt="">`:`<div style="display:grid;place-items:center;height:100%;color:#A6988C;font-size:13px;text-align:center;padding:20px">受付の写真は保存していません。<br>登録写真と目の前の方を見比べて確認してください。</div>`}</div>
+      <div class="tiny muted" style="margin-top:9px">玄関で撮影した写真（${hm(c.arrivedAt||now())}）</div></div>
+    <div class="card" style="padding:18px">
+      <div class="shotbox">${pic(p)}</div>
+      <div class="tiny muted" style="margin-top:9px">登録写真：${p.name}（${p.rel}）</div>
+      ${p.photo?'':`<div class="memo-row" style="margin-top:10px;padding:11px 13px;font-size:13px;color:#8A7549">特徴メモ：${p.memo||'未登録'}</div>`}</div>
+  </div>
+  <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>写真を見比べて、職員が確認してください。確認方法と担当した職員が記録に残ります。</div></div>
+  <div style="display:flex;gap:11px;margin-top:16px;flex-wrap:wrap">
+    <button class="btn ok" onclick="act('quickRelease','${c.id}')">${ic('check',20)}本人と確認できた｜引き渡し完了</button>
+    <button class="btn ng" onclick="act('camHold','${c.id}')">確認できない｜保留にする</button></div></div>`;
+};
+
+/* =========================================================
    アクション
    ========================================================= */
 function act(name,arg){
+  const blocked=['quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply','saveThr',
+    'quickRelease','prepStart','camHold','shoot','camFile','camSet','clock24'];
+  if(state.role==='admin'&&blocked.includes(name)){toast('保育課のアカウントは閲覧のみです');return;}
+  if(!['agq','tlq','dq'].includes(name))state.focusId='';
   switch(name){
     case 'go': state.screen=arg; state.sendErr=false; state.drawer=false; break;
     case 'drawer': state.drawer=!state.drawer; break;
     case 'hbar': state.hbar=!state.hbar; break;
     case 'jump': state.modal=null;
-      state.role=arg==='S01'?null:PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20')?'admin':(arg==='S17'?'clerk':'teacher');
+      state.role=arg==='S01'?null:PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20'||arg==='S26')?'admin':(arg==='S17'?'clerk':'teacher');
       state.screen=arg; state.drawer=false; break;
-    case 'login':{const pw=document.getElementById('lpw');
-      if(pw&&pw.value!=='demo1234'){state.loginErr=true;break;}
-      state.loginErr=false;state.role=arg;state.screen=arg==='parent'?'S02':arg==='admin'?'S19':'S09';
-      toast(arg==='parent'?'保護者としてログインしました':arg==='admin'?'自治体管理者としてログインしました':'園の職員としてログインしました');break;}
+    case 'fill':{const a=ACCOUNTS.find(x=>x.id===arg);if(a){state.loginId=a.id;state.loginPw=a.pw;state.loginErr='';}break;}
+    case 'login':{
+      const id=(document.getElementById('lid')||{}).value||'', pw=(document.getElementById('lpw')||{}).value||'';
+      state.loginId=id;state.loginPw=pw;
+      if(!id.trim()){state.loginErr='利用者IDを入力してください。';break;}
+      if(!pw){state.loginErr='パスワードを入力してください。';break;}
+      const a=ACCOUNTS.find(x=>x.id===id.trim()&&x.pw===pw);
+      if(!a){state.loginErr='IDまたはパスワードが違います。もう一度確認してください。';break;}
+      state.loginErr='';state.role=a.role;state.loginPw='';
+      state.screen=a.role==='parent'?'S02':a.role==='admin'?'S19':'S09';
+      toast(a.label+'としてログインしました');break;}
+    case 'logout': reset();toast('ログアウトしました');break;
+    case 'viewonly': toast('保育課のアカウントは閲覧のみです');break;
+    case 'toggleSet': state.settings[arg]=!state.settings[arg];break;
+    case 'callSchool': toast('さくら保育園　044-000-0000');break;
     case 'dir': state.sel.dir=arg;state.sel.min=null;state.sel.custom='';break;
     case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
     case 'custom': state.sel.custom=arg;state.sel.min=null;break;
     case 'focusCustom': state.showCustom=true;break;
     case 'submitPickup':{const nt=calcNew();if(!nt)break;
-      if(state.err){state.sendErr=true;toast('送信に失敗しました');break;}
+      if(state.err){state.sendErr=true;
+        state.pending={label:'お迎え時間の変更（'+hm(nt)+'）',at:now()};
+        toast('園に届きませんでした');break;}
       const c=child('c1'),before=c.pickupAt;if(!c.changed)c.planAt=before;
-      c.pickupAt=nt;c.changed='保護者アプリ';
+      c.pickupAt=nt;c.changed='保護者アプリ';c.changedAt=now();state.pending=null;
+      state.notices.unshift({id:'n'+Date.now(),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',
+        body:hm(before)+' から '+hm(nt)+' に変更しました。',t:now(),read:false});
       addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(nt)}</b> に変わります。`);
       state.sendErr=false;state.sel.min=null;state.sel.custom='';state.screen='S04';toast('園のタイムラインに反映しました');break;}
-    case 'submitAbsence':{const t=document.getElementById('abType').value,d=document.getElementById('abDate').value,x=document.getElementById('abTxt').value;
+    case 'absMulti': state.absMulti=!!arg;break;
+    case 'submitAbsence':{const t=document.getElementById('abType').value,x=document.getElementById('abTxt').value;
+      let d;
+      if(state.absMulti){const f=document.getElementById('abFrom').value,to=document.getElementById('abTo').value;
+        if(!f||!to){toast('開始日と終了日を選んでください');break;}
+        if(to<f){toast('終了日は開始日より後にしてください');break;}
+        const days=Math.round((new Date(to)-new Date(f))/86400000)+1;
+        d=f+' 〜 '+to+'（'+days+'日間）';
+      } else { d=document.getElementById('abDate').value; }
       state.absences.unshift({type:t,date:d,txt:x});const c=child('c1');
       addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者から「${t}」の連絡がありました。${x?'（'+x+'）':''}`);
       toast('園に送信しました');break;}
     case 'saveDiary':{const temp=document.getElementById('dTemp').value||'—',mood=document.getElementById('dMood').value,txt=document.getElementById('dTxt').value;
       state.diary.c1.unshift({d:md(now())+'（'+wd(now())+'）',temp,mood,txt:txt||'（記入なし）',reply:''});toast('連絡帳を保存しました');break;}
-    case 'pxPhoto': state.pxPhoto=!state.pxPhoto;toast(state.pxPhoto?'顔写真を選びました（デモ）':'顔写真の登録を取り消しました');break;
+    case 'pxFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.pxSrc=d;state.pxPhoto=true;render();toast('写真を読み込みました');});return;
+    case 'pxClear': state.pxSrc='';state.pxPhoto=false;break;
+    case 'kidFile': readImage(arg&&arg.files&&arg.files[0],d=>{child('c1').src=d;render();toast('写真を変更しました');});return;
     case 'savePx':{const n=document.getElementById('pxName').value.trim();
       if(!n){toast('氏名を入力してください');break;}
       (state.proxies.c1=state.proxies.c1||[]).push({id:'px'+Date.now(),name:n,kana:'',rel:document.getElementById('pxRel').value||'—',
-        tel:document.getElementById('pxTel').value,photo:state.pxPhoto?1:0,style:0,auth:state.pxPhoto?'顔認証（写真登録済み）':'認証待ち',
+        tel:document.getElementById('pxTel').value,photo:state.pxSrc?1:0,src:state.pxSrc||'',style:0,
+        auth:state.pxSrc?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）',
         memo:document.getElementById('pxMemo').value,prio:(state.proxies.c1||[]).length+1,ok:false});
-      state.pxPhoto=false;toast('保存しました。園の承認をお待ちください');break;}
-    case 'wallet': toast('ウォレット連携は仕様検討中です');break;
+      state.pxPhoto=false;state.pxSrc='';toast('保存しました。園の承認をお待ちください');break;}
     case 'filter': state.filter=arg;break;
+    case 'camCls': state.camcls=arg;break;
+    case 'camq': state.camq=arg;state.focusId='camSearch';break;
+    case 'camPick': state.camChild=arg;state.camProxy='';state.camStep='who';break;
+    case 'camWho': state.camProxy=arg;state.camStep='shoot';state.camErr='';startCam();break;
+    case 'camStart': startCam();return;
+    case 'shoot': shoot();return;
+    case 'camFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.shot=d;checkIn();});return;
+    case 'camReset': stopCam();state.camStep='pick';state.camChild='';state.camProxy='';state.camErr='';state.shot='';break;
+    case 'camFrom':{state.camChild=state.childId;state.camProxy=arg;state.camStep='shoot';state.screen='S27';state.camErr='';startCam();return;}
+    case 'camCheck': state.camChild=arg;state.childId=arg;state.screen='S28';break;
+    case 'camHold': state.childId=arg;state.hold={steps:{},who:child(arg).arrivedBy||''};state.screen='S24';
+      toast('引き渡しを保留にしました');break;
+    case 'camSet': state.cam[arg]=!state.cam[arg];break;
+    case 'clock24': state.clock24=!state.clock24;break;
+    case 'prepStart':{const c=child(arg);c.prep=state.role==='clerk'?'渡辺':'佐々木';
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+        `${c.name}${c.sfx}の引き渡し準備に向かいます。`);
+      toast('準備中にしました');break;}
+    case 'quickRelease':{const c=child(arg);c.st='released';
+      state.records.push({t:now(),child:c.name+c.sfx,to:c.arrivedBy||c.by,
+        how:c.shot?'受付カメラの写真と登録写真を確認':(c.verified?'受付カメラ（写真は非保存）＋職員確認':'職員が確認'),
+        shot:c.shot||'',staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+        `${c.name}${c.sfx}を${c.arrivedBy||c.by}へ引き渡しました。（${hm(now())}）`);
+      c.shot='';state.screen='S10';toast('引き渡しを記録しました');break;}
+    case 'toggleSearch': state.showSearch=!state.showSearch;if(state.showSearch)state.focusId='tlSearch';else state.q='';break;
+    case 'tlq': state.q=arg;state.focusId='tlSearch';break;
+    case 'cyclePF':{const o=['all','clerk','teacher','sys'];state.pfilter=o[(o.indexOf(state.pfilter)+1)%o.length];break;}
+    case 'agCls': state.ag.cls=arg;break;
+    case 'agq': state.ag.q=arg;state.focusId='agSearch';break;
+    case 'agPick': state.ag.cid=arg;break;
+    case 'dcls': state.dcls=arg;break;
+    case 'dq': state.dq=arg;state.focusId='dSearch';break;
+    case 'pickDiary': state.diaryChild=arg;break;
+    case 'saveReply':{const el=document.getElementById('dReply');const t=(el&&el.value||'').trim();
+      if(!t){toast('返信の内容を入力してください');break;}
+      const cid=state.diaryChild,list=state.diary[cid]=state.diary[cid]||[];
+      if(list.length)list[0].reply=t;else list.unshift({d:md(now())+'（'+wd(now())+'）',temp:'—',mood:'—',txt:'（保護者の記入なし）',reply:t});
+      toast('保護者に返信しました');break;}
+    case 'readNotice':{const n=state.notices.find(x=>x.id===arg);if(n)n.read=true;break;}
+    case 'readAll': state.notices.forEach(n=>n.read=true);toast('すべて既読にしました');break;
+    case 'school':{state.schoolId=arg;state.screen='S10';
+      toast(curSchool().name+'の画面に切り替えました');break;}
     case 'openChild': state.childId=arg;state.screen='S11';break;
-    case 'goHandover': state.childId=arg;state.sel.proxyName=child(arg).by;state.screen='S14';break;
+    case 'goHandover': state.childId=arg;state.sel.proxyName=child(arg).by;state.sel.how='保護者本人';state.screen='S14';break;
     case 'pickProxy': state.sel.proxy=arg;state.screen='S13';break;
     case 'matchOk':{const p=proxiesOf(state.childId).find(x=>x.id===state.sel.proxy)||proxiesOf(state.childId)[0];
-      state.sel.proxyName=p.name+'（'+p.rel+'）';state.screen='S14';break;}
-    case 'matchNg': state.screen='S12';toast('引き渡しは保留です。保護者に確認してください');break;
+      state.sel.proxyName=p.name+'（'+p.rel+'）';
+      state.sel.how=p.photo?'登録写真と見比べて確認':'特徴メモで確認';
+      state.screen='S14';break;}
+    case 'matchNg': state.hold={steps:{},who:''};state.screen='S24';toast('引き渡しを保留にしました');break;
+    case 'holdStart': state.hold={steps:{},who:''};state.screen='S24';break;
+    case 'holdStep':{const h=state.hold=state.hold||{steps:{},who:''};
+      const w=document.getElementById('holdWho');if(w)h.who=w.value;
+      h.steps[arg]=!h.steps[arg];break;}
+    case 'holdOk':{const h=state.hold||{};const w=document.getElementById('holdWho');
+      state.sel.proxyName=(w&&w.value?w.value:'来園者')+'（保護者へ電話で確認）';
+      state.sel.how='保護者に電話して確認';state.screen='S14';break;}
+    case 'holdNg':{const c=child(state.childId);const w=document.getElementById('holdWho');
+      const who=(w&&w.value)||'来園者（氏名不明）';
+      state.records.push({t:now(),child:c.name+c.sfx,to:who,how:'確認できず',ng:true,
+        staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
+      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+        `【引き渡し保留】${c.name}${c.sfx}：${who}が来園しましたが、本人確認ができないため引き渡していません。保護者に連絡中です。`);
+      state.hold=null;state.screen='S10';toast('引き渡さずに記録しました');break;}
     case 'release':{const c=child(state.childId);c.st='released';
+      state.records.push({t:now(),child:c.name+c.sfx,to:state.sel.proxyName||c.by,how:state.sel.how||'保護者本人',
+        staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
       addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
         `${c.name}${c.sfx}を${state.sel.proxyName||c.by}へ引き渡しました。（${hm(now())}）`);
       state.screen='S10';toast('降園済みにしました');break;}
@@ -1054,12 +1627,13 @@ function act(name,arg){
       if(!txt){toast('内容を入力してください');break;}
       addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',(cid?`${child(cid).name}${child(cid).sfx}：`:'')+txt);
       state.screen='S15';toast('全職員に共有しました');break;}
-    case 'submitAgent':{const cid=document.getElementById('agChild').value,ty=document.getElementById('agType').value,
-        tm=document.getElementById('agTime').value,memo=document.getElementById('agMemo').value,c=child(cid),before=c.pickupAt;
-      if(tm&&(ty==='late'||ty==='early')){const[h,m]=tm.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);
+    case 'submitAgent':{const cid=state.ag.cid,ty=document.getElementById('agType').value,
+        tm=document.getElementById('agTime').value,memo=document.getElementById('agMemo').value,c=child(cid),before=c?c.pickupAt:0;
+      if(c&&tm&&(ty==='late'||ty==='early')){const[h,m]=tm.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);
         if(!c.changed)c.planAt=before;c.pickupAt=d.getTime();c.changed='事務スタッフ 代理入力';}
-      if(ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
+      if(c&&ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
       const label={late:'お迎えが遅くなる',early:'お迎えが早くなる',proxy:'代理人がお迎え',absent:'早退・欠席'}[ty];
+      if(!c){toast('園児を選んでください');break;}
       addPost('事務スタッフ','clerk',`【代理入力】${c.name}${c.sfx}：${label}。${(ty==='late'||ty==='early')?`お迎え予定 ${hm(before)} → <b>${hm(c.pickupAt)}</b>。`:''}${memo||''}`);
       state.screen='S15';toast('全職員の端末に反映しました');break;}
     case 'saveThr': state.thr.soon=Math.max(1,+document.getElementById('thrSoon').value||5);
@@ -1067,6 +1641,11 @@ function act(name,arg){
     case 'ff': state.offset+=arg*60000;toast(arg+'分進めました');break;
     case 'toggleErr': state.err=!state.err;toast(state.err?'送信時に通信エラーを再現します':'通信エラーの再現をやめました');break;
     case 'map': state.modal='map';break;
+    case 'accounts': state.modal='acc';break;
+    case 'useAcc':{const a=ACCOUNTS.find(x=>x.id===arg);if(!a)break;
+      state.modal=null;state.role=a.role;state.loginId=a.id;state.loginPw='';state.loginErr='';
+      state.screen=a.role==='parent'?'S02':a.role==='admin'?'S19':'S09';
+      toast(a.label+'に切り替えました');break;}
     case 'closeModal': state.modal=null;break;
     case 'reset': reset();toast('初期状態に戻しました');break;
   }
@@ -1082,6 +1661,9 @@ function tickLoop(){
   const hn=document.getElementById('hnow');if(hn)hn.textContent=md(now())+'('+wd(now())+') '+hm(now());
   if(state.screen==='S10'||state.screen==='S11'){
     if(sig()!==lastSig){render();return;}
+    document.querySelectorAll('[data-arr]').forEach(el=>{
+      const c=child(el.dataset.arr);if(!c)return;
+      const e=el.querySelector('.js-arr');if(e)e.textContent=elapsedText(c);});
     document.querySelectorAll('[data-cid]').forEach(el=>{
       const c=child(el.dataset.cid);if(!c)return;const t=countText(c);
       const b=el.querySelector('.js-big'),s=el.querySelector('.js-sub');
