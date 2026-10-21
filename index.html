@@ -44,6 +44,10 @@ svg{display:block}
 .hgroup{display:flex;gap:6px;align-items:center;margin-left:auto;flex-wrap:wrap}
 .hctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .htoggle{display:none}
+body.hb-off .harness{display:none}
+#hshow{display:none;position:fixed;left:0;bottom:0;width:34px;height:34px;z-index:95;background:transparent}
+body.hb-off #hshow{display:block}
+body.hb-off #hshow:active{background:rgba(242,145,63,.25)}
 .hbtn{font-size:12px;padding:5px 11px;border-radius:999px;background:#503F35;color:#E9DCD1;border:1px solid #6A5648}
 .hbtn:hover{background:#63503f}
 .hbtn.on{background:var(--o);color:#fff;border-color:var(--o)}
@@ -104,14 +108,14 @@ svg{display:block}
 .thead h2{margin:0;font-family:var(--disp);font-weight:700;font-size:23px;display:flex;align-items:center;gap:11px}
 .thead .sub{font-size:12.5px;color:var(--ink-2);margin-top:5px}
 .thead .right{margin-left:auto;display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.hpill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);color:#8A7A6D;font-size:13px;font-family:var(--disp);font-weight:700;padding:9px 16px;border-radius:999px}
+.hpill{white-space:nowrap;flex:none;display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);color:#8A7A6D;font-size:13px;font-family:var(--disp);font-weight:700;padding:9px 16px;border-radius:999px}
 .hpill:hover{background:#FFF8F3}
 .hpill.solid{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;border:none;box-shadow:0 3px 8px rgba(240,140,59,.32)}
 .tbody{flex:1;overflow-y:auto;padding:8px 26px 26px}
 .tbody::-webkit-scrollbar{width:7px}
 .tbody::-webkit-scrollbar-thumb{background:#E3D2C4;border-radius:4px}
 .tabs{display:flex;gap:9px;padding:0 26px 12px;flex-wrap:wrap;align-items:center}
-.tab{font-size:13px;font-family:var(--disp);font-weight:700;padding:8px 16px;border-radius:999px;background:#fff;color:#9A8C81;border:1px solid var(--line)}
+.tab{flex:none;white-space:nowrap;font-size:13px;font-family:var(--disp);font-weight:700;padding:8px 16px;border-radius:999px;background:#fff;color:#9A8C81;border:1px solid var(--line)}
 .tab.on{background:var(--o);color:#fff;border-color:var(--o)}
 
 /* タブレット下部ナビ */
@@ -166,6 +170,7 @@ svg{display:block}
 .ccard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
 .ccard.green{border-left-color:#5FBF8B}.ccard.amber{border-left-color:#EDB53F}
 .ccard.red{border-left-color:#E8735C}.ccard.gray{border-left-color:#D8CDC4;opacity:.75}
+.ccard.sel{outline:2.5px solid var(--o);opacity:1}
 .ccard.orange{border-left-color:var(--o);background:#FFF9F3}
 .count.orange .num b{color:var(--o-d)}
 .arrsec{background:#FFF4EA;border:1px solid #F6DCC4;border-radius:18px;padding:14px 15px;margin-bottom:16px}
@@ -176,6 +181,18 @@ svg{display:block}
 .camwrap .ph{color:#B9A896;font-size:13px;text-align:center;padding:24px;line-height:1.8}
 .shutter{width:76px;height:76px;border-radius:50%;background:#fff;border:6px solid var(--o);margin:14px auto 0;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .shutter:active{transform:scale(.96)}
+.qrguide{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1/1;transform:translate(-50%,-50%);border:4px solid rgba(255,255,255,.85);border-radius:18px;box-shadow:0 0 0 2000px rgba(0,0,0,.18)}
+.spin{width:64px;height:64px;border-radius:50%;border:6px solid var(--o-l);border-top-color:var(--o);margin:0 auto;animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.alertbig{background:#FFF6F4;border:2px solid #F2B3A6;border-radius:20px;padding:15px;display:flex;gap:15px;align-items:center;margin-bottom:12px}
+.alertbig .big{font-family:var(--disp);font-weight:900;font-size:22px;color:var(--rd-tx)}
+@media(max-width:820px){.alertbig{flex-wrap:wrap}}
+.kbar{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px}
+.kbar b{font-family:var(--disp);font-size:18px;display:block}
+.kbar small{font-size:12px;opacity:.9}
+.kbar .kclock{margin-left:auto;font-family:var(--disp);font-weight:900;font-size:30px;font-variant-numeric:tabular-nums}
+.kfoot{display:flex;justify-content:flex-end;padding:6px 14px calc(8px + env(safe-area-inset-bottom))}
+.kfoot button{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:#B8A99C;padding:6px 10px;border-radius:9px}
 .kiosk{max-width:860px;margin:0 auto;text-align:center}
 .kiosk h3{font-family:var(--disp);font-weight:900;font-size:26px;margin:4px 0 6px}
 .kiosk .lead{font-size:15px;color:var(--ink-2);margin-bottom:18px}
@@ -187,14 +204,20 @@ svg{display:block}
 .arrbig{background:#fff;border-radius:20px;padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:12px;
         box-shadow:0 4px 18px rgba(228,118,42,.18);border:2px solid #F3C089;animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 4px 18px rgba(228,118,42,.18)}50%{box-shadow:0 4px 26px rgba(228,118,42,.34)}}
-.arrbig .big{font-family:var(--disp);font-weight:900;font-size:27px;line-height:1.2}
-.arrbig .room{font-family:var(--disp);font-weight:700;font-size:15px;color:var(--o-d);margin-top:3px}
+.arrbig .big{font-family:var(--disp);font-weight:900;font-size:22px;line-height:1.3}
+.arrbig .room{font-family:var(--disp);font-weight:700;font-size:13.5px;color:var(--o-d);margin-top:3px}
+.arrbig .ainfo{flex:1 1 230px;min-width:0}
+.arrbig .aelap{text-align:center;min-width:96px}
+.arrbig .elapse{font-size:24px!important;white-space:nowrap}
+.arrbig .acts .btn{white-space:nowrap;justify-content:center}
 .arrbig .elapse{font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);font-variant-numeric:tabular-nums}
 .arrbig .thumbs{display:flex;gap:8px;align-items:center}
 .arrbig .th{width:62px;height:72px;border-radius:12px;overflow:hidden;background:#EFEDEA;flex:none}
 .arrbig .th img{width:100%;height:100%;object-fit:cover;display:block}
 .arrbig .acts{margin-left:auto;display:grid;gap:8px;justify-items:stretch}
-@media(max-width:820px){.arrbig{flex-wrap:wrap}.arrbig .acts{margin-left:0;width:100%;grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.arrbig{flex-wrap:wrap;gap:12px}.arrbig .ainfo{flex:1 1 calc(100% - 92px)}.arrbig .thumbs{flex:1}
+  .arrbig .acts{margin-left:0;width:100%;grid-template-columns:repeat(3,1fr)}.arrbig .acts .btn{padding:10px 4px!important;font-size:12px;justify-content:center}
+  .arrbig .acts .btn svg{display:none}}
 .shotbox{border-radius:18px;overflow:hidden;aspect-ratio:1/1.05;background:#EFEDEA}
 .shotbox img{width:100%;height:100%;object-fit:cover;display:block}
 .ccard .nm{font-family:var(--disp);font-weight:700;font-size:17px;margin-top:1px}
@@ -218,6 +241,7 @@ svg{display:block}
 table.tbl{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:16px;overflow:hidden;font-size:13.5px;box-shadow:0 1px 3px rgba(120,90,60,.07)}
 table.tbl th{background:#FBF3EC;text-align:left;padding:11px 15px;font-size:12px;color:#8B7E74;font-family:var(--disp);font-weight:700}
 table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
+table.tbl td:first-child{white-space:nowrap}
 .btn{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;font-family:var(--disp);font-weight:700;font-size:14px;padding:13px 24px;border-radius:14px;box-shadow:0 3px 8px rgba(240,140,59,.3);display:inline-flex;align-items:center;gap:8px}
 .btn.g{background:#fff;color:#7A6B60;border:1.5px solid var(--line);box-shadow:none}
 .btn.ok{background:linear-gradient(100deg,#6DC79A,#48A876);box-shadow:0 3px 8px rgba(72,168,118,.3)}
@@ -389,12 +413,17 @@ table.tbl td{padding:12px 15px;border-top:1px solid #F4EEE9}
       <button class="hbtn" id="errbtn" onclick="act('toggleErr')">通信エラー再現</button>
       <button class="hbtn" onclick="act('accounts')">アカウント</button>
       <button class="hbtn" onclick="act('map')">画面一覧</button>
+      <button class="hbtn" onclick="act('demoFace')">デモ用の顔写真</button>
+      <button class="hbtn" onclick="act('check')">動作チェック</button>
+      <button class="hbtn" onclick="act('sync')">端末の連動</button>
       <button class="hbtn" onclick="act('reset')">リセット</button>
+      <button class="hbtn" onclick="act('hbarHide')">操作バーを隠す</button>
     </div>
   </div>
 </div>
 <div class="stage" id="stage"></div>
 <div id="overlay"></div>
+<button id="hshow" onclick="act('hbarShow')" aria-label="操作バーを表示"></button>
 
 <script>
 /* =========================================================
@@ -462,6 +491,13 @@ function adult(size,style){const s=style||0;const hair=['#4A3A31','#8E8E8E'][s],
  <circle cx="39" cy="47" r="2.6" fill="#39291F"/><circle cx="61" cy="47" r="2.6" fill="#39291F"/>
  <path d="M43 60q7 5 14 0" stroke="#C4796A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
  <circle cx="32" cy="53" r="3.4" fill="#F0A996" opacity=".5"/><circle cx="68" cy="53" r="3.4" fill="#F0A996" opacity=".5"/></svg>`;}
+/* 検索：空白を除き、カタカナはひらがなに揃えて比べる */
+function norm(t){return String(t||'').replace(/<[^>]+>/g,'').replace(/[\s\u3000]/g,'')
+  .replace(/[\u30a1-\u30f6]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60)).toLowerCase();}
+function hitChild(c,q){const k=norm(q);return !k||[c.name,c.kana,c.cls,c.name+c.sfx].some(v=>norm(v).includes(k));}
+function esc(t){return String(t||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function stPill(c){return c.st==='released'?'<span class="pill gray">お迎え済み</span>':c.st==='arrived'?'<span class="pill orange">受付済み</span>':'';}
+
 /* 登録写真（端末から選んだ画像があればそれを表示） */
 function pic(p){return p&&p.src?`<img src="${p.src}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`
   :(p&&p.photo?adult(0,p.style||0):silhouette());}
@@ -495,28 +531,238 @@ function startCam(){
 function stopCam(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}}
 function attachCam(){const v=document.getElementById('camView');
   if(v&&camStream&&v.srcObject!==camStream){v.srcObject=camStream;const pr=v.play&&v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
-function shoot(){
-  const v=document.getElementById('camView');
-  if(!v||!v.videoWidth){toast('カメラの準備ができていません');return;}
+function grabFrame(id){
+  const v=document.getElementById(id||'camView');
+  if(!v||!v.videoWidth)return '';
   const max=720,sc=Math.min(1,max/Math.max(v.videoWidth,v.videoHeight));
   const cv=document.createElement('canvas');
   cv.width=Math.round(v.videoWidth*sc);cv.height=Math.round(v.videoHeight*sc);
   const g=cv.getContext('2d');g.translate(cv.width,0);g.scale(-1,1);
   g.drawImage(v,0,0,cv.width,cv.height);
-  state.shot=cv.toDataURL('image/jpeg',0.85);
-  stopCam();checkIn();
+  return cv.toDataURL('image/jpeg',0.85);
 }
-/* 受付の確定：園児を「到着」にして、保育士の画面へ大きく出す */
-function checkIn(){
+function shoot(){
+  const v=document.getElementById('camView');
+  if(!v||!v.videoWidth){toast('カメラの準備ができていません');return;}
+  if(state.cam.live){state.camStep='live';state.liveMsg='';render();runLiveness();return;}
+  state.liveDone=false;state.shot=grabFrame();stopCam();verifyFace();
+}
+/* なりすまし対策
+   ① まばたき：その人の目の開き具合を基準に、閉じて開く動きを見る（印刷した写真・画面の静止画を防ぐ）
+   ② 首振り：毎回ランダムに左右どちらかを指示し、その通りに動くかを見る（録画した動画を防ぐ） */
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function earOf(P){const d=(a,b)=>Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y);
+  const e=i=>(d(i+1,i+5)+d(i+2,i+4))/(2*d(i,i+3));return (e(36)+e(42))/2;}
+/* 鼻先が両目の中央からどれだけずれているか（カメラの生の映像で、本人が左を向くと＋） */
+function yawOf(P){const ex=(P[36].x+P[45].x)/2,w=Math.abs(P[45].x-P[36].x)||1;return (P[30].x-ex)/w;}
+let liveToken=0;
+function liveSay(m){if(m!==state.liveMsg){state.liveMsg=m;const el=document.getElementById('liveMsg');if(el)el.textContent=m;}}
+async function liveFrame(){
+  const v=document.getElementById('camView');if(!v||!v.videoWidth)return null;
+  try{const r=await faceapi.detectSingleFace(v,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:0.4})).withFaceLandmarks();
+    return r?r.landmarks.positions:null;}catch(e){return null;}
+}
+async function runLiveness(){
+  const token=++liveToken;
+  const alive=()=>token===liveToken&&state.camStep==='live';
+  const fail=k=>{if(token!==liveToken)return;stopCam();state.camResult={kind:k};state.camStep='fail';render();};
+  try{await withTimeout(loadFace(),20000);}catch(e){return fail('engine');}
+  /* ① まばたき */
+  let base=0,closed=false,blink=false,seen=false,t0=Date.now();const yawBuf=[];
+  while(Date.now()-t0<9000){
+    if(!alive())return;
+    const P=await liveFrame();
+    if(P){seen=true;const e=earOf(P);yawBuf.push(yawOf(P));if(yawBuf.length>8)yawBuf.shift();
+      if(!closed){base=Math.max(base*0.97,e);if(base>0.12&&e<base*0.72)closed=true;}
+      else if(e>base*0.86){blink=true;break;}}
+    liveSay(seen?'① ゆっくりまばたきをしてください':'枠の中に顔を入れてください');
+    await sleep(80);
+  }
+  if(!blink)return fail(seen?'live':'noface');
+  /* ② ランダムな首振り（基準＝まばたき中に正面を見ていたときの向き。指示を見てすぐ動いても基準はずれない） */
+  if(!yawBuf.length)return fail('noface');
+  const y0=yawBuf.slice().sort((a,b)=>a-b).at(Math.floor(yawBuf.length/2));
+  /* 左右を毎回ランダムに2回指示し、そのたびに正面へ戻す（録画では順番を合わせられない） */
+  const dirs=[Math.random()<0.5?1:-1,Math.random()<0.5?1:-1];
+  for(let n=0;n<dirs.length;n++){
+    const dir=dirs.at(n);
+    const no=['②','③','④','⑤'];
+    liveSay(no.at(n*2)+(dir>0?' 顔をゆっくり左に向けてください':' 顔をゆっくり右に向けてください'));
+    let ok=0,wrong=0,turned=false;t0=Date.now();
+    while(Date.now()-t0<7000){
+      if(!alive())return;
+      const P=await liveFrame();
+      if(P){const d=(yawOf(P)-y0)*dir;
+        if(d>0.12){ok++;wrong=0;}else if(d<-0.12){wrong++;ok=0;}else{ok=0;wrong=0;}
+        if(wrong>=3)return fail('live');
+        if(ok>=2){turned=true;break;}}
+      await sleep(70);
+    }
+    if(!turned)return fail('live');
+    liveSay(no.at(n*2+1)+' 正面に戻してください');
+    let back=false;t0=Date.now();
+    while(Date.now()-t0<5000){
+      if(!alive())return;
+      const P=await liveFrame();
+      if(P&&Math.abs(yawOf(P)-y0)<0.06){back=true;break;}
+      await sleep(70);
+    }
+    if(!back)return fail('live');
+  }
+  /* 正面を向いたところで撮影 */
+  await sleep(120);if(!alive())return;
+  state.liveDone=true;state.shot=grabFrame();stopCam();verifyFace();
+}
+function withTimeout(pr,ms){return Promise.race([pr,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))]);}
+const descCache=new Map();
+
+/* ---- デモ用の顔写真：カメラに写った顔を代理人の登録写真にする ---- */
+let demoStream=null;
+function demoCamStart(){
+  if(demoStream)return;
+  if(!camAvailable()){state.dfErr='この端末ではカメラを直接使えません。「写真を選ぶ」から登録できます。';drawOverlay();return;}
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false})
+    .then(st=>{if(state.modal!=='demoface'){st.getTracks().forEach(t=>t.stop());return;}demoStream=st;state.dfErr='';drawOverlay();})
+    .catch(()=>{state.dfErr='カメラの使用が許可されていません。「写真を選ぶ」から登録できます。';drawOverlay();});
+}
+function demoCamStop(){if(demoStream){demoStream.getTracks().forEach(t=>t.stop());demoStream=null;}}
+function allProxies(){const out=[];Object.entries(state.proxies).forEach(([fk,list])=>list.forEach(p=>out.push({fk,p})));return out;}
+function applyDemoFace(d){
+  const hit=allProxies().find(x=>x.p.id===state.dfPx);if(!hit){toast('登録する人を選んでください');return;}
+  const p=hit.p;p.src=d;p.photo=1;p.desc=null;p.faceWarn=false;p.auth='写真を見て確認（登録済み）';
+  state.dfMsg='顔を確認しています…';render();
+  checkRegPhoto(d,(desc,ng)=>{if(p.src!==d)return;p.desc=desc;p.faceWarn=ng;
+    state.dfMsg=desc?p.name+'さんの登録写真にしました。玄関の受付で顔照合に使えます。'
+      :ng?'顔を確認できませんでした。明るい場所で、正面から撮り直してください。'
+      :p.name+'さんの登録写真にしました（この端末では顔の確認ができませんでした）。';
+    render();});
+}
+
+/* ---- 動作チェック：この端末で必要な機能が使えるかを順番に確かめる ---- */
+const CHECKS=[['secure','安全な接続（カメラに必要）'],['camera','カメラ'],['face','顔照合の部品'],['qrread','QRの読み取り'],
+  ['qrshow','QRの表示'],['store','保存（再読み込みしても残る）'],['bc','同じ端末の別ウィンドウとの連動'],['fb','別の端末との連動（Firebase）']];
+async function runChecks(){
+  state.checks=CHECKS.map(([k,n])=>({k,n,st:'wait',d:''}));drawOverlay();
+  const set=(k,st,d)=>{const c=(state.checks||[]).find(x=>x.k===k);if(!c)return;c.st=st;c.d=d||'';if(state.modal==='check')drawOverlay();};
+  const sec=typeof isSecureContext!=='undefined'&&isSecureContext;
+  set('secure',sec?'ok':'ng',(typeof location!=='undefined'?location.protocol:'')+(sec?'':'　https で開いてください'));
+  try{if(!camAvailable())throw new Error('このブラウザでは使えません');
+    const st=await withTimeout(navigator.mediaDevices.getUserMedia({video:true,audio:false}),15000);
+    const tr=st.getVideoTracks()[0],g=tr&&tr.getSettings?tr.getSettings():{};st.getTracks().forEach(t=>t.stop());
+    set('camera','ok',(g.width||'?')+'×'+(g.height||'?'));}
+  catch(e){set('camera','ng',e&&e.name==='NotAllowedError'?'使用が許可されていません':(e&&e.message)||'使えません');}
+  try{await withTimeout(loadFace(),30000);set('face','ok','読み込めました');}catch(e){set('face','ng','読み込めませんでした（通信を確認してください）');}
+  try{let how='';
+    try{if(typeof BarcodeDetector!=='undefined'){const f=await BarcodeDetector.getSupportedFormats();if(f.includes('qr_code'))how='端末の機能';}}catch(x){}
+    if(!how){await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);how='jsQR';}
+    set('qrread','ok',how);}catch(e){set('qrread','ng','読み込めませんでした（通信を確認してください）');}
+  try{await withTimeout(loadScript(QRGEN_URL,'qrcode'),15000);const q=qrcode(0,'M');q.addData('OKAERI');q.make();set('qrshow','ok','表示できます');}
+  catch(e){set('qrshow','ng','読み込めませんでした（カード番号での受付は使えます）');}
+  try{localStorage.setItem('okaeri:check','1');const ok=localStorage.getItem('okaeri:check')==='1';localStorage.removeItem('okaeri:check');
+    set('store',ok?'ok':'ng',ok?'使えます':'使えません');}catch(e){set('store','ng','使えません（プライベートブラウズなど）');}
+  set('bc',typeof BroadcastChannel!=='undefined'?'ok':'ng',typeof BroadcastChannel!=='undefined'?'使えます':'このブラウザでは使えません');
+  if(Sync.mode==='firebase')set('fb',Sync.status==='connected'?'ok':'ng',Sync.status==='connected'?(Sync.email||'')+'／'+roleLabel(Sync.role)+'／'+Object.keys(Sync.sent).length+'件のデータ':(Sync.err||syncLabel()));
+  else set('fb','skip','未設定（操作バー「端末の連動」から設定できます）');
+}
+function checkText(){return (state.checks||[]).map(c=>({ok:'○',ng:'×',skip:'－',wait:'…'}[c.st])+' '+c.n+'：'+c.d).join('\n')
+  +'\n'+(typeof navigator!=='undefined'?navigator.userAgent:'');}
+function copyText(t){
+  const done=()=>toast('コピーしました');
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(()=>fallbackCopy(t));return;}}catch(e){}
+  fallbackCopy(t);
+}
+function fallbackCopy(t){try{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();toast('コピーしました');}catch(e){toast('コピーできませんでした');}}
+
+/* ---- 顔照合（端末内で処理。画像は外部に送信しない） ---- */
+const FACE_VER='1.7.12';
+const FACE_LIB='https://cdn.jsdelivr.net/npm/@vladmandic/face-api@'+FACE_VER+'/dist/face-api.js';
+const FACE_MODEL='https://cdn.jsdelivr.net/npm/@vladmandic/face-api@'+FACE_VER+'/model/';
+let faceP=null;
+function loadFace(){
+  if(faceP)return faceP;
+  faceP=new Promise((res,rej)=>{
+    if(typeof faceapi!=='undefined')return res();
+    const sc=document.createElement('script');sc.src=FACE_LIB;sc.async=true;
+    sc.onload=()=>res();sc.onerror=()=>rej(new Error('lib'));
+    document.head.appendChild(sc);
+  }).then(()=>Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri(FACE_MODEL),
+    faceapi.nets.faceLandmark68Net.loadFromUri(FACE_MODEL),
+    faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL)]))
+  .then(()=>{state.faceReady=true;if(state.screen==='S27'&&state.camStep==='shoot')render();})
+  .catch(e=>{faceP=null;state.faceReady=false;throw e;});
+  return faceP;
+}
+function imgEl(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
+async function descOf(src){
+  const img=await imgEl(src);
+  const r=await faceapi.detectSingleFace(img,new faceapi.TinyFaceDetectorOptions({inputSize:416,scoreThreshold:0.45}))
+    .withFaceLandmarks().withFaceDescriptor();
+  return r?r.descriptor:null;
+}
+/* 撮影した顔と登録写真の顔を比べ、一致すれば受付完了・違えば認証失敗 */
+async function verifyFace(){
   const c=child(state.camChild);if(!c)return;
   const p=proxiesOf(c.id).find(x=>x.id===state.camProxy)||proxiesOf(c.id)[0];
-  c.st='arrived';c.arrivedAt=now();c.arrivedBy=p.name+'（'+p.rel+'）';
-  c.shot=state.cam.keep?state.shot:'';c.verified=p.id;c.prep='';
-  addPost('受付カメラ','sys',`【到着】${c.name}${c.sfx}：${p.name}さん（${p.rel}）が玄関で受付しました。${c.cls}の保育室で引き渡しをお願いします。`);
-  state.notices.unshift({id:'n'+Date.now(),kind:'お迎え連絡',title:'受付が完了しました',
-    body:c.name+c.sfx+'の先生にお迎えをお知らせしました。保育室でお待ちください。',t:now(),read:false});
-  state.camStep='done';state.shotTmp=state.shot;state.shot='';render();
+  const fail=(kind,extra)=>{state.camResult=Object.assign({kind},extra||{});state.camStep='fail';render();};
+  state.camStep='checking';render();
+  if(!pxValid(p))return fail('invalid');
+  if(!p.src)return fail('nophoto');
+  try{await withTimeout(loadFace(),25000);}catch(e){return fail('engine');}
+  try{
+    const d1=await withTimeout(descOf(state.shot),15000);
+    if(!d1)return fail('noface');
+    if(!p.desc)p.desc=descCache.get(p.src)||await withTimeout(descOf(p.src),15000);
+    if(!p.desc)return fail('regface');
+    descCache.set(p.src,p.desc);
+    const dist=faceapi.euclideanDistance(d1,p.desc);
+    if(dist<(state.cam.thr||0.5)){state.camFails=0;checkIn(dist);}
+    else{
+      state.camFails=(state.camFails||0)+1;
+      if(state.camFails>=2){callStaff('nomatch',dist);return;}
+      fail('nomatch',{dist});
+    }
+  }catch(e){fail('engine');}
 }
+
+/* 認証できなかったときに保育士へ確認を依頼 */
+function callStaff(kind,dist){
+  const c=child(state.camChild);if(!c)return;
+  const p=proxiesOf(c.id).find(x=>x.id===state.camProxy)||proxiesOf(c.id)[0];
+  const why={nomatch:'登録写真と一致しませんでした',nophoto:'照合用の写真が登録されていません',
+             regface:'登録写真から顔を確認できませんでした',engine:'照合機能を使えませんでした',noface:'顔を確認できませんでした',
+             live:'まばたき・首振りで本人を確認できませんでした',invalid:'承認されていない、または期限切れの登録です',nocard:'お迎えカードを持っていません'}[kind]||'認証できませんでした';
+  state.stats.camNG++;
+  state.alerts.unshift({id:'a'+Date.now(),cid:c.id,pid:p.id,kids:(state.camKids||[]).slice(),t:now(),why,shot:state.shot,dist});
+  addPost('受付カメラ','sys',`【確認依頼】${c.name}${c.sfx}のお迎え（${p.name}さん・${p.rel}として受付）：${why}。玄関で確認をお願いします。`);
+  state.camStep='called';state.camFails=0;state.shot='';render();
+}
+/* 登録写真に顔が写っているかを確認（背景で実行） */
+function checkRegPhoto(src,done){
+  withTimeout(loadFace(),25000).then(()=>descOf(src)).then(d=>{if(d)descCache.set(src,d);done(d||null,!d);}).catch(()=>done(null,false));
+}
+/* 受付の確定：園児を「到着」にして、保育士の画面へ大きく出す */
+function checkIn(dist){
+  const c0=child(state.camChild);if(!c0)return;
+  const p=proxiesOf(c0.id).find(x=>x.id===state.camProxy)||proxiesOf(c0.id)[0];
+  const ids=(state.camKids&&state.camKids.length?state.camKids:[c0.id]).filter(id=>child(id)&&child(id).st==='waiting');
+  const kids=(ids.length?ids:[c0.id]).map(child);
+  const byFace=typeof dist==='number';
+  kids.forEach(c=>{
+    c.st='arrived';c.arrivedAt=now();c.arrivedBy=p.name+'（'+p.rel+'）';
+    c.shot=state.cam.keep?state.shot:'';c.verified=p.id;c.prep='';
+    c.faceOK=byFace;c.faceDist=byFace?dist:null;c.live=byFace?!!state.liveDone:false;
+    addPost('受付カメラ','sys',`【到着】${c.name}${c.sfx}：${p.name}さん（${p.rel}）の${byFace?'顔照合が完了':'受付が完了'}しました。${c.cls}の保育室で引き渡しをお願いします。`);
+  });
+  if(byFace)state.stats.camOK++;
+  state.notices.unshift({id:'n'+Date.now(),fam:famKey(c0.id),kind:'お迎え連絡',title:'受付が完了しました',
+    body:kids.map(c=>c.name.split(' ')[1]+c.sfx).join('・')+'の先生にお迎えをお知らせしました。保育室でお待ちください。',t:now(),read:false});
+  state.camDoneKids=kids.map(c=>c.id);
+  state.camStep='done';state.shotTmp=state.shot;state.shot='';state.liveDone=false;render();
+  clearTimeout(kioskBack);
+  kioskBack=setTimeout(()=>{if(state.screen==='S27'&&state.camStep==='done')act('camReset');},10000);
+}
+
 /* 未登録シルエット */
 function silhouette(){return `<svg viewBox="0 0 100 114" width="100%" height="100%"><rect width="100" height="114" fill="#EFEDEA"/><circle cx="50" cy="44" r="19" fill="#C3C4CC"/><path d="M15 114c0-20 15-32 35-32s35 12 35 32z" fill="#C3C4CC"/></svg>`;}
 
@@ -525,38 +771,62 @@ function silhouette(){return `<svg viewBox="0 0 100 114" width="100%" height="10
    ========================================================= */
 let state, lastSig='';
 function baseChildren(){
-  const n=Date.now(); const mk=o=>({...o,pickupAt:n+o.offset*60000,planAt:n+o.offset*60000,changed:null});
+  const n=Date.now(); const mk=o=>({...o,pickupAt:n+o.offset*60000,planAt:n+o.offset*60000,changed:null,
+    ...(o.st==='arrived'?{arrivedAt:n+(o.offset+1)*60000,arrivedBy:(o.by||'').split(' ').slice(1).join(' ')+'（'+(o.by||'').split(' ')[0]+'）',verified:'px_'+o.id}:{})});
   return [
-    mk({id:'c1',name:'山田 ひなた',sfx:'ちゃん',cls:'ひまわり組',age:'5歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
-    mk({id:'c2',name:'佐藤 蓮',sfx:'くん',cls:'ひまわり組',age:'5歳児',offset:3,by:'母 佐藤 美咲',st:'waiting'}),
-    mk({id:'c3',name:'鈴木 あかり',sfx:'ちゃん',cls:'ゆり組',age:'4歳児',offset:1,by:'祖父 鈴木 一郎',st:'waiting',proxy:true}),
-    mk({id:'c4',name:'田中 大和',sfx:'くん',cls:'ゆり組',age:'4歳児',offset:-5,by:'父 田中 健',st:'waiting'}),
-    mk({id:'c5',name:'髙橋 結衣',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-12,by:'母 髙橋 沙織',st:'arrived'}),
-    mk({id:'c6',name:'伊藤 悠真',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-20,by:'母 伊藤 彩',st:'released'}),
+    mk({id:'c1',name:'山田 ひなた',kana:'やまだ ひなた',sfx:'ちゃん',cls:'ひまわり組',age:'5歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
+    mk({id:'c2',name:'佐藤 蓮',kana:'さとう れん',sfx:'くん',cls:'ひまわり組',age:'5歳児',offset:3,by:'母 佐藤 美咲',st:'waiting'}),
+    mk({id:'c3',name:'鈴木 あかり',kana:'すずき あかり',sfx:'ちゃん',cls:'ゆり組',age:'4歳児',offset:1,by:'祖父 鈴木 一郎',st:'waiting',proxy:true}),
+    mk({id:'c4',name:'田中 大和',kana:'たなか やまと',sfx:'くん',cls:'ゆり組',age:'4歳児',offset:-5,by:'父 田中 健',st:'waiting'}),
+    mk({id:'c5',name:'髙橋 結衣',kana:'たかはし ゆい',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-12,by:'母 髙橋 沙織',st:'arrived'}),
+    mk({id:'c6',name:'伊藤 悠真',kana:'いとう ゆうま',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-20,by:'母 伊藤 彩',st:'released'}),
+    mk({id:'c7',name:'小林 さくら',kana:'こばやし さくら',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:22,by:'母 小林 愛',st:'waiting'}),
+    mk({id:'c8',name:'加藤 湊',kana:'かとう みなと',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:34,by:'父 加藤 翔',st:'waiting'}),
+    mk({id:'c9',name:'山田 そら',kana:'やまだ そら',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
   ];
 }
-function baseProxies(){return{
-  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'写真を見て確認（登録済み）',memo:'',prio:1,ok:true},
-      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true}],
-  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true}],
+/* 家庭：きょうだいは同じ家庭として代理人とお迎えカードを共有する */
+const FAMILY={c1:['c1','c9'],c9:['c1','c9']};
+const famKey=id=>(FAMILY[id]||[id])[0];
+const famKids=id=>(FAMILY[id]||[id]).map(x=>child(x)).filter(Boolean);
+/* 年度（4月1日〜翌3月31日） */
+function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();
+  return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
+function baseProxies(){const f=fy();return{
+  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'写真を見て確認（登録済み）',memo:'',prio:1,ok:true,from:f.from,to:f.to},
+      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true,from:f.from,to:f.to},
+      {id:'p4',name:'山田 健司',kana:'やまだ けんじ',rel:'叔父',tel:'070-3456-7890',photo:0,auth:'特徴メモで確認（事前登録）',memo:'背が高く短髪の男性',prio:3,ok:true,from:f.prevFrom,to:f.prevTo}],
+  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true,from:f.from,to:f.to}],
 };}
-function reset(){
-  state={role:null,screen:'S01',offset:0,err:false,children:baseChildren(),proxies:baseProxies(),
-    posts:[{id:'m1',who:'事務スタッフ',kind:'clerk',t:Date.now()-8*60000,txt:'田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。',ack:1},
-           {id:'m2',who:'担任',kind:'teacher',t:Date.now()-6*60000,txt:'鈴木 あかりちゃんは絵本を読んで待機しています。',ack:0}],
+/* 園で共有するデータ（ログアウトしても消えない） */
+const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24'];
+function freshData(){
+  return {children:baseChildren(),proxies:baseProxies(),
+    posts:[{id:'m1',who:'事務 渡辺',kind:'clerk',t:Date.now()-8*60000,txt:'田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。',ack:1},
+           {id:'m2',who:'ゆり組 高田',kind:'teacher',t:Date.now()-6*60000,txt:'鈴木 あかりちゃんは絵本を読んで待機しています。',ack:0}],
     diary:{c1:[{d:'昨日',temp:'36.6',mood:'良好',txt:'夜はよく眠れました。朝の食欲もあります。',reply:'園でも元気に過ごしていました。'}],
            c2:[{d:'今日',temp:'36.8',mood:'ふつう',txt:'少し咳が出ています。外遊びは様子を見てください。',reply:''}],
            c4:[{d:'今日',temp:'37.0',mood:'少し不調',txt:'朝ごはんをあまり食べませんでした。',reply:''}]},
-    absences:[],filter:'all',thr:{soon:5,show:10},
-    notices:[{id:'n1',kind:'園からのお知らせ',title:'プールの持ち物について',body:'明日は水遊びを行います。タオルと着替えをお持ちください。',t:Date.now()-86400000,read:false},
-             {id:'n2',kind:'連絡帳',title:'園から返信がありました',body:'園でも元気に過ごしていました。',t:Date.now()-3*3600000,read:false}],
-    records:[],pending:null,hold:null,q:'',pfilter:'all',showSearch:false,
-    ag:{cls:'',q:'',cid:'c1'},dcls:'',dq:'',diaryChild:'',schoolId:'sakura',focusId:'',absMulti:false,
-    loginId:'',loginPw:'',settings:{pickup:true,diary:true,news:true},clock24:false,
-    cam:{on:true,keep:false},shot:'',camChild:'',camProxy:'',camErr:'',camStep:'pick',
-    sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},
-    toast:null,modal:null,childId:'c1',pxPhoto:false,pxSrc:'',loginErr:'',sendErr:false,drawer:false,hbar:false};
+    absences:[],
+    notices:[{id:'n1',fam:'parents',kind:'園からのお知らせ',title:'プールの持ち物について',body:'明日は水遊びを行います。タオルと着替えをお持ちください。',t:Date.now()-86400000,read:false},
+             {id:'n2',fam:'c1',kind:'連絡帳',title:'園から返信がありました',body:'園でも元気に過ごしていました。',t:Date.now()-3*3600000,read:false}],
+    records:[],alerts:[],thr:{soon:5,show:10},
+    cam:{on:true,keep:false,thr:0.5,pin:'1234',list:true,live:true},
+    stats:{app:0,phone:1,camOK:0,camNG:0},offset:0,clock24:false};
 }
+/* この端末だけの状態（画面・入力中の内容・ログイン） */
+function freshSession(){
+  return {role:null,me:null,screen:'S01',err:false,filter:'all',pending:null,hold:null,q:'',pfilter:'all',showSearch:false,
+    ag:{cls:'',q:'',cid:'c1'},s10cls:'',s10menu:false,camq:'',camcls:'',dcls:'',dq:'',diaryChild:'',schoolId:'sakura',focusId:'',absMulti:false,
+    loginId:'',loginPw:'',settings:{pickup:true,diary:true,news:true},
+    shot:'',camChild:'',camProxy:'',camKids:[],camErr:'',camStep:'pick',camResult:null,camFails:0,faceReady:false,pxWarn:'',
+    sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},pc:'c1',pkids:null,lastChanged:[],
+    toast:null,modal:null,childId:'c1',pxPhoto:false,pxSrc:'',loginErr:'',sendErr:false,drawer:false,hbar:false,hbarHidden:false};
+}
+function reset(){state=Object.assign(freshSession(),freshData());}
+/* ログアウト：画面とログイン状態だけを初期化し、園のデータは残す */
+function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden;
+  state=Object.assign(freshSession(),keep);state.hbarHidden=hid;}
 reset();
 
 /* =========================================================
@@ -573,7 +843,24 @@ const hmx=ts=>{const p=hmParts(ts);return p.t+(p.ap?`<span class="ampm">${p.ap}<
 const md=ts=>{const d=new Date(ts);return (d.getMonth()+1)+'月'+d.getDate()+'日';};
 const wd=ts=>'日月火水木金土'[new Date(ts).getDay()];
 const child=id=>state.children.find(c=>c.id===id);
-const proxiesOf=id=>state.proxies[id]||[{id:'px_'+id,name:(child(id).by||'').split(' ').slice(1).join(' '),kana:'',rel:(child(id).by||'').split(' ')[0],tel:'—',photo:0,auth:'特徴メモで確認（事前登録）',memo:'未登録',prio:1,ok:true}];
+const proxiesOf=id=>{const k=famKey(id),c=child(id)||{};
+  if(state.proxies[k])return state.proxies[k];
+  const f=fy();return [{id:'px_'+k,name:(c.by||'').split(' ').slice(1).join(' '),kana:'',rel:(c.by||'').split(' ')[0],tel:'—',photo:0,
+    auth:'特徴メモで確認（事前登録）',memo:'未登録',prio:1,ok:true,from:f.from,to:f.to}];};
+const today=()=>{const d=new Date(now());return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+const inPeriod=p=>!p.from||!p.to||(today()>=p.from&&today()<=p.to);
+const pxValid=p=>p.ok&&inPeriod(p);
+const validProxies=id=>proxiesOf(id).filter(pxValid);
+const fmtD=d=>{if(!d)return'—';const[y,m,dd]=d.split('-');return y+'年'+(+m)+'月'+(+dd)+'日';};
+function pxState(p){return !p.ok?'<span class="pill amber">承認待ち</span>':!inPeriod(p)?'<span class="pill red">有効期限切れ</span>':'<span class="pill green">承認済み</span>';}
+/* 職員：ログインした人の名前・クラス */
+const STAFF={'sasaki-m':{name:'佐々木 みなみ',short:'佐々木',cls:'ひまわり組',label:'ひまわり組 佐々木',color:'#F5C842'},
+  'takada-y':{name:'高田 ゆう',short:'高田',cls:'ゆり組',label:'ゆり組 高田',color:'#9FD3B4'},
+  'mori-k':{name:'森 かな',short:'森',cls:'ちゅうりっぷ組',label:'ちゅうりっぷ組 森',color:'#F7B8A8'},
+  'watanabe-s':{name:'渡辺 さくら',short:'渡辺',cls:'',label:'事務 渡辺',color:'#F2A7BC'}};
+function me(){return state.me||(state.role==='clerk'?STAFF['watanabe-s']:STAFF['sasaki-m']);}
+const meWho=()=>me().label, meKind=()=>state.role==='clerk'?'clerk':'teacher';
+const staffName=()=>me().name+(me().cls?'（'+me().cls+'）':'（事務）');
 function stat(c){
   if(c.st==='released')return{k:'released',label:'降園済み',tone:'gray'};
   if(c.st==='arrived') return{k:'arrived',label:'お迎えの方が到着',tone:'orange'};
@@ -614,24 +901,92 @@ function render(){
   document.getElementById('hnow').textContent=md(now())+'('+wd(now())+') '+hm(now());
   document.getElementById('errbtn').classList.toggle('on',state.err);
   document.getElementById('hctrls').className='hctrls'+(state.hbar?' open':'');
+  if(document.body&&document.body.classList)document.body.classList.toggle('hb-off',!!state.hbarHidden);
   const isPhone = p==='S01'||PARENT.includes(p);
-  const inner = p==='S01'?SCR.S01():(isPhone?phoneShell(SCR[p]()):tabletShell(SCR[p]()));
+  const inner = p==='S01'?SCR.S01():(isPhone?phoneShell(SCR[p]()):state.role==='kiosk'?kioskShell(SCR[p]()):tabletShell(SCR[p]()));
   document.getElementById('stage').innerHTML=
     `<div class="${isPhone?'phone':'tablet'}">
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
        <div class="scr">${inner}</div></div>`;
-  if(p==='S27'&&state.camStep==='shoot')attachCam();else if(p!=='S27')stopCam();
-  drawOverlay(); lastSig=sig();
+  if(p==='S27'&&['shoot','live','scan'].includes(state.camStep))attachCam();else if(p!=='S27')stopCam();
+  drawOverlay(); lastSig=sig();syncOut();
   if(state.focusId){const el=document.getElementById(state.focusId);
     if(el){el.focus();try{el.setSelectionRange(el.value.length,el.value.length);}catch(e){}}}
 }
 function drawOverlay(){
   let h='';
   if(state.toast)h+=`<div class="toast">${state.toast}</div>`;
+  if(state.modal==='sync'){let saved=null;try{saved=JSON.parse(localStorage.getItem(FB_KEY)||'null');}catch(e){}
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">端末の連動</div>
+    <div class="card" style="padding:13px 15px;display:flex;gap:10px;align-items:center;box-shadow:none;background:#FBF6F1;flex-wrap:wrap">
+      <span class="pill ${Sync.status==='connected'||Sync.status==='local'?'green':Sync.status==='connecting'||Sync.status==='login'?'amber':'red'}">${syncLabel()}</span>
+      ${Sync.email?`<span class="tiny muted">${esc(Sync.email)}</span>`:''}
+      ${Sync.err?`<span class="tiny" style="color:var(--rd-tx)">${esc(Sync.err)}</span>`:''}</div>
+    <div class="tiny muted" style="margin-top:12px;line-height:1.8">設定しなくても、同じブラウザで開いた別のタブ・別のウィンドウとは連動します。別の端末どうしで連動させるときは、Firebase に接続します。</div>
+    <div class="sec" style="font-size:14px">Firebase の準備（最初に1回）</div>
+    <ol style="font-size:12.5px;line-height:1.9;padding-left:20px;margin:0;color:#6E6259">
+      <li>Firebase コンソールでプロジェクトを作り、Authentication の「メール／パスワード」を有効にする</li>
+      <li>端末ごとの利用者（例：玄関タブレット、保育士用、保護者）をメールアドレスとパスワードで作る</li>
+      <li>Firestore を作り、下の「ルール」をそのまま貼り付けて公開する</li>
+      <li>Firestore に okaeri_members コレクションを作り、ドキュメントID＝メールアドレス（小文字）で、role と fams を登録する</li>
+      <li>各端末でこの画面を開き、設定・メールアドレス・パスワードを入れてサインインする（最初は保育士の端末から）</li></ol>
+    <pre style="font-family:var(--mono);font-size:11px;background:#FBF6F1;border-radius:10px;padding:10px 12px;margin:10px 0 0;overflow-x:auto;line-height:1.6">okaeri_members / genkan@example.com  →  role: "kiosk"
+okaeri_members / sasaki@example.com  →  role: "staff"
+okaeri_members / hoikuka@example.com →  role: "admin"
+okaeri_members / yamada@example.com  →  role: "parent",  fams: ["c1"]   ※ c1 = 山田家（ひなた・そら）</pre>
+    <label class="fieldl">firebaseConfig（プロジェクトの設定からコピー）</label>
+    <textarea class="inp" id="fbCfg" rows="5" style="font-family:var(--mono);font-size:12px" placeholder='const firebaseConfig = { apiKey: "…", authDomain: "…", projectId: "…", appId: "…" };'>${saved?esc(Object.entries(saved).filter(([k])=>k!=='email').map(([k,v])=>k+': "'+v+'"').join(',\n')):''}</textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><label class="fieldl">メールアドレス</label><input class="inp" id="fbEmail" type="email" autocapitalize="off" value="${esc(saved&&saved.email||'')}"></div>
+      <div><label class="fieldl">パスワード</label><input class="inp" id="fbPw" type="password"></div></div>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn" onclick="act('fbSave')">サインインして接続</button>
+      ${saved?`<button class="btn ng" onclick="act('fbClear')">接続を解除する</button>`:''}
+      <button class="btn g" onclick="act('closeModal')">閉じる</button></div>
+    <div class="sec" style="font-size:14px">Firestore のルール</div>
+    <div class="tiny muted" style="margin-bottom:6px">保育士・受付端末は園のデータをすべて、自治体管理者は閲覧と園の設定だけ、保護者は自分の家庭のデータだけを読み書きできます。</div>
+    <pre style="font-family:var(--mono);font-size:10.5px;background:#2E2621;color:#F3E9DF;border-radius:10px;padding:12px;margin:0;max-height:220px;overflow:auto;line-height:1.55">${esc(FB_RULES)}</pre>
+    <div style="margin-top:10px"><button class="btn g" onclick="act('rulesCopy')">ルールをコピー</button></div>
+    </div></div>`;}
+  if(state.modal==='demoface'){const list=allProxies();
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">デモ用の顔写真を登録</div>
+    <div class="tiny muted" style="line-height:1.8">カメラに写った顔を、代理人の登録写真にします。発表やテストで顔照合を試すときに使います。</div>
+    <label class="fieldl">登録する人</label>
+    <select class="inp" id="dfPx" onchange="act('dfPx',this.value)">${list.map(({fk,p})=>`<option value="${p.id}" ${p.id===state.dfPx?'selected':''}>${esc(p.name)}（${esc(p.rel)}）／${famKids(fk).map(k=>k.name.split(' ')[1]+k.sfx).join('・')}のお迎え</option>`).join('')}</select>
+    <div class="camwrap" style="max-width:380px;margin:14px auto 0">
+      ${demoStream?`<video id="dfView" autoplay playsinline muted></video><div class="guide"></div>`
+        :`<div class="ph">${state.dfErr||'カメラを準備しています…'}</div>`}</div>
+    ${state.dfMsg?`<div class="note" style="margin-top:12px">${ic('info',18,'#D6A94E')}<div>${state.dfMsg}</div></div>`:''}
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      ${demoStream?`<button class="btn" onclick="act('dfShoot')">${ic('idcard',20)}撮影して登録</button>`:''}
+      <input type="file" id="dfFile" accept="image/*" capture="user" style="display:none" onchange="act('dfFile',this)">
+      <button class="btn g" onclick="document.getElementById('dfFile').click()">写真を選ぶ</button>
+      <button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;}
+  if(state.modal==='check'){const cs=state.checks||[];
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">この端末の動作チェック</div>
+    <div class="tiny muted" style="margin-bottom:10px">受付や連動に必要な機能が、この端末とブラウザで使えるかを確かめます。</div>
+    ${cs.map(c=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 2px;border-bottom:1px solid #F4EEE9;font-size:13.5px">
+      <span class="pill ${{ok:'green',ng:'red',skip:'gray',wait:'amber'}[c.st]}" style="min-width:58px;justify-content:center">${{ok:'使える',ng:'使えない',skip:'未設定',wait:'確認中'}[c.st]}</span>
+      <span style="flex:1"><b style="font-family:var(--disp)">${c.n}</b><br><span class="tiny muted">${esc(c.d)}</span></span></div>`).join('')}
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" onclick="act('checkRun')">もう一度確かめる</button>
+      <button class="btn g" onclick="act('checkCopy')">結果をコピー</button>
+      <button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;}
+  if(state.modal==='kexit')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:380px" onclick="event.stopPropagation()">
+    <div class="sec">職員用メニュー</div>
+    <div class="tiny muted" style="margin-bottom:10px">受付を終了するには、職員用の暗証番号を入力してください。</div>
+    <input class="inp" id="kpinIn" type="password" inputmode="numeric" maxlength="8" placeholder="暗証番号" onkeydown="if(event.key==='Enter')act('kioskOut')">
+    ${state.kexitErr?`<div class="err" style="margin-top:10px">暗証番号が違います。</div>`:''}
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn" onclick="act('kioskOut')">受付を終了する</button>
+      <button class="btn g" onclick="act('closeModal')">キャンセル</button></div></div></div>`;
   if(state.modal==='acc')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">アカウント（動作確認用）</div>
     ${ACCOUNTS.map(a=>`<button class="rowbtn" onclick="act('useAcc','${a.id}')">${ic(a.ic,20,'#B69C7E')}
-      <span class="gr">${a.label}<small>${a.who}　ID：${a.id}／PW：${a.pw}</small></span>
+      <span class="gr">${a.label}<small>${a.who}　ID：${a.id}／PW：${a.pw}${a.role==='kiosk'?'／終了用の暗証番号：'+state.cam.pin:''}</small></span>
       <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   if(state.modal==='map')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
@@ -639,6 +994,9 @@ function drawOverlay(){
     ${Object.keys(TITLES).map(k=>`<div class="maprow"><code>${k}</code><span>${TITLES[k]}</span><button onclick="act('jump','${k}')">開く</button></div>`).join('')}
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   document.getElementById('overlay').innerHTML=h;
+  if(state.modal==='demoface'){const v=document.getElementById('dfView');
+    if(v&&demoStream&&v.srcObject!==demoStream){v.srcObject=demoStream;const pr=v.play&&v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
+  else demoCamStop();
 }
 function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=setTimeout(()=>{state.toast=null;drawOverlay();},2400);}
 
@@ -651,7 +1009,7 @@ function phoneShell(inner){
   <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib">${ic(i,22)}</span>${l}</button>`).join('')}</div>`;
 }
 function phead(title,back){
-  const un=(state.notices||[]).filter(n=>!n.read).length;
+  const un=myNotices().filter(n=>!n.read).length;
   return `<div class="phead">
     ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74">${ic('back',22)}</button>`
           :`<span style="width:26px;display:grid;place-items:center">${sun(26)}</span>`}
@@ -669,9 +1027,9 @@ function tabletShell(inner){
   const adminMenu=[['S19','ダッシュボード','board'],['S20','園情報管理','school'],['S26','園の画面を確認','clock']];
   const menu=state.role==='admin'?adminMenu:staffMenu;
   const extra=state.role==='admin'?[]:[['S20','設定','gear']];
-  const me=state.role==='clerk'?['渡辺 さくら','事務スタッフ','#F2A7BC']
-        :state.role==='admin'?['川崎市 保育課','自治体管理者','#8FC3E8']
-        :['佐々木 みなみ','ひまわり組 担任','#F5C842'];
+  const m0=me();
+  const who=state.role==='admin'?['川崎市 保育課','自治体管理者','#8FC3E8']
+        :[m0.name,m0.cls?m0.cls+' 担任':'事務スタッフ',m0.color];
   const nav=[['S09','ホーム','home'],['S15','タイムライン','chat'],['FAB','投稿','pencil'],['S10','お帰り','clock'],['S18','メニュー','menu']];
   const unread=state.posts.filter(p=>!p.ack).length;
   return `<div class="t-wrap">
@@ -682,7 +1040,7 @@ function tabletShell(inner){
       <div class="items">
         ${menu.concat(extra).map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}</button>`).join('')}
       </div>
-      <div class="me">${flower(me[2],38)}<div style="flex:1"><b>${me[0]}</b><span class="tiny muted">${me[1]}</span></div><span style="color:#C9BAAE">${ic('chev',16)}</span></div>
+      <div class="me">${flower(who[2],38)}<div style="flex:1"><b>${who[0]}</b><span class="tiny muted">${who[1]}</span></div><span style="color:#C9BAAE">${ic('chev',16)}</span></div>
     </div>
     <div class="main">
       ${(state.role==='admin'&&!['S19','S20','S26'].includes(state.screen))?`<div class="vobar">${ic('info',18)}
@@ -696,6 +1054,14 @@ function tabletShell(inner){
       </div>
     </div></div>`;
 }
+function kioskShell(inner){
+  return `<div style="display:flex;flex-direction:column;height:100%;background:var(--peach)">
+    <div class="kbar">${sun(32)}<div><b>${curSchool().name}</b><small>玄関 お迎え受付</small></div>
+      <span class="kclock" id="kclk">${hmx(now())}</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;min-height:0">${inner}</div>
+    <div class="kfoot"><button onclick="act('kioskExit')">${ic('gear',15)}職員用</button></div>
+  </div>`;
+}
 function thead(title,iconName,sub,right){
   return `<div class="thead">
     <button class="drawerbtn" onclick="act('drawer')">${ic('menu',24)}</button>
@@ -707,10 +1073,13 @@ function thead(title,iconName,sub,right){
    S01 ログイン
    ========================================================= */
 const ACCOUNTS=[
- {id:'yamada-h',  pw:'sakura0401', role:'parent', label:'保護者',      who:'山田 花子（ひなたちゃんの母）', ic:'user'},
+ {id:'yamada-h',  pw:'sakura0401', role:'parent', label:'保護者',      who:'山田 花子（ひなた・そらの母）', ic:'user'},
  {id:'sasaki-m',  pw:'hoiku0415',  role:'teacher',label:'保育士',      who:'佐々木 みなみ（ひまわり組 担任）',ic:'users'},
+ {id:'takada-y',  pw:'hoiku0422',  role:'teacher',label:'保育士',      who:'高田 ゆう（ゆり組 担任）',ic:'users'},
+ {id:'mori-k',    pw:'hoiku0503',  role:'teacher',label:'保育士',      who:'森 かな（ちゅうりっぷ組 担任）',ic:'users'},
  {id:'watanabe-s',pw:'jimu0620',   role:'clerk',  label:'事務スタッフ',who:'渡辺 さくら（さくら保育園 事務室）',ic:'phone'},
  {id:'kawasaki-k',pw:'shisei0901', role:'admin',  label:'自治体管理者',who:'川崎市 保育課',                  ic:'board'},
+ {id:'sakura-uketsuke',pw:'genkan0001',role:'kiosk',label:'受付端末',  who:'さくら保育園 玄関のタブレット',      ic:'idcard'},
 ];
 SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
     <div style="text-align:center;margin-bottom:26px">
@@ -729,9 +1098,17 @@ SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
 /* =========================================================
    保護者側
    ========================================================= */
+const pchild=()=>child(state.pc)||child('c1');
+/* 保護者に見せるお知らせ：園全体のものと、自分の家庭のものだけ */
+const myNotices=()=>(state.notices||[]).filter(n=>!n.fam||n.fam==='parents'||n.fam===famKey(state.pc));
+const pfam=()=>famKids(state.pc);
+function kidSwitch(){const ks=pfam();if(ks.length<2)return '';
+  return `<div style="display:flex;gap:8px;margin-bottom:10px;overflow-x:auto">${ks.map(k=>`<button class="hpill ${k.id===state.pc?'solid':''}" style="min-height:40px;padding:5px 14px 5px 6px" onclick="act('pc','${k.id}')">
+    ${face(k,28)}${k.name.split(' ')[1]}${k.sfx}</button>`).join('')}</div>`;}
 SCR.S02=()=>{
-  const c=child('c1');
+  const c=pchild();
   return `${phead('ホーム','',true)}<div class="pbody">
+    ${kidSwitch()}
     <div class="kidcard">${face(c,54)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
       <div class="timebox"><small>${c.changed?'変更後のお迎え':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
@@ -745,7 +1122,7 @@ SCR.S02=()=>{
     <button class="cta" onclick="act('go','S03')">${ic('car',24)}お迎えの状況を知らせる</button>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px">
       ${[['S05','欠席・遅刻の連絡','通院・お休みの申請','cal'],['S06','連絡帳','体調・様子の記入','book'],
-         ['S07','代理人の登録',(state.proxies.c1||[]).length+'人を登録中','users'],['S08','お迎えカード','園の入口で提示','idcard']]
+         ['S07','代理人の登録',proxiesOf(state.pc).length+'人を登録中','users'],['S08','お迎えカード','園の入口で提示','idcard']]
         .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,24)}</span><b>${t}</b><small>${s}</small></button>`).join('')}
     </div>
     <div class="sec">園からのお知らせ</div>
@@ -757,13 +1134,24 @@ SCR.S02=()=>{
 };
 
 SCR.S03=()=>{
-  const c=child('c1'),sel=state.sel,newAt=calcNew();
+  const c=pchild(),sel=state.sel,newAt=calcNew();
+  const sibs=pfam().filter(k=>k.st==='waiting');
+  const tg=state.pkids||sibs.map(k=>k.id);
   const deco=`<svg class="deco" width="150" height="86" style="right:-4px;top:6px" viewBox="0 0 150 86" fill="none">
     <ellipse cx="26" cy="16" rx="21" ry="9" fill="#CFE9F5"/><ellipse cx="44" cy="14" rx="14" ry="7" fill="#DCF0FA"/>
     <path d="M92 84V54l19-15 19 15v30z" fill="#F7C98E"/><path d="M87 55l24-19 24 19z" fill="#E9A45E"/>
     <rect x="104" y="64" width="14" height="20" fill="#FBEBD6"/>
     <path d="M60 84c0-12 5-20 11-20s11 8 11 20z" fill="#B6DCB4"/><rect x="69" y="76" width="4" height="9" fill="#9C7C58"/></svg>`;
+  if(c.st!=='waiting')return `${phead('お迎え連絡','S02',true)}<div class="pbody">${kidSwitch()}
+    <div class="card" style="padding:24px;text-align:center;margin-top:6px">${ic('check',40,'#48A876')}
+      <div style="font-family:var(--disp);font-weight:700;font-size:17px;margin-top:10px">${c.name.split(' ')[1]}${c.sfx}は${c.st==='arrived'?'お迎えの受付が済んでいます':'お迎えが完了しています'}</div>
+      <div class="tiny muted" style="margin-top:6px">${c.st==='arrived'?hm(c.arrivedAt||now())+'に玄関で受付しました。':''}</div></div></div>`;
   return `${phead('お迎え連絡','S02',true)}<div class="pbody">
+    ${kidSwitch()}
+    ${sibs.length>1?`<div class="card" style="padding:12px 14px;margin-bottom:10px">
+      <div class="tiny muted" style="margin-bottom:7px">連絡するお子さま</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${sibs.map(k=>`<button class="chk ${tg.includes(k.id)?'on':''}" style="width:auto;margin:0;padding:8px 12px" onclick="act('pkid','${k.id}')">
+        <span class="box">${ic('check',14)}</span><span>${k.name.split(' ')[1]}${k.sfx}（${hm(k.pickupAt)}）</span></button>`).join('')}</div></div>`:''}
     <div class="kidcard">${face(c,52)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
       <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
@@ -789,32 +1177,34 @@ SCR.S03=()=>{
     <div style="margin-top:14px"><button class="cta" ${newAt?'':'disabled'} onclick="act('submitPickup')">この内容で送信する</button></div>
   </div>`;
 };
-function calcNew(){
-  const c=child('c1'),sel=state.sel;
+function calcNew(c){
+  c=c||pchild();const sel=state.sel;
   if(sel.custom){const[h,m]=sel.custom.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);return d.getTime();}
   if(sel.min)return c.pickupAt+(sel.dir==='late'?1:-1)*sel.min*60000;
   return null;
 }
 
 SCR.S04=()=>{
-  const c=child('c1');
+  const done=(state.lastChanged||[]).map(child).filter(Boolean);
+  const list=done.length?done:[pchild()];
   return `${phead('送信しました','S02')}<div class="pbody" style="text-align:center;padding-top:26px">
     <div style="width:88px;height:88px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',48,'#48A876')}</div>
     <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:16px">園に伝えました</div>
-    <div class="muted" style="font-size:13.5px;margin-top:6px;line-height:1.8">${c.name.split(' ')[1]}${c.sfx}のお迎え予定を変更しました。<br>先生の画面にすぐ反映されています。</div>
-    <div class="card" style="padding:20px;margin:20px 0;text-align:left">
-      <div class="tiny muted">変更前</div>
-      <div style="font-family:var(--disp);font-size:18px;text-decoration:line-through;color:#B2A499">${hm(c.planAt)}</div>
-      <div class="tiny muted" style="margin-top:12px">変更後のお迎え予定</div>
-      <div style="font-family:var(--disp);font-weight:900;font-size:34px;color:var(--o-d);line-height:1.2">${hmx(c.pickupAt)}</div>
-      <span class="pill orange" style="margin-top:10px">園のタイムラインに反映済み</span></div>
+    <div class="muted" style="font-size:13.5px;margin-top:6px;line-height:1.8">${list.map(c=>c.name.split(' ')[1]+c.sfx).join('・')}のお迎え予定を変更しました。<br>先生の画面にすぐ反映されています。</div>
+    ${list.map(c=>`<div class="card" style="padding:18px;margin-top:14px;text-align:left;display:flex;gap:14px;align-items:center">
+      ${face(c,46)}<div style="flex:1"><div class="tiny muted">${c.name}${c.sfx}</div>
+        <div style="font-family:var(--disp);font-size:15px;text-decoration:line-through;color:#B2A499">${hm(c.planAt)}</div></div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);line-height:1.2">${hmx(c.pickupAt)}</div></div>`).join('')}
+    <span class="pill orange" style="margin:14px 0 18px">園のタイムラインに反映済み</span>
     <button class="cta ghost" onclick="act('go','S02')">ホームへ戻る</button></div>`;
 };
 
 SCR.S05=()=>{
   const today=new Date(now()).toISOString().slice(0,10);
   return `${phead('欠席・遅刻の連絡','S02')}<div class="pbody">
-    <label class="fieldl" style="margin-top:4px">連絡の種類</label>
+    ${kidSwitch()}
+    <div class="tiny muted">${pchild().name}${pchild().sfx}（${pchild().cls}）の連絡</div>
+    <label class="fieldl" style="margin-top:10px">連絡の種類</label>
     <select class="inp" id="abType"><option>欠席</option><option>遅刻（登園が遅れます）</option><option>通院のため一時外出</option><option>長期のお休み</option></select>
     <label class="fieldl">対象の日</label>
     <div class="bigchoice" style="grid-template-columns:1fr 1fr;gap:10px">
@@ -830,15 +1220,16 @@ SCR.S05=()=>{
     <div style="margin-top:16px"><button class="cta" onclick="act('submitAbsence')">連絡を送信する</button></div>
     <div class="sec">送信した連絡</div>
     ${state.absences.length?state.absences.map(a=>`<div class="card" style="padding:14px 16px;margin-bottom:9px">
-      <div style="display:flex;align-items:center;gap:8px"><span class="pill orange">${a.type}</span><span class="tiny muted">${a.date}</span>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="pill orange">${a.type}</span><span class="tiny muted">${a.cid&&child(a.cid)?child(a.cid).name.split(' ')[1]+child(a.cid).sfx+'・':''}${a.date}</span>
       <span class="pill green" style="margin-left:auto">園が確認済み</span></div>
       <div style="font-size:13px;margin-top:8px">${a.txt||'（記入なし）'}</div></div>`).join('')
      :`<div class="card" style="padding:26px;text-align:center;color:var(--ink-2);font-size:13px">まだ連絡はありません。<br>お休みや通院が決まったら、ここから送信できます。</div>`}</div>`;
 };
 
 SCR.S06=()=>{
-  const list=state.diary.c1||[];
+  const list=state.diary[state.pc]||[];
   return `${phead('連絡帳','S02')}<div class="pbody">
+    ${kidSwitch()}
     <div class="card" style="padding:17px">
       <div style="font-family:var(--disp);font-weight:700;margin-bottom:8px">${md(now())}（${wd(now())}）の記録</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
@@ -858,18 +1249,25 @@ SCR.S06=()=>{
 
 /* --- S07 代理人管理（保護者側・画像1の様式） --- */
 SCR.S07=()=>{
-  const ps=state.proxies.c1||[];
+  const ps=proxiesOf(state.pc);
   return `${phead('代理人リスト','S02')}<div class="pbody">
     <div class="note">${ic('info',18,'#D6A94E')}<div>お迎えを代理でお願いできる方の一覧です。顔写真の登録は任意です。</div></div>
     ${ps.map(p=>`<div class="card" style="padding:15px;margin-top:12px;display:flex;gap:13px">
       <div style="width:76px;height:88px;border-radius:11px;overflow:hidden;flex:none">${pic(p)}</div>
       <div style="flex:1;min-width:0">
         <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
-          <span class="pill pri">優先順位 ${p.prio}</span>${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</div>
+          <span class="pill pri">優先順位 ${p.prio}</span>${pxState(p)}</div>
         <div style="font-family:var(--disp);font-weight:700;font-size:17px;margin-top:6px">${p.name}<small style="font-size:12px;color:#8B7E74;font-weight:500">（${p.kana||''}）</small></div>
         <div class="tiny muted" style="margin-top:3px">${p.rel}・${p.tel||'—'}</div>
-        ${p.photo?'<span class="pill green" style="margin-top:7px">写真あり（登録済み）</span>'
-                 :`<div class="memo-row" style="margin-top:7px;padding:7px 10px;display:flex;gap:7px;font-size:12.5px;color:#8A7549">${ic('pencil',16,'#D6A94E')}<b>${p.memo||'特徴メモ 未入力'}</b></div>`}
+        <div class="tiny muted">有効期間：${fmtD(p.from)} 〜 ${fmtD(p.to)}</div>
+        ${p.src?(p.faceWarn?'<span class="pill red" style="margin-top:7px">顔を確認できない写真です</span>'
+                 :p.desc?'<span class="pill green" style="margin-top:7px">顔照合に使えます</span>'
+                 :'<span class="pill green" style="margin-top:7px">写真あり（登録済み）</span>')
+          :p.photo?'<span class="pill gray" style="margin-top:7px">照合用の写真が未登録</span>'
+          :`<div class="memo-row" style="margin-top:7px;padding:7px 10px;display:flex;gap:7px;font-size:12.5px;color:#8A7549">${ic('pencil',16,'#D6A94E')}<b>${p.memo||'特徴メモ 未入力'}</b></div>`}
+        <input type="file" id="pf_${p.id}" accept="image/*" style="display:none" onchange="act('pxSet',this)" data-pid="${p.id}">
+        <button class="hpill" style="margin-top:9px;min-height:36px" onclick="document.getElementById('pf_${p.id}').click()">${ic('photo',16)}${p.src?'写真を変更':'写真を登録'}</button>
+        ${p.faceWarn?'<div class="tiny" style="color:var(--rd-tx);margin-top:6px">正面を向いた、明るい写真を選んでください。</div>':''}
       </div></div>`).join('')}
     <div class="sec">代理人を追加する</div>
     <div class="card" style="padding:17px">
@@ -883,7 +1281,11 @@ SCR.S07=()=>{
           <input type="file" id="pxFile" accept="image/*" style="display:none" onchange="act('pxFile',this)">
           <button class="cta ghost" onclick="document.getElementById('pxFile').click()">${state.pxSrc?'写真を選び直す':'写真を選ぶ'}</button>
           ${state.pxSrc?`<button class="hpill" style="margin-top:9px;width:100%;justify-content:center" onclick="act('pxClear')">写真を削除する</button>`:''}
-          <div class="tiny muted" style="margin-top:8px">カメラで撮るか、端末の写真から選べます。</div>
+          <div class="tiny ${state.pxWarn==='ng'?'':'muted'}" style="margin-top:8px;${state.pxWarn==='ng'?'color:var(--rd-tx)':''}">${
+            state.pxWarn==='ng'?'顔を確認できませんでした。正面を向いた明るい写真を選んでください。'
+           :state.pxWarn==='ok'?'顔を確認しました。玄関の顔照合に使えます。'
+           :state.pxWarn==='wait'?'顔を確認しています…'
+           :'正面を向いた、顔がはっきり写った写真を選んでください。玄関の顔照合に使います。'}</div>
         </div></div>
       <label class="fieldl">写真がない場合の特徴メモ</label><input class="inp" id="pxMemo" placeholder="例）眼鏡をかけた白髪の男性">
       <div style="margin-top:15px"><button class="cta" onclick="act('savePx')">保存する</button></div>
@@ -891,27 +1293,19 @@ SCR.S07=()=>{
 };
 
 SCR.S08=()=>{
-  const c=child('c1');
+  const kids=pfam(),fk=famKey(state.pc);
   return `${phead('お迎えカード','S02')}<div class="pbody">
     <div style="background:linear-gradient(155deg,#F7AE6A,#EE8531);border-radius:24px;padding:22px;color:#fff;box-shadow:0 8px 20px rgba(238,133,49,.3)">
       <div style="display:flex;align-items:center;gap:10px">${sun(28)}<b style="font-family:var(--disp);font-size:16px">さくら保育園</b>
         <span class="pill" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff">有効</span></div>
-      <div style="font-family:var(--disp);font-weight:900;font-size:23px;margin-top:16px">${c.name}${c.sfx}</div>
-      <div class="tiny" style="opacity:.9">${c.cls}・${c.age}</div>
-      <div style="background:#fff;border-radius:16px;padding:14px;margin-top:16px;display:grid;place-items:center">${qrSVG('KWS-'+c.id)}</div>
-      <div class="tiny" style="opacity:.9;margin-top:12px;line-height:1.7">お迎え担当：${c.by}<br>有効期間：2025年4月1日 〜 2026年3月31日</div></div>
-    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>代理人の方が来るときや、園から提示をお願いされたときにこの画面を見せてください。いつものお迎えでは必要ありません。</div></div></div>`;
+      <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:16px;line-height:1.5">${kids.map(k=>k.name+k.sfx).join('<br>')}</div>
+      <div class="tiny" style="opacity:.9">${kids.map(k=>k.cls).join('・')}</div>
+      <div style="background:#fff;border-radius:16px;padding:14px;margin-top:16px;display:grid;place-items:center;min-height:180px">${qrHTML(cardToken(fk))}</div>
+      <div style="font-family:var(--mono);font-size:15px;letter-spacing:.12em;text-align:center;margin-top:10px">${cardNo(fk)}</div>
+      <div class="tiny" style="opacity:.9;margin-top:8px;line-height:1.7">有効期間：${fmtD(fy().from)} 〜 ${fmtD(fy().to)}</div></div>
+    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>玄関の受付タブレットにこの画面をかざすと、お迎えの受付ができます。代理人の方にお願いするときは、この画面を共有してください。</div></div></div>`;
 };
-function qrSVG(seed){
-  let h=0;for(const ch of seed)h=(h*31+ch.charCodeAt(0))>>>0;
-  const n=21,cells=[];const fin=(x,y)=>(x<7&&y<7)||(x>=n-7&&y<7)||(x<7&&y>=n-7);
-  for(let y=0;y<n;y++)for(let x=0;x<n;x++){
-    if(fin(x,y)){const fx=x<7?x:x-(n-7),fy=y<7?y:y-(n-7);
-      if((fx===0||fx===6||fy===0||fy===6)||(fx>=2&&fx<=4&&fy>=2&&fy<=4))cells.push([x,y]);}
-    else{h=(h*1103515245+12345)>>>0;if((h>>>16)%100<47)cells.push([x,y]);}}
-  return `<svg viewBox="0 0 ${n} ${n}" width="152" height="152" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/>
-    ${cells.map(([x,y])=>`<rect x="${x}" y="${y}" width="1" height="1" fill="#3D332C"/>`).join('')}</svg>`;
-}
+
 
 /* =========================================================
    園側
@@ -920,6 +1314,13 @@ SCR.S09=()=>{
   const cs=state.children,late=cs.filter(c=>stat(c).k==='late').length,soon=cs.filter(c=>stat(c).k==='soon').length,
         yet=cs.filter(c=>c.st==='waiting').length;
   return thead('ホーム','home',md(now())+'（'+wd(now())+'）さくら保育園')+`<div class="tbody">
+    ${state.alerts.length?`<div class="alertbig" style="display:block">
+      <div class="big" style="font-size:18px">玄関で確認が必要です（${state.alerts.length}件）</div>
+      <button class="btn" style="margin-top:10px" onclick="act('go','S10')">お帰りタイムラインを開く</button></div>`:''}
+    ${(()=>{const n=Object.values(state.proxies).flat().filter(p=>!pxValid(p)).length;
+      return n?`<div class="arrsec" style="margin-bottom:16px;background:#FFF9EA;border-color:#F0DCA8">
+        <div class="hd" style="color:var(--am-tx)">${ic('users',19)}確認が必要な代理人が${n}件あります</div>
+        <button class="btn g" onclick="act('go','S18')">園児一覧で確認する</button></div>`:'';})()}
     ${state.children.filter(c=>c.st==='arrived').length?`<div class="arrsec" style="margin-bottom:16px">
       <div class="hd">${ic('check',19)}お迎えの方が到着しています（${state.children.filter(c=>c.st==='arrived').length}名）</div>
       <button class="btn" onclick="act('go','S10')">お帰りタイムラインを開く</button></div>`:''}
@@ -942,7 +1343,8 @@ SCR.S09=()=>{
 
 /* --- S10 お帰りタイムライン --- */
 SCR.S10=()=>{
-  const f=state.filter,all=curSchool().data?state.children.slice():[];
+  const f=state.filter,all=(curSchool().data?state.children.slice():[]).filter(c=>!state.s10cls||c.cls===state.s10cls);
+  const classes=[...new Set(state.children.map(c=>c.cls))];
   const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='arr'&&k==='arrived')||(f==='done'&&k==='released')||(f==='late'&&k==='late');};
   const arrived=all.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||a.pickupAt)-(b.arrivedAt||b.pickupAt)).filter(match);
   const waiting=all.filter(c=>c.st==='waiting').sort((a,b)=>a.pickupAt-b.pickupAt);
@@ -950,11 +1352,16 @@ SCR.S10=()=>{
   const past=waiting.filter(c=>c.pickupAt<now()).filter(match),future=waiting.filter(c=>c.pickupAt>=now()).filter(match),doneF=done.filter(match);
   const counts={all:all.length,arr:all.filter(c=>c.st==='arrived').length,yet:waiting.filter(c=>c.pickupAt>=now()).length,
                 done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length};
-  const right=`<button class="hpill">${ic('filter',18)}絞り込み</button><button class="hpill">${ic('clock',18)}自動更新中</button>`;
+  const right=`<button class="hpill ${state.s10cls?'solid':''}" onclick="act('s10menu')">${ic('filter',18)}${state.s10cls?state.s10cls+'のみ':'クラスで絞り込み'}</button>
+    <span class="pill green" style="padding:9px 13px">${ic('clock',14)}自動更新中</span>`;
   return thead('お帰りタイムライン','clock',md(now())+'（'+wd(now())+'）'+curSchool().name,right)
+   +(state.s10menu?`<div class="tabs" style="padding-bottom:8px"><span class="tiny muted" style="align-self:center;margin-right:4px">クラス：</span>
+       <button class="tab ${!state.s10cls?'on':''}" onclick="act('s10cls','')">すべてのクラス</button>
+       ${classes.map(cl=>`<button class="tab ${state.s10cls===cl?'on':''}" onclick="act('s10cls','${cl}')">${cl}</button>`).join('')}</div>`:'')
    +`<div class="tabs">${[['all','すべて'],['arr','到着'],['yet','未到着'],['late','遅延'],['done','受け渡し済み']].map(([k,l])=>
        `<button class="tab ${f===k?'on':''}" onclick="act('filter','${k}')">${l}（${counts[k]}）</button>`).join('')}</div>
      <div class="tbody">
+      ${state.alerts.length&&curSchool().data?state.alerts.map(alertRow).join(''):''}
       ${arrived.length?`<div class="arrsec"><div class="hd">${ic('check',19)}お迎えの方が到着しています（${arrived.length}名）</div>
         ${arrived.map(arrivedRow).join('')}</div>`:''}
       ${past.map(cardRow).join('')}
@@ -964,6 +1371,31 @@ SCR.S10=()=>{
       ${(!arrived.length&&!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">${curSchool().data?'この条件に当てはまる園児はいません。':'本日のお迎え予定はまだ登録されていません。'}</div>`:''}
      </div>`;
 };
+function alertRow(a){
+  if(!a.cid)return `<div class="alertbig">
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--rd-bg);display:grid;place-items:center;color:var(--rd-tx);flex:none">${ic('bell',32)}</div>
+    <div style="min-width:0;flex:1"><div class="big">玄関で確認が必要です</div>
+      <div class="meta" style="margin-top:4px">${a.why}／${hm(a.t)}</div></div>
+    <div style="display:grid;gap:8px;margin-left:auto">
+      <button class="btn ok" style="padding:10px 14px" onclick="act('alertIn','${a.id}')">${ic('check',18)}対応しました</button></div></div>`;
+  const c=child(a.cid),p=proxiesOf(a.cid).find(x=>x.id===a.pid)||proxiesOf(a.cid)[0];
+  return `<div class="alertbig">
+    ${face(c,64)}
+    <div style="min-width:0;flex:1">
+      <div class="big">玄関で確認が必要です</div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-top:3px">${c.name}${c.sfx}（${c.cls}）のお迎え</div>
+      <div class="meta" style="margin-top:4px">${p.name}さん（${p.rel}）として受付／${a.why}／${hm(a.t)}</div></div>
+    <div class="thumbs" style="display:flex;gap:8px">
+      <div style="text-align:center"><div style="width:62px;height:72px;border-radius:12px;overflow:hidden;background:#EFEDEA">${a.shot?`<img src="${a.shot}" alt="" style="width:100%;height:100%;object-fit:cover">`:silhouette()}</div>
+        <div class="tiny muted" style="margin-top:3px">玄関の写真</div></div>
+      <div style="text-align:center"><div style="width:62px;height:72px;border-radius:12px;overflow:hidden;background:#EFEDEA">${pic(p)}</div>
+        <div class="tiny muted" style="margin-top:3px">登録写真</div></div></div>
+    <div style="display:grid;gap:8px;margin-left:auto">
+      <button class="btn ok" style="padding:10px 14px" onclick="act('alertIn','${a.id}')">${ic('check',18)}確認して受付する</button>
+      <button class="btn ng" style="padding:10px 14px" onclick="act('alertHold','${a.id}')">引き渡さない</button>
+      <button class="btn g" style="padding:8px 14px" onclick="act('alertClose','${a.id}')">閉じる</button></div>
+  </div>`;
+}
 function elapsedText(c){
   const sec=Math.max(0,Math.floor((now()-(c.arrivedAt||now()))/1000));
   return sec<60?sec+'秒':Math.floor(sec/60)+'分'+pad(sec%60)+'秒';
@@ -972,10 +1404,11 @@ function arrivedRow(c){
   const p=proxiesOf(c.id).find(x=>x.id===c.verified)||proxiesOf(c.id)[0];
   return `<div class="arrbig" data-arr="${c.id}">
     ${face(c,76)}
-    <div style="min-width:0;flex:1">
+    <div class="ainfo">
       <div class="tiny muted">${c.cls}（${c.age}）</div>
       <div class="big">${c.name}${c.sfx}</div>
       <div class="room">${c.cls}の保育室へ向かっています</div>
+      <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?(c.live?'顔照合 一致・本人確認済み':'顔照合 一致（まばたき・首振り未確認）'):'職員が確認して受付'}</span>
       <div class="meta" style="margin-top:5px">お迎え：${c.arrivedBy||c.by}　${hm(c.arrivedAt||now())}受付
         ${c.prep?`<span class="pill green" style="margin-left:6px">${c.prep}が準備中</span>`:''}</div>
     </div>
@@ -985,7 +1418,7 @@ function arrivedRow(c){
       <div style="text-align:center"><div class="th">${pic(p)}</div>
         <div class="tiny muted" style="margin-top:3px">登録写真</div></div>
     </div>
-    <div style="text-align:center;min-width:92px">
+    <div class="aelap">
       <div class="tiny muted">到着から</div>
       <div class="elapse js-arr">${elapsedText(c)}</div></div>
     <div class="acts">
@@ -1049,14 +1482,14 @@ SCR.S12=()=>{
       <div class="pxphoto">${pic(p)}</div>
       <div class="pxinfo">
         <div class="pxtop"><span class="pill pri">優先順位 ${p.prio}</span>
-          <span style="margin-left:auto">${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</span></div>
+          <span style="margin-left:auto">${pxState(p)}</span></div>
         <div class="pxname">${p.name}<small>（${p.kana||''}）</small></div>
         <div class="dl">
           <div class="row">${ic('user',19)}<span class="lb">続柄</span><span>${p.rel}</span></div>
           <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
           <div class="row">${ic('idcard',19)}<span class="lb">確認方法</span><span>${p.auth||(p.photo?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）')}</span></div>
           ${p.photo?'':`<div class="row memo">${ic('pencil',19)}<span class="lb">特徴メモ</span><b>${p.memo||'未入力'}</b></div>`}
-          <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div>
+          <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>${fmtD(p.from)} 〜 ${fmtD(p.to)}</span></div>
         </div></div>
       <span class="chev">${ic('chev',24)}</span></button>`).join('')}
     <button class="btn g" style="width:100%;justify-content:center;margin-bottom:14px" onclick="act('holdStart')">
@@ -1075,17 +1508,18 @@ SCR.S13=()=>{
                :`<div class="memo-row" style="padding:26px;font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.8;color:#8A7549;text-align:center">${p.memo||'特徴メモが未登録です'}</div>
                  <div class="tiny muted" style="margin-top:9px">顔写真がないため、特徴メモで確認します</div>`}</div>
     <div>
-      <div style="display:flex;gap:9px"><span class="pill pri">優先順位 ${p.prio}</span>${p.ok?'<span class="pill green">承認済み</span>':'<span class="pill amber">承認待ち</span>'}</div>
+      <div style="display:flex;gap:9px"><span class="pill pri">優先順位 ${p.prio}</span>${pxState(p)}</div>
+      ${pxValid(p)?'':`<div class="err" style="margin-top:10px"><b>${p.ok?'有効期限が切れています':'まだ園が承認していません'}。</b>この方には引き渡せません。保護者に連絡して確認してください。</div>`}
       <div style="font-family:var(--disp);font-weight:900;font-size:28px;margin-top:8px">${p.name}</div>
       <div class="muted" style="font-size:13.5px">（${p.kana||''}）</div>
       <div class="card" style="padding:6px 16px;margin-top:14px"><div class="dl">
         <div class="row">${ic('user',19)}<span class="lb">続柄</span><span>${p.rel}</span></div>
         <div class="row">${ic('phone',19)}<span class="lb">電話番号</span><span>${p.tel||'—'}</span></div>
         <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${c.name}${c.sfx}（${c.cls}）</span></div>
-        <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>2025年4月1日 〜 2026年3月31日</span></div></div></div>
+        <div class="row">${ic('shield',19)}<span class="lb">有効期間</span><span>${fmtD(p.from)} 〜 ${fmtD(p.to)}</span></div></div></div>
       <div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>写真・特徴メモと見比べて確認してください。確認方法と担当した職員が記録に残ります。</div></div>
       <div style="display:flex;gap:11px;margin-top:16px;flex-wrap:wrap">
-        <button class="btn ok" onclick="act('matchOk')">${ic('check',20)}本人と確認できた｜引き渡しへ</button>
+        ${pxValid(p)?`<button class="btn ok" onclick="act('matchOk')">${ic('check',20)}本人と確認できた｜引き渡しへ</button>`:''}
         ${state.cam.on?`<button class="btn g" onclick="act('camFrom','${p.id}')">${ic('idcard',20)}カメラで照合する</button>`:''}
         <button class="btn ng" onclick="act('matchNg')">確認できない｜保留にする</button></div>
     </div></div></div>`;
@@ -1102,7 +1536,7 @@ SCR.S14=()=>{
         <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${c.name}${c.sfx}（${c.cls}）</span></div>
         <div class="row">${ic('user',19)}<span class="lb">引き渡した方</span><span>${who}</span></div>
         <div class="row">${ic('clock',19)}<span class="lb">時刻</span><span>${hm(now())}</span></div>
-        <div class="row">${ic('idcard',19)}<span class="lb">対応した職員</span><span>${state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'}</span></div></div></div>
+        <div class="row">${ic('idcard',19)}<span class="lb">対応した職員</span><span>${staffName()}</span></div></div></div>
       <div style="margin-top:18px"><button class="btn" onclick="act('release')">完了</button></div></div></div>`;
 };
 
@@ -1112,26 +1546,34 @@ SCR.S15=()=>{
   const right=`<button class="hpill ${state.showSearch?'solid':''}" onclick="act('toggleSearch')">${ic('search',18)}検索</button>
     <button class="hpill ${pf!=='all'?'solid':''}" onclick="act('cyclePF')">${ic('filter',18)}${pf==='all'?'絞り込み':pf==='clerk'?'事務のみ':pf==='teacher'?'担任のみ':'自動通知のみ'}</button>
     <button class="hpill" onclick="act('go','S25')">${ic('clip',18)}引き渡し記録</button>`;
-  const list=state.posts.filter(p=>(pf==='all'||p.kind===pf)&&(!q||(p.txt+p.who).replace(/<[^>]+>/g,'').includes(q)));
   const admin=state.role==='admin';
   return thead('職員用タイムライン','chat','',right)+`<div class="tbody">
     ${state.showSearch?`<div class="compbox" style="margin-bottom:14px">${ic('search',18,'#BCADA1')}
-      <input id="tlSearch" value="${state.q||''}" placeholder="園児名・内容・投稿者で検索" oninput="act('tlq',this.value)">
-      ${q?`<button class="hpill" onclick="act('tlq','')">消す</button>`:''}</div>`:''}
+      <input id="tlSearch" value="${esc(state.q)}" placeholder="園児名・内容・投稿者で検索" oninput="act('tlq',this.value)">
+      <button class="hpill" onclick="act('tlClear')">消す</button></div>`:''}
     ${admin?`<div class="note" style="margin-bottom:14px">${ic('info',20,'#C9AE8E')}<div>保育課のアカウントは閲覧のみです。</div></div>`
       :`<div class="composer">${flower(state.role==='clerk'?'#F2A7BC':'#F5C842',46)}
       <div class="compbox"><input id="quick" placeholder="タイムラインに投稿する" onkeydown="if(event.key==='Enter')act('quickPost')">
         <button class="hpill solid" onclick="act('quickPost')">${ic('pencil',18)}投稿</button></div></div>`}
-    <div class="daysep"><span>今日${(q||pf!=='all')?`　${list.length}件`:''}</span></div>
+    <div id="tlList">${tlListHTML()}</div>
+  </div>`;
+};
+
+function tlListHTML(){
+  const q=state.q||'',pf=state.pfilter;
+  /* ふりがなで検索したときも、その園児の名前（漢字）を含む投稿を出す */
+  const alias=norm(q)?state.children.filter(c=>norm(c.kana).includes(norm(q))).map(c=>norm(c.name)):[];
+  const list=state.posts.filter(p=>{if(pf!=='all'&&p.kind!==pf)return false;if(!norm(q))return true;
+    const t=norm(p.txt+p.who);return t.includes(norm(q))||alias.some(a=>t.includes(a));});
+  return `<div class="daysep"><span>今日${(norm(q)||pf!=='all')?`　${list.length}件`:''}</span></div>
     ${list.length?list.map(p=>`<div class="post ${p.kind}">
       ${flower(p.kind==='clerk'?'#F2A7BC':p.kind==='sys'?'#8FC3E8':'#F5C842',52)}
-      <div class="bub"><div class="who"><b>${p.who}</b><span class="t">${hm(p.t)}</span><span class="more">${ic('dots',18)}</span></div>
+      <div class="bub"><div class="who"><b>${p.who}</b><span class="t">${hm(p.t)}</span></div>
         <div class="txt">${p.txt}</div>
         <div class="reacts"><button class="react ${p.ack?'on':''}" onclick="act('ack','${p.id}')">${ic('smile',17)}了解しました</button>
           ${p.ack?`<span class="react">${ic('thumb',17)}${p.ack}</span>`:''}</div></div></div>`).join('')
-     :`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2)">該当する投稿はありません。</div>`}
-  </div>`;
-};
+     :`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2)">該当する投稿はありません。</div>`}`;
+}
 
 /* --- S16 メモ入力 --- */
 SCR.S16=()=>thead('メモを追加','pencil','',`<button class="hpill" onclick="act('go','S15')">${ic('back',18)}タイムラインへ戻る</button>`)
@@ -1147,11 +1589,8 @@ SCR.S16=()=>thead('メモを追加','pencil','',`<button class="hpill" onclick="
 
 /* --- S17 代理入力（園児をクラスと名前で絞り込み） --- */
 SCR.S17=()=>{
-  const waiting=state.children.filter(c=>c.st==='waiting');
   const classes=[...new Set(state.children.map(c=>c.cls))];
-  const q=(state.ag.q||'').trim();
-  const list=waiting.filter(c=>(!state.ag.cls||c.cls===state.ag.cls)&&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
-  const sel=child(state.ag.cid)||list[0]||waiting[0];
+  const sel0=child(state.ag.cid), sel=sel0&&sel0.st!=='released'?sel0:null;
   return thead('代理入力','phone','電話で受けた連絡を登録します。')
   +`<div class="tbody" style="max-width:760px"><div class="card" style="padding:20px">
     <label class="fieldl" style="margin-top:0">園児をさがす</label>
@@ -1159,13 +1598,8 @@ SCR.S17=()=>{
       <button class="tab ${!state.ag.cls?'on':''}" onclick="act('agCls','')">すべて</button>
       ${classes.map(cl=>`<button class="tab ${state.ag.cls===cl?'on':''}" onclick="act('agCls','${cl}')">${cl}</button>`).join('')}</div>
     <div class="compbox" style="margin-bottom:10px">${ic('search',18,'#BCADA1')}
-      <input id="agSearch" value="${state.ag.q||''}" placeholder="園児の名前で検索（例：やまと）" oninput="act('agq',this.value)"></div>
-    <div style="max-height:200px;overflow-y:auto;display:grid;gap:7px">
-      ${list.length?list.map(c=>`<button class="chk ${sel&&sel.id===c.id?'on':''}" style="margin:0" onclick="act('agPick','${c.id}')">
-        <span class="box">${ic('check',14)}</span>
-        <span style="flex:1"><b>${c.name}${c.sfx}</b> <span class="tiny muted">${c.cls}</span>
-          <span class="tiny muted" style="display:block">現在の予定 ${hm(c.pickupAt)}／${c.by}</span></span></button>`).join('')
-       :`<div class="tiny muted" style="padding:14px">該当する園児がいません。クラスや名前を変えてさがしてください。</div>`}</div>
+      <input id="agSearch" value="${esc(state.ag.q)}" placeholder="園児の名前で検索（例：やまと）" oninput="act('agq',this.value)"></div>
+    <div id="agList" style="max-height:220px;overflow-y:auto;display:grid;gap:7px">${agListHTML()}</div>
     <label class="fieldl">連絡の種類</label>
     <select class="inp" id="agType"><option value="late">お迎えが遅くなる</option><option value="early">お迎えが早くなる</option>
       <option value="proxy">代理人がお迎えに来る</option><option value="absent">早退・欠席</option></select>
@@ -1173,34 +1607,89 @@ SCR.S17=()=>{
     <input class="inp" id="agTime" type="time" value="${pad(new Date(now()).getHours())}:${pad(new Date(now()).getMinutes())}">
     <label class="fieldl">受電メモ</label><textarea class="inp" id="agMemo" rows="3" placeholder="例）電車遅延のため15分ほど遅れるとのこと。"></textarea>
     <div style="margin-top:15px"><button class="btn" ${sel?'':'disabled'} onclick="act('submitAgent')">${ic('chat',20)}${sel?sel.name+sel.sfx+'の連絡を登録':'園児を選んでください'}</button></div>
-    <div class="tiny muted" style="margin-top:11px">登録者：渡辺 さくら（事務スタッフ）／受電時刻：${hm(now())}</div></div></div>`;
+    <div class="tiny muted" style="margin-top:11px">登録者：${staffName()}／受電時刻：${hm(now())}</div></div></div>`;
 };
 
+function agListHTML(){
+  const list=state.children.filter(c=>(!state.ag.cls||c.cls===state.ag.cls)&&hitChild(c,state.ag.q));
+  if(!list.length)return `<div class="tiny muted" style="padding:14px">「${esc(state.ag.q)}」に当てはまる園児がいません。</div>`;
+  return list.map(c=>{const off=c.st==='released';
+    return `<button class="chk ${state.ag.cid===c.id&&!off?'on':''}" style="margin:0;${off?'opacity:.55;cursor:default':''}" ${off?'disabled':''} onclick="act('agPick','${c.id}')">
+      <span class="box">${ic('check',14)}</span>
+      <span style="flex:1"><b>${c.name}${c.sfx}</b> <span class="tiny muted">${c.cls}</span> ${stPill(c)}
+        <span class="tiny muted" style="display:block">現在の予定 ${hm(c.pickupAt)}／${c.by}</span></span></button>`;}).join('');
+}
+
 /* --- S18 園児・代理人情報管理 --- */
+function pxApprovalHTML(){
+  const rows=[];
+  Object.entries(state.proxies).forEach(([fk,list])=>list.forEach(p=>{if(!pxValid(p))rows.push({fk,p});}));
+  if(!rows.length)return '';
+  return `<div class="sec">確認が必要な代理人（${rows.length}件）</div>
+    ${rows.map(({fk,p})=>{const kids=famKids(fk).map(k=>k.name+k.sfx).join('・');
+      return `<div class="card" style="padding:14px 16px;margin-bottom:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <div style="width:58px;height:66px;border-radius:10px;overflow:hidden;flex:none">${pic(p)}</div>
+        <div style="flex:1;min-width:180px"><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">${pxState(p)}
+          <b style="font-family:var(--disp);font-size:16px">${p.name}</b><span class="tiny muted">（${p.rel}）</span></div>
+          <div class="tiny muted" style="margin-top:4px">${kids}のお迎え／${p.tel||'—'}／有効期間 ${fmtD(p.from)} 〜 ${fmtD(p.to)}</div>
+          ${p.src?'':`<div class="tiny muted">特徴メモ：${p.memo||'未入力'}</div>`}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${p.ok?`<button class="btn" style="padding:10px 14px" onclick="act('pxRenew','${p.id}')">今年度に更新</button>`
+                :`<button class="btn ok" style="padding:10px 14px" onclick="act('pxApprove','${p.id}')">${ic('check',18)}承認する</button>`}
+          <button class="btn ng" style="padding:10px 14px" onclick="act('pxReject','${p.id}')">${p.ok?'削除':'却下'}</button></div></div>`;}).join('')}`;
+}
 SCR.S18=()=>thead('園児一覧','users','さくら保育園')+`<div class="tbody">
+  ${pxApprovalHTML()}
+  <div class="sec">園児一覧</div>
   <div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>クラス</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>
   ${state.children.map(c=>{const s=stat(c);
     return `<tr><td><b>${c.name}${c.sfx}</b></td><td>${c.cls}</td><td>${hm(c.pickupAt)}</td><td>${c.by}</td>
-      <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）<span class="pill '+(p.photo?'green':'amber')+'" style="margin-left:5px">'+(p.photo?'写真':'メモ')+'</span>').join('<br>')}</td>
+      <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）<span class="pill '+(p.src?'green':'amber')+'" style="margin-left:5px">'+(p.src?'写真':'メモ')+'</span>'+(pxValid(p)?'':' '+pxState(p))).join('<br>')}</td>
       <td><span class="pill ${s.tone}">${s.label}</span></td></tr>`;}).join('')}</table></div>
   <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>代理人の追加・変更には、保護者の申請と園の承認が必要です。</div></div></div>`;
 
 /* --- S19 / S20 自治体 --- */
 SCR.S19=()=>{
-  const changed=state.children.filter(c=>c.changed).length;
+  const st=state.stats, msgs=st.app+st.phone, phoneRate=msgs?Math.round(st.phone/msgs*100):0;
+  const done=state.records.filter(r=>!r.ng), waits=done.map(r=>r.wait).filter(w=>typeof w==='number');
+  const avg=waits.length?Math.round(waits.reduce((a,b)=>a+b,0)/waits.length):null;
+  const fmtW=s=>s==null?'—':(s<60?s+'秒':Math.floor(s/60)+'分'+pad(s%60)+'秒');
+  const camAll=st.camOK+st.camNG, camRate=camAll?Math.round(st.camOK/camAll*100):null;
+  const bar=(a,b,ca,cb)=>`<div style="display:flex;height:16px;border-radius:999px;overflow:hidden;background:#F1EBE5;margin:10px 0 6px">
+    ${a?`<div style="width:${a/(a+b)*100}%;background:${ca}"></div>`:''}${b?`<div style="width:${b/(a+b)*100}%;background:${cb}"></div>`:''}</div>`;
   return thead('管理者ダッシュボード','board','川崎市 保育・幼児教育部 保育課')+`<div class="tbody">
     <div class="grid3"><div class="stat"><b>50</b><small>導入済みの公立認可保育所</small></div>
       <div class="stat"><b>4,820</b><small>利用中の世帯</small></div>
-      <div class="stat"><b>${changed}</b><small>本日のお迎え時間変更（さくら保育園）</small></div></div>
+      <div class="stat"><b>${done.length}</b><small>本日の引き渡し（さくら保育園）</small></div></div>
+    <div class="sec">さくら保育園の今日の記録</div>
+    <div class="grid2">
+      <div class="card" style="padding:18px">
+        <b style="font-family:var(--disp);font-size:15px">お迎え連絡の内訳</b>
+        ${msgs?bar(st.app,st.phone,'#5FBF8B','#EDB53F'):'<div class="tiny muted" style="margin:10px 0">まだ連絡はありません</div>'}
+        <div style="display:flex;gap:14px;font-size:13px;flex-wrap:wrap">
+          <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#5FBF8B"></span> アプリ ${st.app}件</span>
+          <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#EDB53F"></span> 電話（代理入力） ${st.phone}件</span></div>
+        <div style="font-family:var(--disp);font-weight:900;font-size:28px;margin-top:10px">${msgs?phoneRate+'%':'—'}</div>
+        <div class="tiny muted">電話で受けた連絡の割合（下がるほど、電話対応が減っています）</div></div>
+      <div class="card" style="padding:18px">
+        <b style="font-family:var(--disp);font-size:15px">玄関の受付</b>
+        ${camAll?bar(st.camOK,st.camNG,'#5FBF8B','#E8735C'):'<div class="tiny muted" style="margin:10px 0">まだ受付はありません</div>'}
+        <div style="display:flex;gap:14px;font-size:13px;flex-wrap:wrap">
+          <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#5FBF8B"></span> 顔照合で受付 ${st.camOK}件</span>
+          <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#E8735C"></span> 先生が確認 ${st.camNG}件</span></div>
+        <div style="font-family:var(--disp);font-weight:900;font-size:28px;margin-top:10px">${fmtW(avg)}</div>
+        <div class="tiny muted">到着から引き渡しまでの平均時間${camRate!=null?'／照合で受付できた割合 '+camRate+'%':''}</div></div>
+    </div>
     <div class="sec">園別の利用状況</div>
-    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>園児数</th><th>本日の変更連絡</th><th>電話での連絡</th><th>状態</th></tr>
-      <tr><td><b>さくら保育園</b></td><td>中原区</td><td>112</td><td>${changed}件</td><td>1件</td><td><span class="pill green">稼働中</span></td></tr>
+    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>園児数</th><th>アプリの連絡</th><th>電話の連絡</th><th>状態</th></tr>
+      <tr><td><b>さくら保育園</b></td><td>中原区</td><td>112</td><td>${st.app}件</td><td>${st.phone}件</td><td><span class="pill green">稼働中</span></td></tr>
       <tr><td>あおば保育園</td><td>高津区</td><td>96</td><td>7件</td><td>0件</td><td><span class="pill green">稼働中</span></td></tr>
       <tr><td>みなみ保育園</td><td>川崎区</td><td>134</td><td>11件</td><td>2件</td><td><span class="pill green">稼働中</span></td></tr>
       <tr><td>ひがし保育園</td><td>幸区</td><td>88</td><td>—</td><td>—</td><td><span class="pill amber">導入準備中</span></td></tr></table></div>
     <div style="margin-top:16px"><button class="btn" onclick="act('go','S20')">${ic('school',20)}園情報管理へ</button></div>
     </div>`;
 };
+
 SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
  +`<div class="tbody" style="max-width:780px">
   <div class="card" style="padding:6px 18px"><div class="dl">
@@ -1208,13 +1697,24 @@ SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class
     <div class="row">${ic('users',19)}<span class="lb">園児 / 職員</span><span>112名 / 24名</span></div>
     <div class="row">${ic('photo',19)}<span class="lb">表示端末</span><span>玄関タブレット 2台・保育室 4台</span></div>
     <div class="row">${ic('cal',19)}<span class="lb">利用開始日</span><span>2026年4月1日</span></div></div></div>
+  <div style="margin-top:4px"><button class="hpill" onclick="act('check')">${ic('gear',16)}この端末で動作チェック</button></div>
   <div class="sec">受付カメラ</div>
   <div class="card" style="padding:4px 16px">
-    ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と並べて確認します'],
+    ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と照合します'],
+       ['live','まばたきと首振りで本人を確認する','写真や画面、録画した動画をかざすなりすましを防ぎます'],
+       ['list','カードがない方はお名前でさがせる','オフにすると、カードがない場合は先生を呼ぶだけになります'],
        ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
         <span style="flex:1">${t}<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">${sub}</small></span>
         <button class="sw ${state.cam[k]?'on':''}" onclick="act('camSet','${k}')"><span></span></button></div>`).join('')}
+    <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
+      <span style="flex:1">顔照合の基準<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">厳しくすると別人を通しにくくなり、本人でも失敗しやすくなります</small></span>
+      <select class="inp" style="width:auto;padding:8px 10px" onchange="act('camThr',this.value)">
+        ${[['0.45','厳しめ'],['0.5','標準'],['0.55','ゆるめ']].map(([v,l])=>`<option value="${v}" ${(+v)===(state.cam.thr||0.5)?'selected':''}>${l}</option>`).join('')}</select></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px;flex-wrap:wrap">
+      <span style="flex:1;min-width:180px">受付端末を終了する暗証番号<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">保護者が受付画面から出られないようにします</small></span>
+      <input class="inp" id="kpin" type="password" inputmode="numeric" maxlength="8" value="${state.cam.pin}" style="width:120px">
+      <button class="hpill" onclick="act('savePin')">変更</button></div>
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;font-size:14px">
       <span style="flex:1">時刻を24時間表示にする<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">オフのときは AM・PM で表示します</small></span>
       <button class="sw ${state.clock24?'on':''}" onclick="act('clock24')"><span></span></button></div>
@@ -1235,7 +1735,7 @@ SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class
 
 /* --- S21 お知らせ・通知（保護者） --- */
 SCR.S21=()=>{
-  const ns=(state.notices||[]).slice().sort((a,b)=>b.t-a.t), un=ns.filter(n=>!n.read).length;
+  const ns=myNotices().slice().sort((a,b)=>b.t-a.t), un=ns.filter(n=>!n.read).length;
   return `${phead('お知らせ','S02')}<div class="pbody">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
       <span class="pill orange">未読 ${un}件</span>
@@ -1261,9 +1761,10 @@ SCR.S22=()=>{
               ['S21','お知らせ','園からの連絡','mail']];
 
   return `${phead('メニュー','S02')}<div class="pbody">
+    ${kidSwitch()}
     <div class="card" style="padding:15px 17px;display:flex;gap:12px;align-items:center">
-      ${face(child('c1'),46)}<div style="flex:1"><b style="font-family:var(--disp)">山田 花子 さま</b>
-        <div class="tiny muted">山田 ひなたちゃん（ひまわり組）の保護者</div>
+      ${face(pchild(),46)}<div style="flex:1"><b style="font-family:var(--disp)">山田 花子 さま</b>
+        <div class="tiny muted">${pfam().map(k=>k.name+k.sfx+'（'+k.cls+'）').join('・')}の保護者</div>
         <div class="tiny muted">ID：yamada-h</div></div>
       <input type="file" id="kidFile" accept="image/*" style="display:none" onchange="act('kidFile',this)">
       <button class="hpill" onclick="document.getElementById('kidFile').click()">写真を変更</button></div>
@@ -1291,8 +1792,6 @@ SCR.S22=()=>{
 /* --- S23 連絡帳（園側：園児を選んで確認・返信） --- */
 SCR.S23=()=>{
   const classes=[...new Set(state.children.map(c=>c.cls))];
-  const q=(state.dq||'').trim();
-  const list=state.children.filter(c=>(!state.dcls||c.cls===state.dcls)&&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
   const sel=state.diaryChild?child(state.diaryChild):null;
   const entries=sel?(state.diary[sel.id]||[]):[];
   const admin=state.role==='admin';
@@ -1302,14 +1801,8 @@ SCR.S23=()=>{
    <div class="tbody"><div class="grid2" style="align-items:start">
     <div>
       <div class="compbox" style="margin-bottom:11px">${ic('search',18,'#BCADA1')}
-        <input id="dSearch" value="${state.dq||''}" placeholder="園児の名前で検索" oninput="act('dq',this.value)"></div>
-      ${list.map(c=>{const e=(state.diary[c.id]||[])[0];
-        return `<button class="ccard ${e?(e.reply?'gray':'amber'):'green'}" style="margin-bottom:9px" onclick="act('pickDiary','${c.id}')">
-          ${face(c,42)}
-          <div style="min-width:0"><div class="tiny muted">${c.cls}</div><div class="nm">${c.name}${c.sfx}</div>
-            <div class="meta">${e?(e.reply?'返信済み':'保護者の記入あり・未返信'):'本日の記入なし'}</div></div>
-          <span class="chev" style="margin-left:auto">${ic('chev',18)}</span></button>`;}).join('')}
-      ${list.length?'':`<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">該当する園児がいません。</div>`}
+        <input id="dSearch" value="${esc(state.dq)}" placeholder="園児の名前で検索" oninput="act('dq',this.value)"></div>
+      <div id="dList">${dListHTML()}</div>
     </div>
     <div>${sel?`
       <div class="card" style="padding:18px">
@@ -1332,6 +1825,17 @@ SCR.S23=()=>{
         左の一覧から園児を選ぶと、連絡帳の内容が表示されます。</div>`}</div>
    </div></div>`;
 };
+
+function dListHTML(){
+  const list=state.children.filter(c=>(!state.dcls||c.cls===state.dcls)&&hitChild(c,state.dq));
+  if(!list.length)return `<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">「${esc(state.dq)}」に当てはまる園児がいません。</div>`;
+  return list.map(c=>{const e=(state.diary[c.id]||[])[0];
+    return `<button class="ccard ${e?(e.reply?'gray':'amber'):'green'} ${state.diaryChild===c.id?'sel':''}" style="margin-bottom:9px" onclick="act('pickDiary','${c.id}')">
+      ${face(c,42)}
+      <div style="min-width:0"><div class="tiny muted">${c.cls}</div><div class="nm">${c.name}${c.sfx}</div>
+        <div class="meta">${e?(e.reply?'返信済み':'保護者の記入あり・未返信'):'本日の記入なし'}</div></div>
+      <span class="chev" style="margin-left:auto">${ic('chev',18)}</span></button>`;}).join('');
+}
 
 /* --- S24 引き渡し保留・確認手順 --- */
 SCR.S24=()=>{
@@ -1390,74 +1894,226 @@ SCR.S26=()=>thead('園の画面を確認','school','')
 SCR.S27=()=>{
   const step=state.camStep||'pick';
   const sel=child(state.camChild);
+  const kioskRole=state.role==='kiosk';
+  const back=`<div style="margin-top:16px"><button class="btn g" onclick="act('camReset')">最初の画面に戻る</button></div>`;
 
   if(step==='done'){
-    const c=sel||state.children[0];
+    const kids=(state.camDoneKids||[]).map(child).filter(Boolean);
+    const list=kids.length?kids:[sel||state.children[0]];
     return `<div class="tbody"><div class="kiosk" style="padding-top:26px">
       <div style="width:104px;height:104px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',56,'#48A876')}</div>
       <h3 style="margin-top:18px">受付が完了しました</h3>
-      <div class="lead">${c.name}${c.sfx}の先生にお知らせしました。<br>${c.cls}の保育室でお待ちください。</div>
-      <div class="card" style="padding:18px;display:inline-flex;gap:14px;align-items:center;text-align:left">
-        ${face(c,56)}<div><b style="font-family:var(--disp);font-size:18px">${c.name}${c.sfx}</b>
-          <div class="tiny muted">${c.cls}／受付 ${hm(now())}</div></div></div>
+      <div class="lead">先生にお知らせしました。保育室でお待ちください。</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      ${list.map(c=>`<div class="card" style="padding:16px 18px;display:inline-flex;gap:14px;align-items:center;text-align:left">
+        ${face(c,52)}<div><b style="font-family:var(--disp);font-size:18px">${c.name}${c.sfx}</b>
+          <div class="tiny muted">${c.cls}の保育室／受付 ${hm(now())}</div></div></div>`).join('')}</div>
       <div style="margin-top:22px"><button class="btn" onclick="act('camReset')">最初の画面に戻る</button></div>
+      <div class="tiny muted" style="margin-top:10px">10秒後に自動で最初の画面に戻ります</div>
     </div></div>`;
   }
-
+  if(step==='checking'&&sel){
+    return `<div class="tbody"><div class="kiosk" style="padding-top:30px">
+      <div class="spin"></div>
+      <h3 style="margin-top:18px">照合しています</h3>
+      <div class="lead">${state.faceReady?'そのままお待ちください。':'初回は照合の準備に少し時間がかかります。'}</div>
+      ${state.shot?`<div style="width:150px;height:170px;border-radius:16px;overflow:hidden;margin:0 auto"><img src="${state.shot}" alt="" style="width:100%;height:100%;object-fit:cover"></div>`:''}
+    </div></div>`;
+  }
+  if(step==='called'){
+    return `<div class="tbody"><div class="kiosk" style="padding-top:30px">
+      <div style="width:104px;height:104px;border-radius:50%;background:var(--am-bg);display:grid;place-items:center;margin:0 auto">${ic('bell',54,'#D2941A')}</div>
+      <h3 style="margin-top:18px">先生を呼びました</h3>
+      <div class="lead">先生が玄関に来るまで、少しお待ちください。</div>${back}</div></div>`;
+  }
+  if(step==='fail'&&sel){
+    const r=state.camResult||{kind:'nomatch'};
+    const T={nomatch:['認証できませんでした','登録されている写真と一致しませんでした。<br>帽子・マスク・眼鏡を外し、正面を向いてもう一度撮影してください。',true],
+             noface:['顔が見つかりませんでした','枠の中に顔が入るようにして、もう一度撮影してください。',true],
+             nophoto:['写真が登録されていません','顔照合に使う写真が登録されていないため、先生が確認します。',false],
+             regface:['登録写真を照合に使えません','登録されている写真から顔を確認できませんでした。先生が確認します。',false],
+             engine:['照合できませんでした','通信状況を確認してもう一度お試しください。続く場合は先生が確認します。',true],
+             live:['本人の確認ができませんでした','画面の指示に合わせて、まばたきと首の向きを変えてください。',true],
+             invalid:['この登録では受付できません','登録の承認や有効期間を確認する必要があります。先生が確認します。',false]}[r.kind]
+             ||['認証できませんでした','先生が確認します。',false];
+    return `<div class="tbody"><div class="kiosk" style="padding-top:30px">
+      <div style="width:104px;height:104px;border-radius:50%;background:var(--rd-bg);display:grid;place-items:center;margin:0 auto">${ic('info',54,'#DB5A45')}</div>
+      <h3 style="margin-top:18px;color:var(--rd-tx)">${T[0]}</h3>
+      <div class="lead">${T[1]}</div>
+      <div style="display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
+        ${T[2]?`<button class="btn" onclick="act('camRetake')">${ic('idcard',20)}もう一度撮影する</button>`:''}
+        <button class="btn ${T[2]?'g':''}" onclick="act('camCall','${r.kind}')">${ic('bell',20)}先生を呼ぶ</button></div>${back}</div></div>`;
+  }
   if(step==='who'&&sel){
-    const ps=proxiesOf(sel.id);
+    const ps=validProxies(sel.id);
+    const sibs=famKids(sel.id).filter(k=>k.st==='waiting');
+    const ck=state.camKids&&state.camKids.length?state.camKids:sibs.map(k=>k.id);
+    if(!ps.length)return `<div class="tbody"><div class="kiosk" style="padding-top:30px">
+      <h3>お迎えの方が登録されていません</h3>
+      <div class="lead">先生を呼んで確認します。</div>
+      <button class="btn" onclick="act('camCall','nophoto')">${ic('bell',20)}先生を呼ぶ</button>${back}</div></div>`;
     return `<div class="tbody"><div class="kiosk" style="padding-top:14px">
       <h3>どなたがお迎えですか？</h3>
-      <div class="lead">${sel.name}${sel.sfx}（${sel.cls}）</div>
+      <div class="lead">${sibs.length>1?'お迎えするお子さまを確認し、ご自身を選んでください':sel.name+sel.sfx+'（'+sel.cls+'）'}</div>
+      ${sibs.length>1?`<div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">${sibs.map(k=>`
+        <button class="chk ${ck.includes(k.id)?'on':''}" style="width:auto;margin:0" onclick="act('camKid','${k.id}')">
+          <span class="box">${ic('check',14)}</span><span><b>${k.name}${k.sfx}</b>　${k.cls}</span></button>`).join('')}</div>`:''}
       <div class="pickgrid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">
         ${ps.map(pp=>`<button class="pickcard" onclick="act('camWho','${pp.id}')">
-          <div style="width:84px;height:96px;border-radius:14px;overflow:hidden;background:#EFEDEA">${pic(pp)}</div>
-          <b>${pp.name}</b><small>${pp.rel}</small></button>`).join('')}
-      </div>
-      <div style="margin-top:20px"><button class="btn g" onclick="act('camReset')">お子さまを選び直す</button></div>
-    </div></div>`;
+          ${kioskRole?`<div style="width:64px;height:64px;border-radius:50%;background:var(--o-l);display:grid;place-items:center;color:var(--o)">${ic('user',32)}</div>`
+            :`<div style="width:84px;height:96px;border-radius:14px;overflow:hidden;background:#EFEDEA">${pic(pp)}</div>`}
+          <b>${pp.name}</b><small>${pp.rel}</small>
+          <span class="pill ${pp.src?'green':'gray'}">${pp.src?'顔照合できます':'先生が確認します'}</span></button>`).join('')}
+      </div>${back}</div></div>`;
   }
-
-  if(step==='shoot'&&sel){
+  if((step==='shoot'||step==='live')&&sel){
     const p=proxiesOf(sel.id).find(x=>x.id===state.camProxy)||proxiesOf(sel.id)[0];
-    const err=state.camErr;
+    const err=state.camErr, live=step==='live';
     return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
-      <h3>カメラに顔を向けてください</h3>
-      <div class="lead">${sel.name}${sel.sfx}のお迎え／${p.name}さん（${p.rel}）</div>
+      <h3>${live?'画面の指示に合わせて動いてください':'カメラに顔を向けてください'}</h3>
+      <div class="lead" id="liveMsg">${live?(state.liveMsg||'① ゆっくりまばたきをしてください'):`${p.name}さん（${p.rel}）
+        <span class="pill ${state.faceReady?'green':'gray'}" style="margin-left:6px">${state.faceReady?'照合の準備完了':'照合を準備しています'}</span>`}</div>
       <div class="camwrap">
         ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="guide"></div>`
          :err?`<div class="ph">カメラを使えませんでした。<br>${err==='denied'?'ブラウザでカメラの使用を許可してください。':'この端末ではカメラを直接使えません。'}<br>下のボタンから撮影できます。</div>`
          :`<div class="ph">「カメラを開始」を押してください。</div>`}
       </div>
-      ${camStream?`<button class="shutter" onclick="act('shoot')">${ic('idcard',30,'#E4762A')}</button>
-        <div class="tiny muted" style="margin-top:8px">ボタンを押すと撮影し、受付が完了します</div>`
+      ${live?`<div class="tiny muted" style="margin-top:12px">まばたきと、毎回ちがう向きへの首振り（2回）で、目の前にご本人がいることを確かめています</div>
+          <div style="margin-top:12px"><button class="btn g" onclick="act('camRetake')">やり直す</button></div>`
+       :camStream?`<button class="shutter" onclick="act('shoot')">${ic('idcard',30,'#E4762A')}</button>
+        <div class="tiny muted" style="margin-top:8px">${state.cam.live?'ボタンを押したあと、画面の指示に合わせてまばたきと首振りをすると撮影します':'ボタンを押すと撮影し、登録写真と照合します'}</div>`
        :`<div style="margin-top:14px;display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
           <button class="btn" onclick="act('camStart')">${ic('idcard',20)}カメラを開始</button>
           <input type="file" id="camFile" accept="image/*" capture="user" style="display:none" onchange="act('camFile',this)">
           <button class="btn g" onclick="document.getElementById('camFile').click()">端末のカメラで撮影</button></div>`}
-      <div style="margin-top:18px"><button class="btn g" onclick="act('camReset')">はじめに戻る</button></div>
-    </div></div>`;
+      ${live?'':back}</div></div>`;
+  }
+  if(step==='scan'){
+    const err=state.camErr;
+    return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
+      <h3>お迎えカードをかざしてください</h3>
+      <div class="lead">スマホのお迎えカード画面を、カメラに向けてください</div>
+      <div class="camwrap" style="max-width:520px;margin:0 auto">
+        ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="qrguide"></div>`
+         :err?`<div class="ph">カメラを使えませんでした。<br>下のボタンからカードを撮影するか、カード番号を入力してください。</div>`
+         :`<div class="ph">カメラを準備しています…</div>`}
+      </div>
+      ${state.scanErr?`<div class="err" style="max-width:520px;margin:12px auto 0">${state.scanErr}</div>`:''}
+      <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        ${camStream?'':`<input type="file" id="scanFile" accept="image/*" capture="environment" style="display:none" onchange="act('scanFile',this)">
+          <button class="btn" onclick="document.getElementById('scanFile').click()">${ic('idcard',20)}カードを撮影する</button>`}
+      </div>
+      <div class="compbox" style="max-width:420px;margin:16px auto 0">${ic('idcard',18,'#BCADA1')}
+        <input id="cardNoIn" placeholder="カード番号（例：SK-0001）" autocapitalize="characters" onkeydown="if(event.key==='Enter')act('cardNo')">
+        <button class="hpill solid" onclick="act('cardNo')">確定</button></div>
+      ${back}</div></div>`;
+  }
+  if(step==='name'){
+    return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
+      <h3>お名前でさがす</h3>
+      <div class="lead">お子さまのお名前を入力してください</div>
+      <div class="compbox" style="max-width:420px;margin:0 auto 14px">${ic('search',18,'#BCADA1')}
+        <input id="camSearch" value="${esc(state.camq)}" placeholder="例）やまだ" oninput="act('camq',this.value)"></div>
+      <div id="camList">${camListHTML()}</div>${back}</div></div>`;
   }
 
+  /* 最初の画面 */
+  if(kioskRole){
+    return `<div class="tbody"><div class="kiosk" style="padding-top:16px">
+      <h3>お迎えの受付</h3>
+      <div class="lead">お迎えカードをカメラにかざしてください</div>
+      <button class="pickcard" style="max-width:420px;width:100%;margin:0 auto;padding:26px 16px" onclick="act('scanStart')">
+        <div style="width:84px;height:84px;border-radius:22px;background:var(--o-l);display:grid;place-items:center;color:var(--o)">${ic('idcard',46)}</div>
+        <b style="font-size:20px">お迎えカードをかざす</b><small>スマホの「お迎えカード」画面を使います</small></button>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        ${state.cam.list?`<button class="btn g" onclick="act('camName')">${ic('search',18)}カードがない方（お名前でさがす）</button>`:''}
+        <button class="btn g" onclick="act('camNoCard')">${ic('bell',18)}先生を呼ぶ</button></div>
+    </div></div>`;
+  }
   const classes=[...new Set(state.children.map(c=>c.cls))];
-  const q=(state.camq||'').trim();
-  const list=state.children.filter(c=>c.st==='waiting'&&(!state.camcls||c.cls===state.camcls)
-    &&(!q||c.name.replace(/\s/g,'').includes(q.replace(/\s/g,''))));
   return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
     <h3>お迎えの受付</h3>
-    <div class="lead">お子さまを選んでください</div>
+    <div class="lead">お迎えカードを読み取るか、お子さまを選んでください</div>
+    <button class="btn" style="margin-bottom:14px" onclick="act('scanStart')">${ic('idcard',20)}お迎えカードを読み取る</button>
     <div class="tabs" style="padding:0 0 10px;justify-content:center">
       <button class="tab ${!state.camcls?'on':''}" onclick="act('camCls','')">すべて</button>
       ${classes.map(cl=>`<button class="tab ${state.camcls===cl?'on':''}" onclick="act('camCls','${cl}')">${cl}</button>`).join('')}</div>
     <div class="compbox" style="max-width:420px;margin:0 auto 14px">${ic('search',18,'#BCADA1')}
-      <input id="camSearch" value="${state.camq||''}" placeholder="お名前で検索" oninput="act('camq',this.value)"></div>
-    <div class="pickgrid">
-      ${list.map(c=>`<button class="pickcard" onclick="act('camPick','${c.id}')">
-        ${face(c,72)}<b>${c.name}${c.sfx}</b><small>${c.cls}／お迎え ${hm(c.pickupAt)}</small></button>`).join('')}
-    </div>
-    ${list.length?'':`<div class="card" style="padding:28px;color:var(--ink-2);font-size:13.5px">本日の未降園の園児はいません。</div>`}
+      <input id="camSearch" value="${esc(state.camq)}" placeholder="お名前で検索（ひらがなでもOK）" oninput="act('camq',this.value)"></div>
+    <div id="camList">${camListHTML()}</div>
   </div></div>`;
 };
+
+function camListHTML(){
+  const kioskRole=state.role==='kiosk';
+  if(kioskRole&&!norm(state.camq))return `<div class="tiny muted" style="padding:18px">ひらがなでも検索できます</div>`;
+  const list=state.children.filter(c=>(kioskRole||!state.camcls||c.cls===state.camcls)&&hitChild(c,state.camq));
+  if(!list.length)return `<div class="card" style="padding:28px;color:var(--ink-2);font-size:13.5px">${
+    state.camq?'「'+esc(state.camq)+'」に当てはまるお子さまがいません。':'このクラスのお子さまはいません。'}</div>`;
+  return `<div class="pickgrid">${list.map(c=>{const off=c.st!=='waiting';
+    return `<button class="pickcard" ${off?'disabled style="opacity:.55;cursor:default"':''} onclick="act('camPick','${c.id}')">
+      ${kioskRole?'':face(c,72)}<b>${c.name}${c.sfx}</b><small>${c.cls}${kioskRole?'':'／お迎え '+hm(c.pickupAt)}</small>${stPill(c)}</button>`;}).join('')}</div>`;
+}
+
+/* ---- お迎えカード（QR） ---- */
+const QRGEN_URL='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+const JSQR_URL='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+const scriptP={};
+function loadScript(url,globalName){
+  if(globalName&&typeof window!=='undefined'&&window[globalName])return Promise.resolve();
+  if(scriptP[url])return scriptP[url];
+  scriptP[url]=new Promise((res,rej)=>{const sc=document.createElement('script');sc.src=url;sc.async=true;
+    sc.onload=()=>res();sc.onerror=()=>{delete scriptP[url];rej(new Error('script'));};document.head.appendChild(sc);});
+  return scriptP[url];
+}
+const cardNo=fk=>'SK-'+String(fk).replace(/\D/g,'').padStart(4,'0');
+const cardToken=fk=>'OKAERI1:sakura:'+fk+':'+cardNo(fk);
+function parseCard(text){
+  const t=String(text||'').trim().toUpperCase();
+  let m=t.match(/^OKAERI1:SAKURA:(C\d+):/);if(m)return m[1].toLowerCase();
+  m=t.match(/^SK-?(\d{1,4})$/);if(m)return 'c'+Number(m[1]);
+  return null;
+}
+function cardFound(text){
+  const fk=parseCard(text);const kids=fk?famKids(fk):[];
+  if(!kids.length){state.scanErr='このカードは使えません。先生にお声がけください。';render();return false;}
+  const waiting=kids.filter(k=>k.st==='waiting');
+  if(!waiting.length){state.scanErr='お子さまはすでに受付またはお迎え済みです。';render();return false;}
+  stopCam();scanToken++;state.scanErr='';
+  state.camChild=waiting[0].id;state.camKids=waiting.map(k=>k.id);state.camProxy='';state.camStep='who';render();return true;
+}
+let scanToken=0;
+async function runScan(){
+  const token=++scanToken;let det=null;
+  try{if(typeof BarcodeDetector!=='undefined'){const f=await BarcodeDetector.getSupportedFormats();if(f.includes('qr_code'))det=new BarcodeDetector({formats:['qr_code']});}}catch(e){}
+  if(!det){try{await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);}catch(e){if(token===scanToken){state.scanErr='カードの読み取り機能を準備できませんでした。カード番号を入力してください。';render();}return;}}
+  const cv=document.createElement('canvas');const g=cv.getContext('2d',{willReadFrequently:true});
+  while(token===scanToken&&state.camStep==='scan'){
+    const v=document.getElementById('camView');
+    if(v&&v.videoWidth){let txt=null;
+      try{
+        if(det){const r=await det.detect(v);if(r&&r[0])txt=r[0].rawValue;}
+        else{const w=Math.min(640,v.videoWidth),h=Math.round(v.videoHeight*w/v.videoWidth);cv.width=w;cv.height=h;g.drawImage(v,0,0,w,h);
+          const r=jsQR(g.getImageData(0,0,w,h).data,w,h,{inversionAttempts:'attemptBoth'});if(r)txt=r.data;}
+      }catch(e){}
+      if(txt&&cardFound(txt))return;
+    }
+    await sleep(250);
+  }
+}
+async function decodeStill(dataUrl){
+  const img=await imgEl(dataUrl);
+  try{if(typeof BarcodeDetector!=='undefined'){const r=await new BarcodeDetector({formats:['qr_code']}).detect(img);if(r&&r[0])return r[0].rawValue;}}catch(e){}
+  await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);
+  const cv=document.createElement('canvas');cv.width=img.width;cv.height=img.height;const g=cv.getContext('2d');g.drawImage(img,0,0);
+  const r=jsQR(g.getImageData(0,0,img.width,img.height).data,img.width,img.height,{inversionAttempts:'attemptBoth'});return r?r.data:null;
+}
+function qrHTML(text){
+  if(typeof qrcode!=='undefined'){try{const q=qrcode(0,'M');q.addData(text);q.make();return q.createSvgTag(5,2);}catch(e){}}
+  loadScript(QRGEN_URL,'qrcode').then(()=>{if(state.screen==='S08')render();}).catch(()=>{state.qrFail=true;if(state.screen==='S08')render();});
+  return state.qrFail?`<div style="padding:30px 10px;color:#8B7E74;font-size:13px;text-align:center">コードを表示できません。<br>下のカード番号を先生に伝えてください。</div>`
+                    :`<div class="spin" style="margin:40px auto"></div>`;
+}
 
 /* --- S28 受付写真の確認（保育士側） --- */
 SCR.S28=()=>{
@@ -1473,7 +2129,10 @@ SCR.S28=()=>{
       <div class="tiny muted" style="margin-top:9px">登録写真：${p.name}（${p.rel}）</div>
       ${p.photo?'':`<div class="memo-row" style="margin-top:10px;padding:11px 13px;font-size:13px;color:#8A7549">特徴メモ：${p.memo||'未登録'}</div>`}</div>
   </div>
-  <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>写真を見比べて、職員が確認してください。確認方法と担当した職員が記録に残ります。</div></div>
+  <div class="card" style="padding:15px 17px;margin-top:15px;display:flex;gap:12px;align-items:center">
+    ${ic(c.faceOK?'check':'info',26,c.faceOK?'#48A876':'#D2941A')}
+    <div><b style="font-family:var(--disp);font-size:16px">${c.faceOK?'顔照合：一致':'顔照合なし（職員が確認して受付）'}</b>
+      ${c.faceOK?`<div class="tiny muted" style="margin-top:2px">照合スコア ${c.faceDist.toFixed(2)}（${(state.cam.thr||0.5).toFixed(2)} 未満で一致と判定）</div>`:''}</div></div>
   <div style="display:flex;gap:11px;margin-top:16px;flex-wrap:wrap">
     <button class="btn ok" onclick="act('quickRelease','${c.id}')">${ic('check',20)}本人と確認できた｜引き渡し完了</button>
     <button class="btn ng" onclick="act('camHold','${c.id}')">確認できない｜保留にする</button></div></div>`;
@@ -1482,9 +2141,17 @@ SCR.S28=()=>{
 /* =========================================================
    アクション
    ========================================================= */
+function homeOf(r){return r==='parent'?'S02':r==='admin'?'S19':r==='kiosk'?'S27':'S09';}
+let kioskIdle=null,kioskBack=null;
 function act(name,arg){
-  const blocked=['quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply','saveThr',
-    'quickRelease','prepStart','camHold','shoot','camFile','camSet','clock24'];
+  /* 受付端末は受付画面から移動できない。しばらく操作がなければ最初の画面へ戻る */
+  if(state.role==='kiosk'){
+    if(name==='go'&&arg!=='S27')return;
+    clearTimeout(kioskIdle);
+    kioskIdle=setTimeout(()=>{if(state.role==='kiosk'&&['who','shoot','fail'].includes(state.camStep))act('camReset');},60000);
+  }
+  const blocked=['quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
+    'quickRelease','prepStart','camHold','shoot','camFile','alertIn','alertHold','pxApprove','pxRenew','pxReject'];
   if(state.role==='admin'&&blocked.includes(name)){toast('保育課のアカウントは閲覧のみです');return;}
   if(!['agq','tlq','dq'].includes(name))state.focusId='';
   switch(name){
@@ -1502,10 +2169,10 @@ function act(name,arg){
       if(!pw){state.loginErr='パスワードを入力してください。';break;}
       const a=ACCOUNTS.find(x=>x.id===id.trim()&&x.pw===pw);
       if(!a){state.loginErr='IDまたはパスワードが違います。もう一度確認してください。';break;}
-      state.loginErr='';state.role=a.role;state.loginPw='';
-      state.screen=a.role==='parent'?'S02':a.role==='admin'?'S19':'S09';
+      state.loginErr='';state.role=a.role;state.loginPw='';state.me=STAFF[a.id]||null;state.pc='c1';
+      state.screen=homeOf(a.role);state.camStep='pick';
       toast(a.label+'としてログインしました');break;}
-    case 'logout': reset();toast('ログアウトしました');break;
+    case 'logout': stopCam();logoutSession();toast('ログアウトしました');break;
     case 'viewonly': toast('保育課のアカウントは閲覧のみです');break;
     case 'toggleSet': state.settings[arg]=!state.settings[arg];break;
     case 'callSchool': toast('さくら保育園　044-000-0000');break;
@@ -1513,16 +2180,26 @@ function act(name,arg){
     case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
     case 'custom': state.sel.custom=arg;state.sel.min=null;break;
     case 'focusCustom': state.showCustom=true;break;
+    case 'pc': state.pc=arg;state.pkids=null;state.sel.min=null;state.sel.custom='';break;
+    case 'pkid':{const sibs=pfam().filter(k=>k.st==='waiting').map(k=>k.id);
+      let t=state.pkids||sibs.slice();t=t.includes(arg)?t.filter(x=>x!==arg):t.concat(arg);
+      if(!t.length){toast('お子さまを1人以上選んでください');return;}state.pkids=t;break;}
     case 'submitPickup':{const nt=calcNew();if(!nt)break;
       if(state.err){state.sendErr=true;
         state.pending={label:'お迎え時間の変更（'+hm(nt)+'）',at:now()};
         toast('園に届きませんでした');break;}
-      const c=child('c1'),before=c.pickupAt;if(!c.changed)c.planAt=before;
-      c.pickupAt=nt;c.changed='保護者アプリ';c.changedAt=now();state.pending=null;
-      state.notices.unshift({id:'n'+Date.now(),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',
-        body:hm(before)+' から '+hm(nt)+' に変更しました。',t:now(),read:false});
-      addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(nt)}</b> に変わります。`);
+      const sibs=pfam().filter(k=>k.st==='waiting').map(k=>k.id);
+      const ids=(state.pkids||sibs).filter(id=>sibs.includes(id));
+      if(!ids.length){toast('すでにお迎えの受付が済んでいます');break;}
+      const targets=ids.map(child);
+      targets.forEach(c=>{const before=c.pickupAt,after=calcNew(c);if(!c.changed)c.planAt=before;
+        c.pickupAt=after;c.changed='保護者アプリ';c.changedAt=now();
+        addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(after)}</b> に変わります。`);});
+      state.notices.unshift({id:'n'+Date.now(),fam:famKey(state.pc),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',
+        body:targets.map(c=>c.name.split(' ')[1]+c.sfx+'：'+hm(c.planAt)+' → '+hm(c.pickupAt)).join('／'),t:now(),read:false});
+      state.stats.app++;state.lastChanged=targets.map(c=>c.id);state.pending=null;
       state.sendErr=false;state.sel.min=null;state.sel.custom='';state.screen='S04';toast('園のタイムラインに反映しました');break;}
+
     case 'absMulti': state.absMulti=!!arg;break;
     case 'submitAbsence':{const t=document.getElementById('abType').value,x=document.getElementById('abTxt').value;
       let d;
@@ -1532,55 +2209,97 @@ function act(name,arg){
         const days=Math.round((new Date(to)-new Date(f))/86400000)+1;
         d=f+' 〜 '+to+'（'+days+'日間）';
       } else { d=document.getElementById('abDate').value; }
-      state.absences.unshift({type:t,date:d,txt:x});const c=child('c1');
+      const c=pchild();state.absences.unshift({id:'ab'+Date.now(),t:now(),type:t,date:d,txt:x,cid:c.id});state.stats.app++;
       addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者から「${t}」の連絡がありました。${x?'（'+x+'）':''}`);
       toast('園に送信しました');break;}
     case 'saveDiary':{const temp=document.getElementById('dTemp').value||'—',mood=document.getElementById('dMood').value,txt=document.getElementById('dTxt').value;
-      state.diary.c1.unshift({d:md(now())+'（'+wd(now())+'）',temp,mood,txt:txt||'（記入なし）',reply:''});toast('連絡帳を保存しました');break;}
-    case 'pxFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.pxSrc=d;state.pxPhoto=true;render();toast('写真を読み込みました');});return;
-    case 'pxClear': state.pxSrc='';state.pxPhoto=false;break;
-    case 'kidFile': readImage(arg&&arg.files&&arg.files[0],d=>{child('c1').src=d;render();toast('写真を変更しました');});return;
+      (state.diary[state.pc]=state.diary[state.pc]||[]).unshift({d:md(now())+'（'+wd(now())+'）',temp,mood,txt:txt||'（記入なし）',reply:''});toast('連絡帳を保存しました');break;}
+    case 'pxFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.pxSrc=d;state.pxPhoto=true;state.pxWarn='wait';state.pxDesc=null;render();
+        checkRegPhoto(d,(desc,ng)=>{if(state.pxSrc!==d)return;state.pxDesc=desc;state.pxWarn=desc?'ok':(ng?'ng':'');render();});});return;
+    case 'pxSet':{const pid=arg&&arg.dataset&&arg.dataset.pid;const px=proxiesOf(state.pc).find(x=>x.id===pid);if(!px)return;
+      readImage(arg.files&&arg.files[0],d=>{px.src=d;px.photo=1;px.desc=null;px.faceWarn=false;px.auth='写真を見て確認（登録済み）';
+        render();toast('写真を登録しました');
+        checkRegPhoto(d,(desc,ng)=>{if(px.src!==d)return;px.desc=desc;px.faceWarn=ng;render();});});return;}
+    case 'pxClear': state.pxSrc='';state.pxPhoto=false;state.pxWarn='';state.pxDesc=null;break;
+    case 'kidFile': readImage(arg&&arg.files&&arg.files[0],d=>{pchild().src=d;render();toast('写真を変更しました');});return;
     case 'savePx':{const n=document.getElementById('pxName').value.trim();
       if(!n){toast('氏名を入力してください');break;}
-      (state.proxies.c1=state.proxies.c1||[]).push({id:'px'+Date.now(),name:n,kana:'',rel:document.getElementById('pxRel').value||'—',
-        tel:document.getElementById('pxTel').value,photo:state.pxSrc?1:0,src:state.pxSrc||'',style:0,
+      const fk=famKey(state.pc),f0=fy();if(!state.proxies[fk])state.proxies[fk]=proxiesOf(state.pc).slice();
+      state.proxies[fk].push({id:'px'+Date.now(),from:today(),to:f0.to,name:n,kana:'',rel:document.getElementById('pxRel').value||'—',
+        tel:document.getElementById('pxTel').value,photo:state.pxSrc?1:0,src:state.pxSrc||'',style:0,desc:state.pxDesc||null,faceWarn:state.pxWarn==='ng',
         auth:state.pxSrc?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）',
-        memo:document.getElementById('pxMemo').value,prio:(state.proxies.c1||[]).length+1,ok:false});
-      state.pxPhoto=false;state.pxSrc='';toast('保存しました。園の承認をお待ちください');break;}
+        memo:document.getElementById('pxMemo').value,prio:state.proxies[fk].length+1,ok:false});
+      state.pxPhoto=false;state.pxSrc='';state.pxWarn='';state.pxDesc=null;toast('保存しました。園の承認をお待ちください');break;}
     case 'filter': state.filter=arg;break;
+    case 'pxApprove':case 'pxRenew':case 'pxReject':{let hit=null,fk=null;
+      Object.entries(state.proxies).forEach(([k,list])=>{const x=list.find(p=>p.id===arg);if(x){hit=x;fk=k;}});if(!hit)break;
+      if(name==='pxReject'){state.proxies[fk]=state.proxies[fk].filter(p=>p.id!==arg);toast(hit.name+'さんの登録を取り消しました');}
+      else{hit.ok=true;if(name==='pxRenew'||!inPeriod(hit)){const f=fy();hit.from=f.from;hit.to=f.to;}
+        toast(hit.name+'さんを'+(name==='pxApprove'?'承認':'今年度に更新')+'しました');
+        addPost(meWho(),meKind(),`代理人「${hit.name}さん（${hit.rel}）」を${name==='pxApprove'?'承認':'今年度に更新'}しました。`);}
+      break;}
+    case 's10menu': state.s10menu=!state.s10menu;break;
+    case 's10cls': state.s10cls=arg;state.s10menu=false;break;
     case 'camCls': state.camcls=arg;break;
-    case 'camq': state.camq=arg;state.focusId='camSearch';break;
-    case 'camPick': state.camChild=arg;state.camProxy='';state.camStep='who';break;
-    case 'camWho': state.camProxy=arg;state.camStep='shoot';state.camErr='';startCam();break;
+    case 'camq': state.camq=arg;{const el=document.getElementById('camList');if(el){el.innerHTML=camListHTML();return;}}break;
+    case 'camPick':{const sibs=famKids(arg).filter(k=>k.st==='waiting').map(k=>k.id);
+      state.camChild=arg;state.camKids=sibs.includes(arg)?sibs:[arg];state.camProxy='';state.camStep='who';break;}
+    case 'camKid':{let t=(state.camKids||[]).slice();t=t.includes(arg)?t.filter(x=>x!==arg):t.concat(arg);
+      if(!t.length){toast('お子さまを1人以上選んでください');return;}state.camKids=t;state.camChild=t[0];break;}
+    case 'camName': state.camStep='name';state.camq='';break;
+    case 'scanStart': state.camStep='scan';state.camErr='';state.scanErr='';startCam();runScan();break;
+    case 'scanFile': readImage(arg&&arg.files&&arg.files[0],d=>{decodeStill(d).then(t=>{if(!t){state.scanErr='カードを読み取れませんでした。もう一度撮影するか、カード番号を入力してください。';render();return;}cardFound(t);})
+      .catch(()=>{state.scanErr='カードの読み取り機能を準備できませんでした。カード番号を入力してください。';render();});});return;
+    case 'cardNo':{const el=document.getElementById('cardNoIn');const v=(el&&el.value||'').trim();
+      if(!v){toast('カード番号を入力してください');return;}cardFound(v);return;}
+    case 'camNoCard':{state.alerts.unshift({id:'a'+Date.now(),cid:null,pid:null,t:now(),why:'お迎えカードを持っていない方が玄関に来ています',shot:''});
+      addPost('受付カメラ','sys','【確認依頼】お迎えカードを持っていない方が玄関に来ています。対応をお願いします。');
+      state.camStep='called';break;}
+    case 'camWho': state.camProxy=arg;state.camStep='shoot';state.camErr='';state.camFails=0;
+      loadFace().catch(()=>{});startCam();break;
+    case 'camRetake': liveToken++;state.shot='';state.camStep='shoot';state.camErr='';startCam();break;
+    case 'camCall': callStaff(arg);return;
+    case 'alertIn':{const a=state.alerts.find(x=>x.id===arg);if(!a)break;
+      if(!a.cid){state.alerts=state.alerts.filter(x=>x.id!==arg);toast('対応済みにしました');break;}
+      state.camChild=a.cid;state.camProxy=a.pid;state.camKids=a.kids||[a.cid];state.shot=a.shot||'';checkIn();
+      state.alerts=state.alerts.filter(x=>x.id!==arg);state.camStep='pick';state.screen='S10';
+      toast('職員の確認で受付しました');break;}
+    case 'alertHold':{const a=state.alerts.find(x=>x.id===arg);if(!a)break;
+      state.childId=a.cid;state.hold={steps:{},who:''};state.alerts=state.alerts.filter(x=>x.id!==arg);
+      state.screen='S24';break;}
+    case 'alertClose': state.alerts=state.alerts.filter(x=>x.id!==arg);break;
+    case 'camThr': state.cam.thr=+arg;toast('照合の基準を変更しました');break;
     case 'camStart': startCam();return;
     case 'shoot': shoot();return;
-    case 'camFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.shot=d;checkIn();});return;
-    case 'camReset': stopCam();state.camStep='pick';state.camChild='';state.camProxy='';state.camErr='';state.shot='';break;
+    case 'camFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.shot=d;state.liveDone=false;verifyFace();});return;
+    case 'camReset': stopCam();liveToken++;scanToken++;state.camStep='pick';state.camChild='';state.camKids=[];state.camProxy='';state.camErr='';state.scanErr='';
+      state.shot='';state.camFails=0;state.camResult=null;state.camq='';state.liveDone=false;break;
     case 'camFrom':{state.camChild=state.childId;state.camProxy=arg;state.camStep='shoot';state.screen='S27';state.camErr='';startCam();return;}
     case 'camCheck': state.camChild=arg;state.childId=arg;state.screen='S28';break;
     case 'camHold': state.childId=arg;state.hold={steps:{},who:child(arg).arrivedBy||''};state.screen='S24';
       toast('引き渡しを保留にしました');break;
     case 'camSet': state.cam[arg]=!state.cam[arg];break;
     case 'clock24': state.clock24=!state.clock24;break;
-    case 'prepStart':{const c=child(arg);c.prep=state.role==='clerk'?'渡辺':'佐々木';
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+    case 'prepStart':{const c=child(arg);c.prep=me().short;
+      addPost(meWho(),meKind(),
         `${c.name}${c.sfx}の引き渡し準備に向かいます。`);
       toast('準備中にしました');break;}
     case 'quickRelease':{const c=child(arg);c.st='released';
-      state.records.push({t:now(),child:c.name+c.sfx,to:c.arrivedBy||c.by,
-        how:c.shot?'受付カメラの写真と登録写真を確認':(c.verified?'受付カメラ（写真は非保存）＋職員確認':'職員が確認'),
-        shot:c.shot||'',staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+      state.records.push({id:'r'+Date.now()+c.id,t:now(),child:c.name+c.sfx,to:c.arrivedBy||c.by,wait:c.arrivedAt?Math.round((now()-c.arrivedAt)/1000):null,
+        how:c.faceOK?'受付カメラで顔照合（一致）':(c.verified?'受付カメラ＋職員が確認':'職員が確認'),
+        shot:c.shot||'',staff:staffName()});
+      addPost(meWho(),meKind(),
         `${c.name}${c.sfx}を${c.arrivedBy||c.by}へ引き渡しました。（${hm(now())}）`);
       c.shot='';state.screen='S10';toast('引き渡しを記録しました');break;}
     case 'toggleSearch': state.showSearch=!state.showSearch;if(state.showSearch)state.focusId='tlSearch';else state.q='';break;
-    case 'tlq': state.q=arg;state.focusId='tlSearch';break;
+    case 'tlq': state.q=arg;{const el=document.getElementById('tlList');if(el){el.innerHTML=tlListHTML();return;}}break;
+    case 'tlClear': state.q='';state.focusId='tlSearch';break;
     case 'cyclePF':{const o=['all','clerk','teacher','sys'];state.pfilter=o[(o.indexOf(state.pfilter)+1)%o.length];break;}
     case 'agCls': state.ag.cls=arg;break;
-    case 'agq': state.ag.q=arg;state.focusId='agSearch';break;
-    case 'agPick': state.ag.cid=arg;break;
+    case 'agq': state.ag.q=arg;{const el=document.getElementById('agList');if(el){el.innerHTML=agListHTML();return;}}break;
+    case 'agPick':{const c=child(arg);if(c&&c.st==='released'){toast('お迎え済みの園児です');return;}state.ag.cid=arg;break;}
     case 'dcls': state.dcls=arg;break;
-    case 'dq': state.dq=arg;state.focusId='dSearch';break;
+    case 'dq': state.dq=arg;{const el=document.getElementById('dList');if(el){el.innerHTML=dListHTML();return;}}break;
     case 'pickDiary': state.diaryChild=arg;break;
     case 'saveReply':{const el=document.getElementById('dReply');const t=(el&&el.value||'').trim();
       if(!t){toast('返信の内容を入力してください');break;}
@@ -1588,13 +2307,14 @@ function act(name,arg){
       if(list.length)list[0].reply=t;else list.unshift({d:md(now())+'（'+wd(now())+'）',temp:'—',mood:'—',txt:'（保護者の記入なし）',reply:t});
       toast('保護者に返信しました');break;}
     case 'readNotice':{const n=state.notices.find(x=>x.id===arg);if(n)n.read=true;break;}
-    case 'readAll': state.notices.forEach(n=>n.read=true);toast('すべて既読にしました');break;
+    case 'readAll': myNotices().forEach(n=>n.read=true);toast('すべて既読にしました');break;
     case 'school':{state.schoolId=arg;state.screen='S10';
       toast(curSchool().name+'の画面に切り替えました');break;}
     case 'openChild': state.childId=arg;state.screen='S11';break;
     case 'goHandover': state.childId=arg;state.sel.proxyName=child(arg).by;state.sel.how='保護者本人';state.screen='S14';break;
     case 'pickProxy': state.sel.proxy=arg;state.screen='S13';break;
     case 'matchOk':{const p=proxiesOf(state.childId).find(x=>x.id===state.sel.proxy)||proxiesOf(state.childId)[0];
+      if(!pxValid(p)){toast('承認されていない、または期限切れの代理人です');return;}
       state.sel.proxyName=p.name+'（'+p.rel+'）';
       state.sel.how=p.photo?'登録写真と見比べて確認':'特徴メモで確認';
       state.screen='S14';break;}
@@ -1608,24 +2328,24 @@ function act(name,arg){
       state.sel.how='保護者に電話して確認';state.screen='S14';break;}
     case 'holdNg':{const c=child(state.childId);const w=document.getElementById('holdWho');
       const who=(w&&w.value)||'来園者（氏名不明）';
-      state.records.push({t:now(),child:c.name+c.sfx,to:who,how:'確認できず',ng:true,
-        staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+      state.records.push({id:'r'+Date.now()+c.id,t:now(),child:c.name+c.sfx,to:who,how:'確認できず',ng:true,
+        staff:staffName()});
+      addPost(meWho(),meKind(),
         `【引き渡し保留】${c.name}${c.sfx}：${who}が来園しましたが、本人確認ができないため引き渡していません。保護者に連絡中です。`);
       state.hold=null;state.screen='S10';toast('引き渡さずに記録しました');break;}
     case 'release':{const c=child(state.childId);c.st='released';
-      state.records.push({t:now(),child:c.name+c.sfx,to:state.sel.proxyName||c.by,how:state.sel.how||'保護者本人',
-        staff:state.role==='clerk'?'渡辺 さくら（事務）':'佐々木 みなみ（ひまわり組）'});
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',
+      state.records.push({id:'r'+Date.now()+c.id,t:now(),child:c.name+c.sfx,to:state.sel.proxyName||c.by,how:state.sel.how||'保護者本人',
+        staff:staffName()});
+      addPost(meWho(),meKind(),
         `${c.name}${c.sfx}を${state.sel.proxyName||c.by}へ引き渡しました。（${hm(now())}）`);
       state.screen='S10';toast('降園済みにしました');break;}
     case 'ack':{const p=state.posts.find(x=>x.id===arg);if(p)p.ack=p.ack?0:(p.ack||0)+1;break;}
     case 'quickPost':{const el=document.getElementById('quick');const txt=(el&&el.value||'').trim();
       if(!txt){toast('投稿する内容を入力してください');break;}
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',txt);toast('全職員に共有しました');break;}
+      addPost(meWho(),meKind(),txt);toast('全職員に共有しました');break;}
     case 'postMemo':{const txt=document.getElementById('memoTxt').value.trim(),cid=document.getElementById('memoChild').value;
       if(!txt){toast('内容を入力してください');break;}
-      addPost(state.role==='clerk'?'事務スタッフ':'担任',state.role==='clerk'?'clerk':'teacher',(cid?`${child(cid).name}${child(cid).sfx}：`:'')+txt);
+      addPost(meWho(),meKind(),(cid?`${child(cid).name}${child(cid).sfx}：`:'')+txt);
       state.screen='S15';toast('全職員に共有しました');break;}
     case 'submitAgent':{const cid=state.ag.cid,ty=document.getElementById('agType').value,
         tm=document.getElementById('agTime').value,memo=document.getElementById('agMemo').value,c=child(cid),before=c?c.pickupAt:0;
@@ -1633,7 +2353,8 @@ function act(name,arg){
         if(!c.changed)c.planAt=before;c.pickupAt=d.getTime();c.changed='事務スタッフ 代理入力';}
       if(c&&ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
       const label={late:'お迎えが遅くなる',early:'お迎えが早くなる',proxy:'代理人がお迎え',absent:'早退・欠席'}[ty];
-      if(!c){toast('園児を選んでください');break;}
+      if(!c||c.st==='released'){toast('園児を選んでください');break;}
+      state.stats.phone++;
       addPost('事務スタッフ','clerk',`【代理入力】${c.name}${c.sfx}：${label}。${(ty==='late'||ty==='early')?`お迎え予定 ${hm(before)} → <b>${hm(c.pickupAt)}</b>。`:''}${memo||''}`);
       state.screen='S15';toast('全職員の端末に反映しました');break;}
     case 'saveThr': state.thr.soon=Math.max(1,+document.getElementById('thrSoon').value||5);
@@ -1642,23 +2363,274 @@ function act(name,arg){
     case 'toggleErr': state.err=!state.err;toast(state.err?'送信時に通信エラーを再現します':'通信エラーの再現をやめました');break;
     case 'map': state.modal='map';break;
     case 'accounts': state.modal='acc';break;
+    case 'demoFace': state.modal='demoface';state.dfPx=state.dfPx||'p1';state.dfMsg='';state.dfErr='';demoCamStart();break;
+    case 'dfPx': state.dfPx=arg;return;
+    case 'dfShoot':{const d=grabFrame('dfView');if(!d){toast('カメラの準備ができていません');return;}applyDemoFace(d);return;}
+    case 'dfFile': readImage(arg&&arg.files&&arg.files[0],d=>applyDemoFace(d));return;
+    case 'check': state.modal='check';runChecks();return;
+    case 'checkRun': runChecks();return;
+    case 'checkCopy': copyText(checkText());return;
+    case 'sync': state.modal='sync';break;
+    case 'fbSave':{const cfg=parseFbConfig((document.getElementById('fbCfg')||{}).value);
+      const email=((document.getElementById('fbEmail')||{}).value||'').trim().toLowerCase(),pw=(document.getElementById('fbPw')||{}).value||'';
+      if(!cfg){toast('firebaseConfig を読み取れませんでした');return;}
+      if(!email||!pw){toast('メールアドレスとパスワードを入力してください');return;}
+      cfg.email=email;try{localStorage.setItem(FB_KEY,JSON.stringify(cfg));}catch(e){}
+      fbStart(cfg,pw).catch(e=>{Sync.status='error';
+        Sync.err=e&&/password|user|credential/i.test(e.code||'')?'メールアドレスまたはパスワードが違います':'Firebaseに接続できませんでした';render();});
+      toast('Firebase に接続しています');break;}
+    case 'fbClear':{try{localStorage.removeItem(FB_KEY);}catch(e){}try{Sync.unsub&&Sync.unsub();}catch(e){}
+      try{typeof firebase!=='undefined'&&firebase.apps.length&&firebase.auth().signOut();}catch(e){}
+      Sync.col=null;Sync.fs=null;Sync.role='';Sync.email='';Sync.err='';state.modal=null;localStart();toast('連動の設定を解除しました');break;}
+    case 'rulesCopy': copyText(FB_RULES);return;
+    case 'hbarHide': state.hbarHidden=true;state.hbar=false;toast('画面の左下をタップすると、操作バーが戻ります');break;
+    case 'hbarShow': state.hbarHidden=false;break;
+    case 'kioskExit': state.modal='kexit';state.kexitErr=false;break;
+    case 'kioskOut':{const el=document.getElementById('kpinIn');
+      if(!el||el.value!==state.cam.pin){state.kexitErr=true;drawOverlay();const n=document.getElementById('kpinIn');if(n)n.focus();return;}
+      stopCam();clearTimeout(kioskIdle);clearTimeout(kioskBack);logoutSession();toast('受付を終了しました');break;}
+    case 'savePin':{const el=document.getElementById('kpin');const v=(el&&el.value||'').trim();
+      if(!/^\d{4,8}$/.test(v)){toast('4〜8桁の数字で入力してください');return;}
+      state.cam.pin=v;toast('暗証番号を変更しました');break;}
     case 'useAcc':{const a=ACCOUNTS.find(x=>x.id===arg);if(!a)break;
-      state.modal=null;state.role=a.role;state.loginId=a.id;state.loginPw='';state.loginErr='';
-      state.screen=a.role==='parent'?'S02':a.role==='admin'?'S19':'S09';
+      logoutSession();state.modal=null;state.role=a.role;state.me=STAFF[a.id]||null;state.loginId=a.id;state.loginPw='';state.loginErr='';
+      state.screen=homeOf(a.role);state.camStep='pick';stopCam();
       toast(a.label+'に切り替えました');break;}
     case 'closeModal': state.modal=null;break;
-    case 'reset': reset();toast('初期状態に戻しました');break;
+    case 'reset':{const hid=state.hbarHidden;stopCam();reset();state.hbarHidden=hid;toast('すべてのデータを初期状態に戻しました');break;}
   }
   render();
 }
 function addPost(who,kind,txt){state.posts.push({id:'m'+Date.now()+Math.random().toString(36).slice(2,5),who,kind,t:now(),txt,ack:0});}
 
+
+/* =========================================================
+   端末の連動
+   ・設定なし：同じブラウザの別タブ・別ウィンドウと連動（再読み込みしても残る）
+   ・Firebase の設定あり：別の端末どうしで連動
+   データは「園児」「投稿」などの単位で送り、変わったものだけを書き込む
+   ========================================================= */
+const DEVICE=Math.random().toString(36).slice(2,10);
+const LS_KEY='okaeri:data:v1', FB_KEY='okaeri:firebase';
+const FB_VER='10.12.2';
+const Sync={mode:'local',status:'',err:'',ready:false,sent:{},timer:null,applying:false,bc:null,fs:null,col:null};
+
+function entityMap(){
+  const m={};
+  const put=(k,o,fields)=>{const c=Object.assign({},o);delete c.desc;
+    (fields||[]).forEach(f=>{if(c[f]){m['ph/'+k.replace('/','-')+'-'+f]={v:c[f]};c[f]='@ph';}});m[k]=c;};
+  state.children.forEach(c=>put('children/'+c.id,c,['src','shot']));
+  Object.entries(state.proxies).forEach(([fk,list])=>list.forEach((p,i)=>put('proxies/'+p.id,Object.assign({},p,{_fk:fk,_i:i}),['src'])));
+  state.posts.forEach(x=>put('posts/'+x.id,x));
+  state.records.forEach(x=>put('records/'+x.id,x,['shot']));
+  state.alerts.forEach(x=>put('alerts/'+x.id,x,['shot']));
+  state.notices.forEach(x=>put('notices/'+x.id,x));
+  state.absences.forEach(x=>put('absences/'+x.id,x));
+  Object.entries(state.diary).forEach(([cid,list])=>put('diary/'+cid,{cid,list}));
+  put('meta/settings',{thr:state.thr,cam:state.cam,offset:state.offset,clock24:state.clock24});
+  put('meta/stats',{stats:state.stats});
+  return m;
+}
+function applyMap(M){
+  if(!M['meta/settings'])return false;
+  const ph=(k,f)=>(M['ph/'+k.replace('/','-')+'-'+f]||{}).v||'';
+  const vals=pre=>Object.keys(M).filter(k=>k.startsWith(pre+'/')).map(k=>{const o=Object.assign({},M[k]);
+    Object.keys(o).forEach(f=>{if(o[f]==='@ph')o[f]=ph(k,f);});return o;});
+  const num=id=>Number(String(id).replace(/\D/g,''))||0;
+  state.children=vals('children').sort((a,b)=>num(a.id)-num(b.id));
+  const px={};vals('proxies').sort((a,b)=>a._i-b._i).forEach(p=>{const fk=p._fk;delete p._fk;delete p._i;
+    p.desc=p.src?(descCache.get(p.src)||null):null;(px[fk]=px[fk]||[]).push(p);});
+  state.proxies=px;
+  state.posts=vals('posts').sort((a,b)=>a.t-b.t);
+  state.records=vals('records').sort((a,b)=>a.t-b.t);
+  state.alerts=vals('alerts').sort((a,b)=>b.t-a.t);
+  state.notices=vals('notices').sort((a,b)=>b.t-a.t);
+  state.absences=vals('absences').sort((a,b)=>(b.t||0)-(a.t||0));
+  const di={};vals('diary').forEach(o=>di[o.cid]=o.list);state.diary=di;
+  const st=M['meta/settings'];['thr','cam','stats','offset','clock24'].forEach(k=>{if(k in st)state[k]=st[k];});
+  if(M['meta/stats']&&M['meta/stats'].stats)state.stats=M['meta/stats'].stats;
+  return true;
+}
+function jsonMap(){const m=entityMap(),j={};for(const k in m)j[k]=JSON.stringify(m[k]);return j;}
+function syncOut(){if(Sync.applying)return;clearTimeout(Sync.timer);Sync.timer=setTimeout(flushOut,200);}
+function flushOut(){
+  if(!Sync.ready)return;
+  const cur=jsonMap(),delta={};
+  for(const k in cur)if(Sync.sent[k]!==cur[k])delta[k]=cur[k];
+  for(const k in Sync.sent)if(!(k in cur))delta[k]=null;
+  if(!Object.keys(delta).length)return;
+  for(const k in delta){if(delta[k]===null)delete Sync.sent[k];else Sync.sent[k]=delta[k];}
+  if(Sync.mode==='firebase'&&Sync.col)fbWrite(delta);else localWrite(delta,cur);
+}
+/* 他の端末からの変更を取り込む */
+function syncIn(delta){
+  const cur=jsonMap();let changed=false;
+  for(const k in delta){const v=delta[k];
+    if(v===null){if(k in cur){delete cur[k];changed=true;}delete Sync.sent[k];}
+    else{if(cur[k]!==v){cur[k]=v;changed=true;}Sync.sent[k]=v;}}
+  if(!changed)return;
+  const M={};for(const k in cur)M[k]=JSON.parse(cur[k]);
+  Sync.applying=true;try{applyMap(M);}finally{Sync.applying=false;}
+  render();
+}
+/* 保存済みの内容をまるごと採用する（起動時など） */
+function adoptFull(full){
+  const M={};for(const k in full)M[k]=JSON.parse(full[k]);
+  Sync.applying=true;let ok=false;try{ok=applyMap(M);}finally{Sync.applying=false;}
+  if(ok){Sync.sent=Object.assign({},full);render();}
+  return ok;
+}
+function diffFull(full){const d={};for(const k in full)if(Sync.sent[k]!==full[k])d[k]=full[k];for(const k in Sync.sent)if(!(k in full))d[k]=null;return d;}
+
+/* --- 同じ端末の中での連動 --- */
+function localStart(){
+  Sync.mode='local';
+  try{Sync.bc=new BroadcastChannel('okaeri-sync');Sync.bc.onmessage=e=>{if(e.data&&e.data.from!==DEVICE)syncIn(e.data.delta);};}catch(e){Sync.bc=null;}
+  try{window.addEventListener('storage',e=>{if(e.key===LS_KEY&&e.newValue&&!Sync.bc){try{syncIn(diffFull(JSON.parse(e.newValue)));}catch(x){}}});}catch(e){}
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(e){}
+  if(saved)adoptFull(saved);
+  Sync.ready=true;Sync.status='local';flushOut();
+}
+function localWrite(delta,full){
+  try{localStorage.setItem(LS_KEY,JSON.stringify(full));}
+  catch(e){try{const lite={};for(const k in full)if(!k.startsWith('ph/'))lite[k]=full[k];localStorage.setItem(LS_KEY,JSON.stringify(lite));}catch(x){}}
+  try{Sync.bc&&Sync.bc.postMessage({from:DEVICE,delta});}catch(e){}
+}
+
+/* --- Firebase（別の端末と連動）
+   ・端末ごとにメールアドレスとパスワードでサインインする
+   ・okaeri_members/{メールアドレス} に登録された役割（role）で、読み書きできる範囲が決まる
+   ・保護者は自分の家庭（fams）のデータと、園全体のお知らせ・設定だけを読める --- */
+const ROLE_LABEL={staff:'保育士・事務',kiosk:'受付端末',admin:'自治体管理者',parent:'保護者'};
+const roleLabel=r=>ROLE_LABEL[r]||'—';
+const FB_RULES=`rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email != null
+        && exists(/databases/$(db)/documents/okaeri_members/$(request.auth.token.email.lower()));
+    }
+    function me() {
+      return get(/databases/$(db)/documents/okaeri_members/$(request.auth.token.email.lower())).data;
+    }
+    function role(r) { return signedIn() && me().role == r; }
+    function staffLike() { return role('staff') || role('kiosk'); }
+
+    // 利用者の登録はFirebaseコンソールから行う（アプリからは書き換えられない）
+    match /okaeri_members/{email} {
+      allow read: if request.auth != null && request.auth.token.email.lower() == email;
+      allow write: if false;
+    }
+    match /okaeri_sakura/{doc} {
+      allow read: if staffLike() || role('admin')
+        || (role('parent') && resource.data.fam in me().fams.concat(['all', 'parents']));
+      allow create: if staffLike()
+        || (role('admin') && doc == 'meta__settings')
+        || (role('parent') && (request.resource.data.fam in me().fams
+              || doc.matches('posts__.*') || doc == 'meta__stats'));
+      allow update: if staffLike()
+        || (role('admin') && doc == 'meta__settings')
+        || (role('parent') && ((request.resource.data.fam in me().fams && resource.data.fam in me().fams)
+              || doc == 'meta__stats'));
+      allow delete: if staffLike();
+    }
+  }
+}`;
+function parseFbConfig(text){
+  const o={};String(text||'').replace(/([A-Za-z]+)\s*["']?\s*:\s*["']([^"']+)["']/g,(_,k,v)=>{o[k]=v;return '';});
+  return o.apiKey&&o.projectId?o:null;
+}
+/* データごとの「どの家庭のものか」 */
+function famOfKey(k,j){
+  const type=k.split('/')[0],rest=k.slice(k.indexOf('/')+1);
+  let o=null;try{o=j?JSON.parse(j):null;}catch(e){}
+  if(type==='children'||type==='diary')return famKey(rest);
+  if(type==='proxies')return (o&&o._fk)||'staff';
+  if(type==='absences')return o&&o.cid?famKey(o.cid):'staff';
+  if(type==='notices')return (o&&o.fam)||'parents';
+  if(type==='meta')return 'all';
+  if(type==='ph'){const m=rest.match(/^(\w+)-(.+)-(\w+)$/);if(!m)return 'staff';
+    if(m[1]==='children')return famKey(m[2]);
+    if(m[1]==='proxies'){const h=allProxies().find(x=>x.p.id===m[2]);return h?h.fk:'staff';}
+    return 'staff';}
+  return 'staff';
+}
+/* 立場ごとに書き込んでよいデータか（Firestoreのルールと同じ考え方。ルールに弾かれる書き込みを最初から送らない） */
+function canWrite(k,fam,isNew){
+  const r=Sync.role;
+  if(r==='staff'||r==='kiosk')return true;
+  if(r==='admin')return k==='meta/settings';
+  if(r==='parent')return (Sync.fams||[]).includes(fam)||(k.startsWith('posts/')&&isNew)||k==='meta/stats';
+  return false;
+}
+async function fbStart(cfg,pw){
+  try{Sync.unsub&&Sync.unsub();}catch(e){}
+  try{Sync.bc&&Sync.bc.close();}catch(e){}Sync.bc=null;
+  Sync.mode='firebase';Sync.status='connecting';Sync.err='';Sync.ready=false;Sync.col=null;Sync.remote=new Set();Sync.created=new Set();render();
+  const base='https://www.gstatic.com/firebasejs/'+FB_VER+'/';
+  await withTimeout(loadScript(base+'firebase-app-compat.js','firebase'),20000);
+  await withTimeout(loadScript(base+'firebase-auth-compat.js'),20000);
+  await withTimeout(loadScript(base+'firebase-firestore-compat.js'),20000);
+  const conf=Object.assign({},cfg);delete conf.email;
+  const app=firebase.apps.length?firebase.app():firebase.initializeApp(conf);
+  const auth=firebase.auth(app);
+  let user=null;
+  if(pw)user=(await withTimeout(auth.signInWithEmailAndPassword(cfg.email,pw),20000)).user;
+  else user=await withTimeout(new Promise(res=>{const u=auth.onAuthStateChanged(x=>{u();res(x);});}),15000);
+  if(!user){Sync.status='login';Sync.err='パスワードを入力してサインインしてください';render();return;}
+  Sync.fs=firebase.firestore(app);
+  const email=String(user.email||'').toLowerCase();
+  const mem=await withTimeout(Sync.fs.collection('okaeri_members').doc(email).get(),15000);
+  if(!mem.exists){Sync.status='error';Sync.err=email+' は園の利用者として登録されていません（okaeri_members）';render();return;}
+  const m=mem.data()||{};Sync.role=m.role||'';Sync.fams=Array.isArray(m.fams)?m.fams:[];Sync.email=email;
+  if(!ROLE_LABEL[Sync.role]){Sync.status='error';Sync.err='役割（role）の登録が正しくありません';render();return;}
+  Sync.col=Sync.fs.collection('okaeri_sakura');
+  const q=Sync.role==='parent'?Sync.col.where('fam','in',Sync.fams.concat(['all','parents']).slice(0,30)):Sync.col;
+  const seeds=Sync.role==='staff'||Sync.role==='kiosk';
+  let first=true;
+  Sync.unsub=q.onSnapshot(snap=>{
+    snap.docChanges().forEach(ch=>{const x=ch.doc.data()||{};const k=x.k||ch.doc.id.replace(/__/g,'/');
+      if(ch.type==='removed')Sync.remote.delete(k);else Sync.remote.add(k);});
+    if(first){first=false;
+      if(snap.empty){Sync.sent={};Sync.ready=true;if(seeds)flushOut();}
+      else{const full={};snap.forEach(d=>{const x=d.data();if(x&&x.k)full[x.k]=x.j;});
+        if(!adoptFull(full)&&seeds)Sync.sent=full;Sync.ready=true;}
+      Sync.status='connected';Sync.err='';render();return;}
+    const delta={};
+    snap.docChanges().forEach(ch=>{const x=ch.doc.data()||{};const k=x.k||ch.doc.id.replace(/__/g,'/');
+      if(ch.type==='removed')delta[k]=null;else if(x.by!==DEVICE)delta[k]=x.j;});
+    if(Object.keys(delta).length)syncIn(delta);
+  },err=>{Sync.status='error';Sync.err=err&&err.code==='permission-denied'?'読み取りが許可されていません（ルールと利用者の登録を確認してください）':(err&&err.message)||'接続できませんでした';render();});
+}
+function fbWrite(delta){
+  const ops=[];
+  for(const k in delta){const v=delta[k];
+    if(v===null){if(Sync.role==='staff'||Sync.role==='kiosk')ops.push({k,del:true});continue;}
+    const fam=famOfKey(k,v),isNew=!Sync.remote.has(k)&&!Sync.created.has(k);
+    if(!canWrite(k,fam,isNew))continue;
+    ops.push({k,v,fam});if(isNew)Sync.created.add(k);}
+  for(let i=0;i<ops.length;i+=400){const b=Sync.fs.batch();
+    ops.slice(i,i+400).forEach(o=>{const ref=Sync.col.doc(o.k.replace(/\//g,'__'));
+      if(o.del)b.delete(ref);else b.set(ref,{k:o.k,j:o.v,fam:o.fam,by:DEVICE,u:Date.now()});});
+    b.commit().catch(e=>{Sync.status='error';Sync.err=e&&e.code==='permission-denied'?'書き込みが許可されていません（ルールと利用者の登録を確認してください）':(e&&e.message)||'書き込めませんでした';render();});}
+}
+function startSync(){
+  let cfg=null;try{cfg=JSON.parse(localStorage.getItem(FB_KEY)||'null');}catch(e){}
+  if(cfg&&cfg.apiKey&&cfg.email){fbStart(cfg).catch(()=>{Sync.status='error';Sync.err='Firebaseに接続できませんでした';render();});}
+  else localStart();
+}
+function syncLabel(){
+  if(Sync.mode==='firebase')return Sync.status==='connected'?'別の端末と連動中（'+roleLabel(Sync.role)+'）'
+    :Sync.status==='connecting'?'接続しています':Sync.status==='login'?'サインインが必要です':'接続できません';
+  return Sync.bc?'この端末の別ウィンドウと連動中':'この端末だけで動作中';
+}
 /* =========================================================
    毎秒の更新
    ========================================================= */
 function sig(){return state.children.map(c=>c.id+stat(c).k+(c.pickupAt<now()?'p':'f')).join('|');}
 function tickLoop(){
   const hn=document.getElementById('hnow');if(hn)hn.textContent=md(now())+'('+wd(now())+') '+hm(now());
+  const kc=document.getElementById('kclk');if(kc)kc.innerHTML=hmx(now());
   if(state.screen==='S10'||state.screen==='S11'){
     if(sig()!==lastSig){render();return;}
     document.querySelectorAll('[data-arr]').forEach(el=>{
@@ -1672,4 +2644,5 @@ function tickLoop(){
 }
 setInterval(tickLoop,1000);
 render();
+startSync();
 </script>
