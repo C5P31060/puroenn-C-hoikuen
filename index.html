@@ -413,6 +413,8 @@ table.tbl td:first-child{white-space:nowrap}
       <button class="hbtn" id="errbtn" onclick="act('toggleErr')">通信エラー再現</button>
       <button class="hbtn" onclick="act('accounts')">アカウント</button>
       <button class="hbtn" onclick="act('map')">画面一覧</button>
+      <button class="hbtn" onclick="act('schools')">園の切り替え</button>
+      <button class="hbtn" onclick="act('dataset')">データの入れ替え</button>
       <button class="hbtn" onclick="act('demoFace')">デモ用の顔写真</button>
       <button class="hbtn" onclick="act('check')">動作チェック</button>
       <button class="hbtn" onclick="act('sync')">端末の連動</button>
@@ -421,6 +423,1246 @@ table.tbl td:first-child{white-space:nowrap}
     </div>
   </div>
 </div>
+<!-- =========================================================
+     データの器：園・園児・保護者・デモ用のシナリオはここにまとめ、アプリの処理とは分けている。
+     同じ形式のデータファイル（okaeri-dataset-*.json）を、操作バー「データの入れ替え」から読み込めば入れ替えられる。
+     ========================================================= -->
+<script id="okaeri-dataset" type="application/json">
+{
+ "format": "okaeri-dataset/1",
+ "title": "川崎市 公立保育所（サンプルデータ）",
+ "notice": "園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。",
+ "source": {
+  "name": "川崎市「交流保育実施公立保育園一覧」（令和8年6月）",
+  "url": "https://www.city.kawasaki.jp/nakahara/cmsfiles/contents/0000117/117989/R8ikea.pdf",
+  "asOf": "2026-06"
+ },
+ "defaultSchool": "nakahara",
+ "schools": [
+  {
+   "id": "oshima",
+   "name": "大島保育園",
+   "ward": "川崎区",
+   "address": "川崎区大島4-17-2",
+   "center": "保育・子育て総合支援センター内"
+  },
+  {
+   "id": "fujisaki",
+   "name": "藤崎保育園",
+   "ward": "川崎区",
+   "address": "川崎区藤崎1-7-1"
+  },
+  {
+   "id": "higashioda",
+   "name": "東小田保育園",
+   "ward": "川崎区",
+   "address": "川崎区小田5-14-1"
+  },
+  {
+   "id": "kawaramachi",
+   "name": "河原町保育園",
+   "ward": "幸区",
+   "address": "幸区河原町1（仮園舎）",
+   "note": "建替えのため仮設園舎にて運営中"
+  },
+  {
+   "id": "furukawa",
+   "name": "古川保育園",
+   "ward": "幸区",
+   "address": "幸区古川町120"
+  },
+  {
+   "id": "yumemigasaki",
+   "name": "夢見ヶ崎保育園",
+   "ward": "幸区",
+   "address": "幸区南加瀬3-4-8"
+  },
+  {
+   "id": "nakahara",
+   "name": "中原保育園",
+   "ward": "中原区",
+   "address": "中原区小杉陣屋町2-3-1",
+   "center": "保育・子育て総合支援センター内"
+  },
+  {
+   "id": "shimokodanaka",
+   "name": "下小田中保育園",
+   "ward": "中原区",
+   "address": "中原区下小田中4-4-17"
+  },
+  {
+   "id": "nakamaruko",
+   "name": "中丸子保育園",
+   "ward": "中原区",
+   "address": "中原区中丸子1155"
+  },
+  {
+   "id": "kajigaya",
+   "name": "梶ヶ谷保育園",
+   "ward": "高津区",
+   "address": "高津区梶ヶ谷5-8-2"
+  },
+  {
+   "id": "tsudayama",
+   "name": "津田山保育園",
+   "ward": "高津区",
+   "address": "高津区下作延5-3-11（仮園舎）",
+   "note": "建替えのため仮設園舎にて運営中"
+  },
+  {
+   "id": "kanigaya",
+   "name": "蟹ヶ谷保育園",
+   "ward": "高津区",
+   "address": "高津区蟹ヶ谷339"
+  },
+  {
+   "id": "tsuchihashi",
+   "name": "土橋保育園",
+   "ward": "宮前区",
+   "address": "宮前区土橋2-14-1",
+   "center": "保育・子育て総合支援センター内"
+  },
+  {
+   "id": "nakaarima",
+   "name": "中有馬保育園",
+   "ward": "宮前区",
+   "address": "宮前区有馬3-2-10"
+  },
+  {
+   "id": "sugao",
+   "name": "菅生保育園",
+   "ward": "宮前区",
+   "address": "宮前区菅生5-4-10"
+  },
+  {
+   "id": "tsuchifuchi",
+   "name": "土渕保育園",
+   "ward": "多摩区",
+   "address": "多摩区生田2-14-5",
+   "center": "保育・子育て総合支援センター内"
+  },
+  {
+   "id": "ikuta",
+   "name": "生田保育園",
+   "ward": "多摩区",
+   "address": "多摩区西生田3-15-10"
+  },
+  {
+   "id": "suge",
+   "name": "菅保育園",
+   "ward": "多摩区",
+   "address": "多摩区菅1-5-24"
+  },
+  {
+   "id": "hakusan",
+   "name": "白山保育園",
+   "ward": "麻生区",
+   "address": "麻生区白山4-2-1"
+  },
+  {
+   "id": "takaishi",
+   "name": "高石保育園",
+   "ward": "麻生区",
+   "address": "麻生区高石1-14-15"
+  },
+  {
+   "id": "kamiasao",
+   "name": "上麻生保育園",
+   "ward": "麻生区",
+   "address": "麻生区上麻生7-2-35"
+  }
+ ],
+ "classes": [
+  {
+   "name": "ひよこ組",
+   "age": "0歳児",
+   "size": [
+    6,
+    9
+   ]
+  },
+  {
+   "name": "りす組",
+   "age": "1歳児",
+   "size": [
+    12,
+    15
+   ]
+  },
+  {
+   "name": "うさぎ組",
+   "age": "2歳児",
+   "size": [
+    14,
+    18
+   ]
+  },
+  {
+   "name": "ちゅうりっぷ組",
+   "age": "3歳児",
+   "size": [
+    17,
+    21
+   ]
+  },
+  {
+   "name": "ゆり組",
+   "age": "4歳児",
+   "size": [
+    18,
+    22
+   ]
+  },
+  {
+   "name": "ひまわり組",
+   "age": "5歳児",
+   "size": [
+    18,
+    22
+   ]
+  }
+ ],
+ "commonNotices": [
+  {
+   "id": "n1",
+   "fam": "parents",
+   "kind": "園からのお知らせ",
+   "title": "プールの持ち物について",
+   "body": "明日は水遊びを行います。タオルと着替えをお持ちください。",
+   "minutesAgo": 1440,
+   "read": false
+  }
+ ],
+ "generator": {
+  "seed": 20261021,
+  "siblingRate": 0.18,
+  "pickupWindow": [
+   -150,
+   180
+  ],
+  "appChangeRate": 0.08,
+  "phoneChangeRate": 0.03,
+  "diaryRate": 0.12,
+  "names": {
+   "surnames": [
+    [
+     "佐藤",
+     "さとう"
+    ],
+    [
+     "鈴木",
+     "すずき"
+    ],
+    [
+     "高橋",
+     "たかはし"
+    ],
+    [
+     "田中",
+     "たなか"
+    ],
+    [
+     "伊藤",
+     "いとう"
+    ],
+    [
+     "渡辺",
+     "わたなべ"
+    ],
+    [
+     "山本",
+     "やまもと"
+    ],
+    [
+     "中村",
+     "なかむら"
+    ],
+    [
+     "小林",
+     "こばやし"
+    ],
+    [
+     "加藤",
+     "かとう"
+    ],
+    [
+     "吉田",
+     "よしだ"
+    ],
+    [
+     "山田",
+     "やまだ"
+    ],
+    [
+     "佐々木",
+     "ささき"
+    ],
+    [
+     "山口",
+     "やまぐち"
+    ],
+    [
+     "松本",
+     "まつもと"
+    ],
+    [
+     "井上",
+     "いのうえ"
+    ],
+    [
+     "木村",
+     "きむら"
+    ],
+    [
+     "林",
+     "はやし"
+    ],
+    [
+     "斎藤",
+     "さいとう"
+    ],
+    [
+     "清水",
+     "しみず"
+    ],
+    [
+     "山崎",
+     "やまざき"
+    ],
+    [
+     "森",
+     "もり"
+    ],
+    [
+     "池田",
+     "いけだ"
+    ],
+    [
+     "橋本",
+     "はしもと"
+    ],
+    [
+     "阿部",
+     "あべ"
+    ],
+    [
+     "石川",
+     "いしかわ"
+    ],
+    [
+     "山下",
+     "やました"
+    ],
+    [
+     "中島",
+     "なかじま"
+    ],
+    [
+     "石井",
+     "いしい"
+    ],
+    [
+     "小川",
+     "おがわ"
+    ],
+    [
+     "前田",
+     "まえだ"
+    ],
+    [
+     "岡田",
+     "おかだ"
+    ],
+    [
+     "長谷川",
+     "はせがわ"
+    ],
+    [
+     "藤田",
+     "ふじた"
+    ],
+    [
+     "後藤",
+     "ごとう"
+    ],
+    [
+     "近藤",
+     "こんどう"
+    ],
+    [
+     "村上",
+     "むらかみ"
+    ],
+    [
+     "遠藤",
+     "えんどう"
+    ],
+    [
+     "青木",
+     "あおき"
+    ],
+    [
+     "坂本",
+     "さかもと"
+    ],
+    [
+     "福田",
+     "ふくだ"
+    ],
+    [
+     "太田",
+     "おおた"
+    ],
+    [
+     "西村",
+     "にしむら"
+    ],
+    [
+     "藤井",
+     "ふじい"
+    ],
+    [
+     "金子",
+     "かねこ"
+    ],
+    [
+     "岡本",
+     "おかもと"
+    ],
+    [
+     "藤原",
+     "ふじわら"
+    ],
+    [
+     "中野",
+     "なかの"
+    ],
+    [
+     "三浦",
+     "みうら"
+    ],
+    [
+     "原田",
+     "はらだ"
+    ],
+    [
+     "中川",
+     "なかがわ"
+    ],
+    [
+     "松田",
+     "まつだ"
+    ],
+    [
+     "竹内",
+     "たけうち"
+    ],
+    [
+     "小野",
+     "おの"
+    ],
+    [
+     "田村",
+     "たむら"
+    ],
+    [
+     "中山",
+     "なかやま"
+    ],
+    [
+     "和田",
+     "わだ"
+    ],
+    [
+     "石田",
+     "いしだ"
+    ],
+    [
+     "上田",
+     "うえだ"
+    ],
+    [
+     "森田",
+     "もりた"
+    ],
+    [
+     "柴田",
+     "しばた"
+    ],
+    [
+     "酒井",
+     "さかい"
+    ],
+    [
+     "工藤",
+     "くどう"
+    ],
+    [
+     "横山",
+     "よこやま"
+    ],
+    [
+     "宮崎",
+     "みやざき"
+    ],
+    [
+     "宮本",
+     "みやもと"
+    ],
+    [
+     "内田",
+     "うちだ"
+    ],
+    [
+     "高木",
+     "たかぎ"
+    ],
+    [
+     "安藤",
+     "あんどう"
+    ],
+    [
+     "島田",
+     "しまだ"
+    ]
+   ],
+   "boys": [
+    [
+     "蓮",
+     "れん"
+    ],
+    [
+     "陽翔",
+     "はると"
+    ],
+    [
+     "湊",
+     "みなと"
+    ],
+    [
+     "蒼",
+     "あおい"
+    ],
+    [
+     "樹",
+     "いつき"
+    ],
+    [
+     "悠真",
+     "ゆうま"
+    ],
+    [
+     "大和",
+     "やまと"
+    ],
+    [
+     "律",
+     "りつ"
+    ],
+    [
+     "朝陽",
+     "あさひ"
+    ],
+    [
+     "颯真",
+     "そうま"
+    ],
+    [
+     "陽太",
+     "ようた"
+    ],
+    [
+     "新",
+     "あらた"
+    ],
+    [
+     "伊織",
+     "いおり"
+    ],
+    [
+     "奏太",
+     "そうた"
+    ],
+    [
+     "結翔",
+     "ゆいと"
+    ],
+    [
+     "碧",
+     "あお"
+    ],
+    [
+     "蒼空",
+     "そら"
+    ],
+    [
+     "晴",
+     "はる"
+    ],
+    [
+     "瑛太",
+     "えいた"
+    ],
+    [
+     "悠人",
+     "ゆうと"
+    ],
+    [
+     "大翔",
+     "ひろと"
+    ],
+    [
+     "陸",
+     "りく"
+    ],
+    [
+     "海斗",
+     "かいと"
+    ],
+    [
+     "颯",
+     "はやて"
+    ],
+    [
+     "健太",
+     "けんた"
+    ],
+    [
+     "拓海",
+     "たくみ"
+    ],
+    [
+     "航",
+     "わたる"
+    ],
+    [
+     "遥斗",
+     "はると"
+    ],
+    [
+     "柊",
+     "しゅう"
+    ],
+    [
+     "凪",
+     "なぎ"
+    ]
+   ],
+   "girls": [
+    [
+     "陽葵",
+     "ひまり"
+    ],
+    [
+     "芽依",
+     "めい"
+    ],
+    [
+     "凛",
+     "りん"
+    ],
+    [
+     "結菜",
+     "ゆいな"
+    ],
+    [
+     "葵",
+     "あおい"
+    ],
+    [
+     "紬",
+     "つむぎ"
+    ],
+    [
+     "澪",
+     "みお"
+    ],
+    [
+     "結衣",
+     "ゆい"
+    ],
+    [
+     "杏",
+     "あん"
+    ],
+    [
+     "咲良",
+     "さくら"
+    ],
+    [
+     "莉子",
+     "りこ"
+    ],
+    [
+     "心春",
+     "こはる"
+    ],
+    [
+     "花",
+     "はな"
+    ],
+    [
+     "詩",
+     "うた"
+    ],
+    [
+     "陽菜",
+     "ひな"
+    ],
+    [
+     "結月",
+     "ゆづき"
+    ],
+    [
+     "楓",
+     "かえで"
+    ],
+    [
+     "千尋",
+     "ちひろ"
+    ],
+    [
+     "彩葉",
+     "いろは"
+    ],
+    [
+     "美月",
+     "みづき"
+    ],
+    [
+     "栞",
+     "しおり"
+    ],
+    [
+     "朱莉",
+     "あかり"
+    ],
+    [
+     "菜々",
+     "なな"
+    ],
+    [
+     "琴葉",
+     "ことは"
+    ],
+    [
+     "小春",
+     "こはる"
+    ],
+    [
+     "柚葉",
+     "ゆずは"
+    ],
+    [
+     "美羽",
+     "みう"
+    ],
+    [
+     "茉白",
+     "ましろ"
+    ],
+    [
+     "絢",
+     "あや"
+    ],
+    [
+     "実桜",
+     "みお"
+    ]
+   ],
+   "mothers": [
+    [
+     "美咲",
+     "みさき"
+    ],
+    [
+     "彩",
+     "あや"
+    ],
+    [
+     "愛",
+     "あい"
+    ],
+    [
+     "麻衣",
+     "まい"
+    ],
+    [
+     "由佳",
+     "ゆか"
+    ],
+    [
+     "恵",
+     "めぐみ"
+    ],
+    [
+     "真由美",
+     "まゆみ"
+    ],
+    [
+     "智子",
+     "ともこ"
+    ],
+    [
+     "沙織",
+     "さおり"
+    ],
+    [
+     "舞",
+     "まい"
+    ],
+    [
+     "香織",
+     "かおり"
+    ],
+    [
+     "優子",
+     "ゆうこ"
+    ],
+    [
+     "奈々",
+     "なな"
+    ],
+    [
+     "理恵",
+     "りえ"
+    ],
+    [
+     "千夏",
+     "ちなつ"
+    ],
+    [
+     "綾香",
+     "あやか"
+    ],
+    [
+     "早苗",
+     "さなえ"
+    ],
+    [
+     "瞳",
+     "ひとみ"
+    ],
+    [
+     "陽子",
+     "ようこ"
+    ],
+    [
+     "亜希",
+     "あき"
+    ]
+   ],
+   "fathers": [
+    [
+     "翔",
+     "しょう"
+    ],
+    [
+     "健",
+     "けん"
+    ],
+    [
+     "大輔",
+     "だいすけ"
+    ],
+    [
+     "拓也",
+     "たくや"
+    ],
+    [
+     "直樹",
+     "なおき"
+    ],
+    [
+     "誠",
+     "まこと"
+    ],
+    [
+     "剛",
+     "つよし"
+    ],
+    [
+     "和也",
+     "かずや"
+    ],
+    [
+     "亮",
+     "りょう"
+    ],
+    [
+     "修",
+     "おさむ"
+    ],
+    [
+     "達也",
+     "たつや"
+    ],
+    [
+     "雄一",
+     "ゆういち"
+    ],
+    [
+     "慎吾",
+     "しんご"
+    ],
+    [
+     "隆",
+     "たかし"
+    ],
+    [
+     "浩二",
+     "こうじ"
+    ],
+    [
+     "洋平",
+     "ようへい"
+    ],
+    [
+     "智之",
+     "ともゆき"
+    ],
+    [
+     "康介",
+     "こうすけ"
+    ],
+    [
+     "圭",
+     "けい"
+    ],
+    [
+     "俊介",
+     "しゅんすけ"
+    ]
+   ],
+   "grandmothers": [
+    [
+     "和子",
+     "かずこ"
+    ],
+    [
+     "洋子",
+     "ようこ"
+    ],
+    [
+     "幸子",
+     "さちこ"
+    ],
+    [
+     "節子",
+     "せつこ"
+    ],
+    [
+     "京子",
+     "きょうこ"
+    ],
+    [
+     "恵子",
+     "けいこ"
+    ],
+    [
+     "久美子",
+     "くみこ"
+    ],
+    [
+     "典子",
+     "のりこ"
+    ],
+    [
+     "悦子",
+     "えつこ"
+    ],
+    [
+     "文子",
+     "ふみこ"
+    ]
+   ],
+   "grandfathers": [
+    [
+     "一郎",
+     "いちろう"
+    ],
+    [
+     "正",
+     "ただし"
+    ],
+    [
+     "茂",
+     "しげる"
+    ],
+    [
+     "勝",
+     "まさる"
+    ],
+    [
+     "清",
+     "きよし"
+    ],
+    [
+     "進",
+     "すすむ"
+    ],
+    [
+     "博",
+     "ひろし"
+    ],
+    [
+     "実",
+     "みのる"
+    ],
+    [
+     "昭",
+     "あきら"
+    ],
+    [
+     "武",
+     "たけし"
+    ]
+   ],
+   "features": [
+    "眼鏡をかけた白髪の男性",
+    "背が高く短髪の男性",
+    "帽子をかぶった小柄な男性",
+    "黒いリュックを持った白髪の女性",
+    "眼鏡をかけたショートヘアの女性",
+    "グレーの髪をひとつに結んだ女性",
+    "杖を使っている男性",
+    "ベージュのコートの女性"
+   ]
+  }
+ },
+ "scenario": {
+  "school": "nakahara",
+  "children": [
+   {
+    "id": "c1",
+    "name": "山田 ひなた",
+    "kana": "やまだ ひなた",
+    "sfx": "ちゃん",
+    "cls": "ひまわり組",
+    "age": "5歳児",
+    "fam": "c1",
+    "offset": 15,
+    "by": "母 山田 花子",
+    "st": "waiting"
+   },
+   {
+    "id": "c2",
+    "name": "佐藤 蓮",
+    "kana": "さとう れん",
+    "sfx": "くん",
+    "cls": "ひまわり組",
+    "age": "5歳児",
+    "fam": "c2",
+    "offset": 3,
+    "by": "母 佐藤 美咲",
+    "st": "waiting"
+   },
+   {
+    "id": "c3",
+    "name": "鈴木 あかり",
+    "kana": "すずき あかり",
+    "sfx": "ちゃん",
+    "cls": "ゆり組",
+    "age": "4歳児",
+    "fam": "c3",
+    "offset": 1,
+    "by": "祖父 鈴木 一郎",
+    "st": "waiting",
+    "proxy": true
+   },
+   {
+    "id": "c4",
+    "name": "田中 大和",
+    "kana": "たなか やまと",
+    "sfx": "くん",
+    "cls": "ゆり組",
+    "age": "4歳児",
+    "fam": "c4",
+    "offset": -5,
+    "by": "父 田中 健",
+    "st": "waiting"
+   },
+   {
+    "id": "c5",
+    "name": "髙橋 結衣",
+    "kana": "たかはし ゆい",
+    "sfx": "ちゃん",
+    "cls": "ちゅうりっぷ組",
+    "age": "3歳児",
+    "fam": "c5",
+    "offset": -12,
+    "by": "母 髙橋 沙織",
+    "st": "arrived"
+   },
+   {
+    "id": "c6",
+    "name": "伊藤 悠真",
+    "kana": "いとう ゆうま",
+    "sfx": "くん",
+    "cls": "ちゅうりっぷ組",
+    "age": "3歳児",
+    "fam": "c6",
+    "offset": -20,
+    "by": "母 伊藤 彩",
+    "st": "released"
+   },
+   {
+    "id": "c7",
+    "name": "小林 さくら",
+    "kana": "こばやし さくら",
+    "sfx": "ちゃん",
+    "cls": "ちゅうりっぷ組",
+    "age": "3歳児",
+    "fam": "c7",
+    "offset": 22,
+    "by": "母 小林 愛",
+    "st": "waiting"
+   },
+   {
+    "id": "c8",
+    "name": "加藤 湊",
+    "kana": "かとう みなと",
+    "sfx": "くん",
+    "cls": "ちゅうりっぷ組",
+    "age": "3歳児",
+    "fam": "c8",
+    "offset": 34,
+    "by": "父 加藤 翔",
+    "st": "waiting"
+   },
+   {
+    "id": "c9",
+    "name": "山田 そら",
+    "kana": "やまだ そら",
+    "sfx": "くん",
+    "cls": "ちゅうりっぷ組",
+    "age": "3歳児",
+    "fam": "c1",
+    "offset": 15,
+    "by": "母 山田 花子",
+    "st": "waiting"
+   }
+  ],
+  "proxies": {
+   "c1": [
+    {
+     "id": "p1",
+     "name": "山田 花子",
+     "kana": "やまだ はなこ",
+     "rel": "母",
+     "tel": "090-1234-5678",
+     "photo": 1,
+     "memo": "",
+     "prio": 1,
+     "ok": true,
+     "period": "current"
+    },
+    {
+     "id": "p2",
+     "name": "鈴木 一郎",
+     "kana": "すずき いちろう",
+     "rel": "祖父",
+     "tel": "080-2345-6789",
+     "photo": 0,
+     "memo": "眼鏡をかけた白髪の男性",
+     "prio": 2,
+     "ok": true,
+     "period": "current"
+    },
+    {
+     "id": "p4",
+     "name": "山田 健司",
+     "kana": "やまだ けんじ",
+     "rel": "叔父",
+     "tel": "070-3456-7890",
+     "photo": 0,
+     "memo": "背が高く短髪の男性",
+     "prio": 3,
+     "ok": true,
+     "period": "previous"
+    }
+   ],
+   "c3": [
+    {
+     "id": "p3",
+     "name": "鈴木 一郎",
+     "kana": "すずき いちろう",
+     "rel": "祖父",
+     "tel": "080-2345-6789",
+     "photo": 0,
+     "memo": "眼鏡をかけた白髪の男性。杖を使用",
+     "prio": 1,
+     "ok": true,
+     "period": "current"
+    }
+   ]
+  },
+  "posts": [
+   {
+    "id": "m1",
+    "who": "事務 渡辺",
+    "kind": "clerk",
+    "minutesAgo": 8,
+    "txt": "田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。",
+    "ack": 1
+   },
+   {
+    "id": "m2",
+    "who": "ゆり組 高田",
+    "kind": "teacher",
+    "minutesAgo": 6,
+    "txt": "鈴木 あかりちゃんは絵本を読んで待機しています。",
+    "ack": 0
+   }
+  ],
+  "diary": {
+   "c1": [
+    {
+     "d": "昨日",
+     "temp": "36.6",
+     "mood": "良好",
+     "txt": "夜はよく眠れました。朝の食欲もあります。",
+     "reply": "園でも元気に過ごしていました。"
+    }
+   ],
+   "c2": [
+    {
+     "d": "今日",
+     "temp": "36.8",
+     "mood": "ふつう",
+     "txt": "少し咳が出ています。外遊びは様子を見てください。",
+     "reply": ""
+    }
+   ],
+   "c4": [
+    {
+     "d": "今日",
+     "temp": "37.0",
+     "mood": "少し不調",
+     "txt": "朝ごはんをあまり食べませんでした。",
+     "reply": ""
+    }
+   ]
+  },
+  "notices": [
+   {
+    "id": "n2",
+    "fam": "c1",
+    "kind": "連絡帳",
+    "title": "園から返信がありました",
+    "body": "園でも元気に過ごしていました。",
+    "minutesAgo": 180,
+    "read": false
+   }
+  ],
+  "stats": {
+   "app": 0,
+   "phone": 1
+  }
+ },
+ "schoolsData": {}
+}
+</script>
 <div class="stage" id="stage"></div>
 <div id="overlay"></div>
 <button id="hshow" onclick="act('hbarShow')" aria-label="操作バーを表示"></button>
@@ -657,7 +1899,7 @@ async function runChecks(){
     if(!how){await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);how='jsQR';}
     set('qrread','ok',how);}catch(e){set('qrread','ng','読み込めませんでした（通信を確認してください）');}
   try{await withTimeout(loadScript(QRGEN_URL,'qrcode'),15000);const q=qrcode(0,'M');q.addData('OKAERI');q.make();set('qrshow','ok','表示できます');}
-  catch(e){set('qrshow','ng','読み込めませんでした（カード番号での受付は使えます）');}
+  catch(e){set('qrshow','ng','読み込めませんでした（8桁の番号での受付は使えます）');}
   try{localStorage.setItem('okaeri:check','1');const ok=localStorage.getItem('okaeri:check')==='1';localStorage.removeItem('okaeri:check');
     set('store',ok?'ok':'ng',ok?'使えます':'使えません');}catch(e){set('store','ng','使えません（プライベートブラウズなど）');}
   set('bc',typeof BroadcastChannel!=='undefined'?'ok':'ng',typeof BroadcastChannel!=='undefined'?'使えます':'このブラウザでは使えません');
@@ -728,13 +1970,14 @@ async function verifyFace(){
 /* 認証できなかったときに保育士へ確認を依頼 */
 function callStaff(kind,dist){
   const c=child(state.camChild);if(!c)return;
-  const p=proxiesOf(c.id).find(x=>x.id===state.camProxy)||proxiesOf(c.id)[0];
+  const p=state.camProxy?(proxiesOf(c.id).find(x=>x.id===state.camProxy)||null):null;
   const why={nomatch:'登録写真と一致しませんでした',nophoto:'照合用の写真が登録されていません',
              regface:'登録写真から顔を確認できませんでした',engine:'照合機能を使えませんでした',noface:'顔を確認できませんでした',
-             live:'まばたき・首振りで本人を確認できませんでした',invalid:'承認されていない、または期限切れの登録です',nocard:'お迎えカードを持っていません'}[kind]||'認証できませんでした';
+             live:'まばたき・首振りで本人を確認できませんでした',invalid:'承認されていない、または期限切れの登録です',nocard:'QRコードを出せません',
+             nophotoSel:'顔写真を登録していない方が来ています'}[kind]||'認証できませんでした';
   state.stats.camNG++;
-  state.alerts.unshift({id:'a'+Date.now(),cid:c.id,pid:p.id,kids:(state.camKids||[]).slice(),t:now(),why,shot:state.shot,dist});
-  addPost('受付カメラ','sys',`【確認依頼】${c.name}${c.sfx}のお迎え（${p.name}さん・${p.rel}として受付）：${why}。玄関で確認をお願いします。`);
+  state.alerts.unshift({id:'a'+Date.now(),cid:c.id,pid:p?p.id:null,kids:(state.camKids||[]).slice(),t:now(),why,shot:state.shot,dist});
+  addPost('受付カメラ','sys',`【確認依頼】${c.name}${c.sfx}のお迎え（${p?p.name+'さん・'+p.rel+'として受付':'お迎えの方は未選択'}）：${why}。玄関で確認をお願いします。`);
   state.camStep='called';state.camFails=0;state.shot='';render();
 }
 /* 登録写真に顔が写っているかを確認（背景で実行） */
@@ -770,63 +2013,161 @@ function silhouette(){return `<svg viewBox="0 0 100 114" width="100%" height="10
    状態
    ========================================================= */
 let state, lastSig='';
-function baseChildren(){
-  const n=Date.now(); const mk=o=>({...o,pickupAt:n+o.offset*60000,planAt:n+o.offset*60000,changed:null,
-    ...(o.st==='arrived'?{arrivedAt:n+(o.offset+1)*60000,arrivedBy:(o.by||'').split(' ').slice(1).join(' ')+'（'+(o.by||'').split(' ')[0]+'）',verified:'px_'+o.id}:{})});
-  return [
-    mk({id:'c1',name:'山田 ひなた',kana:'やまだ ひなた',sfx:'ちゃん',cls:'ひまわり組',age:'5歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
-    mk({id:'c2',name:'佐藤 蓮',kana:'さとう れん',sfx:'くん',cls:'ひまわり組',age:'5歳児',offset:3,by:'母 佐藤 美咲',st:'waiting'}),
-    mk({id:'c3',name:'鈴木 あかり',kana:'すずき あかり',sfx:'ちゃん',cls:'ゆり組',age:'4歳児',offset:1,by:'祖父 鈴木 一郎',st:'waiting',proxy:true}),
-    mk({id:'c4',name:'田中 大和',kana:'たなか やまと',sfx:'くん',cls:'ゆり組',age:'4歳児',offset:-5,by:'父 田中 健',st:'waiting'}),
-    mk({id:'c5',name:'髙橋 結衣',kana:'たかはし ゆい',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-12,by:'母 髙橋 沙織',st:'arrived'}),
-    mk({id:'c6',name:'伊藤 悠真',kana:'いとう ゆうま',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:-20,by:'母 伊藤 彩',st:'released'}),
-    mk({id:'c7',name:'小林 さくら',kana:'こばやし さくら',sfx:'ちゃん',cls:'ちゅうりっぷ組',age:'3歳児',offset:22,by:'母 小林 愛',st:'waiting'}),
-    mk({id:'c8',name:'加藤 湊',kana:'かとう みなと',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:34,by:'父 加藤 翔',st:'waiting'}),
-    mk({id:'c9',name:'山田 そら',kana:'やまだ そら',sfx:'くん',cls:'ちゅうりっぷ組',age:'3歳児',offset:15,by:'母 山田 花子',st:'waiting'}),
-  ];
+/* ---- データの器の読み込み（読み込んだファイル ＞ HTMLに埋め込んだデータ ＞ 最小限の予備） ---- */
+const DS_KEY='okaeri:dataset';
+const FALLBACK_DATASET={format:'okaeri-dataset/1',title:'データなし',notice:'データファイルが見つからないため、最小限のサンプルで動いています。',
+  defaultSchool:'demo',schools:[{id:'demo',name:'サンプル保育園',ward:'',address:''}],
+  classes:[{name:'ひまわり組',age:'5歳児',size:[3,5]}],
+  generator:{seed:1,siblingRate:0,pickupWindow:[-60,120],names:{surnames:[['山田','やまだ']],boys:[['蓮','れん']],girls:[['陽葵','ひまり']],
+    mothers:[['花子','はなこ']],fathers:[['太郎','たろう']],grandmothers:[['和子','かずこ']],grandfathers:[['一郎','いちろう']],features:['']}}};
+function validateDataset(d){
+  if(!d||typeof d!=='object')return 'データの形式が正しくありません';
+  if(!String(d.format||'').startsWith('okaeri-dataset/'))return 'format が okaeri-dataset/… ではありません';
+  if(!Array.isArray(d.schools)||!d.schools.length)return '園（schools）が1つもありません';
+  if(d.schools.some(x=>!x.id||!x.name))return '園には id と name が必要です';
+  if(new Set(d.schools.map(x=>x.id)).size!==d.schools.length)return '園の id が重複しています';
+  if(!(d.schoolsData&&Object.keys(d.schoolsData).length)&&!(d.generator&&d.generator.names))return '園児のデータ（schoolsData）か、自動で作る設定（generator）が必要です';
+  return '';
 }
-/* 家庭：きょうだいは同じ家庭として代理人とお迎えカードを共有する */
-const FAMILY={c1:['c1','c9'],c9:['c1','c9']};
-const famKey=id=>(FAMILY[id]||[id])[0];
-const famKids=id=>(FAMILY[id]||[id]).map(x=>child(x)).filter(Boolean);
+let DS=null;
+function dataset(){
+  if(DS)return DS;
+  let d=null;
+  try{const o=JSON.parse(localStorage.getItem(DS_KEY)||'null');if(o&&!validateDataset(o)){d=o;d._from='file';}}catch(e){}
+  if(!d){try{const el=document.getElementById('okaeri-dataset');const o=JSON.parse(el&&el.textContent||'null');if(o&&!validateDataset(o)){d=o;d._from='builtin';}}catch(e){}}
+  if(!d){d=JSON.parse(JSON.stringify(FALLBACK_DATASET));d._from='fallback';}
+  if(!d.classes||!d.classes.length)d.classes=FALLBACK_DATASET.classes;
+  if(!d.generator)d.generator={seed:1};
+  if(!d.generator.names)d.generator.names=FALLBACK_DATASET.generator.names;
+  if(!d.schools.some(x=>x.id===d.defaultSchool))d.defaultSchool=d.schools[0].id;
+  DS=d;return d;
+}
+const schoolsAll=()=>dataset().schools;
+const curSchool=()=>schoolsAll().find(x=>x.id===state.schoolId)||schoolsAll()[0];
+
+/* ---- 決まった規則で作る乱数（同じ設定なら毎回同じ顔ぶれになる） ---- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function hashStr(x){let h=2166136261;for(const ch of String(x)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
+/* "17:30" → 今日のその時刻 */
+function todayAt(hhmm){const [h,m]=String(hhmm).split(':').map(Number);const d=new Date(Date.now());d.setHours(h||0,m||0,0,0);return d.getTime();}
+/* データの器の1件を、アプリで使う形にする（offset＝今から何分後、pickup＝"17:30" のどちらでも書ける） */
+function mkChild(o,n0){
+  const at=o.pickup?todayAt(o.pickup):n0+(o.offset||0)*60000;
+  const c=Object.assign({},o,{fam:o.fam||o.id,pickupAt:at,planAt:at,changed:o.changed||null,st:o.st||'waiting'});
+  delete c.offset;delete c.pickup;
+  if(c.st==='arrived'&&!c.arrivedAt){c.arrivedAt=at+60000;const parts=(c.by||'').split(' ');
+    c.arrivedBy=parts.slice(1).join(' ')+'（'+parts[0]+'）';c.verified='px_'+c.id;}
+  return c;
+}
+function mkProxy(p,F){const q=Object.assign({},p);
+  if(q.period==='previous'){q.from=F.prevFrom;q.to=F.prevTo;}else if(!q.from||!q.to){q.from=F.from;q.to=F.to;}
+  delete q.period;q.style=q.style||0;
+  q.auth=q.auth||(q.photo?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）');return q;}
+/* 1つの園のデータを作る：シナリオ（デモ用の家庭）＋ 明示されたデータ または 自動で作るダミー */
+function genSchool(sid){
+  const D=dataset(),sc=D.schools.find(x=>x.id===sid)||D.schools[0],F=fy(),n0=Date.now();
+  const out={children:[],proxies:{},diary:{},posts:[],notices:[],stats:{app:0,phone:0,camOK:0,camNG:0}};
+  (D.commonNotices||[]).forEach(n=>out.notices.push(Object.assign({},n,{t:n0-(n.minutesAgo||0)*60000})));
+  const scen=D.scenario&&D.scenario.school===sc.id?D.scenario:null;
+  if(scen){
+    (scen.children||[]).forEach(o=>out.children.push(mkChild(o,n0)));
+    Object.entries(scen.proxies||{}).forEach(([fk,l])=>out.proxies[fk]=l.map(x=>mkProxy(x,F)));
+    (scen.posts||[]).forEach(x=>out.posts.push(Object.assign({},x,{t:n0-(x.minutesAgo||0)*60000})));
+    Object.assign(out.diary,JSON.parse(JSON.stringify(scen.diary||{})));
+    (scen.notices||[]).forEach(n=>out.notices.push(Object.assign({},n,{t:n0-(n.minutesAgo||0)*60000})));
+    if(scen.stats)Object.assign(out.stats,scen.stats);
+  }
+  const ex=(D.schoolsData||{})[sc.id];
+  if(ex){(ex.children||[]).forEach(o=>out.children.push(mkChild(o,n0)));
+    Object.entries(ex.proxies||{}).forEach(([fk,l])=>out.proxies[fk]=l.map(x=>mkProxy(x,F)));}
+  else genKids(sc,out,n0,F);
+  out.notices.forEach(n=>delete n.minutesAgo);out.posts.forEach(x=>delete x.minutesAgo);
+  return out;
+}
+/* ダミーの園児・保護者を作る。名前は名字と名前の組み合わせで、実在の人物とは関係ない */
+function genKids(sc,out,n0,F){
+  const D=dataset(),G=D.generator,N=G.names,R=mulberry32(((G.seed||1)^hashStr(sc.id))>>>0);
+  const pick=a=>a[Math.floor(R()*a.length)],between=(a,b)=>a+Math.floor(R()*(b-a+1));
+  const win=G.pickupWindow||[-150,180];
+  const taken=new Set(out.children.map(c=>c.name)),fams=[];let gi=0,qi=0;
+  const tel=()=>'000-'+String(between(0,9999)).padStart(4,'0')+'-'+String(between(0,9999)).padStart(4,'0');
+  D.classes.forEach((k,ci)=>{
+    const size=between(k.size[0],k.size[1]);
+    for(let i=0;i<size;i++){
+      const id='g'+String(++gi).padStart(3,'0');
+      const girl=R()<0.5;let given=pick(girl?N.girls:N.boys);
+      let fam=null;
+      if(R()<(G.siblingRate||0)){const cand=fams.filter(f=>f.kids===1&&f.ci!==ci);if(cand.length)fam=pick(cand);}
+      /* 同じ園で同姓同名にならないよう、重なったら選び直す */
+      if(fam){for(let t=0;t<40&&taken.has(fam.sur[0]+' '+given[0]);t++)given=pick(girl?N.girls:N.boys);
+        if(taken.has(fam.sur[0]+' '+given[0]))fam=null;}
+      if(!fam){
+        let sur=pick(N.surnames);
+        for(let t=0;t<60&&taken.has(sur[0]+' '+given[0]);t++){sur=pick(N.surnames);if(t%3===2)given=pick(girl?N.girls:N.boys);}
+        const mom=R()<0.72,g=pick(mom?N.mothers:N.fathers);
+        fam={key:'f'+String(fams.length+1).padStart(3,'0'),sur,rel:mom?'母':'父',g,kids:0,ci};fams.push(fam);
+        const P=[{id:'q'+(++qi),name:sur[0]+' '+g[0],kana:sur[1]+' '+g[1],rel:fam.rel,tel:tel(),photo:0,memo:'',prio:1,ok:true}];
+        if(R()<0.45){const g2=pick(mom?N.fathers:N.mothers);
+          P.push({id:'q'+(++qi),name:sur[0]+' '+g2[0],kana:sur[1]+' '+g2[1],rel:mom?'父':'母',tel:tel(),photo:0,memo:'',prio:2,ok:true});}
+        if(R()<0.35){const gm=R()<0.5,g3=pick(gm?N.grandmothers:N.grandfathers);
+          P.push({id:'q'+(++qi),name:sur[0]+' '+g3[0],kana:sur[1]+' '+g3[1],rel:gm?'祖母':'祖父',tel:tel(),photo:0,memo:pick(N.features||['']),prio:P.length+1,ok:true});}
+        out.proxies[fam.key]=P.map(x=>mkProxy(x,F));
+      }
+      fam.kids++;
+      const name=fam.sur[0]+' '+given[0];taken.add(name);
+      /* 今の時刻との差で状態を決める：だいぶ前に予定を過ぎた子はお迎え済み（一部は遅れ）、
+         直前に過ぎた子は到着（引き渡し待ち）か遅れ、これからの子は未到着 */
+      const off=Math.round(between(win[0],win[1])/5)*5;let st='waiting';
+      if(off<-20)st=(off>-45&&R()<0.15)?'waiting':'released';
+      else if(off<0&&R()<0.35)st='arrived';
+      const c=mkChild({id,name,kana:fam.sur[1]+' '+given[1],sfx:girl?'ちゃん':'くん',cls:k.name,age:k.age,fam:fam.key,offset:off,
+        by:fam.rel+' '+fam.sur[0]+' '+fam.g[0],st},n0);
+      if(st==='waiting'){const r=R();
+        if(r<(G.appChangeRate||0)){c.planAt=c.pickupAt-between(2,4)*5*60000;c.changed='保護者アプリ';out.stats.app++;}
+        else if(r<(G.appChangeRate||0)+(G.phoneChangeRate||0)){c.planAt=c.pickupAt-between(2,4)*5*60000;c.changed='事務スタッフ 代理入力';out.stats.phone++;}}
+      if(R()<(G.diaryRate||0))out.diary[id]=[{d:'今日',temp:(36.3+between(0,6)/10).toFixed(1),mood:pick(['良好','良好','ふつう','少し不調']),
+        txt:pick(['朝ごはんをよく食べました。','少し鼻水が出ています。','昨夜は早く寝ました。','週末は家族で公園に行きました。']),reply:''}];
+      out.children.push(c);
+    }
+  });
+}
+/* 園ごとの人数（保育課の一覧用。時刻に関係しないので一度だけ数える） */
+const SUMMARY=new Map();
+function schoolSummary(sid){
+  if(!SUMMARY.has(sid)){const g=genSchool(sid);SUMMARY.set(sid,{kids:g.children.length,fams:new Set(g.children.map(c=>c.fam||c.id)).size});}
+  return SUMMARY.get(sid);
+}
+/* 家庭：きょうだいは同じ家庭（fam）として、代理人と受付用QRコードを共有する */
+const famKey=id=>{const c=child(id);return c&&c.fam?c.fam:id;};
+const famKids=id=>{const k=famKey(id);return state.children.filter(c=>(c.fam||c.id)===k);};
 /* 年度（4月1日〜翌3月31日） */
 function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();
   return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
-function baseProxies(){const f=fy();return{
-  c1:[{id:'p1',name:'山田 花子',kana:'やまだ はなこ',rel:'母',tel:'090-1234-5678',photo:1,style:0,auth:'写真を見て確認（登録済み）',memo:'',prio:1,ok:true,from:f.from,to:f.to},
-      {id:'p2',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性',prio:2,ok:true,from:f.from,to:f.to},
-      {id:'p4',name:'山田 健司',kana:'やまだ けんじ',rel:'叔父',tel:'070-3456-7890',photo:0,auth:'特徴メモで確認（事前登録）',memo:'背が高く短髪の男性',prio:3,ok:true,from:f.prevFrom,to:f.prevTo}],
-  c3:[{id:'p3',name:'鈴木 一郎',kana:'すずき いちろう',rel:'祖父',tel:'080-2345-6789',photo:0,auth:'特徴メモで確認（事前登録）',memo:'眼鏡をかけた白髪の男性。杖を使用',prio:1,ok:true,from:f.from,to:f.to}],
-};}
 /* 園で共有するデータ（ログアウトしても消えない） */
-const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24'];
-function freshData(){
-  return {children:baseChildren(),proxies:baseProxies(),
-    posts:[{id:'m1',who:'事務 渡辺',kind:'clerk',t:Date.now()-8*60000,txt:'田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。',ack:1},
-           {id:'m2',who:'ゆり組 高田',kind:'teacher',t:Date.now()-6*60000,txt:'鈴木 あかりちゃんは絵本を読んで待機しています。',ack:0}],
-    diary:{c1:[{d:'昨日',temp:'36.6',mood:'良好',txt:'夜はよく眠れました。朝の食欲もあります。',reply:'園でも元気に過ごしていました。'}],
-           c2:[{d:'今日',temp:'36.8',mood:'ふつう',txt:'少し咳が出ています。外遊びは様子を見てください。',reply:''}],
-           c4:[{d:'今日',temp:'37.0',mood:'少し不調',txt:'朝ごはんをあまり食べませんでした。',reply:''}]},
-    absences:[],
-    notices:[{id:'n1',fam:'parents',kind:'園からのお知らせ',title:'プールの持ち物について',body:'明日は水遊びを行います。タオルと着替えをお持ちください。',t:Date.now()-86400000,read:false},
-             {id:'n2',fam:'c1',kind:'連絡帳',title:'園から返信がありました',body:'園でも元気に過ごしていました。',t:Date.now()-3*3600000,read:false}],
-    records:[],alerts:[],thr:{soon:5,show:10},
-    cam:{on:true,keep:false,thr:0.5,pin:'1234',list:true,live:true},
-    stats:{app:0,phone:1,camOK:0,camNG:0},offset:0,clock24:false};
+const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards'];
+function freshData(sid){
+  const g=genSchool(sid);
+  return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:[],
+    notices:g.notices,records:[],alerts:[],thr:{soon:5,show:10},
+    cam:{on:true,keep:false,thr:0.5,pin:'1234',list:false,live:true},
+    stats:g.stats,offset:0,clock24:false};
 }
 /* この端末だけの状態（画面・入力中の内容・ログイン） */
 function freshSession(){
   return {role:null,me:null,screen:'S01',err:false,filter:'all',pending:null,hold:null,q:'',pfilter:'all',showSearch:false,
-    ag:{cls:'',q:'',cid:'c1'},s10cls:'',s10menu:false,camq:'',camcls:'',dcls:'',dq:'',diaryChild:'',schoolId:'sakura',focusId:'',absMulti:false,
+    ag:{cls:'',q:'',cid:'c1'},s10cls:'',s10menu:false,camq:'',camcls:'',dcls:'',dq:'',diaryChild:'',schoolId:'',focusId:'',absMulti:false,
     loginId:'',loginPw:'',settings:{pickup:true,diary:true,news:true},
     shot:'',camChild:'',camProxy:'',camKids:[],camErr:'',camStep:'pick',camResult:null,camFails:0,faceReady:false,pxWarn:'',
     sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},pc:'c1',pkids:null,lastChanged:[],
     toast:null,modal:null,childId:'c1',pxPhoto:false,pxSrc:'',loginErr:'',sendErr:false,drawer:false,hbar:false,hbarHidden:false};
 }
-function reset(){state=Object.assign(freshSession(),freshData());}
+function reset(sid){const id=sid||(state&&state.schoolId)||dataset().defaultSchool;
+  state=Object.assign(freshSession(),freshData(id));state.schoolId=id;
+  if(!state.children.some(c=>c.id===state.childId)&&state.children.length){state.childId=state.children[0].id;state.ag.cid=state.children[0].id;}}
 /* ログアウト：画面とログイン状態だけを初期化し、園のデータは残す */
-function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden;
-  state=Object.assign(freshSession(),keep);state.hbarHidden=hid;}
+function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden,sid=state.schoolId;
+  state=Object.assign(freshSession(),keep);state.hbarHidden=hid;state.schoolId=sid;
+  if(!state.children.some(c=>c.id===state.childId)&&state.children.length){state.childId=state.children[0].id;state.ag.cid=state.children[0].id;}}
 reset();
 
 /* =========================================================
@@ -882,17 +2223,12 @@ function countText(c){
    ルーティング
    ========================================================= */
 const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',S04:'お迎え変更完了',S05:'欠席・遅刻連絡',S06:'連絡帳',
- S07:'代理人管理（保護者）',S08:'お迎えカード',S09:'園側ホーム',S10:'お帰りタイムライン',S11:'園児詳細',S12:'代理人リスト・照合',
+ S07:'代理人管理（保護者）',S08:'受付用QRコード',S09:'園側ホーム',S10:'お帰りタイムライン',S11:'園児詳細',S12:'代理人リスト・照合',
  S13:'照合結果',S14:'引き渡し完了',S15:'職員用タイムライン',S16:'メモ入力',S17:'代理入力',S18:'園児・代理人情報管理',
  S19:'管理者ダッシュボード',S20:'園情報管理',S21:'お知らせ（保護者）',S22:'メニュー（保護者）',
  S23:'連絡帳（園側）',S24:'引き渡し保留・確認手順',S25:'引き渡し記録',S26:'園の切り替え（自治体）',
  S27:'受付カメラ（お迎え受付）',S28:'カメラ照合の結果'};
 const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
-const SCHOOLS=[{id:'sakura',name:'さくら保育園',ward:'中原区',n:112,data:true},
-               {id:'aoba',name:'あおば保育園',ward:'高津区',n:96},
-               {id:'minami',name:'みなみ保育園',ward:'川崎区',n:134},
-               {id:'higashi',name:'ひがし保育園',ward:'幸区',n:88,prep:true}];
-const curSchool=()=>SCHOOLS.find(x=>x.id===state.schoolId)||SCHOOLS[0];
 const SCR={};
 
 function render(){
@@ -929,12 +2265,12 @@ function drawOverlay(){
       <li>Firebase コンソールでプロジェクトを作り、Authentication の「メール／パスワード」を有効にする</li>
       <li>端末ごとの利用者（例：玄関タブレット、保育士用、保護者）をメールアドレスとパスワードで作る</li>
       <li>Firestore を作り、下の「ルール」をそのまま貼り付けて公開する</li>
-      <li>Firestore に okaeri_members コレクションを作り、ドキュメントID＝メールアドレス（小文字）で、role と fams を登録する</li>
+      <li>Firestore に okaeri_members コレクションを作り、ドキュメントID＝メールアドレス（小文字）で、role・school（園のID）・fams を登録する。データは園ごとに okaeri_園のID に保存される</li>
       <li>各端末でこの画面を開き、設定・メールアドレス・パスワードを入れてサインインする（最初は保育士の端末から）</li></ol>
-    <pre style="font-family:var(--mono);font-size:11px;background:#FBF6F1;border-radius:10px;padding:10px 12px;margin:10px 0 0;overflow-x:auto;line-height:1.6">okaeri_members / genkan@example.com  →  role: "kiosk"
-okaeri_members / sasaki@example.com  →  role: "staff"
-okaeri_members / hoikuka@example.com →  role: "admin"
-okaeri_members / yamada@example.com  →  role: "parent",  fams: ["c1"]   ※ c1 = 山田家（ひなた・そら）</pre>
+    <pre style="font-family:var(--mono);font-size:11px;background:#FBF6F1;border-radius:10px;padding:10px 12px;margin:10px 0 0;overflow-x:auto;line-height:1.6">okaeri_members / genkan@example.com  →  role: "kiosk",  school: "nakahara"
+okaeri_members / sasaki@example.com  →  role: "staff",  school: "nakahara"
+okaeri_members / hoikuka@example.com →  role: "admin"   ※ school なし＝全園を閲覧
+okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fams: ["c1"]   ※ c1 = 山田家（ひなた・そら）</pre>
     <label class="fieldl">firebaseConfig（プロジェクトの設定からコピー）</label>
     <textarea class="inp" id="fbCfg" rows="5" style="font-family:var(--mono);font-size:12px" placeholder='const firebaseConfig = { apiKey: "…", authDomain: "…", projectId: "…", appId: "…" };'>${saved?esc(Object.entries(saved).filter(([k])=>k!=='email').map(([k,v])=>k+': "'+v+'"').join(',\n')):''}</textarea>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -949,6 +2285,29 @@ okaeri_members / yamada@example.com  →  role: "parent",  fams: ["c1"]   ※ c1
     <pre style="font-family:var(--mono);font-size:10.5px;background:#2E2621;color:#F3E9DF;border-radius:10px;padding:12px;margin:0;max-height:220px;overflow:auto;line-height:1.55">${esc(FB_RULES)}</pre>
     <div style="margin-top:10px"><button class="btn g" onclick="act('rulesCopy')">ルールをコピー</button></div>
     </div></div>`;}
+  if(state.modal==='schools')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:860px" onclick="event.stopPropagation()">
+    <div class="sec">園の切り替え</div>
+    <div class="tiny muted">表示する園を選びます。園ごとに園児・記録・連動先が分かれています。いま：<b>${esc(curSchool().name)}</b></div>
+    ${schoolPicker('schoolSel')}
+    <div class="tiny muted" style="margin-top:12px">${esc(dataset().notice||'')}</div>
+    <div style="margin-top:14px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
+  if(state.modal==='dataset'){const D=dataset(),src=D.source||{};
+    const total=D.schools.reduce((a,x)=>a+schoolSummary(x.id).kids,0);
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">データの入れ替え</div>
+    <div class="card" style="padding:14px 16px;box-shadow:none;background:#FBF6F1">
+      <b style="font-family:var(--disp);font-size:15px">${esc(D.title||'—')}</b>
+      <span class="pill ${D._from==='file'?'orange':'gray'}" style="margin-left:6px">${D._from==='file'?'読み込んだファイル':D._from==='builtin'?'最初から入っているデータ':'予備のデータ'}</span>
+      <div class="tiny muted" style="margin-top:6px;line-height:1.8">${esc(D.notice||'')}</div>
+      <div class="tiny" style="margin-top:6px">園 ${D.schools.length}園／園児 約${total.toLocaleString()}名${src.name?'／出典：'+esc(src.name):''}</div></div>
+    <div class="tiny muted" style="margin-top:12px;line-height:1.8">園・園児・保護者・デモ用の家庭は、アプリとは別の「データファイル（JSON）」にまとめています。同じ形式のファイルを読み込むと、まるごと入れ替えられます。<br>
+      入れ替えると、この端末に保存されている受付や引き渡しの記録は消えます。Firebase で連動している場合は、入れ替えたあとに操作バーの「リセット」で全端末にそろえてください。</div>
+    <input type="file" id="dsFile" accept=".json,application/json" style="display:none" onchange="act('dsFile',this)">
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" onclick="document.getElementById('dsFile').click()">データファイルを読み込む</button>
+      <button class="btn g" onclick="act('dsExport')">今のデータを書き出す</button>
+      ${D._from==='file'?`<button class="btn ng" onclick="act('dsReset')">最初のデータに戻す</button>`:''}
+      <button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;}
   if(state.modal==='demoface'){const list=allProxies();
     h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">デモ用の顔写真を登録</div>
@@ -988,6 +2347,7 @@ okaeri_members / yamada@example.com  →  role: "parent",  fams: ["c1"]   ※ c1
     ${ACCOUNTS.map(a=>`<button class="rowbtn" onclick="act('useAcc','${a.id}')">${ic(a.ic,20,'#B69C7E')}
       <span class="gr">${a.label}<small>${a.who}　ID：${a.id}／PW：${a.pw}${a.role==='kiosk'?'／終了用の暗証番号：'+state.cam.pin:''}</small></span>
       <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
+    <div class="tiny muted" style="margin-top:12px">受付の確認用：山田家（ひなた・そら）の受付用番号 <b style="font-family:var(--mono);letter-spacing:.08em">${cardNo('c1')}</b></div>
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   if(state.modal==='map')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">画面一覧（設計書 §3 に対応）</div>
@@ -1035,7 +2395,7 @@ function tabletShell(inner){
   return `<div class="t-wrap">
     ${state.drawer?`<div class="scrim" onclick="act('drawer')"></div>`:''}
     <div class="side ${state.drawer?'open':''}">
-      <div class="logo">${sun(30)}${state.role==='admin'?'川崎市 保育課':curSchool().name}
+      <div class="logo">${sun(30)}<span style="min-width:0">${state.role==='admin'?'川崎市 保育課':esc(curSchool().name)}<small style="display:block;font-size:10.5px;font-weight:500;opacity:.9">サンプルデータ</small></span>
         <button class="drawerbtn" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
       <div class="items">
         ${menu.concat(extra).map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}</button>`).join('')}
@@ -1077,9 +2437,9 @@ const ACCOUNTS=[
  {id:'sasaki-m',  pw:'hoiku0415',  role:'teacher',label:'保育士',      who:'佐々木 みなみ（ひまわり組 担任）',ic:'users'},
  {id:'takada-y',  pw:'hoiku0422',  role:'teacher',label:'保育士',      who:'高田 ゆう（ゆり組 担任）',ic:'users'},
  {id:'mori-k',    pw:'hoiku0503',  role:'teacher',label:'保育士',      who:'森 かな（ちゅうりっぷ組 担任）',ic:'users'},
- {id:'watanabe-s',pw:'jimu0620',   role:'clerk',  label:'事務スタッフ',who:'渡辺 さくら（さくら保育園 事務室）',ic:'phone'},
+ {id:'watanabe-s',pw:'jimu0620',   role:'clerk',  label:'事務スタッフ',who:'渡辺 さくら（事務室）',ic:'phone'},
  {id:'kawasaki-k',pw:'shisei0901', role:'admin',  label:'自治体管理者',who:'川崎市 保育課',                  ic:'board'},
- {id:'sakura-uketsuke',pw:'genkan0001',role:'kiosk',label:'受付端末',  who:'さくら保育園 玄関のタブレット',      ic:'idcard'},
+ {id:'sakura-uketsuke',pw:'genkan0001',role:'kiosk',label:'受付端末',  who:'玄関のタブレット',      ic:'idcard'},
 ];
 SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
     <div style="text-align:center;margin-bottom:26px">
@@ -1093,12 +2453,13 @@ SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
     <div style="margin-top:18px"><button class="cta" onclick="act('login')">ログイン</button></div>
     <div class="tiny muted" style="margin-top:16px;text-align:center;line-height:1.8">
       IDとパスワードは入園時に園からお渡ししています。<br>分からないときは園にお問い合わせください。</div>
+    <div class="tiny muted" style="margin-top:14px;text-align:center;line-height:1.7">${esc(dataset().notice||'')}</div>
   </div></div>`;
 
 /* =========================================================
    保護者側
    ========================================================= */
-const pchild=()=>child(state.pc)||child('c1');
+const pchild=()=>child(state.pc)||child('c1')||state.children[0];
 /* 保護者に見せるお知らせ：園全体のものと、自分の家庭のものだけ */
 const myNotices=()=>(state.notices||[]).filter(n=>!n.fam||n.fam==='parents'||n.fam===famKey(state.pc));
 const pfam=()=>famKids(state.pc);
@@ -1122,13 +2483,13 @@ SCR.S02=()=>{
     <button class="cta" onclick="act('go','S03')">${ic('car',24)}お迎えの状況を知らせる</button>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px">
       ${[['S05','欠席・遅刻の連絡','通院・お休みの申請','cal'],['S06','連絡帳','体調・様子の記入','book'],
-         ['S07','代理人の登録',proxiesOf(state.pc).length+'人を登録中','users'],['S08','お迎えカード','園の入口で提示','idcard']]
+         ['S07','代理人の登録',proxiesOf(state.pc).length+'人を登録中','users'],['S08','受付用QRコード','玄関のタブレットにかざす','idcard']]
         .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,24)}</span><b>${t}</b><small>${s}</small></button>`).join('')}
     </div>
     <div class="sec">園からのお知らせ</div>
     <div class="card" style="padding:15px 17px;font-size:13px;line-height:1.75">
       <b style="font-family:var(--disp)">プールの持ち物について</b>
-      <div class="tiny muted" style="margin-top:2px">さくら保育園・${md(now()-86400000)}</div>
+      <div class="tiny muted" style="margin-top:2px">${curSchool().name}・${md(now()-86400000)}</div>
       <div style="margin-top:6px">明日は水遊びを行います。タオルと着替えをお持ちください。</div></div>
   </div>`;
 };
@@ -1294,16 +2655,16 @@ SCR.S07=()=>{
 
 SCR.S08=()=>{
   const kids=pfam(),fk=famKey(state.pc);
-  return `${phead('お迎えカード','S02')}<div class="pbody">
-    <div style="background:linear-gradient(155deg,#F7AE6A,#EE8531);border-radius:24px;padding:22px;color:#fff;box-shadow:0 8px 20px rgba(238,133,49,.3)">
-      <div style="display:flex;align-items:center;gap:10px">${sun(28)}<b style="font-family:var(--disp);font-size:16px">さくら保育園</b>
-        <span class="pill" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff">有効</span></div>
-      <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:16px;line-height:1.5">${kids.map(k=>k.name+k.sfx).join('<br>')}</div>
-      <div class="tiny" style="opacity:.9">${kids.map(k=>k.cls).join('・')}</div>
-      <div style="background:#fff;border-radius:16px;padding:14px;margin-top:16px;display:grid;place-items:center;min-height:180px">${qrHTML(cardToken(fk))}</div>
-      <div style="font-family:var(--mono);font-size:15px;letter-spacing:.12em;text-align:center;margin-top:10px">${cardNo(fk)}</div>
-      <div class="tiny" style="opacity:.9;margin-top:8px;line-height:1.7">有効期間：${fmtD(fy().from)} 〜 ${fmtD(fy().to)}</div></div>
-    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>玄関の受付タブレットにこの画面をかざすと、お迎えの受付ができます。代理人の方にお願いするときは、この画面を共有してください。</div></div></div>`;
+  return `${phead('受付用QRコード','S02')}<div class="pbody">
+    <div class="card" style="padding:22px 18px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px">${sun(24)}<b style="font-family:var(--disp)">${curSchool().name}　お迎えの受付</b></div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-top:10px;line-height:1.6">${kids.map(k=>k.name+k.sfx+'（'+k.cls+'）').join('<br>')}</div>
+      <div style="margin:14px auto 0;display:grid;place-items:center;min-height:210px">${qrHTML(cardToken(fk))}</div>
+      <div class="tiny muted" style="margin-top:12px">QRコードが読み取れないときは、この番号を入力してください</div>
+      <div style="font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:.14em;margin-top:4px">${cardNo(fk)}</div>
+      <div class="tiny muted" style="margin-top:8px">有効期間：${fmtD(fy().from)} 〜 ${fmtD(fy().to)}</div></div>
+    <div class="note" style="margin-top:14px">${ic('info',18,'#D6A94E')}<div>玄関の受付タブレットのカメラに、この画面をかざしてください。画面を明るくすると読み取りやすくなります。代理人の方にお迎えをお願いするときは、この画面を見せるか共有してください。</div></div>
+    <button class="rowbtn" onclick="act('cardReissue','${fk}')">${ic('idcard',20,'#B69C7E')}<span class="gr">QRコードと番号を作り直す<small>画面を他の人に見られた・共有を取り消したいとき。今までのQRコードと番号は使えなくなります</small></span></button></div>`;
 };
 
 
@@ -1313,7 +2674,7 @@ SCR.S08=()=>{
 SCR.S09=()=>{
   const cs=state.children,late=cs.filter(c=>stat(c).k==='late').length,soon=cs.filter(c=>stat(c).k==='soon').length,
         yet=cs.filter(c=>c.st==='waiting').length;
-  return thead('ホーム','home',md(now())+'（'+wd(now())+'）さくら保育園')+`<div class="tbody">
+  return thead('ホーム','home',md(now())+'（'+wd(now())+'）'+curSchool().name)+`<div class="tbody">
     ${state.alerts.length?`<div class="alertbig" style="display:block">
       <div class="big" style="font-size:18px">玄関で確認が必要です（${state.alerts.length}件）</div>
       <button class="btn" style="margin-top:10px" onclick="act('go','S10')">お帰りタイムラインを開く</button></div>`:''}
@@ -1343,7 +2704,7 @@ SCR.S09=()=>{
 
 /* --- S10 お帰りタイムライン --- */
 SCR.S10=()=>{
-  const f=state.filter,all=(curSchool().data?state.children.slice():[]).filter(c=>!state.s10cls||c.cls===state.s10cls);
+  const f=state.filter,all=state.children.slice().filter(c=>!state.s10cls||c.cls===state.s10cls);
   const classes=[...new Set(state.children.map(c=>c.cls))];
   const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='arr'&&k==='arrived')||(f==='done'&&k==='released')||(f==='late'&&k==='late');};
   const arrived=all.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||a.pickupAt)-(b.arrivedAt||b.pickupAt)).filter(match);
@@ -1361,16 +2722,18 @@ SCR.S10=()=>{
    +`<div class="tabs">${[['all','すべて'],['arr','到着'],['yet','未到着'],['late','遅延'],['done','受け渡し済み']].map(([k,l])=>
        `<button class="tab ${f===k?'on':''}" onclick="act('filter','${k}')">${l}（${counts[k]}）</button>`).join('')}</div>
      <div class="tbody">
-      ${state.alerts.length&&curSchool().data?state.alerts.map(alertRow).join(''):''}
+      ${state.alerts.length?state.alerts.map(alertRow).join(''):''}
       ${arrived.length?`<div class="arrsec"><div class="hd">${ic('check',19)}お迎えの方が到着しています（${arrived.length}名）</div>
         ${arrived.map(arrivedRow).join('')}</div>`:''}
       ${past.map(cardRow).join('')}
       ${(past.length&&future.length)?`<div class="nowbar">現在 ${hm(now())}</div>`:''}
       ${future.map(cardRow).join('')}
       ${doneF.length?`<div class="sec" style="color:var(--ink-2);font-size:13px">受け渡し済み</div>`+doneF.map(cardRow).join(''):''}
-      ${(!arrived.length&&!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">${curSchool().data?'この条件に当てはまる園児はいません。':'本日のお迎え予定はまだ登録されていません。'}</div>`:''}
+      ${(!arrived.length&&!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">この条件に当てはまる園児はいません。</div>`:''}
      </div>`;
 };
+/* 確認依頼の対象のお子さま（きょうだいで受付した場合は全員） */
+const kidsOf=a=>((a.kids&&a.kids.length?a.kids:[a.cid]).map(child).filter(Boolean));
 function alertRow(a){
   if(!a.cid)return `<div class="alertbig">
     <div style="width:64px;height:64px;border-radius:50%;background:var(--rd-bg);display:grid;place-items:center;color:var(--rd-tx);flex:none">${ic('bell',32)}</div>
@@ -1378,13 +2741,29 @@ function alertRow(a){
       <div class="meta" style="margin-top:4px">${a.why}／${hm(a.t)}</div></div>
     <div style="display:grid;gap:8px;margin-left:auto">
       <button class="btn ok" style="padding:10px 14px" onclick="act('alertIn','${a.id}')">${ic('check',18)}対応しました</button></div></div>`;
-  const c=child(a.cid),p=proxiesOf(a.cid).find(x=>x.id===a.pid)||proxiesOf(a.cid)[0];
+  const c=child(a.cid);
+  /* お迎えの方が未選択のとき：登録されている方の中から、保育士が確認して選ぶ */
+  if(!a.pid){const vs=validProxies(a.cid);
+    return `<div class="alertbig">
+    ${face(c,64)}
+    <div style="min-width:0;flex:1 1 260px">
+      <div class="big">玄関で確認が必要です</div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-top:3px">${kidsOf(a).map(k=>k.name+k.sfx+'（'+k.cls+'）').join('・')}のお迎え</div>
+      <div class="meta" style="margin-top:4px">${a.why}／${hm(a.t)}</div>
+      <div class="tiny muted" style="margin-top:8px">玄関で本人を確認し、来た方を選んで受付してください。</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${vs.map(p=>`<button class="btn ok" style="padding:9px 13px;font-size:13px" onclick="act('alertInAs','${a.id}|${p.id}')">${ic('check',16)}${esc(p.name)}さん（${esc(p.rel)}）で受付</button>`).join('')}</div>
+      ${vs.filter(p=>!p.src&&p.memo).map(p=>`<div class="tiny muted" style="margin-top:6px">${esc(p.name)}さんの特徴メモ：${esc(p.memo)}</div>`).join('')}</div>
+    <div style="display:grid;gap:8px;margin-left:auto">
+      <button class="btn ng" style="padding:10px 14px" onclick="act('alertHold','${a.id}')">引き渡さない</button>
+      <button class="btn g" style="padding:8px 14px" onclick="act('alertClose','${a.id}')">閉じる</button></div></div>`;}
+  const p=proxiesOf(a.cid).find(x=>x.id===a.pid)||proxiesOf(a.cid)[0];
   return `<div class="alertbig">
     ${face(c,64)}
     <div style="min-width:0;flex:1">
       <div class="big">玄関で確認が必要です</div>
-      <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-top:3px">${c.name}${c.sfx}（${c.cls}）のお迎え</div>
-      <div class="meta" style="margin-top:4px">${p.name}さん（${p.rel}）として受付／${a.why}／${hm(a.t)}</div></div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-top:3px">${kidsOf(a).map(k=>k.name+k.sfx+'（'+k.cls+'）').join('・')}のお迎え</div>
+      <div class="meta" style="margin-top:4px">${p.name}さん（${p.rel}）として受付／${a.why}／${hm(a.t)}</div>
+      ${!p.src&&p.memo?`<div class="memo-row" style="margin-top:7px;padding:6px 10px;font-size:12.5px;color:#8A7549">特徴メモ：${esc(p.memo)}</div>`:''}</div>
     <div class="thumbs" style="display:flex;gap:8px">
       <div style="text-align:center"><div style="width:62px;height:72px;border-radius:12px;overflow:hidden;background:#EFEDEA">${a.shot?`<img src="${a.shot}" alt="" style="width:100%;height:100%;object-fit:cover">`:silhouette()}</div>
         <div class="tiny muted" style="margin-top:3px">玄関の写真</div></div>
@@ -1466,6 +2845,10 @@ SCR.S11=()=>{
           <div style="width:40px;height:46px;border-radius:9px;overflow:hidden;flex:none">${pic(p)}</div>
           <div style="flex:1;font-size:13px"><b>${p.name}</b> <span class="muted tiny">（${p.rel}）</span>
             <div class="tiny muted">${p.photo?'顔写真 登録済み':'特徴メモ：'+(p.memo||'未登録')}</div></div></div>`).join('')}</div></div>
+    <div class="card" style="padding:14px 18px;margin-top:15px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      ${ic('idcard',22,'#C99C6E')}<div style="flex:1"><b style="font-family:var(--disp)">受付用QRコード</b>
+        <div class="tiny muted">番号 <span style="font-family:var(--mono);letter-spacing:.08em">${cardNo(famKey(c.id))}</span>（${famKids(c.id).map(k=>k.name.split(' ')[1]+k.sfx).join('・')}）</div></div>
+      <button class="hpill" onclick="act('cardReissue','${famKey(c.id)}')">作り直す</button></div>
     <div style="display:flex;gap:11px;margin-top:18px;flex-wrap:wrap">
       <button class="btn" onclick="act('go','S12')">${ic('idcard',20)}代理人を確認する</button>
       <button class="btn g" onclick="act('goHandover','${c.id}')">保護者本人のため そのまま引き渡す</button></div></div>`;
@@ -1638,7 +3021,7 @@ function pxApprovalHTML(){
                 :`<button class="btn ok" style="padding:10px 14px" onclick="act('pxApprove','${p.id}')">${ic('check',18)}承認する</button>`}
           <button class="btn ng" style="padding:10px 14px" onclick="act('pxReject','${p.id}')">${p.ok?'削除':'却下'}</button></div></div>`;}).join('')}`;
 }
-SCR.S18=()=>thead('園児一覧','users','さくら保育園')+`<div class="tbody">
+SCR.S18=()=>thead('園児一覧','users',curSchool().name+'・'+state.children.length+'名')+`<div class="tbody">
   ${pxApprovalHTML()}
   <div class="sec">園児一覧</div>
   <div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>クラス</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>
@@ -1658,10 +3041,11 @@ SCR.S19=()=>{
   const bar=(a,b,ca,cb)=>`<div style="display:flex;height:16px;border-radius:999px;overflow:hidden;background:#F1EBE5;margin:10px 0 6px">
     ${a?`<div style="width:${a/(a+b)*100}%;background:${ca}"></div>`:''}${b?`<div style="width:${b/(a+b)*100}%;background:${cb}"></div>`:''}</div>`;
   return thead('管理者ダッシュボード','board','川崎市 保育・幼児教育部 保育課')+`<div class="tbody">
-    <div class="grid3"><div class="stat"><b>50</b><small>導入済みの公立認可保育所</small></div>
-      <div class="stat"><b>4,820</b><small>利用中の世帯</small></div>
-      <div class="stat"><b>${done.length}</b><small>本日の引き渡し（さくら保育園）</small></div></div>
-    <div class="sec">さくら保育園の今日の記録</div>
+    <div class="tiny muted" style="margin:-4px 0 12px">${esc(dataset().notice||'')}</div>
+    <div class="grid3"><div class="stat"><b>${schoolsAll().length}</b><small>公立保育所</small></div>
+      <div class="stat"><b>${schoolsAll().reduce((a,x)=>a+schoolSummary(x.id).fams,0).toLocaleString()}</b><small>利用中の世帯（サンプル）</small></div>
+      <div class="stat"><b>${done.length}</b><small>本日の引き渡し（${curSchool().name}）</small></div></div>
+    <div class="sec">${curSchool().name}の今日の記録</div>
     <div class="grid2">
       <div class="card" style="padding:18px">
         <b style="font-family:var(--disp);font-size:15px">お迎え連絡の内訳</b>
@@ -1681,20 +3065,24 @@ SCR.S19=()=>{
         <div class="tiny muted">到着から引き渡しまでの平均時間${camRate!=null?'／照合で受付できた割合 '+camRate+'%':''}</div></div>
     </div>
     <div class="sec">園別の利用状況</div>
-    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>園児数</th><th>アプリの連絡</th><th>電話の連絡</th><th>状態</th></tr>
-      <tr><td><b>さくら保育園</b></td><td>中原区</td><td>112</td><td>${st.app}件</td><td>${st.phone}件</td><td><span class="pill green">稼働中</span></td></tr>
-      <tr><td>あおば保育園</td><td>高津区</td><td>96</td><td>7件</td><td>0件</td><td><span class="pill green">稼働中</span></td></tr>
-      <tr><td>みなみ保育園</td><td>川崎区</td><td>134</td><td>11件</td><td>2件</td><td><span class="pill green">稼働中</span></td></tr>
-      <tr><td>ひがし保育園</td><td>幸区</td><td>88</td><td>—</td><td>—</td><td><span class="pill amber">導入準備中</span></td></tr></table></div>
+    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>所在地</th><th>園児数</th><th>アプリの連絡</th><th>電話の連絡</th><th></th></tr>
+      ${schoolsAll().map(x=>{const cur=x.id===state.schoolId,sm=schoolSummary(x.id);
+        return `<tr style="${cur?'background:#FFF8F1':''}"><td><b>${esc(x.name)}</b>${x.center?'<br><span class="tiny muted">'+esc(x.center)+'</span>':''}</td>
+          <td>${esc(x.ward||'')}</td><td class="tiny">${esc(x.address||'')}${x.note?'<br><span class="muted">'+esc(x.note)+'</span>':''}</td>
+          <td>${cur?state.children.length:sm.kids}名</td><td>${cur?st.app+'件':'—'}</td><td>${cur?st.phone+'件':'—'}</td>
+          <td>${cur?'<span class="pill orange">表示中</span>':`<button class="hpill" style="min-height:34px" onclick="act('school','${x.id}')">見る</button>`}</td></tr>`;}).join('')}
+      </table></div>
+    <div class="tiny muted" style="margin-top:8px">出典：${esc((dataset().source||{}).name||'—')}</div>
     <div style="margin-top:16px"><button class="btn" onclick="act('go','S20')">${ic('school',20)}園情報管理へ</button></div>
     </div>`;
 };
 
-SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
+SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
  +`<div class="tbody" style="max-width:780px">
   <div class="card" style="padding:6px 18px"><div class="dl">
-    <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市中原区上小田中</span></div>
-    <div class="row">${ic('users',19)}<span class="lb">園児 / 職員</span><span>112名 / 24名</span></div>
+    <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市${esc(curSchool().address||'—')}${curSchool().note?'（'+esc(curSchool().note)+'）':''}</span></div>
+    <div class="row">${ic('school',19)}<span class="lb">区</span><span>${esc(curSchool().ward||'—')}${curSchool().center?'・'+esc(curSchool().center):''}</span></div>
+    <div class="row">${ic('users',19)}<span class="lb">園児</span><span>${state.children.length}名（サンプル）</span></div>
     <div class="row">${ic('photo',19)}<span class="lb">表示端末</span><span>玄関タブレット 2台・保育室 4台</span></div>
     <div class="row">${ic('cal',19)}<span class="lb">利用開始日</span><span>2026年4月1日</span></div></div></div>
   <div style="margin-top:4px"><button class="hpill" onclick="act('check')">${ic('gear',16)}この端末で動作チェック</button></div>
@@ -1702,7 +3090,7 @@ SCR.S20=()=>thead('園情報管理','school','さくら保育園',`<button class
   <div class="card" style="padding:4px 16px">
     ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と照合します'],
        ['live','まばたきと首振りで本人を確認する','写真や画面、録画した動画をかざすなりすましを防ぎます'],
-       ['list','カードがない方はお名前でさがせる','オフにすると、カードがない場合は先生を呼ぶだけになります'],
+       ['list','QRコードがない方はお名前でさがせる','オフにすると、QRコードを出せない場合は先生を呼ぶだけになります'],
        ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
         <span style="flex:1">${t}<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">${sub}</small></span>
@@ -1755,7 +3143,7 @@ SCR.S21=()=>{
 /* --- S22 メニュー（保護者） --- */
 SCR.S22=()=>{
   const rows=[['S07','代理人の登録・確認','お迎えをお願いできる方','users'],
-              ['S08','お迎えカード','代理人の方が来るときに提示','idcard'],
+              ['S08','受付用QRコード','お迎えのときに玄関でかざす','idcard'],
               ['S05','欠席・遅刻の連絡','通院・長期のお休み','cal'],
               ['S06','連絡帳','体調・様子の記入','book'],
               ['S21','お知らせ','園からの連絡','mail']];
@@ -1785,7 +3173,8 @@ SCR.S22=()=>{
         <span style="flex:1">園の連絡先</span>
         <button class="hpill" style="min-height:36px" onclick="act('callSchool')">${ic('phone',16)}044-000-0000</button></div>
     </div>
-    <div style="margin-top:18px"><button class="cta ghost" onclick="act('logout')">ログアウト</button></div>
+    <div class="tiny muted" style="margin-top:16px;line-height:1.7">${esc(dataset().notice||'')}</div>
+    <div style="margin-top:12px"><button class="cta ghost" onclick="act('logout')">ログアウト</button></div>
   </div>`;
 };
 
@@ -1879,14 +3268,17 @@ SCR.S25=()=>{
 };
 
 /* --- S26 園の切り替え（自治体管理者） --- */
-SCR.S26=()=>thead('園の画面を確認','school','')
- +`<div class="tbody"><div class="grid2">
-  ${SCHOOLS.map(sc=>`<button class="tile" onclick="act('school','${sc.id}')" style="display:flex;gap:13px;align-items:center;${state.schoolId===sc.id?'outline:2.5px solid var(--o)':''}">
-    <span style="color:var(--o)">${ic('school',26)}</span>
-    <span style="flex:1;text-align:left"><b style="margin:0">${sc.name}</b>
-      <small>${sc.ward}・園児 ${sc.n}名${sc.prep?'／導入準備中':''}</small></span>
-    ${sc.prep?'<span class="pill amber">導入準備中</span>':'<span class="pill green">稼働中</span>'}</button>`).join('')}
-  </div></div>`;
+SCR.S26=()=>thead('園の画面を確認','school','川崎市の公立保育所 '+schoolsAll().length+'園')
+ +`<div class="tbody">${schoolPicker('school')}
+  <div class="tiny muted" style="margin-top:12px">${esc(dataset().notice||'')}</div></div>`;
+/* 区ごとに園を並べる（自治体の画面と操作バーの両方で使う） */
+function schoolPicker(actName){
+  const wards=[];schoolsAll().forEach(x=>{const w=x.ward||'その他';if(!wards.includes(w))wards.push(w);});
+  return wards.map(w=>`<div class="sec" style="font-size:13.5px">${esc(w)}</div><div class="grid3">${schoolsAll().filter(x=>(x.ward||'その他')===w).map(x=>`
+    <button class="tile" onclick="act('${actName}','${x.id}')" style="${state.schoolId===x.id?'outline:2.5px solid var(--o)':''}">
+      <b style="margin:0">${esc(x.name)}</b><small>${esc(x.address||'')}</small>
+      <small style="display:block;margin-top:3px">園児 ${x.id===state.schoolId?state.children.length:schoolSummary(x.id).kids}名${x.center?'・支援センター内':''}</small></button>`).join('')}</div>`).join('');
+}
 
 /* =========================================================
    受付カメラ（玄関のタブレット）
@@ -1959,12 +3351,17 @@ SCR.S27=()=>{
         <button class="chk ${ck.includes(k.id)?'on':''}" style="width:auto;margin:0" onclick="act('camKid','${k.id}')">
           <span class="box">${ic('check',14)}</span><span><b>${k.name}${k.sfx}</b>　${k.cls}</span></button>`).join('')}</div>`:''}
       <div class="pickgrid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">
-        ${ps.map(pp=>`<button class="pickcard" onclick="act('camWho','${pp.id}')">
+        ${ps.map(pp=>`<button class="pickcard" onclick="act('${pp.src?'camWho':'camWhoStaff'}','${pp.id}')">
           ${kioskRole?`<div style="width:64px;height:64px;border-radius:50%;background:var(--o-l);display:grid;place-items:center;color:var(--o)">${ic('user',32)}</div>`
             :`<div style="width:84px;height:96px;border-radius:14px;overflow:hidden;background:#EFEDEA">${pic(pp)}</div>`}
           <b>${pp.name}</b><small>${pp.rel}</small>
-          <span class="pill ${pp.src?'green':'gray'}">${pp.src?'顔照合できます':'先生が確認します'}</span></button>`).join('')}
-      </div>${back}</div></div>`;
+          <span class="pill ${pp.src?'green':'amber'}">${pp.src?'カメラで顔照合':'先生を呼んで確認'}</span></button>`).join('')}
+      </div>
+      <div class="card" style="max-width:560px;margin:20px auto 0;padding:16px 18px;display:flex;gap:14px;align-items:center;text-align:left;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px"><b style="font-family:var(--disp);font-size:15px">顔写真を登録していない方</b>
+          <div class="tiny muted" style="margin-top:3px">カメラは使わずに、先生が玄関で確認します</div></div>
+        <button class="btn" onclick="act('camCallNoPerson')">${ic('bell',20)}先生を呼ぶ</button></div>
+      ${back}</div></div>`;
   }
   if((step==='shoot'||step==='live')&&sel){
     const p=proxiesOf(sel.id).find(x=>x.id===state.camProxy)||proxiesOf(sel.id)[0];
@@ -1991,21 +3388,24 @@ SCR.S27=()=>{
   if(step==='scan'){
     const err=state.camErr;
     return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
-      <h3>お迎えカードをかざしてください</h3>
-      <div class="lead">スマホのお迎えカード画面を、カメラに向けてください</div>
+      <h3>お迎えアプリのQRコードをかざしてください</h3>
+      <div class="lead">アプリの「受付用QRコード」の画面を、カメラに向けてください</div>
       <div class="camwrap" style="max-width:520px;margin:0 auto">
         ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="qrguide"></div>`
-         :err?`<div class="ph">カメラを使えませんでした。<br>下のボタンからカードを撮影するか、カード番号を入力してください。</div>`
+         :err?`<div class="ph">カメラを使えませんでした。<br>下に、QRコードの下にある8桁の番号を入力してください。</div>`
          :`<div class="ph">カメラを準備しています…</div>`}
       </div>
       ${state.scanErr?`<div class="err" style="max-width:520px;margin:12px auto 0">${state.scanErr}</div>`:''}
       <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         ${camStream?'':`<input type="file" id="scanFile" accept="image/*" capture="environment" style="display:none" onchange="act('scanFile',this)">
-          <button class="btn" onclick="document.getElementById('scanFile').click()">${ic('idcard',20)}カードを撮影する</button>`}
+          <button class="btn g" onclick="document.getElementById('scanFile').click()">${ic('idcard',20)}QRコードを撮影する</button>`}
       </div>
-      <div class="compbox" style="max-width:420px;margin:16px auto 0">${ic('idcard',18,'#BCADA1')}
-        <input id="cardNoIn" placeholder="カード番号（例：SK-0001）" autocapitalize="characters" onkeydown="if(event.key==='Enter')act('cardNo')">
-        <button class="hpill solid" onclick="act('cardNo')">確定</button></div>
+      <div class="card" style="max-width:460px;margin:16px auto 0;padding:14px 16px;text-align:left">
+        <b style="font-family:var(--disp);font-size:14.5px">読み取れないときは</b>
+        <div class="tiny muted" style="margin:3px 0 10px">QRコードの下にある8桁の番号を入力してください</div>
+        <div class="compbox">${ic('idcard',18,'#BCADA1')}
+          <input id="cardNoIn" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="8桁の番号" style="font-family:var(--mono);letter-spacing:.12em;font-size:18px" onkeydown="if(event.key==='Enter')act('cardNo')">
+          <button class="hpill solid" onclick="act('cardNo')">確定</button></div></div>
       ${back}</div></div>`;
   }
   if(step==='name'){
@@ -2021,20 +3421,21 @@ SCR.S27=()=>{
   if(kioskRole){
     return `<div class="tbody"><div class="kiosk" style="padding-top:16px">
       <h3>お迎えの受付</h3>
-      <div class="lead">お迎えカードをカメラにかざしてください</div>
+      <div class="lead">お迎えアプリのQRコードをカメラにかざしてください</div>
       <button class="pickcard" style="max-width:420px;width:100%;margin:0 auto;padding:26px 16px" onclick="act('scanStart')">
         <div style="width:84px;height:84px;border-radius:22px;background:var(--o-l);display:grid;place-items:center;color:var(--o)">${ic('idcard',46)}</div>
-        <b style="font-size:20px">お迎えカードをかざす</b><small>スマホの「お迎えカード」画面を使います</small></button>
+        <b style="font-size:20px">QRコードをかざす</b><small>お迎えアプリの「受付用QRコード」を使います</small></button>
       <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        ${state.cam.list?`<button class="btn g" onclick="act('camName')">${ic('search',18)}カードがない方（お名前でさがす）</button>`:''}
+        <button class="btn g" onclick="act('scanNumber')">${ic('idcard',18)}8桁の番号で受付</button>
+        ${state.cam.list?`<button class="btn g" onclick="act('camName')">${ic('search',18)}アプリを使っていない方（お名前でさがす）</button>`:''}
         <button class="btn g" onclick="act('camNoCard')">${ic('bell',18)}先生を呼ぶ</button></div>
     </div></div>`;
   }
   const classes=[...new Set(state.children.map(c=>c.cls))];
   return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
     <h3>お迎えの受付</h3>
-    <div class="lead">お迎えカードを読み取るか、お子さまを選んでください</div>
-    <button class="btn" style="margin-bottom:14px" onclick="act('scanStart')">${ic('idcard',20)}お迎えカードを読み取る</button>
+    <div class="lead">お迎えアプリのQRコードを読み取るか、お子さまを選んでください</div>
+    <button class="btn" style="margin-bottom:14px" onclick="act('scanStart')">${ic('idcard',20)}QRコードを読み取る</button>
     <div class="tabs" style="padding:0 0 10px;justify-content:center">
       <button class="tab ${!state.camcls?'on':''}" onclick="act('camCls','')">すべて</button>
       ${classes.map(cl=>`<button class="tab ${state.camcls===cl?'on':''}" onclick="act('camCls','${cl}')">${cl}</button>`).join('')}</div>
@@ -2055,7 +3456,7 @@ function camListHTML(){
       ${kioskRole?'':face(c,72)}<b>${c.name}${c.sfx}</b><small>${c.cls}${kioskRole?'':'／お迎え '+hm(c.pickupAt)}</small>${stPill(c)}</button>`;}).join('')}</div>`;
 }
 
-/* ---- お迎えカード（QR） ---- */
+/* ---- 受付用QRコード ---- */
 const QRGEN_URL='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
 const JSQR_URL='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
 const scriptP={};
@@ -2066,27 +3467,59 @@ function loadScript(url,globalName){
     sc.onload=()=>res();sc.onerror=()=>{delete scriptP[url];rej(new Error('script'));};document.head.appendChild(sc);});
   return scriptP[url];
 }
-const cardNo=fk=>'SK-'+String(fk).replace(/\D/g,'').padStart(4,'0');
-const cardToken=fk=>'OKAERI1:sakura:'+fk+':'+cardNo(fk);
+/* 受付用の番号は家庭ごとのランダムな数字8桁（タブレットの数字キーで入力しやすい）。
+   QRコードには番号とは別の、20文字のランダムな文字列を入れる。連番ではないので推測できない */
+function rnd32(n){const a=new Uint32Array(n);
+  try{crypto.getRandomValues(a);}catch(e){for(let i=0;i<n;i++)a[i]=Math.floor(Math.random()*4294967296);}return a;}
+/* 起動直後（初期データ作成時）にも呼ばれるため、文字の一覧は関数の中で持つ */
+function randCode(n){const CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';const a=rnd32(n);let r='';
+  for(let i=0;i<n;i++)r+=CH.charAt(a[i]%CH.length);return r;}
+function randDigits(n){const a=rnd32(n);let r='';for(let i=0;i<n;i++)r+=String(a[i]%10);return r;}
+function newCard(used){let d;do{d=randDigits(8);}while((used&&used.has(d))||/^(\d)\1+$/.test(d));
+  return{code:d.slice(0,4)+' '+d.slice(4),secret:randCode(20),issued:Date.now()};}
+function cardsFor(children){const out={},used=new Set();
+  children.forEach(c=>{const k=c.fam||c.id;if(!out[k]){out[k]=newCard(used);used.add(out[k].code.replace(/\D/g,''));}});return out;}
+const cardOf=fk=>(state.cards||{})[fk]||null;
+const cardNo=fk=>(cardOf(fk)||{}).code||'—';
+const cardToken=fk=>'OKAERI2:'+state.schoolId+':'+((cardOf(fk)||{}).secret||'');
+/* 入力された番号をそろえる（全角数字は半角に。空白・ハイフンは無視。数字以外の文字があれば無効） */
+const zen2han=t=>String(t||'').replace(/[０-９]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0xFEE0));
+const normCode=t=>{const z=zen2han(t);return /[^0-9\s\-ー－]/.test(z)?'':z.replace(/\D/g,'');};
 function parseCard(text){
-  const t=String(text||'').trim().toUpperCase();
-  let m=t.match(/^OKAERI1:SAKURA:(C\d+):/);if(m)return m[1].toLowerCase();
-  m=t.match(/^SK-?(\d{1,4})$/);if(m)return 'c'+Number(m[1]);
+  const raw=String(text||'').trim();
+  const m=raw.match(/^OKAERI2:([a-z0-9_-]+):([A-Z2-9]{20})$/);
+  if(m){if(m[1]!==state.schoolId)return null;
+    for(const [fk,c] of Object.entries(state.cards||{}))if(c.secret===m[2])return fk;return null;}
+  const n=normCode(raw);if(n.length!==8)return null;
+  for(const [fk,c] of Object.entries(state.cards||{}))if(normCode(c.code)===n)return fk;
   return null;
 }
+/* 番号・QRを3回まちがえたら1分間止めて先生を呼ぶ（番号を次々に試すことを防ぐ） */
+let lastBad='';
 function cardFound(text){
+  if(state.cardLockUntil&&Date.now()<state.cardLockUntil){
+    state.scanErr='しばらく受付できません。先生にお声がけください。';render();return false;}
+  const other=String(text||'').match(/^OKAERI2:([a-z0-9_-]+):/);
+  if(other&&other[1]!==state.schoolId){const o=schoolsAll().find(x=>x.id===other[1]);
+    state.scanErr=(o?o.name:'ほかの園')+'のQRコードです。この園では受付できません。';render();return false;}
   const fk=parseCard(text);const kids=fk?famKids(fk):[];
-  if(!kids.length){state.scanErr='このカードは使えません。先生にお声がけください。';render();return false;}
+  if(!kids.length){
+    if(text!==lastBad){lastBad=text;state.cardFails=(state.cardFails||0)+1;}
+    if(state.cardFails>=3){state.cardFails=0;state.cardLockUntil=Date.now()+60000;
+      state.alerts.unshift({id:'a'+Date.now(),cid:null,pid:null,t:now(),why:'玄関で受付用の番号・QRコードを3回まちがえました',shot:''});
+      addPost('受付カメラ','sys','【確認依頼】玄関で受付用の番号・QRコードが3回続けて一致しませんでした。対応をお願いします。');
+      stopCam();scanToken++;state.camStep='called';render();return false;}
+    state.scanErr='このQRコード・番号は使えません。番号を確かめるか、先生にお声がけください。';render();return false;}
   const waiting=kids.filter(k=>k.st==='waiting');
   if(!waiting.length){state.scanErr='お子さまはすでに受付またはお迎え済みです。';render();return false;}
-  stopCam();scanToken++;state.scanErr='';
+  stopCam();scanToken++;state.scanErr='';state.cardFails=0;lastBad='';
   state.camChild=waiting[0].id;state.camKids=waiting.map(k=>k.id);state.camProxy='';state.camStep='who';render();return true;
 }
 let scanToken=0;
 async function runScan(){
   const token=++scanToken;let det=null;
   try{if(typeof BarcodeDetector!=='undefined'){const f=await BarcodeDetector.getSupportedFormats();if(f.includes('qr_code'))det=new BarcodeDetector({formats:['qr_code']});}}catch(e){}
-  if(!det){try{await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);}catch(e){if(token===scanToken){state.scanErr='カードの読み取り機能を準備できませんでした。カード番号を入力してください。';render();}return;}}
+  if(!det){try{await withTimeout(loadScript(JSQR_URL,'jsQR'),15000);}catch(e){if(token===scanToken){state.scanErr='QRコードの読み取り機能を準備できませんでした。8桁の番号を入力してください。';render();}return;}}
   const cv=document.createElement('canvas');const g=cv.getContext('2d',{willReadFrequently:true});
   while(token===scanToken&&state.camStep==='scan'){
     const v=document.getElementById('camView');
@@ -2109,9 +3542,9 @@ async function decodeStill(dataUrl){
   const r=jsQR(g.getImageData(0,0,img.width,img.height).data,img.width,img.height,{inversionAttempts:'attemptBoth'});return r?r.data:null;
 }
 function qrHTML(text){
-  if(typeof qrcode!=='undefined'){try{const q=qrcode(0,'M');q.addData(text);q.make();return q.createSvgTag(5,2);}catch(e){}}
+  if(typeof qrcode!=='undefined'){try{const q=qrcode(0,'M');q.addData(text);q.make();return q.createSvgTag(7,2);}catch(e){}}
   loadScript(QRGEN_URL,'qrcode').then(()=>{if(state.screen==='S08')render();}).catch(()=>{state.qrFail=true;if(state.screen==='S08')render();});
-  return state.qrFail?`<div style="padding:30px 10px;color:#8B7E74;font-size:13px;text-align:center">コードを表示できません。<br>下のカード番号を先生に伝えてください。</div>`
+  return state.qrFail?`<div style="padding:30px 10px;color:#8B7E74;font-size:13px;text-align:center">QRコードを表示できません。<br>下の8桁の番号を玄関で入力してください。</div>`
                     :`<div class="spin" style="margin:40px auto"></div>`;
 }
 
@@ -2151,7 +3584,7 @@ function act(name,arg){
     kioskIdle=setTimeout(()=>{if(state.role==='kiosk'&&['who','shoot','fail'].includes(state.camStep))act('camReset');},60000);
   }
   const blocked=['quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
-    'quickRelease','prepStart','camHold','shoot','camFile','alertIn','alertHold','pxApprove','pxRenew','pxReject'];
+    'quickRelease','prepStart','camHold','shoot','camFile','alertIn','alertInAs','alertHold','pxApprove','pxRenew','pxReject'];
   if(state.role==='admin'&&blocked.includes(name)){toast('保育課のアカウントは閲覧のみです');return;}
   if(!['agq','tlq','dq'].includes(name))state.focusId='';
   switch(name){
@@ -2170,12 +3603,13 @@ function act(name,arg){
       const a=ACCOUNTS.find(x=>x.id===id.trim()&&x.pw===pw);
       if(!a){state.loginErr='IDまたはパスワードが違います。もう一度確認してください。';break;}
       state.loginErr='';state.role=a.role;state.loginPw='';state.me=STAFF[a.id]||null;state.pc='c1';
+      state.s10cls=(state.me&&state.me.cls)||'';
       state.screen=homeOf(a.role);state.camStep='pick';
       toast(a.label+'としてログインしました');break;}
     case 'logout': stopCam();logoutSession();toast('ログアウトしました');break;
     case 'viewonly': toast('保育課のアカウントは閲覧のみです');break;
     case 'toggleSet': state.settings[arg]=!state.settings[arg];break;
-    case 'callSchool': toast('さくら保育園　044-000-0000');break;
+    case 'callSchool': toast(curSchool().name+'　044-000-0000（サンプル）');break;
     case 'dir': state.sel.dir=arg;state.sel.min=null;state.sel.custom='';break;
     case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
     case 'custom': state.sel.custom=arg;state.sel.min=null;break;
@@ -2248,17 +3682,28 @@ function act(name,arg){
       if(!t.length){toast('お子さまを1人以上選んでください');return;}state.camKids=t;state.camChild=t[0];break;}
     case 'camName': state.camStep='name';state.camq='';break;
     case 'scanStart': state.camStep='scan';state.camErr='';state.scanErr='';startCam();runScan();break;
-    case 'scanFile': readImage(arg&&arg.files&&arg.files[0],d=>{decodeStill(d).then(t=>{if(!t){state.scanErr='カードを読み取れませんでした。もう一度撮影するか、カード番号を入力してください。';render();return;}cardFound(t);})
-      .catch(()=>{state.scanErr='カードの読み取り機能を準備できませんでした。カード番号を入力してください。';render();});});return;
+    case 'scanNumber': state.camStep='scan';state.camErr='';state.scanErr='';state.focusId='cardNoIn';startCam();runScan();break;
+    case 'scanFile': readImage(arg&&arg.files&&arg.files[0],d=>{decodeStill(d).then(t=>{if(!t){state.scanErr='QRコードを読み取れませんでした。もう一度撮影するか、8桁の番号を入力してください。';render();return;}cardFound(t);})
+      .catch(()=>{state.scanErr='QRコードの読み取り機能を準備できませんでした。8桁の番号を入力してください。';render();});});return;
+    case 'cardReissue':{if(!state.cards)state.cards={};
+      const used=new Set(Object.entries(state.cards).filter(([k])=>k!==arg).map(([,c])=>c.code.replace(/\D/g,'')));
+      state.cards[arg]=newCard(used);
+      addPost(state.role==='parent'?'保護者アプリ':meWho(),state.role==='parent'?'sys':meKind(),
+        `${famKids(arg).map(k=>k.name+k.sfx).join('・')}の受付用QRコードと番号を作り直しました。以前のものは使えません。`);
+      toast('QRコードと番号を作り直しました。以前のものは使えません');break;}
     case 'cardNo':{const el=document.getElementById('cardNoIn');const v=(el&&el.value||'').trim();
-      if(!v){toast('カード番号を入力してください');return;}cardFound(v);return;}
-    case 'camNoCard':{state.alerts.unshift({id:'a'+Date.now(),cid:null,pid:null,t:now(),why:'お迎えカードを持っていない方が玄関に来ています',shot:''});
-      addPost('受付カメラ','sys','【確認依頼】お迎えカードを持っていない方が玄関に来ています。対応をお願いします。');
+      if(!v){toast('8桁の番号を入力してください');return;}cardFound(v);return;}
+    case 'camNoCard':{state.alerts.unshift({id:'a'+Date.now(),cid:null,pid:null,t:now(),why:'お迎えアプリのQRコードを出せない方が玄関に来ています',shot:''});
+      addPost('受付カメラ','sys','【確認依頼】お迎えアプリのQRコードを出せない方が玄関に来ています。対応をお願いします。');
       state.camStep='called';break;}
     case 'camWho': state.camProxy=arg;state.camStep='shoot';state.camErr='';state.camFails=0;
       loadFace().catch(()=>{});startCam();break;
     case 'camRetake': liveToken++;state.shot='';state.camStep='shoot';state.camErr='';startCam();break;
     case 'camCall': callStaff(arg);return;
+    case 'camWhoStaff': state.camProxy=arg;stopCam();callStaff('nophoto');return;
+    case 'camCallNoPerson': state.camProxy='';stopCam();callStaff('nophotoSel');return;
+    case 'alertInAs':{const [aid,pid]=String(arg).split('|');const a=state.alerts.find(x=>x.id===aid);if(!a)break;
+      a.pid=pid;return act('alertIn',aid);}
     case 'alertIn':{const a=state.alerts.find(x=>x.id===arg);if(!a)break;
       if(!a.cid){state.alerts=state.alerts.filter(x=>x.id!==arg);toast('対応済みにしました');break;}
       state.camChild=a.cid;state.camProxy=a.pid;state.camKids=a.kids||[a.cid];state.shot=a.shot||'';checkIn();
@@ -2308,7 +3753,7 @@ function act(name,arg){
       toast('保護者に返信しました');break;}
     case 'readNotice':{const n=state.notices.find(x=>x.id===arg);if(n)n.read=true;break;}
     case 'readAll': myNotices().forEach(n=>n.read=true);toast('すべて既読にしました');break;
-    case 'school':{state.schoolId=arg;state.screen='S10';
+    case 'school':{switchSchool(arg);state.screen='S10';
       toast(curSchool().name+'の画面に切り替えました');break;}
     case 'openChild': state.childId=arg;state.screen='S11';break;
     case 'goHandover': state.childId=arg;state.sel.proxyName=child(arg).by;state.sel.how='保護者本人';state.screen='S14';break;
@@ -2363,6 +3808,22 @@ function act(name,arg){
     case 'toggleErr': state.err=!state.err;toast(state.err?'送信時に通信エラーを再現します':'通信エラーの再現をやめました');break;
     case 'map': state.modal='map';break;
     case 'accounts': state.modal='acc';break;
+    case 'schools': state.modal='schools';break;
+    case 'schoolSel': switchSchool(arg);state.modal=null;if(['S11','S13','S14','S24','S28'].includes(state.screen))state.screen=homeOf(state.role);
+      toast(curSchool().name+'に切り替えました');break;
+    case 'dataset': state.modal='dataset';break;
+    case 'dsFile':{const f=arg&&arg.files&&arg.files[0];if(!f)return;const fr=new FileReader();
+      fr.onload=()=>{let d=null;try{d=JSON.parse(fr.result);}catch(e){toast('JSONとして読み込めませんでした');return;}
+        const err=validateDataset(d);if(err){toast('読み込めません：'+err);return;}
+        let saved=true;try{localStorage.setItem(DS_KEY,JSON.stringify(d));}catch(e){saved=false;}
+        state.modal=null;applyDataset(d);
+        toast(saved?'データを入れ替えました：'+(d.title||''):'入れ替えました（この端末に保存できないため、再読み込みすると元に戻ります）');};
+      fr.onerror=()=>toast('ファイルを読み込めませんでした');fr.readAsText(f);return;}
+    case 'dsExport':{const d=Object.assign({},dataset());delete d._from;
+      try{const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const a=document.createElement('a');
+        a.href=URL.createObjectURL(b);a.download='okaeri-dataset.json';document.body.appendChild(a);a.click();a.remove();toast('データを書き出しました');}
+      catch(e){toast('書き出せませんでした');}return;}
+    case 'dsReset':{try{localStorage.removeItem(DS_KEY);}catch(e){}state.modal=null;applyDataset(null);toast('最初のデータに戻しました');break;}
     case 'demoFace': state.modal='demoface';state.dfPx=state.dfPx||'p1';state.dfMsg='';state.dfErr='';demoCamStart();break;
     case 'dfPx': state.dfPx=arg;return;
     case 'dfShoot':{const d=grabFrame('dfView');if(!d){toast('カメラの準備ができていません');return;}applyDemoFace(d);return;}
@@ -2394,6 +3855,7 @@ function act(name,arg){
       state.cam.pin=v;toast('暗証番号を変更しました');break;}
     case 'useAcc':{const a=ACCOUNTS.find(x=>x.id===arg);if(!a)break;
       logoutSession();state.modal=null;state.role=a.role;state.me=STAFF[a.id]||null;state.loginId=a.id;state.loginPw='';state.loginErr='';
+      state.s10cls=(state.me&&state.me.cls)||'';
       state.screen=homeOf(a.role);state.camStep='pick';stopCam();
       toast(a.label+'に切り替えました');break;}
     case 'closeModal': state.modal=null;break;
@@ -2411,7 +3873,8 @@ function addPost(who,kind,txt){state.posts.push({id:'m'+Date.now()+Math.random()
    データは「園児」「投稿」などの単位で送り、変わったものだけを書き込む
    ========================================================= */
 const DEVICE=Math.random().toString(36).slice(2,10);
-const LS_KEY='okaeri:data:v1', FB_KEY='okaeri:firebase';
+const FB_KEY='okaeri:firebase';
+const lsKey=()=>'okaeri:data:v2:'+state.schoolId;
 const FB_VER='10.12.2';
 const Sync={mode:'local',status:'',err:'',ready:false,sent:{},timer:null,applying:false,bc:null,fs:null,col:null};
 
@@ -2420,6 +3883,7 @@ function entityMap(){
   const put=(k,o,fields)=>{const c=Object.assign({},o);delete c.desc;
     (fields||[]).forEach(f=>{if(c[f]){m['ph/'+k.replace('/','-')+'-'+f]={v:c[f]};c[f]='@ph';}});m[k]=c;};
   state.children.forEach(c=>put('children/'+c.id,c,['src','shot']));
+  Object.entries(state.cards||{}).forEach(([fk,c])=>put('cards/'+fk,c));
   Object.entries(state.proxies).forEach(([fk,list])=>list.forEach((p,i)=>put('proxies/'+p.id,Object.assign({},p,{_fk:fk,_i:i}),['src'])));
   state.posts.forEach(x=>put('posts/'+x.id,x));
   state.records.forEach(x=>put('records/'+x.id,x,['shot']));
@@ -2438,6 +3902,7 @@ function applyMap(M){
     Object.keys(o).forEach(f=>{if(o[f]==='@ph')o[f]=ph(k,f);});return o;});
   const num=id=>Number(String(id).replace(/\D/g,''))||0;
   state.children=vals('children').sort((a,b)=>num(a.id)-num(b.id));
+  const cd={};Object.keys(M).filter(k=>k.startsWith('cards/')).forEach(k=>cd[k.slice(6)]=M[k]);if(Object.keys(cd).length)state.cards=cd;
   const px={};vals('proxies').sort((a,b)=>a._i-b._i).forEach(p=>{const fk=p._fk;delete p._fk;delete p._i;
     p.desc=p.src?(descCache.get(p.src)||null):null;(px[fk]=px[fk]||[]).push(p);});
   state.proxies=px;
@@ -2485,15 +3950,15 @@ function diffFull(full){const d={};for(const k in full)if(Sync.sent[k]!==full[k]
 /* --- 同じ端末の中での連動 --- */
 function localStart(){
   Sync.mode='local';
-  try{Sync.bc=new BroadcastChannel('okaeri-sync');Sync.bc.onmessage=e=>{if(e.data&&e.data.from!==DEVICE)syncIn(e.data.delta);};}catch(e){Sync.bc=null;}
-  try{window.addEventListener('storage',e=>{if(e.key===LS_KEY&&e.newValue&&!Sync.bc){try{syncIn(diffFull(JSON.parse(e.newValue)));}catch(x){}}});}catch(e){}
-  let saved=null;try{saved=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(e){}
+  try{Sync.bc=new BroadcastChannel('okaeri-sync-'+state.schoolId);Sync.bc.onmessage=e=>{if(e.data&&e.data.from!==DEVICE)syncIn(e.data.delta);};}catch(e){Sync.bc=null;}
+  try{window.addEventListener('storage',e=>{if(e.key===lsKey()&&e.newValue&&!Sync.bc){try{syncIn(diffFull(JSON.parse(e.newValue)));}catch(x){}}});}catch(e){}
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(lsKey())||'null');}catch(e){}
   if(saved)adoptFull(saved);
   Sync.ready=true;Sync.status='local';flushOut();
 }
 function localWrite(delta,full){
-  try{localStorage.setItem(LS_KEY,JSON.stringify(full));}
-  catch(e){try{const lite={};for(const k in full)if(!k.startsWith('ph/'))lite[k]=full[k];localStorage.setItem(LS_KEY,JSON.stringify(lite));}catch(x){}}
+  try{localStorage.setItem(lsKey(),JSON.stringify(full));}
+  catch(e){try{const lite={};for(const k in full)if(!k.startsWith('ph/'))lite[k]=full[k];localStorage.setItem(lsKey(),JSON.stringify(lite));}catch(x){}}
   try{Sync.bc&&Sync.bc.postMessage({from:DEVICE,delta});}catch(e){}
 }
 
@@ -2515,24 +3980,29 @@ service cloud.firestore {
     }
     function role(r) { return signedIn() && me().role == r; }
     function staffLike() { return role('staff') || role('kiosk'); }
+    // 園ごとのデータ（okaeri_園のID）。school を登録した利用者は、その園のデータだけを使える
+    function inSchool(col) {
+      return col.matches('okaeri_.+') && col != 'okaeri_members'
+        && (!('school' in me()) || col == 'okaeri_' + me().school);
+    }
 
     // 利用者の登録はFirebaseコンソールから行う（アプリからは書き換えられない）
     match /okaeri_members/{email} {
       allow read: if request.auth != null && request.auth.token.email.lower() == email;
       allow write: if false;
     }
-    match /okaeri_sakura/{doc} {
-      allow read: if staffLike() || role('admin')
-        || (role('parent') && resource.data.fam in me().fams.concat(['all', 'parents']));
-      allow create: if staffLike()
+    match /{col}/{doc} {
+      allow read: if inSchool(col) && (staffLike() || role('admin')
+        || (role('parent') && resource.data.fam in me().fams.concat(['all', 'parents'])));
+      allow create: if inSchool(col) && (staffLike()
         || (role('admin') && doc == 'meta__settings')
         || (role('parent') && (request.resource.data.fam in me().fams
-              || doc.matches('posts__.*') || doc == 'meta__stats'));
-      allow update: if staffLike()
+              || doc.matches('posts__.*') || doc == 'meta__stats')));
+      allow update: if inSchool(col) && (staffLike()
         || (role('admin') && doc == 'meta__settings')
         || (role('parent') && ((request.resource.data.fam in me().fams && resource.data.fam in me().fams)
-              || doc == 'meta__stats'));
-      allow delete: if staffLike();
+              || doc == 'meta__stats')));
+      allow delete: if inSchool(col) && staffLike();
     }
   }
 }`;
@@ -2544,7 +4014,7 @@ function parseFbConfig(text){
 function famOfKey(k,j){
   const type=k.split('/')[0],rest=k.slice(k.indexOf('/')+1);
   let o=null;try{o=j?JSON.parse(j):null;}catch(e){}
-  if(type==='children'||type==='diary')return famKey(rest);
+  if(type==='children'||type==='diary'||type==='cards')return famKey(rest);
   if(type==='proxies')return (o&&o._fk)||'staff';
   if(type==='absences')return o&&o.cid?famKey(o.cid):'staff';
   if(type==='notices')return (o&&o.fam)||'parents';
@@ -2584,7 +4054,8 @@ async function fbStart(cfg,pw){
   if(!mem.exists){Sync.status='error';Sync.err=email+' は園の利用者として登録されていません（okaeri_members）';render();return;}
   const m=mem.data()||{};Sync.role=m.role||'';Sync.fams=Array.isArray(m.fams)?m.fams:[];Sync.email=email;
   if(!ROLE_LABEL[Sync.role]){Sync.status='error';Sync.err='役割（role）の登録が正しくありません';render();return;}
-  Sync.col=Sync.fs.collection('okaeri_sakura');
+  if(m.school&&m.school!==state.schoolId&&schoolsAll().some(x=>x.id===m.school)){state.schoolId=m.school;Object.assign(state,freshData(m.school));}
+  Sync.col=Sync.fs.collection('okaeri_'+state.schoolId);
   const q=Sync.role==='parent'?Sync.col.where('fam','in',Sync.fams.concat(['all','parents']).slice(0,30)):Sync.col;
   const seeds=Sync.role==='staff'||Sync.role==='kiosk';
   let first=true;
@@ -2613,6 +4084,31 @@ function fbWrite(delta){
     ops.slice(i,i+400).forEach(o=>{const ref=Sync.col.doc(o.k.replace(/\//g,'__'));
       if(o.del)b.delete(ref);else b.set(ref,{k:o.k,j:o.v,fam:o.fam,by:DEVICE,u:Date.now()});});
     b.commit().catch(e=>{Sync.status='error';Sync.err=e&&e.code==='permission-denied'?'書き込みが許可されていません（ルールと利用者の登録を確認してください）':(e&&e.message)||'書き込めませんでした';render();});}
+}
+/* 連動を止める（園を切り替えるとき・データを入れ替えるとき） */
+function stopSync(){try{Sync.bc&&Sync.bc.close();}catch(e){}Sync.bc=null;try{Sync.unsub&&Sync.unsub();}catch(e){}Sync.unsub=null;
+  Sync.ready=false;Sync.col=null;clearTimeout(Sync.timer);}
+/* 表示する園を切り替える。園ごとにデータと連動先が分かれている */
+function switchSchool(id){
+  if(!schoolsAll().some(x=>x.id===id))return;
+  stopSync();stopCam();
+  state.schoolId=id;Object.assign(state,freshData(id));
+  const first=state.children[0]?state.children[0].id:'';
+  Object.assign(state,{childId:first,ag:{cls:'',q:'',cid:first},camStep:'pick',camChild:'',camKids:[],camProxy:'',
+    s10cls:(state.me&&state.me.cls)||'',dcls:'',dq:'',camq:'',diaryChild:'',pc:'c1',hold:null,pending:null,lastChanged:[],q:''});
+  Sync.sent={};startSync();
+}
+/* データの器を入れ替える（ファイルを読み込んだとき・元に戻すとき） */
+function applyDataset(d){
+  const keep={role:state.role,me:state.me,loginId:state.loginId,hbarHidden:state.hbarHidden};
+  stopSync();stopCam();
+  try{Object.keys(localStorage).filter(k=>k.startsWith('okaeri:data:')).forEach(k=>localStorage.removeItem(k));}catch(e){}
+  DS=null;SUMMARY.clear();
+  if(d){d._from='file';DS=d;}
+  reset(dataset().defaultSchool);
+  Object.assign(state,keep);state.screen=keep.role?homeOf(keep.role):'S01';
+  state.s10cls=(state.me&&state.me.cls)||'';
+  Sync.sent={};startSync();
 }
 function startSync(){
   let cfg=null;try{cfg=JSON.parse(localStorage.getItem(FB_KEY)||'null');}catch(e){}
