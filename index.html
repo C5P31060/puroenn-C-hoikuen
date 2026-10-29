@@ -597,17 +597,16 @@ async function runLiveness(){
   const fail=k=>{if(token!==liveToken)return;stopCam();state.camResult={kind:k};state.camStep='fail';render();};
   try{await withTimeout(loadFace(),20000);}catch(e){return fail('engine');}
   /* ① まばたき */
-  let base=0,closed=false,blink=false,seen=false,t0=Date.now();const yawBuf=[];
-  while(Date.now()-t0<9000){
+  /* 正面を向いた顔を少しのあいだ確かめる（首振りの基準にする） */
+  let seen=false,t0=Date.now();const yawBuf=[];
+  while(Date.now()-t0<9000&&yawBuf.length<8){
     if(!alive())return;
     const P=await liveFrame();
-    if(P){seen=true;const e=earOf(P);yawBuf.push(yawOf(P));if(yawBuf.length>8)yawBuf.shift();
-      if(!closed){base=Math.max(base*0.97,e);if(base>0.12&&e<base*0.72)closed=true;}
-      else if(e>base*0.86){blink=true;break;}}
-    liveSay(seen?'① ゆっくりまばたきをしてください':'枠の中に顔を入れてください');
+    if(P){seen=true;yawBuf.push(yawOf(P));}
+    liveSay(seen?'カメラを見たまま、少しお待ちください':'枠の中に顔を入れてください');
     await sleep(80);
   }
-  if(!blink)return fail(seen?'live':'noface');
+  if(!seen)return fail('noface');
   /* ② ランダムな首振り（基準＝まばたき中に正面を見ていたときの向き。指示を見てすぐ動いても基準はずれない） */
   if(!yawBuf.length)return fail('noface');
   const y0=yawBuf.slice().sort((a,b)=>a-b).at(Math.floor(yawBuf.length/2));
