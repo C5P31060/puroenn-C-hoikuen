@@ -322,6 +322,67 @@ table.tbl td:first-child{white-space:nowrap}
 .maprow{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #F4EEE9;font-size:13.5px}
 .maprow code{font-family:var(--mono);font-size:11px;background:#FBF0E6;color:var(--o-d);padding:3px 7px;border-radius:5px}
 .maprow button{margin-left:auto;font-size:12px;color:var(--o-d);font-family:var(--disp);font-weight:700}
+.yetsec{background:#FFF8EA;border:2px solid #F0D79A;border-radius:20px;padding:14px 16px 6px;margin-bottom:6px}
+.yetsec.done{background:#F1FAF4;border-color:#BFE3CB}
+.yethead{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:17px;color:#8A6416;margin-bottom:12px}
+.yetsec.done .yethead{color:var(--ok-tx)}
+.yethead .pill{font-size:14px;padding:4px 12px}
+.yetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-bottom:10px}
+.yetcard{display:flex;align-items:center;gap:11px;background:#fff;border-radius:16px;padding:11px 12px;box-shadow:0 2px 8px rgba(160,110,30,.12);border:2px solid transparent}
+.yetcard.sel{border-color:var(--o)}
+.yetcard .yn{flex:1;min-width:0}.yetcard .yn b{font-family:var(--disp);font-size:16.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yetcard .yn small{font-size:12px;color:var(--ink-2);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yetcard .yn .btn{margin-top:7px;padding:7px 12px!important;font-size:13px;white-space:nowrap}
+.allin{display:flex;align-items:center;gap:10px;padding:8px 2px 14px;font-family:var(--disp)}.allin b{font-size:18px;color:var(--ok-tx)}.allin small{color:var(--ink-2)}
+/* 園内モニター（大型テレビ）：画面いっぱいに、遠くから読める大きさで */
+body.tvmode{height:100vh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+body.tvmode .stage{flex:1;min-height:0;margin:0;padding:0;max-width:none;display:flex}
+body.tvmode .tablet{width:100%;max-width:none;height:auto;flex:1;border:0;border-radius:0;box-shadow:none}
+body.tvmode .statusbar{display:none}
+.mon{display:flex;flex-direction:column;height:100%;background:#FFF9F3}
+.monbar{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:16px}
+.monbar .mt b{font-family:var(--disp);font-size:30px;display:block;line-height:1.2}.monbar .mt small{font-size:17px;opacity:.95;font-weight:700}
+.monmodes{margin-left:auto;display:flex;background:rgba(255,255,255,.22);border-radius:999px;padding:4px}
+.monmodes button{color:#fff;font-family:var(--disp);font-weight:700;padding:7px 16px;border-radius:999px;font-size:14px}.monmodes button.on{background:#fff;color:var(--o-d)}
+.monclock{text-align:right}.monclock small{display:block;font-size:15px;font-weight:700;opacity:.95}.monclock b{font-family:var(--disp);font-size:44px;line-height:1}.monclock b small{display:inline;font-size:20px}
+.monbody{flex:1;min-height:0;overflow:auto;padding:18px 22px}
+.msum{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.mstat{background:#fff;border-radius:20px;padding:14px 22px;box-shadow:0 3px 12px rgba(120,80,40,.08);border-left:10px solid #ccc}
+.mstat small{font-family:var(--disp);font-weight:700;font-size:19px;color:#7A6B60}
+.mstat b{display:block;font-family:var(--disp);font-size:58px;line-height:1.1}.mstat b span{font-size:24px;color:#9A8C81;margin-left:4px}
+.mstat.ok{border-left-color:#7CC79A}.mstat.ok b{color:var(--ok-tx)}.mstat.warn{border-left-color:#E9B949}.mstat.warn b{color:#B57E0C}
+.mstat.gray{border-left-color:#C9BFB6}.mstat.gray b{color:#8B7E74}.mstat.orange{border-left-color:var(--o)}.mstat.orange b{color:var(--o-d)}
+.mgrid{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mside{display:grid;gap:16px}
+.mpanel{background:#fff;border-radius:22px;padding:16px 20px;box-shadow:0 3px 12px rgba(120,80,40,.08)}
+.mpanel.main{min-height:300px}
+.mhead{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:23px;margin-bottom:12px;color:#5A4A3F}
+.mcls{font-family:var(--disp);font-weight:700;font-size:20px;color:#8A6416;margin:12px 0 8px;display:flex;align-items:center;gap:10px}
+.mcls span{background:#FBEBC5;border-radius:999px;padding:2px 12px;font-size:16px}
+.mcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.mcard{display:flex;align-items:center;gap:14px;border-radius:18px;padding:12px 16px}
+.mcard b{font-family:var(--disp);font-size:25px;display:block;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mcard small{font-size:15.5px;color:#7A6B60}
+.mcards.wide{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}
+.mcard.yet{background:#FFF6E0;border:2px solid #F0D79A}
+.mcard.arr{background:#FFF1E4;border:3px solid #F3B27A;grid-column:span 1}
+.melap{text-align:center;margin-left:auto}.melap small{display:block;font-size:14px}.melap b{font-size:30px;color:var(--o-d);white-space:nowrap}
+.mallin{display:flex;flex-direction:column;align-items:center;gap:8px;padding:50px 10px;text-align:center}
+.mallin b{font-family:var(--disp);font-size:40px;color:var(--ok-tx)}.mallin small{font-size:18px;color:#7A6B60}
+.mbar{display:grid;grid-template-columns:150px 1fr 64px;white-space:nowrap;align-items:center;gap:10px;margin:9px 0;font-family:var(--disp);font-weight:700;font-size:17px}
+.mtrack{height:16px;background:#F1EAE3;border-radius:9px;overflow:hidden}.mtrack i{display:block;height:100%;background:#E9B949;border-radius:9px}.mtrack i.full{background:#7CC79A}
+.mbar b{text-align:right}
+.mfeed{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline;padding:8px 2px;border-bottom:1px solid #F4EEE9;font-size:18px}
+.mfeed b{font-family:var(--disp);color:var(--o-d)}.mfeed span{font-family:var(--disp);font-weight:700}.mfeed small{color:#9A8C81;font-size:14px}
+.mfeed.late b{color:#C0392B}
+.mempty{color:#9A8C81;font-size:16px;padding:10px 2px}.mempty.big{font-size:22px;padding:60px 10px;text-align:center}
+.malert{display:flex;align-items:center;gap:14px;background:#FCE3DE;border:3px solid #E8735C;color:#A8402E;border-radius:20px;padding:14px 20px;margin-bottom:16px;font-family:var(--disp);font-weight:700;font-size:24px}
+@media(max-width:900px){.msum{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr}.mstat b{font-size:42px}.monclock b{font-size:30px}.monbar .mt b{font-size:22px}}
+.kmodes{display:inline-flex;background:#fff;border-radius:999px;padding:5px;box-shadow:0 2px 10px rgba(120,80,40,.08);margin:0 auto 14px;gap:4px}
+.kmodes button{display:flex;align-items:center;gap:7px;padding:11px 22px;border-radius:999px;font-family:var(--disp);font-weight:700;font-size:15px;color:#8B7E74}
+.kmodes button.on{background:var(--o);color:#fff}
+.inrow{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:12px 14px;margin-bottom:9px;box-shadow:0 1px 6px rgba(120,80,40,.06);border-left:5px solid #E9C877}
+.inrow.in{border-left-color:#7CC79A}.inrow.abs{border-left-color:#C9BFB6;opacity:.85}
+.inchk{width:22px;height:22px;flex:none;accent-color:var(--o)}
 .offbar{background:#FCE6E2;border-bottom:1px solid #F2C4BB;color:#A8402E;font-size:12.5px;padding:9px 16px;display:flex;align-items:center;gap:9px;line-height:1.6}
 .offbar svg{flex:none}
 .vobar{background:#FFF3D6;border-bottom:1px solid #F0DCA8;color:#8A7549;font-size:12.5px;padding:9px 16px;display:flex;align-items:center;gap:9px}
@@ -450,6 +511,9 @@ table.tbl td:first-child{white-space:nowrap}
      別のデータに切り替えるときは、下の1行のファイル名を書き換える（例：okaeri-data-sample.js）。
      ========================================================= -->
 <script src="okaeri-data.js"></script>
+<!-- 同梱のデモ用データ：okaeri-data.js が読み込めないとき（Claudeアプリで開いたとき、HTMLだけを送ったときなど）にだけ使う。
+     中身は okaeri-data.js と同じ。okaeri-data.js があれば、そちらが優先される。 -->
+<script>if(!window.OKAERI_DATA){window.OKAERI_DATA_BUILTIN=true;window.OKAERI_DATA={"format":"okaeri-dataset/1","title":"川崎市 公立保育所（サンプルデータ）","notice":"園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。","source":{"name":"川崎市「交流保育実施公立保育園一覧」（令和8年6月）","url":"https://www.city.kawasaki.jp/nakahara/cmsfiles/contents/0000117/117989/R8ikea.pdf","asOf":"2026-06"},"defaultSchool":"nakahara","schools":[{"id":"oshima","name":"大島保育園","ward":"川崎区","address":"川崎区大島4-17-2","center":"保育・子育て総合支援センター内"},{"id":"fujisaki","name":"藤崎保育園","ward":"川崎区","address":"川崎区藤崎1-7-1"},{"id":"higashioda","name":"東小田保育園","ward":"川崎区","address":"川崎区小田5-14-1"},{"id":"kawaramachi","name":"河原町保育園","ward":"幸区","address":"幸区河原町1（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"furukawa","name":"古川保育園","ward":"幸区","address":"幸区古川町120"},{"id":"yumemigasaki","name":"夢見ヶ崎保育園","ward":"幸区","address":"幸区南加瀬3-4-8"},{"id":"nakahara","name":"中原保育園","ward":"中原区","address":"中原区小杉陣屋町2-3-1","center":"保育・子育て総合支援センター内"},{"id":"shimokodanaka","name":"下小田中保育園","ward":"中原区","address":"中原区下小田中4-4-17"},{"id":"nakamaruko","name":"中丸子保育園","ward":"中原区","address":"中原区中丸子1155"},{"id":"kajigaya","name":"梶ヶ谷保育園","ward":"高津区","address":"高津区梶ヶ谷5-8-2"},{"id":"tsudayama","name":"津田山保育園","ward":"高津区","address":"高津区下作延5-3-11（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"kanigaya","name":"蟹ヶ谷保育園","ward":"高津区","address":"高津区蟹ヶ谷339"},{"id":"tsuchihashi","name":"土橋保育園","ward":"宮前区","address":"宮前区土橋2-14-1","center":"保育・子育て総合支援センター内"},{"id":"nakaarima","name":"中有馬保育園","ward":"宮前区","address":"宮前区有馬3-2-10"},{"id":"sugao","name":"菅生保育園","ward":"宮前区","address":"宮前区菅生5-4-10"},{"id":"tsuchifuchi","name":"土渕保育園","ward":"多摩区","address":"多摩区生田2-14-5","center":"保育・子育て総合支援センター内"},{"id":"ikuta","name":"生田保育園","ward":"多摩区","address":"多摩区西生田3-15-10"},{"id":"suge","name":"菅保育園","ward":"多摩区","address":"多摩区菅1-5-24"},{"id":"hakusan","name":"白山保育園","ward":"麻生区","address":"麻生区白山4-2-1"},{"id":"takaishi","name":"高石保育園","ward":"麻生区","address":"麻生区高石1-14-15"},{"id":"kamiasao","name":"上麻生保育園","ward":"麻生区","address":"麻生区上麻生7-2-35"}],"classes":[{"name":"ひよこ組","age":"0歳児","size":[6,9]},{"name":"りす組","age":"1歳児","size":[12,15]},{"name":"うさぎ組","age":"2歳児","size":[14,18]},{"name":"ちゅうりっぷ組","age":"3歳児","size":[17,21]},{"name":"ゆり組","age":"4歳児","size":[18,22]},{"name":"ひまわり組","age":"5歳児","size":[18,22]}],"commonNotices":[{"id":"n1","fam":"parents","kind":"園からのお知らせ","title":"プールの持ち物について","body":"明日は水遊びを行います。タオルと着替えをお持ちください。","minutesAgo":1440,"read":false}],"generator":{"seed":20261021,"siblingRate":0.18,"pickupWindow":[-150,180],"appChangeRate":0.08,"phoneChangeRate":0.03,"diaryRate":0.12,"names":{"surnames":[["佐藤","さとう"],["鈴木","すずき"],["高橋","たかはし"],["田中","たなか"],["伊藤","いとう"],["渡辺","わたなべ"],["山本","やまもと"],["中村","なかむら"],["小林","こばやし"],["加藤","かとう"],["吉田","よしだ"],["山田","やまだ"],["佐々木","ささき"],["山口","やまぐち"],["松本","まつもと"],["井上","いのうえ"],["木村","きむら"],["林","はやし"],["斎藤","さいとう"],["清水","しみず"],["山崎","やまざき"],["森","もり"],["池田","いけだ"],["橋本","はしもと"],["阿部","あべ"],["石川","いしかわ"],["山下","やました"],["中島","なかじま"],["石井","いしい"],["小川","おがわ"],["前田","まえだ"],["岡田","おかだ"],["長谷川","はせがわ"],["藤田","ふじた"],["後藤","ごとう"],["近藤","こんどう"],["村上","むらかみ"],["遠藤","えんどう"],["青木","あおき"],["坂本","さかもと"],["福田","ふくだ"],["太田","おおた"],["西村","にしむら"],["藤井","ふじい"],["金子","かねこ"],["岡本","おかもと"],["藤原","ふじわら"],["中野","なかの"],["三浦","みうら"],["原田","はらだ"],["中川","なかがわ"],["松田","まつだ"],["竹内","たけうち"],["小野","おの"],["田村","たむら"],["中山","なかやま"],["和田","わだ"],["石田","いしだ"],["上田","うえだ"],["森田","もりた"],["柴田","しばた"],["酒井","さかい"],["工藤","くどう"],["横山","よこやま"],["宮崎","みやざき"],["宮本","みやもと"],["内田","うちだ"],["高木","たかぎ"],["安藤","あんどう"],["島田","しまだ"]],"boys":[["蓮","れん"],["陽翔","はると"],["湊","みなと"],["蒼","あおい"],["樹","いつき"],["悠真","ゆうま"],["大和","やまと"],["律","りつ"],["朝陽","あさひ"],["颯真","そうま"],["陽太","ようた"],["新","あらた"],["伊織","いおり"],["奏太","そうた"],["結翔","ゆいと"],["碧","あお"],["蒼空","そら"],["晴","はる"],["瑛太","えいた"],["悠人","ゆうと"],["大翔","ひろと"],["陸","りく"],["海斗","かいと"],["颯","はやて"],["健太","けんた"],["拓海","たくみ"],["航","わたる"],["遥斗","はると"],["柊","しゅう"],["凪","なぎ"]],"girls":[["陽葵","ひまり"],["芽依","めい"],["凛","りん"],["結菜","ゆいな"],["葵","あおい"],["紬","つむぎ"],["澪","みお"],["結衣","ゆい"],["杏","あん"],["咲良","さくら"],["莉子","りこ"],["心春","こはる"],["花","はな"],["詩","うた"],["陽菜","ひな"],["結月","ゆづき"],["楓","かえで"],["千尋","ちひろ"],["彩葉","いろは"],["美月","みづき"],["栞","しおり"],["朱莉","あかり"],["菜々","なな"],["琴葉","ことは"],["小春","こはる"],["柚葉","ゆずは"],["美羽","みう"],["茉白","ましろ"],["絢","あや"],["実桜","みお"]],"mothers":[["美咲","みさき"],["彩","あや"],["愛","あい"],["麻衣","まい"],["由佳","ゆか"],["恵","めぐみ"],["真由美","まゆみ"],["智子","ともこ"],["沙織","さおり"],["舞","まい"],["香織","かおり"],["優子","ゆうこ"],["奈々","なな"],["理恵","りえ"],["千夏","ちなつ"],["綾香","あやか"],["早苗","さなえ"],["瞳","ひとみ"],["陽子","ようこ"],["亜希","あき"]],"fathers":[["翔","しょう"],["健","けん"],["大輔","だいすけ"],["拓也","たくや"],["直樹","なおき"],["誠","まこと"],["剛","つよし"],["和也","かずや"],["亮","りょう"],["修","おさむ"],["達也","たつや"],["雄一","ゆういち"],["慎吾","しんご"],["隆","たかし"],["浩二","こうじ"],["洋平","ようへい"],["智之","ともゆき"],["康介","こうすけ"],["圭","けい"],["俊介","しゅんすけ"]],"grandmothers":[["和子","かずこ"],["洋子","ようこ"],["幸子","さちこ"],["節子","せつこ"],["京子","きょうこ"],["恵子","けいこ"],["久美子","くみこ"],["典子","のりこ"],["悦子","えつこ"],["文子","ふみこ"]],"grandfathers":[["一郎","いちろう"],["正","ただし"],["茂","しげる"],["勝","まさる"],["清","きよし"],["進","すすむ"],["博","ひろし"],["実","みのる"],["昭","あきら"],["武","たけし"]],"features":["眼鏡をかけた白髪の男性","背が高く短髪の男性","帽子をかぶった小柄な男性","黒いリュックを持った白髪の女性","眼鏡をかけたショートヘアの女性","グレーの髪をひとつに結んだ女性","杖を使っている男性","ベージュのコートの女性"]},"inRate":0.88,"absentRate":0.04},"scenario":{"school":"nakahara","children":[{"id":"c1","name":"山田 ひなた","kana":"やまだ ひなた","sfx":"ちゃん","cls":"ひまわり組","age":"5歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false},{"id":"c2","name":"佐藤 蓮","kana":"さとう れん","sfx":"くん","cls":"ひまわり組","age":"5歳児","fam":"c2","offset":3,"by":"母 佐藤 美咲","st":"waiting"},{"id":"c3","name":"鈴木 あかり","kana":"すずき あかり","sfx":"ちゃん","cls":"ゆり組","age":"4歳児","fam":"c3","offset":1,"by":"祖父 鈴木 一郎","st":"waiting","proxy":true},{"id":"c4","name":"田中 大和","kana":"たなか やまと","sfx":"くん","cls":"ゆり組","age":"4歳児","fam":"c4","offset":-5,"by":"父 田中 健","st":"waiting"},{"id":"c5","name":"髙橋 結衣","kana":"たかはし ゆい","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c5","offset":-12,"by":"母 髙橋 沙織","st":"arrived"},{"id":"c6","name":"伊藤 悠真","kana":"いとう ゆうま","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c6","offset":-20,"by":"母 伊藤 彩","st":"released"},{"id":"c7","name":"小林 さくら","kana":"こばやし さくら","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c7","offset":22,"by":"母 小林 愛","st":"waiting"},{"id":"c8","name":"加藤 湊","kana":"かとう みなと","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c8","offset":34,"by":"父 加藤 翔","st":"waiting"},{"id":"c9","name":"山田 そら","kana":"やまだ そら","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false}],"proxies":{"c1":[{"id":"p1","name":"山田 花子","kana":"やまだ はなこ","rel":"母","tel":"090-1234-5678","photo":1,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p2","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性","prio":2,"ok":true,"period":"current"},{"id":"p4","name":"山田 健司","kana":"やまだ けんじ","rel":"叔父","tel":"070-3456-7890","photo":0,"memo":"背が高く短髪の男性","prio":3,"ok":true,"period":"previous"}],"c3":[{"id":"p5","name":"鈴木 由佳","kana":"すずき ゆか","rel":"母","tel":"090-2222-3333","photo":0,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p3","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性。杖を使用","prio":2,"ok":true,"period":"current"}]},"posts":[{"id":"m1","who":"事務 渡辺","kind":"clerk","minutesAgo":8,"txt":"田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。","ackBy":["高田","森"],"auto":false},{"id":"m2","who":"ゆり組 高田","kind":"teacher","minutesAgo":6,"txt":"鈴木 あかりちゃんは絵本を読んで待機しています。","ackBy":[],"auto":false}],"diary":{"c1":[{"d":"昨日","temp":"36.6","mood":"良好","txt":"夜はよく眠れました。朝の食欲もあります。","reply":"園でも元気に過ごしていました。"}],"c2":[{"d":"今日","temp":"36.8","mood":"ふつう","txt":"少し咳が出ています。外遊びは様子を見てください。","reply":""}],"c4":[{"d":"今日","temp":"37.0","mood":"少し不調","txt":"朝ごはんをあまり食べませんでした。","reply":""}]},"notices":[{"id":"n2","fam":"c1","kind":"連絡帳","title":"園から返信がありました","body":"園でも元気に過ごしていました。","minutesAgo":180,"read":false}],"stats":{"app":0,"phone":1}},"schoolsData":{}};}</script>
 <div class="stage" id="stage"></div>
 <div id="overlay"></div>
 <button id="hshow" onclick="act('hbarShow')" aria-label="操作バーを表示"></button>
@@ -574,53 +638,54 @@ function shoot(){
   const v=document.getElementById('camView');
   if(!v||!v.videoWidth){toast('カメラの準備ができていません');return;}
   if(state.cam.live){state.camStep='live';state.liveMsg='';render();runLiveness();return;}
-  state.liveDone=false;state.shot=grabFrame();stopCam();verifyFace();
+  state.liveDone=false;
+  (async()=>{const sh=[];for(let i=0;i<3;i++){sh.push(grabFrame());if(i<2)await sleep(220);}
+    state.shots=sh.filter(Boolean);state.shot=state.shots[state.shots.length-1]||'';stopCam();verifyFace();})();
 }
-/* なりすまし対策
-   ① まばたき：その人の目の開き具合を基準に、閉じて開く動きを見る（印刷した写真・画面の静止画を防ぐ）
-   ② 首振り：毎回ランダムに左右どちらかを指示し、その通りに動くかを見る（録画した動画を防ぐ） */
+/* なりすまし対策：毎回ランダムに左右を2回指示し、その通りに首を動かすかを見る。
+   印刷した写真やスマホの画面は首を動かせず、録画した動画は順番を合わせられない。
+   正面に戻るたびに照合用の画像を撮り、顔照合は複数の画像で行う */
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function earOf(P){const d=(a,b)=>Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y);
-  const e=i=>(d(i+1,i+5)+d(i+2,i+4))/(2*d(i,i+3));return (e(36)+e(42))/2;}
 /* 鼻先が両目の中央からどれだけずれているか（カメラの生の映像で、本人が左を向くと＋） */
 function yawOf(P){const ex=(P[36].x+P[45].x)/2,w=Math.abs(P[45].x-P[36].x)||1;return (P[30].x-ex)/w;}
 let liveToken=0;
 function liveSay(m){if(m!==state.liveMsg){state.liveMsg=m;const el=document.getElementById('liveMsg');if(el)el.textContent=m;}}
-async function liveFrame(){
+/* 映像から顔を探す。顔が小さすぎるとき（離れすぎ）は small を返す */
+async function liveDet(){
   const v=document.getElementById('camView');if(!v||!v.videoWidth)return null;
   try{const r=await faceapi.detectSingleFace(v,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:0.4})).withFaceLandmarks();
-    return r?r.landmarks.positions:null;}catch(e){return null;}
+    if(!r)return null;const b=r.detection&&r.detection.box;
+    return {P:r.landmarks.positions,small:!!(b&&b.width<v.videoWidth*0.15)};}catch(e){return null;}
 }
 async function runLiveness(){
   const token=++liveToken;
   const alive=()=>token===liveToken&&state.camStep==='live';
   const fail=k=>{if(token!==liveToken)return;stopCam();state.camResult={kind:k};state.camStep='fail';render();};
-  try{await withTimeout(loadFace(),20000);}catch(e){return fail('engine');}
-  /* ① まばたき */
-  /* 正面を向いた顔を少しのあいだ確かめる（首振りの基準にする） */
-  let seen=false,t0=Date.now();const yawBuf=[];
-  while(Date.now()-t0<9000&&yawBuf.length<8){
+  try{await withTimeout(loadFace(),25000);}catch(e){return fail('engine');}
+  const shots=[];
+  /* ① 正面を向いてもらい、向きの基準を測って、照合用の1枚目を撮る */
+  const yawBuf=[];let seen=false,small=0,t0=Date.now();
+  while(Date.now()-t0<8000&&yawBuf.length<6){
     if(!alive())return;
-    const P=await liveFrame();
-    if(P){seen=true;yawBuf.push(yawOf(P));}
-    liveSay(seen?'カメラを見たまま、少しお待ちください':'枠の中に顔を入れてください');
+    const r=await liveDet();
+    if(r){seen=true;if(r.small){small++;liveSay('もう少しカメラに近づいてください');}
+      else{yawBuf.push(yawOf(r.P));liveSay('① カメラの正面を向いてください');}}
+    else liveSay('枠の中に顔を入れてください');
     await sleep(80);
   }
-  if(!seen)return fail('noface');
-  /* ② ランダムな首振り（基準＝まばたき中に正面を見ていたときの向き。指示を見てすぐ動いても基準はずれない） */
-  if(!yawBuf.length)return fail('noface');
-  const y0=yawBuf.slice().sort((a,b)=>a-b).at(Math.floor(yawBuf.length/2));
-  /* 左右を毎回ランダムに2回指示し、そのたびに正面へ戻す（録画では順番を合わせられない） */
-  const dirs=[Math.random()<0.5?1:-1,Math.random()<0.5?1:-1];
+  if(yawBuf.length<4)return fail(!seen?'noface':small?'small':'noface');
+  const y0=median(yawBuf.slice(-4));
+  shots.push(grabFrame());
+  /* ②〜⑤ 左右をランダムに2回。そのたびに正面へ戻ってもらい、照合用の画像を撮る */
+  const dirs=[Math.random()<0.5?1:-1,Math.random()<0.5?1:-1],no=['②','③','④','⑤'];
   for(let n=0;n<dirs.length;n++){
     const dir=dirs.at(n);
-    const no=['②','③','④','⑤'];
     liveSay(no.at(n*2)+(dir>0?' 顔をゆっくり左に向けてください':' 顔をゆっくり右に向けてください'));
     let ok=0,wrong=0,turned=false;t0=Date.now();
     while(Date.now()-t0<7000){
       if(!alive())return;
-      const P=await liveFrame();
-      if(P){const d=(yawOf(P)-y0)*dir;
+      const r=await liveDet();
+      if(r&&!r.small){const d=(yawOf(r.P)-y0)*dir;
         if(d>0.12){ok++;wrong=0;}else if(d<-0.12){wrong++;ok=0;}else{ok=0;wrong=0;}
         if(wrong>=3)return fail('live');
         if(ok>=2){turned=true;break;}}
@@ -631,15 +696,16 @@ async function runLiveness(){
     let back=false;t0=Date.now();
     while(Date.now()-t0<5000){
       if(!alive())return;
-      const P=await liveFrame();
-      if(P&&Math.abs(yawOf(P)-y0)<0.06){back=true;break;}
+      const r=await liveDet();
+      if(r&&!r.small&&Math.abs(yawOf(r.P)-y0)<0.06){back=true;break;}
       await sleep(70);
     }
     if(!back)return fail('live');
+    await sleep(120);if(!alive())return;
+    shots.push(grabFrame());
   }
-  /* 正面を向いたところで撮影 */
-  await sleep(120);if(!alive())return;
-  state.liveDone=true;state.shot=grabFrame();stopCam();verifyFace();
+  state.liveDone=true;state.shots=shots.filter(Boolean);state.shot=state.shots[state.shots.length-1]||'';
+  stopCam();verifyFace();
 }
 function withTimeout(pr,ms){return Promise.race([pr,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))]);}
 const descCache=new Map();
@@ -655,11 +721,22 @@ function demoCamStart(){
 }
 function demoCamStop(){if(demoStream){demoStream.getTracks().forEach(t=>t.stop());demoStream=null;}}
 function allProxies(){const out=[];Object.entries(state.proxies).forEach(([fk,list])=>list.forEach(p=>out.push({fk,p})));return out;}
-function applyDemoFace(d){
+function applyDemoFace(d,shots){
   const hit=allProxies().find(x=>x.p.id===state.dfPx);if(!hit){toast('登録する人を選んでください');return;}
   const p=hit.p;p.src=d;p.photo=1;p.desc=null;p.faceWarn=false;p.auth='写真を見て確認（登録済み）';
   state.dfMsg='顔を確認しています…';render();
-  checkRegPhoto(d,(desc,ng)=>{if(p.src!==d)return;p.desc=desc;p.faceWarn=ng;
+  /* 3枚撮れたときは、それぞれの特徴の平均を照合の基準にする（1枚だけより安定する） */
+  if(shots&&shots.length>1){
+    withTimeout(loadFace(),25000).then(async()=>{const qs=[];for(const sh of shots){const q=await descOfQ(sh);if(q)qs.push(q);}
+      if(p.src!==d)return;
+      if(!qs.length){p.faceWarn=true;state.dfMsg='顔を確認できませんでした。明るい場所で、正面から撮り直してください。';render();return;}
+      if(qs.some(q=>q.iw&&q.w&&q.w<q.iw*0.15)){state.dfMsg='顔が小さく写っています。カメラに近づいて撮り直してください。';p.faceWarn=true;render();return;}
+      const m=meanDesc(qs.map(q=>q.d));p.desc=m;p.descV=DESC_V;p.faceWarn=false;descCache.set(DESC_V+d,m);
+      state.dfMsg=p.name+'さんの登録写真にしました（'+qs.length+'枚の平均で照合します）。玄関の受付で顔照合に使えます。';render();})
+    .catch(()=>{state.dfMsg=p.name+'さんの登録写真にしました（この端末では顔の確認ができませんでした）。';render();});
+    return;
+  }
+  checkRegPhoto(d,(desc,ng)=>{if(p.src!==d)return;p.desc=desc;p.descV=desc?DESC_V:0;p.faceWarn=ng;
     state.dfMsg=desc?p.name+'さんの登録写真にしました。玄関の受付で顔照合に使えます。'
       :ng?'顔を確認できませんでした。明るい場所で、正面から撮り直してください。'
       :p.name+'さんの登録写真にしました（この端末では顔の確認ができませんでした）。';
@@ -716,40 +793,66 @@ function loadFace(){
   }).then(()=>Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri(FACE_MODEL),
     faceapi.nets.faceLandmark68Net.loadFromUri(FACE_MODEL),
-    faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL)]))
+    faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL),
+    /* 照合用の高精度な顔検出。読み込めないときは軽い方で照合する */
+    faceapi.nets.ssdMobilenetv1?faceapi.nets.ssdMobilenetv1.loadFromUri(FACE_MODEL).catch(()=>null):null]))
   .then(()=>{state.faceReady=true;if(state.screen==='S27'&&state.camStep==='shoot')render();})
   .catch(e=>{faceP=null;state.faceReady=false;throw e;});
   return faceP;
 }
 function imgEl(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
-async function descOf(src){
+/* 照合に使う顔の特徴（128個の数値）。高精度の検出が使えればそちらで顔の位置を合わせる */
+const DESC_V=2;
+function detOpt(){return (faceapi.nets.ssdMobilenetv1&&faceapi.nets.ssdMobilenetv1.isLoaded)
+  ?new faceapi.SsdMobilenetv1Options({minConfidence:0.5}):new faceapi.TinyFaceDetectorOptions({inputSize:416,scoreThreshold:0.45});}
+async function descOfQ(src){
   const img=await imgEl(src);
-  const r=await faceapi.detectSingleFace(img,new faceapi.TinyFaceDetectorOptions({inputSize:416,scoreThreshold:0.45}))
-    .withFaceLandmarks().withFaceDescriptor();
-  return r?r.descriptor:null;
+  const r=await faceapi.detectSingleFace(img,detOpt()).withFaceLandmarks().withFaceDescriptor();
+  if(!r)return null;const b=r.detection&&r.detection.box;
+  return {d:r.descriptor,w:b?b.width:0,iw:img.naturalWidth||img.width||0};
 }
-/* 撮影した顔と登録写真の顔を比べ、一致すれば受付完了・違えば認証失敗 */
+async function descOf(src){const q=await descOfQ(src);return q?q.d:null;}
+const median=a=>{const b=a.slice().sort((x,y)=>x-y);return b[Math.floor(b.length/2)];};
+function meanDesc(ds){const L=ds[0].length,out=new Float32Array(L);ds.forEach(d=>{for(let i=0;i<L;i++)out[i]+=d[i]/ds.length;});return out;}
+/* 顔照合の基準（小さいほど厳しい）。以前の値は新しい値に読み替える */
+const THR_OPTS=[['0.38','厳しめ'],['0.42','標準'],['0.48','ゆるめ']];
+const THR_OLD={0.45:0.38,0.5:0.42,0.55:0.48};
+/* 撮影した顔と登録写真の顔を比べる。
+   ・首振りの途中で撮った正面の画像（3枚）をすべて照合し、多くが基準を満たしたときだけ一致とする
+   ・撮った画像どうしが同じ人でなければ（途中で入れ替わったら）失敗
+   ・同じ家庭のほかの登録者の写真の方が近ければ、選んだ人とは別人として失敗 */
 async function verifyFace(){
   const c=child(state.camChild);if(!c)return;
   const p=proxiesOf(c.id).find(x=>x.id===state.camProxy)||proxiesOf(c.id)[0];
   const fail=(kind,extra)=>{state.camResult=Object.assign({kind},extra||{});state.camStep='fail';render();};
+  const shots=(state.shots&&state.shots.length?state.shots:[state.shot]).filter(Boolean);state.shots=null;
   state.camStep='checking';render();
   if(!pxValid(p))return fail('invalid');
   if(!p.src)return fail('nophoto');
   try{await withTimeout(loadFace(),25000);}catch(e){return fail('engine');}
   try{
-    const d1=await withTimeout(descOf(state.shot),15000);
-    if(!d1)return fail('noface');
-    if(!p.desc)p.desc=descCache.get(p.src)||await withTimeout(descOf(p.src),15000);
+    const qs=[];for(const sh of shots){const q=await withTimeout(descOfQ(sh),15000);if(q)qs.push(q);}
+    if(!qs.length)return fail('noface');
+    if(qs.every(q=>q.iw&&q.w&&q.w<q.iw*0.15))return fail('small');
+    if(!p.desc||p.descV!==DESC_V){p.desc=descCache.get(DESC_V+p.src)||await withTimeout(descOf(p.src),15000);p.descV=DESC_V;}
     if(!p.desc)return fail('regface');
-    descCache.set(p.src,p.desc);
-    const dist=faceapi.euclideanDistance(d1,p.desc);
-    if(dist<(state.cam.thr||0.5)){state.camFails=0;checkIn(dist);}
-    else{
-      state.camFails=(state.camFails||0)+1;
-      if(state.camFails>=2){callStaff('nomatch',dist);return;}
-      fail('nomatch',{dist});
-    }
+    descCache.set(DESC_V+p.src,p.desc);
+    const thr=state.cam.thr||0.42,D=(a,b)=>faceapi.euclideanDistance(a,b);
+    const dists=qs.map(q=>D(q.d,p.desc)),med=median(dists),okN=dists.filter(x=>x<thr).length;
+    let same=true;for(let i=0;i<qs.length;i++)for(let j=i+1;j<qs.length;j++)if(D(qs[i].d,qs[j].d)>=0.5)same=false;
+    /* 同じ家庭で写真のある登録者は、その場で特徴を求めて比べる */
+    const others=[];
+    for(const x of proxiesOf(c.id)){if(x.id===p.id||!x.src)continue;
+      if(!x.desc||x.descV!==DESC_V){x.desc=descCache.get(DESC_V+x.src)||await withTimeout(descOf(x.src),15000).catch(()=>null);
+        x.descV=x.desc?DESC_V:0;if(x.desc)descCache.set(DESC_V+x.src,x.desc);}
+      if(x.desc)others.push(x);}
+    const closer=others.some(o=>median(qs.map(q=>D(q.d,o.desc)))<med);
+    const pass=same&&!closer&&med<thr&&okN>=Math.ceil(qs.length*2/3)&&Math.max(...dists)<thr+0.08;
+    if(pass){state.camFails=0;checkIn(med);return;}
+    const kind=!same?'swap':'nomatch';
+    state.camFails=(state.camFails||0)+1;
+    if(state.camFails>=2){callStaff(kind,med);return;}
+    fail(kind,{dist:med});
   }catch(e){fail('engine');}
 }
 
@@ -759,16 +862,16 @@ function callStaff(kind,dist){
   const p=state.camProxy?(proxiesOf(c.id).find(x=>x.id===state.camProxy)||null):null;
   const why={nomatch:'登録写真と一致しませんでした',nophoto:'照合用の写真が登録されていません',
              regface:'登録写真から顔を確認できませんでした',engine:'照合機能を使えませんでした',noface:'顔を確認できませんでした',
-             live:'まばたき・首振りで本人を確認できませんでした',invalid:'承認されていない、または期限切れの登録です',nocard:'QRコードを出せません',
+             live:'首振りで本人を確認できませんでした',small:'顔が小さく写っていて照合できませんでした',swap:'撮影の途中で別の人が写りました',invalid:'承認されていない、または期限切れの登録です',nocard:'QRコードを出せません',
              nophotoSel:'顔写真を登録していない方が来ています'}[kind]||'認証できませんでした';
-  state.stats.camNG++;
+  bump('camNG');
   state.alerts.unshift({id:'a'+Date.now(),cid:c.id,pid:p?p.id:null,kids:(state.camKids||[]).slice(),t:now(),why,shot:state.shot,dist});
   addPost('受付カメラ','sys',`【確認依頼】${c.name}${c.sfx}のお迎え（${p?p.name+'さん・'+p.rel+'として受付':'お迎えの方は未選択'}）：${why}。玄関で確認をお願いします。`,{auto:false,alert:true});
   state.camStep='called';state.camFails=0;state.shot='';render();
 }
 /* 登録写真に顔が写っているかを確認（背景で実行） */
 function checkRegPhoto(src,done){
-  withTimeout(loadFace(),25000).then(()=>descOf(src)).then(d=>{if(d)descCache.set(src,d);done(d||null,!d);}).catch(()=>done(null,false));
+  withTimeout(loadFace(),25000).then(()=>descOf(src)).then(d=>{if(d)descCache.set(DESC_V+src,d);done(d||null,!d);}).catch(()=>done(null,false));
 }
 /* 受付の確定：園児を「到着」にして、保育士の画面へ大きく出す */
 function checkIn(dist){
@@ -783,7 +886,7 @@ function checkIn(dist){
     c.faceOK=byFace;c.faceDist=byFace?dist:null;c.live=byFace?!!state.liveDone:false;
     addPost('受付カメラ','sys',`【到着】${c.name}${c.sfx}：${p.name}さん（${p.rel}）の${byFace?'顔照合が完了':'受付が完了'}しました。${c.cls}の保育室で引き渡しをお願いします。`);
   });
-  if(byFace)state.stats.camOK++;
+  if(byFace)bump('camOK');
   state.notices.unshift({id:'n'+Date.now(),fam:famKey(c0.id),kind:'お迎え連絡',title:'受付が完了しました',
     body:kids.map(c=>c.name.split(' ')[1]+c.sfx).join('・')+'の先生にお迎えをお知らせしました。保育室でお待ちください。',t:now(),read:false});
   state.camDoneKids=kids.map(c=>c.id);
@@ -823,7 +926,7 @@ function dataset(){
   const src=(typeof window!=='undefined'&&window.OKAERI_DATA)||null;
   const err=src?validateDataset(src):'データファイル（okaeri-data.js）を読み込めませんでした。HTMLと同じフォルダにあるか確認してください。';
   let d;
-  if(!err){d=JSON.parse(JSON.stringify(src));d._from='file';}
+  if(!err){d=JSON.parse(JSON.stringify(src));d._from=(typeof window!=='undefined'&&window.OKAERI_DATA_BUILTIN)?'builtin':'file';}
   else{d=JSON.parse(JSON.stringify(FALLBACK_DATASET));d._from='fallback';d._err=src?'データファイルの中身に誤りがあります：'+err:err;}
   if(!d.classes||!d.classes.length)d.classes=FALLBACK_DATASET.classes;
   if(!d.generator)d.generator={seed:1};
@@ -857,7 +960,7 @@ function mkProxy(p,F){const q=Object.assign({},p);
 /* 1つの園のデータを作る：シナリオ（デモ用の家庭）＋ 明示されたデータ または 自動で作るダミー */
 function genSchool(sid){
   const D=dataset(),sc=D.schools.find(x=>x.id===sid)||D.schools[0],F=fy(),n0=Date.now();
-  const out={children:[],proxies:{},diary:{},posts:[],notices:[],stats:{app:0,phone:0,camOK:0,camNG:0}};
+  const out={children:[],proxies:{},diary:{},posts:[],notices:[],absences:[],stats:{app:0,phone:0,camOK:0,camNG:0}};
   (D.commonNotices||[]).forEach(n=>out.notices.push(Object.assign({},n,{t:n0-(n.minutesAgo||0)*60000})));
   const scen=D.scenario&&D.scenario.school===sc.id?D.scenario:null;
   if(scen){
@@ -873,6 +976,15 @@ function genSchool(sid){
     Object.entries(ex.proxies||{}).forEach(([fk,l])=>out.proxies[fk]=l.map(x=>mkProxy(x,F)));}
   else genKids(sc,out,n0,F);
   out.notices.forEach(n=>delete n.minutesAgo);out.posts.forEach(x=>delete x.minutesAgo);
+  /* 登園：「in: false」の子は未登園、それ以外は朝のうちに登園済み。自動で作った子は一部を未登園・欠席の連絡ありにする */
+  {const G=D.generator||{},RI=mulberry32(((G.seed||1)^hashStr(sc.id+':in'))>>>0);
+   const ymd=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+   const inRate=G.inRate!=null?G.inRate:0.9,absRate=G.absentRate!=null?G.absentRate:0.03;
+   out.children.forEach(c=>{
+     const scen=/^c\d+$/.test(c.id),r=RI();
+     if(c.in===false){delete c.in;return;}delete c.in;
+     if(!scen&&r>=inRate){if(RI()<absRate/(1-inRate))out.absences.push({id:'ab0_'+c.id,t:n0-3*3600000,type:'欠席',date:ymd(n0),txt:'体調不良のため',cid:c.id});return;}
+     c.inAt=Math.min(todayAt('07:00')+Math.floor(RI()*150)*60000,n0-(5+Math.floor(RI()*55))*60000);c.inVia=RI()<0.65?'qr':'staff';c.inBy=c.inVia==='staff'?'保育士':'';});}
   out.posts.forEach(x=>{if(!Array.isArray(x.ackBy))x.ackBy=[];if(x.auto===undefined)x.auto=x.kind==='sys';delete x.ack;});
   /* 連絡帳：「今日」「昨日」を日付に。最初から入っている記録は既読として扱う（自分で書いた記録が埋もれないように） */
   const dk=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
@@ -943,12 +1055,12 @@ const famKids=id=>{const k=famKey(id);return state.children.filter(c=>(c.fam||c.
 function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();
   return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
 /* 園で共有するデータ（ログアウトしても消えない） */
-const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs'];
+const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats'];
 function freshData(sid){
   const g=genSchool(sid);
-  return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:[],
-    notices:g.notices,records:[],alerts:[],logs:[],thr:{soon:5,show:10},
-    cam:{on:true,keep:false,thr:0.5,pin:'1234',list:false,live:true},
+  return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:g.absences||[],
+    notices:g.notices,records:[],alerts:[],logs:[],devStats:{},thr:{soon:5,show:10},
+    cam:{on:true,keep:false,thr:0.42,pin:'1234',list:false,live:true},
     stats:g.stats,offset:0,clock24:false};
 }
 /* この端末だけの状態（画面・入力中の内容・ログイン） */
@@ -964,9 +1076,9 @@ function reset(sid){const id=sid||(state&&state.schoolId)||dataset().defaultScho
   state=Object.assign(freshSession(),freshData(id));state.schoolId=id;
   if(!state.children.some(c=>c.id===state.childId)&&state.children.length){state.childId=state.children[0].id;state.ag.cid=state.children[0].id;}}
 /* ログアウト：画面とログイン状態だけを初期化し、園のデータは残す */
-function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden,sid=state.schoolId,err=state.err;
+function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden,sid=state.schoolId,err=state.err,km=state.kmode,mm=state.monMode;
   /* 通信切れの再現は端末ごとの設定なので、アカウントを切り替えても続ける */
-  state=Object.assign(freshSession(),keep);state.hbarHidden=hid;state.schoolId=sid;state.err=err;
+  state=Object.assign(freshSession(),keep);state.hbarHidden=hid;state.schoolId=sid;state.err=err;state.kmode=km;state.monMode=mm;
   if(!state.children.some(c=>c.id===state.childId)&&state.children.length){state.childId=state.children[0].id;state.ag.cid=state.children[0].id;}}
 reset();
 
@@ -1001,6 +1113,9 @@ const STAFF={'sasaki-m':{name:'佐々木 みなみ',short:'佐々木',cls:'ひ�
   'watanabe-s':{name:'渡辺 さくら',short:'渡辺',cls:'',label:'事務 渡辺',color:'#F2A7BC'}};
 function me(){return state.me||(state.role==='clerk'?STAFF['watanabe-s']:STAFF['sasaki-m']);}
 const meWho=()=>me().label, meKind=()=>state.role==='clerk'?'clerk':'teacher';
+/* 集計：端末ごとに数え、表示するときに合計する（2台が同時に数えても減らない） */
+function bump(k){const d=(state.devStats=state.devStats||{})[DEVICE]||(state.devStats[DEVICE]={app:0,phone:0,camOK:0,camNG:0});d[k]=(d[k]||0)+1;}
+function statTotal(k){return (state.stats[k]||0)+Object.values(state.devStats||{}).reduce((a,o)=>a+((o&&o[k])||0),0);}
 const staffName=()=>me().name+(me().cls?'（'+me().cls+'）':'（事務）');
 function stat(c){
   if(c.st==='released')return{k:'released',label:'降園済み',tone:'gray'};
@@ -1027,7 +1142,7 @@ const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',
  S13:'照合結果',S14:'引き渡し完了',S15:'職員用タイムライン',S16:'メモ入力',S17:'代理入力',S18:'園児・代理人情報管理',
  S19:'管理者ダッシュボード',S20:'園情報管理',S21:'お知らせ（保護者）',S22:'メニュー（保護者）',
  S23:'連絡帳（園側）',S24:'引き渡し保留・確認手順',S25:'引き渡し記録',S26:'園の切り替え（自治体）',
- S27:'受付カメラ（お迎え受付）',S28:'カメラ照合の結果'};
+ S27:'受付カメラ（お迎え受付）',S28:'カメラ照合の結果',S29:'登園チェック',S30:'園内モニター（大型テレビ）'};
 const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
 const SCR={};
 
@@ -1037,9 +1152,11 @@ function render(){
   document.getElementById('hnow').textContent=md(now())+'('+wd(now())+') '+hm(now());
   document.getElementById('errbtn').classList.toggle('on',state.err);
   document.getElementById('hctrls').className='hctrls'+(state.hbar?' open':'');
-  if(document.body&&document.body.classList)document.body.classList.toggle('hb-off',!!state.hbarHidden);
+  if(document.body&&document.body.classList){document.body.classList.toggle('hb-off',!!state.hbarHidden);
+    document.body.classList.toggle('tvmode',state.role==='monitor');}
   const isPhone = p==='S01'||PARENT.includes(p);
-  const inner = p==='S01'?SCR.S01():(isPhone?phoneShell(SCR[p]()):state.role==='kiosk'?kioskShell(SCR[p]()):tabletShell(SCR[p]()));
+  if(state.role==='monitor'&&p!=='S30'){state.screen='S30';return render();}
+  const inner = p==='S01'?SCR.S01():(isPhone?phoneShell(SCR[p]()):state.role==='kiosk'?kioskShell(SCR[p]()):state.role==='monitor'?monitorShell(SCR[p]()):tabletShell(SCR[p]()));
   document.getElementById('stage').innerHTML=
     `<div class="${isPhone?'phone':'tablet'}">
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
@@ -1070,6 +1187,7 @@ function drawOverlay(){
     <pre style="font-family:var(--mono);font-size:11px;background:#FBF6F1;border-radius:10px;padding:10px 12px;margin:10px 0 0;overflow-x:auto;line-height:1.6">okaeri_members / genkan@example.com  →  role: "kiosk",  school: "nakahara"
 okaeri_members / sasaki@example.com  →  role: "staff",  school: "nakahara"
 okaeri_members / hoikuka@example.com →  role: "admin"   ※ school なし＝全園を閲覧
+okaeri_members / tv@example.com      →  role: "monitor", school: "nakahara"   ※ 表示用モニター（読むだけ）
 okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fams: ["c1"]   ※ c1 = 山田家（ひなた・そら）</pre>
     <label class="fieldl">firebaseConfig（プロジェクトの設定からコピー）</label>
     <textarea class="inp" id="fbCfg" rows="5" style="font-family:var(--mono);font-size:12px" placeholder='const firebaseConfig = { apiKey: "…", authDomain: "…", projectId: "…", appId: "…" };'>${saved?esc(Object.entries(saved).filter(([k])=>k!=='email').map(([k,v])=>k+': "'+v+'"').join(',\n')):''}</textarea>
@@ -1100,6 +1218,7 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
       <b style="font-family:var(--disp);font-size:15px">${esc(D.title||'—')}</b>
       <div class="tiny muted" style="margin-top:6px;line-height:1.8">${esc(D.notice||'')}</div>
       <div class="tiny" style="margin-top:6px">園 ${D.schools.length}園／園児 約${total.toLocaleString()}名${src.name?'／出典：'+esc(src.name):''}</div>
+      <div class="tiny" style="margin-top:6px">読み込み元：<b>${D._from==='file'?'データファイル（okaeri-data.js）':D._from==='builtin'?'HTMLに同梱のデモ用データ（okaeri-data.js が見つからないため）':'最小限の予備データ'}</b></div>
       <div class="tiny muted" style="margin-top:4px;font-family:var(--mono)">データの目印：${esc(D._ver)}</div></div>
     <div class="tiny muted" style="margin-top:12px;line-height:1.9">園・園児・保護者・デモ用の家庭は、このHTMLとは別のデータファイル（okaeri-data.js）に分けています。<br>
       ・データファイルを書き換えて再読み込みすると、そのまま反映されます。以前の受付や引き渡しの記録は、自動で使わなくなります。<br>
@@ -1134,11 +1253,11 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
       <button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;}
   if(state.modal==='kexit')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:380px" onclick="event.stopPropagation()">
     <div class="sec">職員用メニュー</div>
-    <div class="tiny muted" style="margin-bottom:10px">受付を終了するには、職員用の暗証番号を入力してください。</div>
+    <div class="tiny muted" style="margin-bottom:10px">${state.role==='monitor'?'表示':'受付'}を終了するには、職員用の暗証番号を入力してください。</div>
     <input class="inp" id="kpinIn" type="password" inputmode="numeric" maxlength="8" placeholder="暗証番号" onkeydown="if(event.key==='Enter')act('kioskOut')">
     ${state.kexitErr?`<div class="err" style="margin-top:10px">暗証番号が違います。</div>`:''}
     <div style="display:flex;gap:10px;margin-top:14px">
-      <button class="btn" onclick="act('kioskOut')">受付を終了する</button>
+      <button class="btn" onclick="act('kioskOut')">${state.role==='monitor'?'表示':'受付'}を終了する</button>
       <button class="btn g" onclick="act('closeModal')">キャンセル</button></div></div></div>`;
   if(state.modal==='acc')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">アカウント（動作確認用）</div>
@@ -1163,12 +1282,12 @@ function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=se
    ========================================================= */
 function phoneShell(inner){
   const nav=[['S02','ホーム','home'],['S06','連絡帳','cal'],['S03','お迎え連絡','car'],['S21','お知らせ','mail'],['S22','メニュー','menu']];
-  const nb={S06:parentNewReplies(),S21:myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡').length};
+  const nb={S06:parentNewReplies(),S21:myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length};
   return `${offlineBar()}<div class="roll">${inner}</div>
   <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib" style="position:relative">${ic(i,22)}${nb[id]?`<span class="badge">${nb[id]}</span>`:''}</span>${l}</button>`).join('')}</div>`;
 }
 function phead(title,back){
-  const un=myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡').length;
+  const un=myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length;
   return `<div class="phead">
     ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74">${ic('back',22)}</button>`
           :`<span style="width:26px;display:grid;place-items:center">${sun(26)}</span>`}
@@ -1180,7 +1299,7 @@ function phead(title,back){
    園側アプリ 外枠（画像1・2）
    ========================================================= */
 function tabletShell(inner){
-  const staffMenu=[['S15','タイムライン','chat'],['S10','お帰りタイムライン','clock']]
+  const staffMenu=[['S15','タイムライン','chat'],['S29','登園チェック','check'],['S10','お帰りタイムライン','clock']]
     .concat(state.cam.on?[['S27','受付カメラ','idcard']]:[])
     .concat([['S23','連絡帳','book'],['S18','園児一覧','users'],['S17','代理入力','phone'],['S25','引き渡し記録','clip']]);
   const adminMenu=[['S19','ダッシュボード','board'],['S20','園情報管理','school'],['S26','園の画面を確認','clock']];
@@ -1225,7 +1344,7 @@ function offlineBar(){
 }
 function kioskShell(inner){
   return `<div style="display:flex;flex-direction:column;height:100%;background:var(--peach)">
-    <div class="kbar">${sun(32)}<div><b>${curSchool().name}</b><small>玄関 お迎え受付</small></div>
+    <div class="kbar">${sun(32)}<div><b>${curSchool().name}</b><small>玄関 ${kmode()==='in'?'登園':'お迎え'}受付</small></div>
       <span class="kclock" id="kclk">${hmx(now())}</span></div>
     ${offlineBar()}
     <div style="flex:1;display:flex;flex-direction:column;min-height:0">${inner}</div>
@@ -1255,6 +1374,7 @@ const ACCOUNTS=[
  {id:'watanabe-s',pw:'jimu0620',   role:'clerk',  label:'事務スタッフ',who:'渡辺 さくら（事務室）',ic:'phone'},
  {id:'kawasaki-k',pw:'shisei0901', role:'admin',  label:'自治体管理者',who:'川崎市 保育課',                  ic:'board'},
  {id:'sakura-uketsuke',pw:'genkan0001',role:'kiosk',label:'受付端末',  who:'玄関のタブレット',      ic:'idcard'},
+ {id:'sakura-monitor',pw:'monitor0001',role:'monitor',label:'表示用モニター',who:'職員室の大型テレビ（表示専用）',ic:'board'},
 ];
 SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
     <div style="text-align:center;margin-bottom:26px">
@@ -1287,7 +1407,8 @@ SCR.S02=()=>{
   return `${phead('ホーム','',true)}<div class="pbody">
     ${kidSwitch()}
     <div class="kidcard">${face(c,54)}
-      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
+      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div>
+        <div class="tiny" style="margin-top:3px;color:${isIn(c)?'var(--ok-tx)':'var(--ink-2)'}">${isIn(c)?'登園 '+esc(inLabel(c)):'今日の登園はまだ記録されていません'}</div></div>
       <div class="timebox"><small>${c.changed?'変更後のお迎え':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
     ${state.pending?`<div class="err" style="margin-top:12px"><b>園に届いていない連絡があります。</b><br>
       ${hm(state.pending.at)}に送信した「${state.pending.label}」は通信が切れたため届いていません。<br>
@@ -1330,7 +1451,8 @@ SCR.S03=()=>{
       <div style="display:flex;gap:8px;flex-wrap:wrap">${sibs.map(k=>`<button class="chk ${tg.includes(k.id)?'on':''}" style="width:auto;margin:0;padding:8px 12px" onclick="act('pkid','${k.id}')">
         <span class="box">${ic('check',14)}</span><span>${k.name.split(' ')[1]}${k.sfx}（${hm(k.pickupAt)}）</span></button>`).join('')}</div></div>`:''}
     <div class="kidcard">${face(c,52)}
-      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div></div>
+      <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div>
+        <div class="tiny" style="margin-top:3px;color:${isIn(c)?'var(--ok-tx)':'var(--ink-2)'}">${isIn(c)?'登園 '+esc(inLabel(c)):'今日の登園はまだ記録されていません'}</div></div>
       <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
     <div style="position:relative">${deco}<div class="leadline">お迎えの状況をお知らせください</div></div>
     <div class="bigchoice">
@@ -1431,6 +1553,26 @@ SCR.S06=()=>{
   </div>`;
 };
 
+/* ---- 登園 ---- */
+const isIn=c=>!!(c&&c.inAt);
+/* 今日にかかる欠席・遅刻の連絡（"2026-10-30" または "2026-10-30 〜 2026-11-02（4日間）"） */
+function absCovers(a,t){const m=String(a.date||'').match(/(\d{4}-\d{2}-\d{2})(?:\s*〜\s*(\d{4}-\d{2}-\d{2}))?/);return !!m&&t>=m[1]&&t<=(m[2]||m[1]);}
+function absToday(c){const t=today();return (state.absences||[]).find(a=>a.cid===c.id&&absCovers(a,t))||null;}
+const isAbsent=c=>{const a=absToday(c);return !!a&&!isIn(c)&&/欠席|長期/.test(a.type);};
+function inLabel(c){return c.inAt?hm(c.inAt)+'（'+(c.inVia==='qr'?'QRコード':(c.inBy||'保育士')+'が記録')+'）':'';}
+/* 登園を記録し、保護者にお知らせする（家庭ごとに1通） */
+function markIn(kids,via,by){
+  const t=now(),ids=[],fams={};
+  kids.filter(c=>c&&!c.inAt).forEach(c=>{c.inAt=t;c.inVia=via;c.inBy=by||'';const k=famKey(c.id);(fams[k]=fams[k]||[]).push(c);});
+  Object.entries(fams).forEach(([fk,l])=>{const id='n'+Date.now()+'_'+fk;ids.push(id);
+    state.notices.unshift({id,fam:fk,kind:'登園',title:via==='qr'?'登園を受け付けました':'保育士が登園を記録しました',
+      body:l.map(c=>c.name.split(' ')[1]+c.sfx).join('・')+'の登園を '+hm(t)+' に記録しました。'+(via==='qr'?'':'（記録：'+(by||'保育士')+'）'),t,read:false});});
+  return ids;
+}
+function unmarkIn(c){if(!c)return;c.inAt=null;c.inVia='';c.inBy='';}
+/* 受付端末のモード：朝（11時まで）は登園、それ以降はお迎え。画面のタブで切り替えられる */
+const kmode=()=>state.kmode||(new Date(now()).getHours()<11?'in':'out');
+
 /* ---- 連絡帳の部品 ---- */
 const isYoung=c=>/^[012]歳/.test((c&&c.age)||'');
 const nowHM=()=>{const d=new Date(now());return pad(d.getHours())+':'+pad(d.getMinutes());};
@@ -1466,6 +1608,21 @@ function entryHTML(raw,isNew){const e=normEntry(raw),h=e.home,n=e.nursery;
 /* 新しい記入・返信の印 */
 const diaryNewCount=()=>state.children.filter(c=>(state.diary[c.id]||[]).some(e=>normEntry(e).home&&e.staffSeen===false)).length;
 const parentNewReplies=()=>pfam().reduce((a,k)=>a+(state.diary[k.id]||[]).filter(e=>normEntry(e).nursery&&e.parentSeen===false).length,0);
+function mergeSameDay(list){
+  if(!Array.isArray(list)||list.length<2)return list;
+  const out=[];
+  list.forEach(e=>{const t=e.key?out.find(x=>x.key===e.key):null;
+    if(!t){out.push(e);return;}
+    const keep=t.id<e.id?t:e,other=keep===t?e:t;
+    const nk=normEntry(keep),no=normEntry(other);
+    const merged=Object.assign({},keep,{
+      home:(nk.home&&no.home)?((other.at||0)>(keep.at||0)?no.home:nk.home):(nk.home||no.home||null),
+      nursery:(nk.nursery&&no.nursery)?((other.repliedAt||0)>(keep.repliedAt||0)?no.nursery:nk.nursery):(nk.nursery||no.nursery||null),
+      staffSeen:!(keep.staffSeen===false||other.staffSeen===false),parentSeen:!(keep.parentSeen===false||other.parentSeen===false)});
+    if(!nk.nursery&&no.nursery){merged.repliedAt=other.repliedAt;merged.repliedBy=other.repliedBy;}
+    out[out.indexOf(t)]=merged;});
+  return out;
+}
 function markParentSeen(){const ids=[];pfam().forEach(k=>(state.diary[k.id]||[]).forEach(e=>{if(normEntry(e).nursery&&e.parentSeen===false){ids.push(e.id);e.parentSeen=true;}}));
   state.newIds=ids;myNotices().filter(n=>n.kind==='連絡帳').forEach(n=>n.read=true);}
 function markStaffSeen(cid){const ids=[];if(state.role!=='admin')(state.diary[cid]||[]).forEach(e=>{if(normEntry(e).home&&e.staffSeen===false){ids.push(e.id);e.staffSeen=true;}});state.newIds=ids;}
@@ -1533,10 +1690,130 @@ SCR.S08=()=>{
 /* =========================================================
    園側
    ========================================================= */
+/* --- S30 園内モニター（大型テレビ用・表示専用）。朝は登園、それ以降はお迎えの状況を自動で切り替えて映す --- */
+const monMode=()=>state.monMode&&state.monMode!=='auto'?state.monMode:(new Date(now()).getHours()<11?'in':'out');
+SCR.S30=()=>monMode()==='in'?monInHTML():monOutHTML();
+function monitorShell(inner){
+  const m=monMode();
+  return `<div class="mon">
+    <div class="monbar">${sun(46)}<div class="mt"><b>${esc(curSchool().name)}</b><small>${m==='in'?'登園の状況':'お迎えの状況'}</small></div>
+      <div class="monmodes">${[['auto','自動'],['in','登園'],['out','お迎え']].map(([k,l])=>`<button class="${(state.monMode||'auto')===k?'on':''}" onclick="act('monMode','${k}')">${l}</button>`).join('')}</div>
+      <div class="monclock"><small id="mdate">${md(now())}（${wd(now())}）</small><b id="mclk">${hmx(now())}</b></div></div>
+    ${offlineBar()}
+    <div class="monbody">${inner}</div>
+    <div class="kfoot"><span style="opacity:.65">${ic('clock',14)} リアルタイムで更新しています</span><button onclick="act('kioskExit')">${ic('gear',15)}職員用</button></div>
+  </div>`;
+}
+function monInHTML(){
+  const cs=state.children,classes=[...new Set(cs.map(c=>c.cls))];
+  const nIn=cs.filter(isIn).length,abs=cs.filter(isAbsent),yet=cs.filter(c=>!isIn(c)&&!isAbsent(c));
+  const recent=cs.filter(isIn).sort((a,b)=>b.inAt-a.inAt).slice(0,7);
+  return `<div class="msum">
+      <div class="mstat ok"><small>登園</small><b>${nIn}<span>／${cs.length}名</span></b></div>
+      <div class="mstat warn"><small>まだ登園していない</small><b>${yet.length}<span>名</span></b></div>
+      <div class="mstat gray"><small>欠席の連絡</small><b>${abs.length}<span>名</span></b></div></div>
+    <div class="mgrid">
+      <div class="mpanel main">
+        <div class="mhead">${ic('clock',28)}まだ登園していない園児</div>
+        ${yet.length?classes.filter(cl=>yet.some(c=>c.cls===cl)).map(cl=>{const l=yet.filter(c=>c.cls===cl);
+          return `<div class="mcls">${esc(cl)}<span>${l.length}名</span></div>
+            <div class="mcards">${l.map(c=>{const a=absToday(c);return `<div class="mcard yet">${face(c,60)}<div style="min-width:0"><b>${c.name}${c.sfx}</b>
+              <small>${a?esc(a.type)+'の連絡あり':'連絡なし'}</small></div></div>`;}).join('')}</div>`;}).join('')
+         :`<div class="mallin">${ic('check',72,'#48A876')}<b>全員そろいました</b><small>欠席の連絡があった${abs.length}名をのぞき、全員が登園しています</small></div>`}
+      </div>
+      <div class="mside">
+        <div class="mpanel"><div class="mhead">${ic('users',24)}クラスごとの登園</div>
+          ${classes.map(cl=>{const l=cs.filter(c=>c.cls===cl),a=l.filter(isAbsent).length,n=l.filter(isIn).length,den=Math.max(1,l.length-a);
+            return `<div class="mbar"><span>${esc(cl)}</span><div class="mtrack"><i style="width:${Math.min(100,Math.round(n/den*100))}%" class="${n>=den?'full':''}"></i></div><b>${n}/${den}</b></div>`;}).join('')}</div>
+        <div class="mpanel"><div class="mhead">${ic('check',24)}最近の登園</div>
+          ${recent.map(c=>`<div class="mfeed"><b>${hm(c.inAt)}</b><span>${c.name}${c.sfx}</span><small>${c.inVia==='qr'?'QRコード':esc(c.inBy||'保育士')}</small></div>`).join('')||'<div class="mempty">まだありません</div>'}</div>
+        ${abs.length?`<div class="mpanel"><div class="mhead">${ic('info',24)}欠席の連絡</div>
+          ${abs.map(c=>`<div class="mfeed"><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')}</div>`:''}
+      </div></div>`;
+}
+function monOutHTML(){
+  const cs=state.children.filter(c=>!isAbsent(c));
+  const arr=cs.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||0)-(b.arrivedAt||0));
+  const late=cs.filter(c=>c.st==='waiting'&&stat(c).k==='late').sort((a,b)=>a.pickupAt-b.pickupAt);
+  const soon=cs.filter(c=>c.st==='waiting'&&stat(c).k==='soon').sort((a,b)=>a.pickupAt-b.pickupAt);
+  const rel=cs.filter(c=>c.st==='released').length;
+  return `${state.alerts.length?`<div class="malert">${ic('bell',30)}<span>玄関で確認が必要です（${state.alerts.length}件）：${state.alerts.map(a=>{const c=child(a.cid);return c?c.name+c.sfx:'';}).filter(Boolean).join('・')}</span></div>`:''}
+    <div class="msum">
+      <div class="mstat orange"><small>お迎えの方が到着</small><b>${arr.length}<span>名</span></b></div>
+      <div class="mstat warn"><small>お迎えが遅れている</small><b>${late.length}<span>名</span></b></div>
+      <div class="mstat ok"><small>お迎え済み</small><b>${rel}<span>／${cs.length}名</span></b></div></div>
+    <div class="mgrid">
+      <div class="mpanel main"><div class="mhead">${ic('check',28)}お迎えの方が到着しています</div>
+        ${arr.length?`<div class="mcards wide">${arr.map(c=>`<div class="mcard arr" data-arr="${c.id}">${face(c,70)}<div style="min-width:0;flex:1"><b>${c.name}${c.sfx}</b>
+          <small>${esc(c.cls)}／お迎え：${esc(c.arrivedBy||c.by)}</small></div><div class="melap"><small>到着から</small><b class="js-arr">${elapsedText(c)}</b></div></div>`).join('')}</div>`
+         :`<div class="mempty big">いまお迎えを待っている方はいません</div>`}</div>
+      <div class="mside">
+        <div class="mpanel"><div class="mhead">${ic('clock',24)}まもなく到着</div>
+          ${soon.slice(0,8).map(c=>`<div class="mfeed"><b>${hm(c.pickupAt)}</b><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')||'<div class="mempty">10分以内の予定はありません</div>'}</div>
+        <div class="mpanel"><div class="mhead">${ic('info',24)}お迎えが遅れている</div>
+          ${late.slice(0,8).map(c=>`<div class="mfeed late"><b>${hm(c.pickupAt)}</b><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')||'<div class="mempty">遅れている方はいません</div>'}</div>
+      </div></div>`;
+}
+
+/* --- S29 登園チェック（保育士が保護者の代わりに登園を記録できる） --- */
+SCR.S29=()=>{
+  const classes=[...new Set(state.children.map(c=>c.cls))],cls=state.incls||'';
+  const base=state.children.filter(c=>!cls||c.cls===cls);
+  const nIn=base.filter(isIn).length,nAbs=base.filter(isAbsent).length,nYet=base.length-nIn-nAbs;
+  const sel=(state.inSel||[]).filter(id=>{const c=child(id);return c&&!isIn(c);});
+  const admin=state.role==='admin';
+  return thead('登園チェック','check',md(now())+'（'+wd(now())+'）'+curSchool().name)
+  +`<div class="tabs"><button class="tab ${!cls?'on':''}" onclick="act('inCls','')">すべて</button>
+     ${classes.map(cl=>`<button class="tab ${cls===cl?'on':''}" onclick="act('inCls','${cl}')">${cl}</button>`).join('')}
+     <button class="tab ${state.inYet?'on':''}" style="margin-left:auto" onclick="act('inYet')">未登園だけ</button></div>
+   <div class="tbody">
+    <div class="grid3">
+      <div class="stat"><b style="color:var(--ok-tx)">${nIn}<small style="font-size:14px">／${base.length}名</small></b><small>登園済み</small></div>
+      <div class="stat"><b style="color:var(--am-tx)">${nYet}</b><small>未登園（連絡なし）</small></div>
+      <div class="stat"><b style="color:#8B7E74">${nAbs}</b><small>欠席の連絡あり</small></div></div>
+    <div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>保護者は玄関でQRコードをかざすだけで登園を受け付けられます。急いでいてかざせなかったときは、ここで保育士が代わりに記録できます。記録すると保護者のアプリにお知らせが届きます。</div></div>
+    <div style="display:flex;gap:10px;align-items:center;margin:14px 0 10px;flex-wrap:wrap">
+      <div class="compbox" style="flex:1;min-width:220px">${ic('search',18,'#BCADA1')}
+        <input id="inSearch" value="${esc(state.inq||'')}" placeholder="園児の名前で検索（ひらがなでもOK）" oninput="act('inq',this.value)"></div>
+      ${!admin&&sel.length?`<button class="btn" onclick="act('inBulk')">${ic('check',18)}選んだ${sel.length}名を登園にする</button>
+        <button class="btn g" onclick="act('inSelClear')">選択を解除</button>`:''}</div>
+    <div id="inList">${inListHTML()}</div>
+   </div>`;
+};
+function inListHTML(){
+  const cls=state.incls||'',admin=state.role==='admin',sel=state.inSel||[];
+  const pool=state.children.filter(c=>(!cls||c.cls===cls)&&hitChild(c,state.inq));
+  const yet=pool.filter(c=>!isIn(c)&&!isAbsent(c)),abs=pool.filter(isAbsent),inn=pool.filter(isIn).sort((a,b)=>b.inAt-a.inAt);
+  /* まだ登園していない子：大きなカードで一番上に */
+  const yetCard=c=>{const a=absToday(c);return `<div class="yetcard ${sel.includes(c.id)?'sel':''}">
+      ${admin?'':`<input type="checkbox" class="inchk" ${sel.includes(c.id)?'checked':''} onclick="act('inSelT','${c.id}')" aria-label="${esc(c.name)}を選ぶ">`}
+      ${face(c,54)}
+      <div class="yn"><b>${c.name}${c.sfx}</b><small>${c.cls}${a?'・'+esc(a.type)+'の連絡あり':''}</small>
+        ${admin?'':`<button class="btn" onclick="act('inMark','${c.id}')">${ic('check',16)}登園を記録</button>`}</div></div>`;};
+  const row=c=>{const a=absToday(c),inn=isIn(c),ab=isAbsent(c);
+    return `<div class="inrow ${inn?'in':ab?'abs':'yet'}">
+      ${face(c,38)}
+      <div style="min-width:0;flex:1"><div class="tiny muted">${c.cls}（${c.age}）</div><b style="font-family:var(--disp);font-size:15px">${c.name}${c.sfx}</b>
+        <div class="tiny" style="margin-top:2px">${inn?`<span class="pill green">登園 ${esc(inLabel(c))}</span>`
+          :`<span class="pill gray">欠席の連絡</span> <span class="muted">${esc(a&&a.txt||'')}</span>`}</div></div>
+      ${admin?'':inn?`<button class="hpill" onclick="act('inCancel','${c.id}')">取り消す</button>`
+        :`<button class="hpill" onclick="act('inMark','${c.id}')">登園を記録</button>`}</div>`;};
+  return `<div class="yetsec ${yet.length?'':'done'}">
+      <div class="yethead">${ic('clock',22)}まだ登園していない園児<span class="pill ${yet.length?'amber':'green'}">${yet.length}名</span></div>
+      ${yet.length?`<div class="yetgrid">${yet.map(yetCard).join('')}</div>`
+        :`<div class="allin">${ic('check',30,'#48A876')}<b>${cls?esc(cls)+'は':''}全員そろいました</b>${abs.length?`<small>（欠席の連絡 ${abs.length}名をのぞく）</small>`:''}</div>`}</div>
+    ${state.inYet?'':`${abs.length?`<div class="sec" style="font-size:14px">欠席の連絡（${abs.length}名）</div>${abs.map(row).join('')}`:''}
+      <div class="sec" style="font-size:14px">登園済み（${inn.length}名）</div>${inn.map(row).join('')||'<div class="tiny muted">まだいません</div>'}`}`;
+}
+
 SCR.S09=()=>{
   const cs=state.children,late=cs.filter(c=>stat(c).k==='late').length,soon=cs.filter(c=>stat(c).k==='soon').length,
         yet=cs.filter(c=>c.st==='waiting').length;
+  const myc=(state.me&&state.me.cls)||'',ib=cs.filter(c=>!myc||c.cls===myc),nYetIn=ib.filter(c=>!isIn(c)&&!isAbsent(c)).length;
   return thead('ホーム','home',md(now())+'（'+wd(now())+'）'+curSchool().name)+`<div class="tbody">
+    <div class="arrsec" style="margin-bottom:16px;background:#F3FAF5;border-color:#CDE8D6">
+      <div class="hd" style="color:var(--ok-tx)">${ic('check',19)}登園 ${ib.filter(isIn).length}／${ib.length}名${myc?'（'+myc+'）':''}${nYetIn?`　<span style="color:var(--am-tx)">未登園 ${nYetIn}名</span>`:''}</div>
+      <button class="btn g" onclick="act('inOpen')">登園チェックを開く</button></div>
     ${diaryNewCount()?`<div class="arrsec" style="margin-bottom:16px;background:#FFF9EA;border-color:#F0DCA8">
       <div class="hd" style="color:var(--am-tx)">${ic('book',19)}連絡帳に新しい記入が${diaryNewCount()}件あります</div>
       <button class="btn g" onclick="act('dnewOpen')">連絡帳を開く</button></div>`:''}
@@ -1652,7 +1929,7 @@ function arrivedRow(c){
       <div class="tiny muted">${c.cls}（${c.age}）</div>
       <div class="big">${c.name}${c.sfx}</div>
       <div class="room">${c.cls}の保育室へ向かっています</div>
-      <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?(c.live?'顔照合 一致・本人確認済み':'顔照合 一致（まばたき・首振り未確認）'):'職員が確認して受付'}</span>
+      <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?(c.live?'顔照合 一致・本人確認済み':'顔照合 一致（首振り未確認）'):'職員が確認して受付'}</span>
       <div class="meta" style="margin-top:5px">お迎え：${c.arrivedBy||c.by}　${hm(c.arrivedAt||now())}受付
         ${c.prep?`<span class="pill green" style="margin-left:6px">${c.prep}が準備中</span>`:''}</div>
     </div>
@@ -1924,7 +2201,7 @@ SCR.S18=()=>thead('園児一覧','users',curSchool().name+'・'+state.children.l
 
 /* --- S19 / S20 自治体 --- */
 SCR.S19=()=>{
-  const st=state.stats, msgs=st.app+st.phone, phoneRate=msgs?Math.round(st.phone/msgs*100):0;
+  const st={app:statTotal('app'),phone:statTotal('phone'),camOK:statTotal('camOK'),camNG:statTotal('camNG')}, msgs=st.app+st.phone, phoneRate=msgs?Math.round(st.phone/msgs*100):0;
   const done=state.records.filter(r=>!r.ng), waits=done.map(r=>r.wait).filter(w=>typeof w==='number');
   const avg=waits.length?Math.round(waits.reduce((a,b)=>a+b,0)/waits.length):null;
   const fmtW=s=>s==null?'—':(s<60?s+'秒':Math.floor(s/60)+'分'+pad(s%60)+'秒');
@@ -1980,7 +2257,7 @@ SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hp
   <div class="sec">受付カメラ</div>
   <div class="card" style="padding:4px 16px">
     ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と照合します'],
-       ['live','まばたきと首振りで本人を確認する','写真や画面、録画した動画をかざすなりすましを防ぎます'],
+       ['live','首振りで本人を確認する','写真や画面、録画した動画をかざすなりすましを防ぎます'],
        ['list','QRコードがない方はお名前でさがせる','オフにすると、QRコードを出せない場合は先生を呼ぶだけになります'],
        ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
@@ -1989,7 +2266,7 @@ SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hp
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
       <span style="flex:1">顔照合の基準<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">厳しくすると別人を通しにくくなり、本人でも失敗しやすくなります</small></span>
       <select class="inp" style="width:auto;padding:8px 10px" onchange="act('camThr',this.value)">
-        ${[['0.45','厳しめ'],['0.5','標準'],['0.55','ゆるめ']].map(([v,l])=>`<option value="${v}" ${(+v)===(state.cam.thr||0.5)?'selected':''}>${l}</option>`).join('')}</select></div>
+        ${THR_OPTS.map(([v,l])=>`<option value="${v}" ${(+v)===(state.cam.thr||0.42)?'selected':''}>${l}</option>`).join('')}</select></div>
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px;flex-wrap:wrap">
       <span style="flex:1;min-width:180px">受付端末を終了する暗証番号<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">保護者が受付画面から出られないようにします</small></span>
       <input class="inp" id="kpin" type="password" inputmode="numeric" maxlength="8" value="${state.cam.pin}" style="width:120px">
@@ -2015,11 +2292,11 @@ SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hp
 /* --- S21 お知らせ・通知（保護者） --- */
 SCR.S21=()=>{
   const all=myNotices().slice().sort((a,b)=>b.t-a.t);
-  const auto=n=>n.kind==='お迎え連絡';
+  const auto=n=>n.kind==='お迎え連絡'||n.kind==='登園';
   const main=all.filter(n=>!auto(n)),autos=all.filter(auto),un=main.filter(n=>!n.read).length;
   const card=n=>`<button class="card" style="padding:15px 17px;margin-bottom:10px;width:100%;text-align:left;${n.read?'opacity:.72':''}" onclick="act('readNotice','${n.id}')">
       <div style="display:flex;align-items:center;gap:8px">
-        <span class="pill ${n.kind==='お迎え連絡'?'green':n.kind==='連絡帳'?'orange':'gray'}">${n.kind}</span>
+        <span class="pill ${n.kind==='お迎え連絡'||n.kind==='登園'?'green':n.kind==='連絡帳'?'orange':'gray'}">${n.kind}</span>
         <span class="tiny muted">${md(n.t)} ${hm(n.t)}</span>
         ${n.read?'':'<span style="margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--o)"></span>'}</div>
       <b style="font-family:var(--disp);display:block;margin-top:7px">${n.title}</b>
@@ -2032,7 +2309,7 @@ SCR.S21=()=>{
     ${main.length?main.map(card).join(''):`<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">園からのお知らせはありません。</div>`}
     ${autos.length?`<div class="autobox" style="margin-top:6px">
       <button class="autohead" onclick="act('toggleAutoN')">${ic('bell',18)}<span><b>自動のお知らせ ${autos.length}件</b>
-        <small>お迎え時間の変更の受付、玄関での受付完了など</small></span>
+        <small>登園の記録、お迎え時間の変更の受付、玄関での受付完了など</small></span>
         <span class="pill gray" style="margin-left:auto">${state.showAutoN?'たたむ':'ひらく'}</span></button>
       ${state.showAutoN?`<div style="margin-top:10px">${autos.map(card).join('')}</div>`:''}</div>`:''}
   </div>`;
@@ -2201,6 +2478,22 @@ SCR.S27=()=>{
   const kioskRole=state.role==='kiosk';
   const back=`<div style="margin-top:16px"><button class="btn g" onclick="act('camReset')">最初の画面に戻る</button></div>`;
 
+  if(step==='indone'){
+    const d=state.inDone||{},kids=(d.kids||[]).map(child).filter(Boolean);
+    return `<div class="tbody"><div class="kiosk" style="padding-top:26px">
+      <div style="width:104px;height:104px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',56,'#48A876')}</div>
+      <h3 style="margin-top:18px">${d.already?'登園はすでに受け付けています':'おはようございます。登園を受け付けました'}</h3>
+      <div class="lead">${d.already?'このまま保育室へどうぞ。':state.err?'通信が切れているため、先生の画面にすぐには届きません。<br><b>保育室で先生にお声がけください。</b>':'お子さまを保育室へお連れください。'}</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      ${kids.map(c=>`<div class="card" style="padding:16px 18px;display:inline-flex;gap:14px;align-items:center;text-align:left">
+        ${face(c,52)}<div><b style="font-family:var(--disp);font-size:18px">${c.name}${c.sfx}</b>
+          <div class="tiny muted">${c.cls}／登園 ${c.inAt?hm(c.inAt):'—'}</div></div></div>`).join('')}</div>
+      <div style="margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn" onclick="act('camReset')">最初の画面に戻る</button>
+        ${d.already?'':`<button class="btn g" onclick="act('inUndo')">まちがえたので取り消す</button>`}</div>
+      <div class="tiny muted" style="margin-top:10px">8秒後に自動で最初の画面に戻ります</div>
+    </div></div>`;
+  }
   if(step==='done'){
     const kids=(state.camDoneKids||[]).map(child).filter(Boolean);
     const list=kids.length?kids:[sel||state.children[0]];
@@ -2237,7 +2530,9 @@ SCR.S27=()=>{
              nophoto:['写真が登録されていません','顔照合に使う写真が登録されていないため、先生が確認します。',false],
              regface:['登録写真を照合に使えません','登録されている写真から顔を確認できませんでした。先生が確認します。',false],
              engine:['照合できませんでした','通信状況を確認してもう一度お試しください。続く場合は先生が確認します。',true],
-             live:['本人の確認ができませんでした','画面の指示に合わせて、まばたきと首の向きを変えてください。',true],
+             live:['本人の確認ができませんでした','画面の指示に合わせて、首の向きを変えてください。',true],
+             small:['顔が小さく写っています','カメラにもう少し近づいて、顔が枠いっぱいに写るようにしてください。',true],
+             swap:['本人の確認ができませんでした','撮影の途中で別の方が写りました。お迎えの方おひとりで撮影してください。',true],
              invalid:['この登録では受付できません','登録の承認や有効期間を確認する必要があります。先生が確認します。',false]}[r.kind]
              ||['認証できませんでした','先生が確認します。',false];
     return `<div class="tbody"><div class="kiosk" style="padding-top:30px">
@@ -2280,17 +2575,17 @@ SCR.S27=()=>{
     const err=state.camErr, live=step==='live';
     return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
       <h3>${live?'画面の指示に合わせて動いてください':'カメラに顔を向けてください'}</h3>
-      <div class="lead" id="liveMsg">${live?(state.liveMsg||'① ゆっくりまばたきをしてください'):`${p.name}さん（${p.rel}）
+      <div class="lead" id="liveMsg">${live?(state.liveMsg||'① カメラの正面を向いてください'):`${p.name}さん（${p.rel}）
         <span class="pill ${state.faceReady?'green':'gray'}" style="margin-left:6px">${state.faceReady?'照合の準備完了':'照合を準備しています'}</span>`}</div>
       <div class="camwrap">
         ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="guide"></div>`
          :err?`<div class="ph">カメラを使えませんでした。<br>${err==='denied'?'ブラウザでカメラの使用を許可してください。':'この端末ではカメラを直接使えません。'}<br>下のボタンから撮影できます。</div>`
          :`<div class="ph">「カメラを開始」を押してください。</div>`}
       </div>
-      ${live?`<div class="tiny muted" style="margin-top:12px">まばたきと、毎回ちがう向きへの首振り（2回）で、目の前にご本人がいることを確かめています</div>
+      ${live?`<div class="tiny muted" style="margin-top:12px">毎回ちがう向きへの首振り（2回）で、目の前にご本人がいることを確かめています。照合は複数の画像で行います</div>
           <div style="margin-top:12px"><button class="btn g" onclick="act('camRetake')">やり直す</button></div>`
        :camStream?`<button class="shutter" onclick="act('shoot')">${ic('idcard',30,'#E4762A')}</button>
-        <div class="tiny muted" style="margin-top:8px">${state.cam.live?'ボタンを押したあと、画面の指示に合わせてまばたきと首振りをすると撮影します':'ボタンを押すと撮影し、登録写真と照合します'}</div>`
+        <div class="tiny muted" style="margin-top:8px">${state.cam.live?'ボタンを押したあと、画面の指示に合わせて首の向きを変えると撮影します':'ボタンを押すと撮影し、登録写真と照合します'}</div>`
        :`<div style="margin-top:14px;display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
           <button class="btn" onclick="act('camStart')">${ic('idcard',20)}カメラを開始</button>
           <input type="file" id="camFile" accept="image/*" capture="user" style="display:none" onchange="act('camFile',this)">
@@ -2300,8 +2595,8 @@ SCR.S27=()=>{
   if(step==='scan'){
     const err=state.camErr;
     return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
-      <h3>お迎えアプリのQRコードをかざしてください</h3>
-      <div class="lead">アプリの「受付用QRコード」の画面を、カメラに向けてください</div>
+      <h3>${state.role==='kiosk'&&kmode()==='in'?'登園：':''}お迎えアプリのQRコードをかざしてください</h3>
+      <div class="lead">アプリの「受付用QRコード」の画面を、カメラに向けてください${state.role==='kiosk'&&kmode()==='in'?'（顔の撮影はありません）':''}</div>
       <div class="camwrap" style="max-width:520px;margin:0 auto">
         ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="qrguide"></div>`
          :err?`<div class="ph">カメラを使えませんでした。<br>下に、QRコードの下にある8桁の番号を入力してください。</div>`
@@ -2330,8 +2625,22 @@ SCR.S27=()=>{
   }
 
   /* 最初の画面 */
+  const modeTabs=`<div class="kmodes"><button class="${kmode()==='in'?'on':''}" onclick="act('kmode','in')">${ic('home',20)}登園（朝）</button>
+      <button class="${kmode()==='out'?'on':''}" onclick="act('kmode','out')">${ic('car',20)}お迎え（夕方）</button></div>`;
+  if(kioskRole&&kmode()==='in'){
+    return `<div class="tbody"><div class="kiosk" style="padding-top:12px">${modeTabs}
+      <h3>登園の受付</h3>
+      <div class="lead">お迎えアプリのQRコードをかざすだけで受付できます（顔の撮影はありません）</div>
+      <button class="pickcard" style="max-width:420px;width:100%;margin:0 auto;padding:26px 16px" onclick="act('scanStart')">
+        <div style="width:84px;height:84px;border-radius:22px;background:var(--o-l);display:grid;place-items:center;color:var(--o)">${ic('idcard',46)}</div>
+        <b style="font-size:20px">QRコードをかざす</b><small>きょうだいもまとめて受付されます</small></button>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn g" onclick="act('scanNumber')">${ic('idcard',18)}8桁の番号で受付</button></div>
+      <div class="tiny muted" style="margin-top:16px;line-height:1.8">急いでいるときや、アプリを使っていないときは、<br>保育室で先生にお伝えください。先生が登園を記録します。</div>
+    </div></div>`;
+  }
   if(kioskRole){
-    return `<div class="tbody"><div class="kiosk" style="padding-top:16px">
+    return `<div class="tbody"><div class="kiosk" style="padding-top:12px">${modeTabs}
       <h3>お迎えの受付</h3>
       <div class="lead">お迎えアプリのQRコードをカメラにかざしてください</div>
       <button class="pickcard" style="max-width:420px;width:100%;margin:0 auto;padding:26px 16px" onclick="act('scanStart')">
@@ -2422,6 +2731,14 @@ function cardFound(text){
       addPost('受付カメラ','sys','【確認依頼】玄関で受付用の番号・QRコードが3回続けて一致しませんでした。対応をお願いします。',{auto:false,alert:true});
       stopCam();scanToken++;state.camStep='called';render();return false;}
     state.scanErr='このQRコード・番号は使えません。番号を確かめるか、先生にお声がけください。';render();return false;}
+  if(state.role==='kiosk'&&kmode()==='in'){
+    stopCam();scanToken++;state.scanErr='';state.cardFails=0;lastBad='';
+    const yet=kids.filter(k=>!k.inAt);
+    state.inDone=yet.length?{kids:yet.map(k=>k.id),nids:markIn(yet,'qr','')}:{kids:kids.map(k=>k.id),already:true};
+    state.camStep='indone';render();
+    clearTimeout(kioskBack);kioskBack=setTimeout(()=>{if(state.screen==='S27'&&state.camStep==='indone')act('camReset');},8000);
+    return true;
+  }
   const waiting=kids.filter(k=>k.st==='waiting');
   if(!waiting.length){state.scanErr='お子さまはすでに受付またはお迎え済みです。';render();return false;}
   stopCam();scanToken++;state.scanErr='';state.cardFails=0;lastBad='';
@@ -2499,7 +2816,7 @@ function resolveFam(f){
 function applyAccount(a){
   const sid=acctSchool(a);
   if(sid&&sid!==state.schoolId&&schoolsAll().some(x=>x.id===sid))switchSchool(sid);
-  state.role=a.role;state.me=STAFF[a.id]||null;state.loginId=a.id;state.s10cls=(state.me&&state.me.cls)||'';
+  state.role=a.role;state.me=STAFF[a.id]||null;state.loginId=a.id;state.s10cls=(state.me&&state.me.cls)||'';state.incls=state.s10cls;state.inSel=[];
   if(a.role==='parent'){const fk=resolveFam(a.fam||'c1');const k=state.children.find(c=>(c.fam||c.id)===fk)||state.children[0];
     state.pc=k?k.id:'';state.pkids=null;state.pfamKey=fk;}
   state.screen=homeOf(a.role);state.camStep='pick';
@@ -2511,7 +2828,7 @@ function acctCardLabel(a){const sid=acctSchool(a);if(sid!==state.schoolId)return
 /* 保護者の名前：その家庭の第一連絡先 */
 function parentName(){const ps=proxiesOf(state.pc).slice().sort((x,y)=>(x.prio||9)-(y.prio||9));
   return (ps[0]&&ps[0].name)||((pchild()||{}).by||'').split(' ').slice(1).join(' ')||'保護者';}
-function homeOf(r){return r==='parent'?'S02':r==='admin'?'S19':r==='kiosk'?'S27':'S09';}
+function homeOf(r){return r==='parent'?'S02':r==='admin'?'S19':r==='kiosk'?'S27':r==='monitor'?'S30':'S09';}
 let kioskIdle=null,kioskBack=null;
 function act(name,arg){
   /* 受付端末は受付画面から移動できない。しばらく操作がなければ最初の画面へ戻る */
@@ -2520,9 +2837,12 @@ function act(name,arg){
     clearTimeout(kioskIdle);
     kioskIdle=setTimeout(()=>{if(state.role==='kiosk'&&['who','shoot','fail'].includes(state.camStep))act('camReset');},60000);
   }
-  const blocked=['pin','quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
+  /* 表示用モニターは表示だけ。ほかの画面へは移動しない */
+  if(state.role==='monitor'&&name==='go'&&arg!=='S30')return;
+  const blocked=['inMark','inBulk','inCancel','inSelT','pin','quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
     'quickRelease','prepStart','camHold','shoot','camFile','alertIn','alertInAs','alertHold','pxApprove','pxRenew','pxReject'];
   if(state.role==='admin'&&blocked.includes(name)){toast('保育課のアカウントは閲覧のみです');return;}
+  if(state.role==='monitor'&&blocked.includes(name)){toast('表示用モニターは表示のみです');return;}
   if(!['agq','tlq','dq'].includes(name))state.focusId='';
   switch(name){
     case 'go': state.screen=arg; state.sendErr=false; state.drawer=false; state.newIds=[];
@@ -2530,7 +2850,7 @@ function act(name,arg){
     case 'drawer': state.drawer=!state.drawer; break;
     case 'hbar': state.hbar=!state.hbar; break;
     case 'jump': state.modal=null;
-      state.role=arg==='S01'?null:PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20'||arg==='S26')?'admin':(arg==='S17'?'clerk':'teacher');
+      state.role=arg==='S01'?null:arg==='S30'?'monitor':PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20'||arg==='S26')?'admin':(arg==='S17'?'clerk':'teacher');
       state.screen=arg; state.drawer=false; break;
     case 'fill':{const a=ACCOUNTS.find(x=>x.id===arg);if(a){state.loginId=a.id;state.loginPw=a.pw;state.loginErr='';}break;}
     case 'login':{
@@ -2567,7 +2887,7 @@ function act(name,arg){
         addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(after)}</b> に変わります。`);});
       state.notices.unshift({id:'n'+Date.now(),fam:famKey(state.pc),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',
         body:targets.map(c=>c.name.split(' ')[1]+c.sfx+'：'+hm(c.planAt)+' → '+hm(c.pickupAt)).join('／'),t:now(),read:false});
-      state.stats.app++;state.lastChanged=targets.map(c=>c.id);state.pending=null;
+      bump('app');state.lastChanged=targets.map(c=>c.id);state.pending=null;
       state.sendErr=false;state.sel.min=null;state.sel.custom='';state.screen='S04';toast('園のタイムラインに反映しました');break;}
 
     case 'absMulti': state.absMulti=!!arg;break;
@@ -2579,7 +2899,7 @@ function act(name,arg){
         const days=Math.round((new Date(to)-new Date(f))/86400000)+1;
         d=f+' 〜 '+to+'（'+days+'日間）';
       } else { d=document.getElementById('abDate').value; }
-      const c=pchild();state.absences.unshift({id:'ab'+Date.now(),t:now(),type:t,date:d,txt:x,cid:c.id});state.stats.app++;
+      const c=pchild();state.absences.unshift({id:'ab'+Date.now(),t:now(),type:t,date:d,txt:x,cid:c.id});bump('app');
       addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者から「${t}」の連絡がありました。${x?'（'+x+'）':''}`);
       toast('園に送信しました');break;}
     case 'saveDiary':{const g=id=>{const el=document.getElementById(id);return el?String(el.value||'').trim():'';};
@@ -2596,7 +2916,7 @@ function act(name,arg){
     case 'pxSet':{const pid=arg&&arg.dataset&&arg.dataset.pid;const px=proxiesOf(state.pc).find(x=>x.id===pid);if(!px)return;
       readImage(arg.files&&arg.files[0],d=>{px.src=d;px.photo=1;px.desc=null;px.faceWarn=false;px.auth='写真を見て確認（登録済み）';
         render();toast('写真を登録しました');
-        checkRegPhoto(d,(desc,ng)=>{if(px.src!==d)return;px.desc=desc;px.faceWarn=ng;render();});});return;}
+        checkRegPhoto(d,(desc,ng)=>{if(px.src!==d)return;px.desc=desc;px.descV=desc?DESC_V:0;px.faceWarn=ng;render();});});return;}
     case 'pxClear': state.pxSrc='';state.pxPhoto=false;state.pxWarn='';state.pxDesc=null;break;
     case 'kidFile': readImage(arg&&arg.files&&arg.files[0],d=>{pchild().src=d;render();toast('写真を変更しました');});return;
     case 'savePx':{const n=document.getElementById('pxName').value.trim();
@@ -2625,6 +2945,22 @@ function act(name,arg){
       if(!t.length){toast('お子さまを1人以上選んでください');return;}state.camKids=t;state.camChild=t[0];break;}
     case 'camName': state.camStep='name';state.camq='';break;
     case 'scanStart': state.camStep='scan';state.camErr='';state.scanErr='';startCam();runScan();break;
+    case 'kmode': state.kmode=arg;break;
+    case 'monMode': state.monMode=arg;break;
+    case 'inUndo':{const d=state.inDone||{};(d.kids||[]).forEach(id=>unmarkIn(child(id)));
+      state.notices=state.notices.filter(n=>!(d.nids||[]).includes(n.id));clearTimeout(kioskBack);
+      stopCam();state.camStep='pick';state.inDone=null;toast('登園の受付を取り消しました');break;}
+    case 'inOpen': state.screen='S29';state.incls=(state.me&&state.me.cls)||'';state.inYet=true;break;
+    case 'inCls': state.incls=arg;state.inSel=[];break;
+    case 'inYet': state.inYet=!state.inYet;break;
+    case 'inq':{state.inq=arg;const el=document.getElementById('inList');if(el)el.innerHTML=inListHTML();return;}
+    case 'inSelT':{const l=state.inSel=state.inSel||[];const i=l.indexOf(arg);if(i>=0)l.splice(i,1);else l.push(arg);break;}
+    case 'inSelClear': state.inSel=[];break;
+    case 'inMark':{const c=child(arg);if(!c)break;markIn([c],'staff',me().short);state.inSel=(state.inSel||[]).filter(x=>x!==arg);
+      toast(c.name+c.sfx+'の登園を記録しました（保護者にお知らせしました）');break;}
+    case 'inBulk':{const kids=(state.inSel||[]).map(child).filter(c=>c&&!isIn(c));if(!kids.length)break;
+      markIn(kids,'staff',me().short);state.inSel=[];toast(kids.length+'名の登園を記録しました（保護者にお知らせしました）');break;}
+    case 'inCancel':{const c=child(arg);if(!c)break;unmarkIn(c);toast(c.name+c.sfx+'の登園の記録を取り消しました');break;}
     case 'scanNumber': state.camStep='scan';state.camErr='';state.scanErr='';state.focusId='cardNoIn';startCam();runScan();break;
     case 'scanFile': readImage(arg&&arg.files&&arg.files[0],d=>{decodeStill(d).then(t=>{if(!t){state.scanErr='QRコードを読み取れませんでした。もう一度撮影するか、8桁の番号を入力してください。';render();return;}cardFound(t);})
       .catch(()=>{state.scanErr='QRコードの読み取り機能を準備できませんでした。8桁の番号を入力してください。';render();});});return;
@@ -2659,7 +2995,7 @@ function act(name,arg){
     case 'camStart': startCam();return;
     case 'shoot': shoot();return;
     case 'camFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.shot=d;state.liveDone=false;verifyFace();});return;
-    case 'camReset': stopCam();liveToken++;scanToken++;state.camStep='pick';state.camChild='';state.camKids=[];state.camProxy='';state.camErr='';state.scanErr='';
+    case 'camReset': stopCam();liveToken++;scanToken++;state.camStep='pick';state.inDone=null;state.camChild='';state.camKids=[];state.camProxy='';state.camErr='';state.scanErr='';
       state.shot='';state.camFails=0;state.camResult=null;state.camq='';state.liveDone=false;break;
     case 'camFrom':{state.camChild=state.childId;state.camProxy=arg;state.camStep='shoot';state.screen='S27';state.camErr='';startCam();return;}
     case 'camCheck': state.camChild=arg;state.childId=arg;state.screen='S28';break;
@@ -2756,7 +3092,7 @@ function act(name,arg){
       if(c&&ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
       const label={late:'お迎えが遅くなる',early:'お迎えが早くなる',proxy:'代理人がお迎え',absent:'早退・欠席'}[ty];
       if(!c||c.st==='released'){toast('園児を選んでください');break;}
-      state.stats.phone++;
+      bump('phone');
       addPost('事務スタッフ','clerk',`【代理入力】${c.name}${c.sfx}：${label}。${(ty==='late'||ty==='early')?`お迎え予定 ${hm(before)} → <b>${hm(c.pickupAt)}</b>。`:''}${memo||''}`);
       state.screen='S15';toast('全職員の端末に反映しました');break;}
     case 'saveThr': state.thr.soon=Math.max(1,+document.getElementById('thrSoon').value||5);
@@ -2773,7 +3109,10 @@ function act(name,arg){
     case 'dataset': state.modal='dataset';break;
     case 'demoFace': state.modal='demoface';state.dfPx=state.dfPx||'p1';state.dfMsg='';state.dfErr='';demoCamStart();break;
     case 'dfPx': state.dfPx=arg;return;
-    case 'dfShoot':{const d=grabFrame('dfView');if(!d){toast('カメラの準備ができていません');return;}applyDemoFace(d);return;}
+    case 'dfShoot':{if(!grabFrame('dfView')){toast('カメラの準備ができていません');return;}
+      state.dfMsg='3枚続けて撮影しています。そのまま正面を向いていてください…';drawOverlay();
+      (async()=>{const sh=[];for(let i=0;i<3;i++){sh.push(grabFrame('dfView'));if(i<2)await sleep(300);}
+        const ok=sh.filter(Boolean);if(ok.length)applyDemoFace(ok[0],ok);})();return;}
     case 'dfFile': readImage(arg&&arg.files&&arg.files[0],d=>applyDemoFace(d));return;
     case 'check': state.modal='check';runChecks();return;
     case 'checkRun': runChecks();return;
@@ -2796,7 +3135,7 @@ function act(name,arg){
     case 'kioskExit': state.modal='kexit';state.kexitErr=false;break;
     case 'kioskOut':{const el=document.getElementById('kpinIn');
       if(!el||el.value!==state.cam.pin){state.kexitErr=true;drawOverlay();const n=document.getElementById('kpinIn');if(n)n.focus();return;}
-      stopCam();clearTimeout(kioskIdle);clearTimeout(kioskBack);logoutSession();toast('受付を終了しました');break;}
+      const wasMon=state.role==='monitor';stopCam();clearTimeout(kioskIdle);clearTimeout(kioskBack);logoutSession();toast(wasMon?'表示を終了しました':'受付を終了しました');break;}
     case 'savePin':{const el=document.getElementById('kpin');const v=(el&&el.value||'').trim();
       if(!/^\d{4,8}$/.test(v)){toast('4〜8桁の数字で入力してください');return;}
       state.cam.pin=v;toast('暗証番号を変更しました');break;}
@@ -2855,6 +3194,7 @@ function entityMap(){
   Object.entries(state.diary).forEach(([cid,list])=>put('diary/'+cid,{cid,list}));
   put('meta/settings',{thr:state.thr,cam:state.cam,offset:state.offset,clock24:state.clock24,dsVer:dataset()._ver});
   put('meta/stats',{stats:state.stats});
+  Object.entries(state.devStats||{}).forEach(([d,o])=>put('stats/'+d,o));
   return m;
 }
 function applyMap(M){
@@ -2866,7 +3206,7 @@ function applyMap(M){
   state.children=vals('children').sort((a,b)=>num(a.id)-num(b.id));
   const cd={};Object.keys(M).filter(k=>k.startsWith('cards/')).forEach(k=>cd[k.slice(6)]=M[k]);if(Object.keys(cd).length)state.cards=cd;
   const px={};vals('proxies').sort((a,b)=>a._i-b._i).forEach(p=>{const fk=p._fk;delete p._fk;delete p._i;
-    p.desc=p.src?(descCache.get(p.src)||null):null;(px[fk]=px[fk]||[]).push(p);});
+    p.desc=p.src?(descCache.get(DESC_V+p.src)||null):null;p.descV=p.desc?DESC_V:0;(px[fk]=px[fk]||[]).push(p);});
   state.proxies=px;
   state.posts=vals('posts').sort((a,b)=>a.t-b.t);
   state.records=vals('records').sort((a,b)=>a.t-b.t);
@@ -2874,10 +3214,64 @@ function applyMap(M){
   state.notices=vals('notices').sort((a,b)=>b.t-a.t);
   state.logs=vals('logs').sort((a,b)=>a.t-b.t);
   state.absences=vals('absences').sort((a,b)=>(b.t||0)-(a.t||0));
-  const di={};vals('diary').forEach(o=>di[o.cid]=o.list);state.diary=di;
+  const di={};vals('diary').forEach(o=>di[o.cid]=mergeSameDay(o.list));state.diary=di;
   const st=M['meta/settings'];['thr','cam','stats','offset','clock24'].forEach(k=>{if(k in st)state[k]=st[k];});
+  if(state.cam&&THR_OLD[state.cam.thr])state.cam.thr=THR_OLD[state.cam.thr];
   if(M['meta/stats']&&M['meta/stats'].stats)state.stats=M['meta/stats'].stats;
+  const ds={};Object.keys(M).filter(k=>k.startsWith('stats/')).forEach(k=>ds[k.slice(6)]=M[k]);state.devStats=ds;
   return true;
+}
+/* ---- 差分（どこが変わったか）を作る・当てはめる ----
+   ・オブジェクト：変わった項目だけ
+   ・文字や数の並び（例：了解した職員）：足した・消したものだけ
+   ・id のある並び（例：連絡帳の記録）：記録ごとに足す・消す・中身を変える
+   こうしておくと、2台がほぼ同時に同じ投稿や園児を変えても、両方の変更が残る */
+const isObjJ=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
+const isPrimArr=a=>Array.isArray(a)&&a.every(x=>x===null||['string','number','boolean'].includes(typeof x));
+const isIdArr=a=>Array.isArray(a)&&a.every(x=>isObjJ(x)&&typeof x.id==='string');
+function jdiff(a,b,path,ops){
+  path=path||[];ops=ops||[];
+  if(JSON.stringify(a)===JSON.stringify(b))return ops;
+  if(isObjJ(a)&&isObjJ(b)){
+    Object.keys(b).forEach(k=>{if(!(k in a))ops.push({p:path.concat(k),s:b[k]});else jdiff(a[k],b[k],path.concat(k),ops);});
+    Object.keys(a).forEach(k=>{if(!(k in b))ops.push({p:path.concat(k),d:1});});
+    return ops;}
+  if(isPrimArr(a)&&isPrimArr(b)){
+    const add=b.filter(x=>!a.includes(x)),rm=a.filter(x=>!b.includes(x));
+    if(add.length)ops.push({p:path,add});if(rm.length)ops.push({p:path,rm});
+    if(!add.length&&!rm.length)ops.push({p:path,s:b});
+    return ops;}
+  if(isIdArr(a)&&isIdArr(b)){
+    const ia=new Map(a.map(x=>[x.id,x])),ib=new Map(b.map(x=>[x.id,x]));
+    b.forEach((x,i)=>{if(!ia.has(x.id))ops.push({p:path,ins:x,at:i});else jdiff(ia.get(x.id),x,path.concat('#'+x.id),ops);});
+    a.forEach(x=>{if(!ib.has(x.id))ops.push({p:path,rmid:x.id});});
+    return ops;}
+  ops.push({p:path,s:b});return ops;
+}
+function jget(o,seg){if(o==null)return undefined;
+  if(Array.isArray(o)&&typeof seg==='string'&&seg.charAt(0)==='#'){const id=seg.slice(1);return o.find(x=>x&&x.id===id);}
+  return o[seg];}
+function japply(root,ops){
+  root=JSON.parse(JSON.stringify(root));
+  for(const op of ops){
+    if(!op.p.length){if('s' in op)root=JSON.parse(JSON.stringify(op.s));else if(Array.isArray(root))arrOp(root,op);continue;}
+    let par=root;for(let i=0;i<op.p.length-1&&par!=null;i++)par=jget(par,op.p[i]);
+    if(par==null||typeof par!=='object')continue;        /* 相手の変更で場所が消えていたら、その変更は使わない */
+    const last=op.p[op.p.length-1],byId=Array.isArray(par)&&typeof last==='string'&&last.charAt(0)==='#';
+    const idx=byId?par.findIndex(x=>x&&x.id===last.slice(1)):-1;
+    if(op.d){if(byId){if(idx>=0)par.splice(idx,1);}else delete par[last];continue;}
+    if('s' in op){const v=JSON.parse(JSON.stringify(op.s));if(byId){if(idx>=0)par[idx]=v;}else par[last]=v;continue;}
+    let arr=byId?(idx>=0?par[idx]:null):par[last];
+    if(!Array.isArray(arr)){if(byId)continue;arr=[];par[last]=arr;}
+    arrOp(arr,op);
+  }
+  return root;
+}
+function arrOp(arr,op){
+  if(op.add)op.add.forEach(x=>{if(!arr.includes(x))arr.push(x);});
+  if(op.rm)op.rm.forEach(x=>{const i=arr.indexOf(x);if(i>=0)arr.splice(i,1);});
+  if(op.ins&&!arr.some(x=>x&&x.id===op.ins.id))arr.splice(Math.min(op.at||0,arr.length),0,JSON.parse(JSON.stringify(op.ins)));
+  if(op.rmid){const i=arr.findIndex(x=>x&&x.id===op.rmid);if(i>=0)arr.splice(i,1);}
 }
 function jsonMap(){const m=entityMap(),j={};for(const k in m)j[k]=JSON.stringify(m[k]);return j;}
 function syncOut(){if(Sync.applying)return;clearTimeout(Sync.timer);Sync.timer=setTimeout(flushOut,200);}
@@ -2888,25 +3282,40 @@ function pendingKeys(){const cur=jsonMap(),ks=Object.keys(cur).filter(k=>Sync.se
 function reconnect(){
   const pend=new Set(Sync.ready?pendingKeys():[]);
   if(Sync.mode==='local'){let saved=null;try{saved=JSON.parse(localStorage.getItem(lsKey())||'null');}catch(e){}
-    if(saved){const d=diffFull(saved);Object.keys(d).forEach(k=>{if(pend.has(k))delete d[k];});if(Object.keys(d).length)syncIn(d);}}
+    if(saved){const d=diffFull(saved);if(Object.keys(d).length)syncIn(d);}}
   Sync.pendingN=0;flushOut();return pend.size;
 }
 function flushOut(){
   if(!Sync.ready)return;
   if(state.err){const n=pendingKeys().length;if(n!==Sync.pendingN){Sync.pendingN=n;const el=document.getElementById('offN');if(el)el.textContent=n;}return;}
   const cur=jsonMap(),delta={};
-  for(const k in cur)if(Sync.sent[k]!==cur[k])delta[k]=cur[k];
+  for(const k in cur){if(Sync.sent[k]===cur[k])continue;
+    let o=null;if(Sync.sent[k]!=null){try{o=jdiff(JSON.parse(Sync.sent[k]),JSON.parse(cur[k]));}catch(e){o=null;}}
+    if(o&&!o.length){Sync.sent[k]=cur[k];continue;}          /* 並び順が違うだけなら送らない */
+    delta[k]={o,v:cur[k]};}
   for(const k in Sync.sent)if(!(k in cur))delta[k]=null;
   if(!Object.keys(delta).length)return;
-  for(const k in delta){if(delta[k]===null)delete Sync.sent[k];else Sync.sent[k]=delta[k];}
+  for(const k in delta){if(delta[k]===null)delete Sync.sent[k];else Sync.sent[k]=delta[k].v;}
   if(Sync.mode==='firebase'&&Sync.col)fbWrite(delta);else localWrite(delta,cur);
 }
 /* 他の端末からの変更を取り込む */
+/* 他の端末からの変更を取り込む。
+   届くのは「変わった部分（o）と全体（v）」か、全体だけ（文字列）。
+   全体だけのときは、最後に受け取った内容との差を取り、その差だけを自分のデータに当てはめる */
 function syncIn(delta){
   const cur=jsonMap();let changed=false;
-  for(const k in delta){const v=delta[k];
-    if(v===null){if(k in cur){delete cur[k];changed=true;}delete Sync.sent[k];}
-    else{if(cur[k]!==v){cur[k]=v;changed=true;}Sync.sent[k]=v;}}
+  for(const k in delta){const d=delta[k];
+    if(d===null){if(k in cur){delete cur[k];changed=true;}delete Sync.sent[k];continue;}
+    const full=typeof d==='string'?d:d.v;let ops=null;
+    if(k in cur&&Sync.sent[k]!=null){
+      if(typeof d!=='string'&&d.o)ops=d.o;
+      else{try{ops=jdiff(JSON.parse(Sync.sent[k]),JSON.parse(full));}catch(e){ops=null;}}}
+    if(ops){if(!ops.length)continue;
+      try{const nc=JSON.stringify(japply(JSON.parse(cur[k]),ops));if(nc!==cur[k]){cur[k]=nc;changed=true;}
+        Sync.sent[k]=JSON.stringify(japply(JSON.parse(Sync.sent[k]),ops));}
+      catch(e){if(cur[k]!==full){cur[k]=full;changed=true;}Sync.sent[k]=full;}}
+    else{if(cur[k]!==full){cur[k]=full;changed=true;}Sync.sent[k]=full;}
+  }
   if(!changed)return;
   const M={};for(const k in cur)M[k]=JSON.parse(cur[k]);
   Sync.applying=true;try{applyMap(M);}finally{Sync.applying=false;}
@@ -2932,8 +3341,14 @@ function localStart(){
   Sync.ready=true;Sync.status='local';flushOut();
 }
 function localWrite(delta,full){
-  try{localStorage.setItem(lsKey(),JSON.stringify(full));}
-  catch(e){try{const lite={};for(const k in full)if(!k.startsWith('ph/'))lite[k]=full[k];localStorage.setItem(lsKey(),JSON.stringify(lite));}catch(x){}}
+  let st=null;try{st=JSON.parse(localStorage.getItem(lsKey())||'null');}catch(e){}
+  if(st){for(const k in delta){const d=delta[k];
+      if(d===null)delete st[k];
+      else if(d.o&&st[k]!=null){try{st[k]=JSON.stringify(japply(JSON.parse(st[k]),d.o));}catch(e){st[k]=d.v;}}
+      else st[k]=d.v;}}
+  else st=full;
+  try{localStorage.setItem(lsKey(),JSON.stringify(st));}
+  catch(e){try{const lite={};for(const k in st)if(!k.startsWith('ph/'))lite[k]=st[k];localStorage.setItem(lsKey(),JSON.stringify(lite));}catch(x){}}
   try{Sync.bc&&Sync.bc.postMessage({from:DEVICE,delta});}catch(e){}
 }
 
@@ -2941,7 +3356,7 @@ function localWrite(delta,full){
    ・端末ごとにメールアドレスとパスワードでサインインする
    ・okaeri_members/{メールアドレス} に登録された役割（role）で、読み書きできる範囲が決まる
    ・保護者は自分の家庭（fams）のデータと、園全体のお知らせ・設定だけを読める --- */
-const ROLE_LABEL={staff:'保育士・事務',kiosk:'受付端末',admin:'自治体管理者',parent:'保護者'};
+const ROLE_LABEL={staff:'保育士・事務',kiosk:'受付端末',admin:'自治体管理者',parent:'保護者',monitor:'表示用モニター'};
 const roleLabel=r=>ROLE_LABEL[r]||'—';
 const FB_RULES=`rules_version = '2';
 service cloud.firestore {
@@ -2967,16 +3382,16 @@ service cloud.firestore {
       allow write: if false;
     }
     match /{col}/{doc} {
-      allow read: if inSchool(col) && (staffLike() || role('admin')
+      allow read: if inSchool(col) && (staffLike() || role('admin') || role('monitor')
         || (role('parent') && resource.data.fam in me().fams.concat(['all', 'parents'])));
       allow create: if inSchool(col) && (staffLike()
         || (role('admin') && doc == 'meta__settings')
         || (role('parent') && (request.resource.data.fam in me().fams
-              || doc.matches('posts__.*') || doc == 'meta__stats')));
+              || doc.matches('posts__.*') || doc.matches('stats__.*'))));
       allow update: if inSchool(col) && (staffLike()
         || (role('admin') && doc == 'meta__settings')
         || (role('parent') && ((request.resource.data.fam in me().fams && resource.data.fam in me().fams)
-              || doc == 'meta__stats')));
+              || doc.matches('stats__.*'))));
       allow delete: if inSchool(col) && staffLike();
     }
   }
@@ -2993,7 +3408,7 @@ function famOfKey(k,j){
   if(type==='proxies')return (o&&o._fk)||'staff';
   if(type==='absences')return o&&o.cid?famKey(o.cid):'staff';
   if(type==='notices')return (o&&o.fam)||'parents';
-  if(type==='meta')return 'all';
+  if(type==='meta'||type==='stats')return 'all';
   if(type==='ph'){const m=rest.match(/^(\w+)-(.+)-(\w+)$/);if(!m)return 'staff';
     if(m[1]==='children')return famKey(m[2]);
     if(m[1]==='proxies'){const h=allProxies().find(x=>x.p.id===m[2]);return h?h.fk:'staff';}
@@ -3005,7 +3420,7 @@ function canWrite(k,fam,isNew){
   const r=Sync.role;
   if(r==='staff'||r==='kiosk')return true;
   if(r==='admin')return k==='meta/settings';
-  if(r==='parent')return (Sync.fams||[]).includes(fam)||(k.startsWith('posts/')&&isNew)||k==='meta/stats';
+  if(r==='parent')return (Sync.fams||[]).includes(fam)||(k.startsWith('posts/')&&isNew)||k.startsWith('stats/');
   return false;
 }
 async function fbStart(cfg,pw){
@@ -3048,21 +3463,28 @@ async function fbStart(cfg,pw){
       Sync.status='connected';Sync.err='';render();return;}
     const delta={};
     snap.docChanges().forEach(ch=>{const x=ch.doc.data()||{};const k=x.k||ch.doc.id.replace(/__/g,'/');
-      if(ch.type==='removed')delta[k]=null;else if(x.by!==DEVICE)delta[k]=x.j;});
+      if(ch.type==='removed')delta[k]=null;else if(x.j!==Sync.sent[k])delta[k]=x.j;});
     if(Object.keys(delta).length)syncIn(delta);
   },err=>{Sync.status='error';Sync.err=err&&err.code==='permission-denied'?'読み取りが許可されていません（ルールと利用者の登録を確認してください）':(err&&err.message)||'接続できませんでした';render();});
 }
 function fbWrite(delta){
-  const ops=[];
-  for(const k in delta){const v=delta[k];
-    if(v===null){if(Sync.role==='staff'||Sync.role==='kiosk')ops.push({k,del:true});continue;}
-    const fam=famOfKey(k,v),isNew=!Sync.remote.has(k)&&!Sync.created.has(k);
+  const plain=[],merge=[];
+  for(const k in delta){const d=delta[k];
+    if(d===null){if(Sync.role==='staff'||Sync.role==='kiosk')plain.push({k,del:true});continue;}
+    const fam=famOfKey(k,d.v),isNew=!Sync.remote.has(k)&&!Sync.created.has(k);
     if(!canWrite(k,fam,isNew))continue;
-    ops.push({k,v,fam});if(isNew)Sync.created.add(k);}
-  for(let i=0;i<ops.length;i+=400){const b=Sync.fs.batch();
-    ops.slice(i,i+400).forEach(o=>{const ref=Sync.col.doc(o.k.replace(/\//g,'__'));
+    if(!isNew&&d.o)merge.push({k,o:d.o,v:d.v,fam});else plain.push({k,v:d.v,fam});
+    if(isNew)Sync.created.add(k);}
+  const fail=e=>{Sync.status='error';Sync.err=e&&e.code==='permission-denied'?'書き込みが許可されていません（ルールと利用者の登録を確認してください）':(e&&e.message)||'書き込めませんでした';render();};
+  for(let i=0;i<plain.length;i+=400){const b=Sync.fs.batch();
+    plain.slice(i,i+400).forEach(o=>{const ref=Sync.col.doc(o.k.replace(/\//g,'__'));
       if(o.del)b.delete(ref);else b.set(ref,{k:o.k,j:o.v,fam:o.fam,by:DEVICE,u:Date.now()});});
-    b.commit().catch(e=>{Sync.status='error';Sync.err=e&&e.code==='permission-denied'?'書き込みが許可されていません（ルールと利用者の登録を確認してください）':(e&&e.message)||'書き込めませんでした';render();});}
+    b.commit().catch(fail);}
+  /* すでにあるデータは、サーバーの最新を読み、変わった部分だけを当てはめて書く（同時に書いても両方残る） */
+  merge.forEach(o=>{const ref=Sync.col.doc(o.k.replace(/\//g,'__'));
+    Sync.fs.runTransaction(t=>t.get(ref).then(snap=>{const x=snap.exists?snap.data():null;let j=o.v;
+      if(x&&x.j){try{j=JSON.stringify(japply(JSON.parse(x.j),o.o));}catch(e){j=o.v;}}
+      t.set(ref,{k:o.k,j,fam:o.fam,by:DEVICE,u:Date.now()});})).catch(fail);});
 }
 /* 連動を止める（園を切り替えるとき・データを入れ替えるとき） */
 function stopSync(){try{Sync.bc&&Sync.bc.close();}catch(e){}Sync.bc=null;try{Sync.unsub&&Sync.unsub();}catch(e){}Sync.unsub=null;
@@ -3094,6 +3516,12 @@ function sig(){return state.children.map(c=>c.id+stat(c).k+(c.pickupAt<now()?'p'
 function tickLoop(){
   const hn=document.getElementById('hnow');if(hn)hn.textContent=md(now())+'('+wd(now())+') '+hm(now());
   const kc=document.getElementById('kclk');if(kc)kc.innerHTML=hmx(now());
+  if(state.screen==='S30'){
+    const mc=document.getElementById('mclk');if(mc)mc.innerHTML=hmx(now());
+    const m=monMode();if(sig()!==lastSig||m!==state._monLast){state._monLast=m;render();return;}
+    document.querySelectorAll('[data-arr]').forEach(el=>{const c=child(el.dataset.arr);if(!c)return;const e=el.querySelector('.js-arr');if(e)e.textContent=elapsedText(c);});
+    return;
+  }
   if(state.screen==='S10'||state.screen==='S11'){
     if(sig()!==lastSig){render();return;}
     document.querySelectorAll('[data-arr]').forEach(el=>{
