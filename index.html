@@ -287,6 +287,22 @@ table.tbl td:first-child{white-space:nowrap}
 .bigchoice .early{background:#E6F5ED;color:#5FA484}
 .bigchoice .early.on{background:var(--mint);color:#1F7A50;box-shadow:0 6px 16px rgba(110,190,150,.35);outline:2.5px solid #6FC49B;outline-offset:2px}
 .bigchoice .arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.7}
+.phone,.tablet{position:relative}
+.dsticky{position:sticky;top:4px;align-self:start;max-height:calc(100vh - 210px);overflow-y:auto;border-radius:22px}
+@media (max-width:820px){.dsticky{position:static;max-height:none;overflow:visible}}
+.totop{position:absolute;right:14px;bottom:78px;z-index:40;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);
+  border:1.5px solid #F2C7A0;box-shadow:0 3px 10px rgba(120,80,40,.18);color:var(--o-d);display:grid;place-items:center;
+  opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
+.totop svg{transform:rotate(-90deg)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop.ph{bottom:84px}.totop.ki{bottom:52px}
+.chgbtn{position:relative;z-index:2;width:100%;display:flex;align-items:center;gap:14px;background:#fff;border:2px solid #F6C9A0;border-radius:20px;padding:18px 18px;box-shadow:0 3px 12px rgba(200,120,50,.12);text-align:left}
+.chgbtn .cc{width:52px;height:52px;border-radius:50%;background:var(--o-l);display:grid;place-items:center;flex:none}
+.chgbtn .tx{flex:1;min-width:0}.chgbtn .tx b{font-family:var(--disp);font-size:16.5px;display:block;white-space:nowrap}.chgbtn .tx small{font-size:12.5px;color:var(--ink-2)}
+.chgbtn .arrow{color:#C9BAAE}
+.chgcard{position:relative;z-index:2;background:#fff;border-radius:20px;padding:14px 14px 16px;box-shadow:0 2px 10px rgba(150,110,70,.08)}
+.chghead{display:flex;align-items:center;gap:10px;margin:2px 4px 12px}.chghead b{font-family:var(--disp);font-size:15.5px;flex:1}
+.chghead button{font-size:12.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff}
 .panel{background:#FDEDE1;border-radius:20px;padding:18px 16px;margin-top:18px;position:relative}
 .panel:before{content:"";position:absolute;top:-9px;width:20px;height:20px;background:#FDEDE1;transform:rotate(45deg);border-radius:4px}
 .panel.left:before{left:66px}
@@ -322,6 +338,12 @@ table.tbl td:first-child{white-space:nowrap}
 .maprow{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #F4EEE9;font-size:13.5px}
 .maprow code{font-family:var(--mono);font-size:11px;background:#FBF0E6;color:var(--o-d);padding:3px 7px;border-radius:5px}
 .maprow button{margin-left:auto;font-size:12px;color:var(--o-d);font-family:var(--disp);font-weight:700}
+.shootbox{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(250px,1fr);gap:24px;align-items:center;max-width:980px;text-align:left;padding-top:6px}
+.shootcam .camwrap{width:min(100%,calc(56vh * 4 / 3));margin:0 auto}
+.shootside h3{margin-top:0}
+.shootwho{display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:10px 14px;margin:6px 0 10px;box-shadow:0 1px 6px rgba(120,80,40,.07)}
+.shootwho b{font-family:var(--disp);font-size:17px;display:block}.shootwho small{font-size:12.5px;color:var(--ink-2)}
+@media (max-width:820px){.shootbox{grid-template-columns:1fr;gap:14px;text-align:center}.shootcam .camwrap{width:min(100%,calc(38vh * 4 / 3))}.shootwho{justify-content:center}}
 .yetsec{background:#FFF8EA;border:2px solid #F0D79A;border-radius:20px;padding:14px 16px 6px;margin-bottom:6px}
 .yetsec.done{background:#F1FAF4;border-color:#BFE3CB}
 .yethead{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:17px;color:#8A6416;margin-bottom:12px}
@@ -377,6 +399,11 @@ body.tvmode .statusbar{display:none}
 .mempty{color:#9A8C81;font-size:16px;padding:10px 2px}.mempty.big{font-size:22px;padding:60px 10px;text-align:center}
 .malert{display:flex;align-items:center;gap:14px;background:#FCE3DE;border:3px solid #E8735C;color:#A8402E;border-radius:20px;padding:14px 20px;margin-bottom:16px;font-family:var(--disp);font-weight:700;font-size:24px}
 @media(max-width:900px){.msum{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr}.mstat b{font-size:42px}.monclock b{font-size:30px}.monbar .mt b{font-size:22px}}
+.lcrow{display:flex;gap:12px;align-items:center;background:#FFF6EE;border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.lcrow b{font-family:var(--disp)}.lctime{font-size:14px;margin-top:2px}.lctime b{color:var(--o-d);font-size:17px}.lctime span{color:var(--ink-2);font-size:12.5px;margin-left:4px}
+.lcnote{display:flex;gap:8px;background:#FBF6F1;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.75;margin-top:4px}
+.lcwhy{border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-family:var(--disp);font-weight:700;color:#7A6B60;background:#fff}
+.lcwhy.on{border-color:var(--o);background:var(--o-l);color:var(--o-d)}
 .kmodes{display:inline-flex;background:#fff;border-radius:999px;padding:5px;box-shadow:0 2px 10px rgba(120,80,40,.08);margin:0 auto 14px;gap:4px}
 .kmodes button{display:flex;align-items:center;gap:7px;padding:11px 22px;border-radius:999px;font-family:var(--disp);font-weight:700;font-size:15px;color:#8B7E74}
 .kmodes button.on{background:var(--o);color:#fff}
@@ -480,6 +507,46 @@ body.tvmode .statusbar{display:none}
   .thead h2{font-size:18px}
   .modal .box{padding:18px;border-radius:16px}
 }
+
+/* ===== どの端末でも画面いっぱいに表示（端末の枠は出さない）。幅に合わせて並びを変える ===== */
+html,body{height:100%}
+body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+.stage{flex:1;min-height:0;margin:0;padding:0;max-width:none;display:flex}
+.phone,.tablet{width:100%;height:100%;max-width:none;border:0;border-radius:0;box-shadow:none;margin:0}
+.statusbar{display:none}
+/* 保護者：スマホは下にメニュー */
+.pcols{flex:1;display:flex;min-height:0}
+.pside{display:none}
+.pmain{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.pnote{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:left;padding:13px 16px;margin-top:10px}
+.pnote b{font-family:var(--disp);font-size:14px}.pnote small{font-size:11.5px;color:var(--ink-2)}
+/* 保護者：タブレット（600px〜）は読みやすい幅で中央に */
+@media (min-width:600px){
+  .phone .pbody,.phone .phead{max-width:700px;margin-left:auto;margin-right:auto;width:100%;box-sizing:border-box}
+  .plogin-bg{display:flex;align-items:flex-start;justify-content:center}
+  .plogin{max-width:440px!important;background:#fff;border-radius:26px;box-shadow:0 10px 40px rgba(120,80,40,.12);margin:6vh auto!important;padding:34px 34px 28px!important}
+}
+/* 保護者：パソコン（1000px〜）は左にメニュー、中身を広く使う */
+@media (min-width:1000px){
+  .pside{display:flex;flex-direction:column;width:244px;flex:none;background:var(--side);border-right:1px solid #F3E7DD;padding:16px 12px;overflow-y:auto}
+  .plogo{display:flex;align-items:center;gap:10px;padding:4px 8px 18px;font-family:var(--disp);font-weight:900;font-size:16px;color:var(--o-d)}
+  .plogo small{display:block;font-size:11.5px;font-weight:500;color:var(--ink-2)}
+  .pme{margin-top:auto;display:flex;gap:10px;align-items:center;padding:12px 8px 4px;border-top:1px solid #F0E4DA}
+  .pme b{font-family:var(--disp);font-size:13.5px;display:block}.pme small{font-size:11px;color:var(--ink-2)}
+  .pnav{display:none}
+  .phone .pbody,.phone .phead{max-width:760px}
+  .phone .pbody.pwide,.phone .phead:has(+ .pbody.pwide){max-width:1120px}
+  .phone .phead{padding:22px 32px 14px}
+  .phone .phead .ttl{font-size:22px;text-align:left}
+  .phone .pbody{padding:0 32px 36px}
+  .phome,.p2col{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
+  .phome>div:last-child>.sec:first-child,.p2top{margin-top:0}
+  .totop.ph{bottom:22px}
+}
+/* 職員・自治体：とても広い画面では、中身を読みやすい幅で中央に */
+@media (min-width:1500px){
+  .main .tbody,.main .thead,.main .tabs{padding-left:calc((100% - 1260px) / 2);padding-right:calc((100% - 1260px) / 2)}
+}
 </style>
 
 <div class="harness">
@@ -501,7 +568,8 @@ body.tvmode .statusbar{display:none}
       <button class="hbtn" onclick="act('demoFace')">デモ用の顔写真</button>
       <button class="hbtn" onclick="act('check')">動作チェック</button>
       <button class="hbtn" onclick="act('sync')">端末の連動</button>
-      <button class="hbtn" onclick="act('reset')">リセット</button>
+      <button class="hbtn" onclick="act('resetAt','08:00')">8:00から（登園）</button>
+      <button class="hbtn" onclick="act('resetAt','17:00')">17:00から（お迎え）</button>
       <button class="hbtn" onclick="act('hbarHide')">操作バーを隠す</button>
     </div>
   </div>
@@ -513,7 +581,7 @@ body.tvmode .statusbar{display:none}
 <script src="okaeri-data.js"></script>
 <!-- 同梱のデモ用データ：okaeri-data.js が読み込めないとき（Claudeアプリで開いたとき、HTMLだけを送ったときなど）にだけ使う。
      中身は okaeri-data.js と同じ。okaeri-data.js があれば、そちらが優先される。 -->
-<script>if(!window.OKAERI_DATA){window.OKAERI_DATA_BUILTIN=true;window.OKAERI_DATA={"format":"okaeri-dataset/1","title":"川崎市 公立保育所（サンプルデータ）","notice":"園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。","source":{"name":"川崎市「交流保育実施公立保育園一覧」（令和8年6月）","url":"https://www.city.kawasaki.jp/nakahara/cmsfiles/contents/0000117/117989/R8ikea.pdf","asOf":"2026-06"},"defaultSchool":"nakahara","schools":[{"id":"oshima","name":"大島保育園","ward":"川崎区","address":"川崎区大島4-17-2","center":"保育・子育て総合支援センター内"},{"id":"fujisaki","name":"藤崎保育園","ward":"川崎区","address":"川崎区藤崎1-7-1"},{"id":"higashioda","name":"東小田保育園","ward":"川崎区","address":"川崎区小田5-14-1"},{"id":"kawaramachi","name":"河原町保育園","ward":"幸区","address":"幸区河原町1（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"furukawa","name":"古川保育園","ward":"幸区","address":"幸区古川町120"},{"id":"yumemigasaki","name":"夢見ヶ崎保育園","ward":"幸区","address":"幸区南加瀬3-4-8"},{"id":"nakahara","name":"中原保育園","ward":"中原区","address":"中原区小杉陣屋町2-3-1","center":"保育・子育て総合支援センター内"},{"id":"shimokodanaka","name":"下小田中保育園","ward":"中原区","address":"中原区下小田中4-4-17"},{"id":"nakamaruko","name":"中丸子保育園","ward":"中原区","address":"中原区中丸子1155"},{"id":"kajigaya","name":"梶ヶ谷保育園","ward":"高津区","address":"高津区梶ヶ谷5-8-2"},{"id":"tsudayama","name":"津田山保育園","ward":"高津区","address":"高津区下作延5-3-11（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"kanigaya","name":"蟹ヶ谷保育園","ward":"高津区","address":"高津区蟹ヶ谷339"},{"id":"tsuchihashi","name":"土橋保育園","ward":"宮前区","address":"宮前区土橋2-14-1","center":"保育・子育て総合支援センター内"},{"id":"nakaarima","name":"中有馬保育園","ward":"宮前区","address":"宮前区有馬3-2-10"},{"id":"sugao","name":"菅生保育園","ward":"宮前区","address":"宮前区菅生5-4-10"},{"id":"tsuchifuchi","name":"土渕保育園","ward":"多摩区","address":"多摩区生田2-14-5","center":"保育・子育て総合支援センター内"},{"id":"ikuta","name":"生田保育園","ward":"多摩区","address":"多摩区西生田3-15-10"},{"id":"suge","name":"菅保育園","ward":"多摩区","address":"多摩区菅1-5-24"},{"id":"hakusan","name":"白山保育園","ward":"麻生区","address":"麻生区白山4-2-1"},{"id":"takaishi","name":"高石保育園","ward":"麻生区","address":"麻生区高石1-14-15"},{"id":"kamiasao","name":"上麻生保育園","ward":"麻生区","address":"麻生区上麻生7-2-35"}],"classes":[{"name":"ひよこ組","age":"0歳児","size":[6,9]},{"name":"りす組","age":"1歳児","size":[12,15]},{"name":"うさぎ組","age":"2歳児","size":[14,18]},{"name":"ちゅうりっぷ組","age":"3歳児","size":[17,21]},{"name":"ゆり組","age":"4歳児","size":[18,22]},{"name":"ひまわり組","age":"5歳児","size":[18,22]}],"commonNotices":[{"id":"n1","fam":"parents","kind":"園からのお知らせ","title":"プールの持ち物について","body":"明日は水遊びを行います。タオルと着替えをお持ちください。","minutesAgo":1440,"read":false}],"generator":{"seed":20261021,"siblingRate":0.18,"pickupWindow":[-150,180],"appChangeRate":0.08,"phoneChangeRate":0.03,"diaryRate":0.12,"names":{"surnames":[["佐藤","さとう"],["鈴木","すずき"],["高橋","たかはし"],["田中","たなか"],["伊藤","いとう"],["渡辺","わたなべ"],["山本","やまもと"],["中村","なかむら"],["小林","こばやし"],["加藤","かとう"],["吉田","よしだ"],["山田","やまだ"],["佐々木","ささき"],["山口","やまぐち"],["松本","まつもと"],["井上","いのうえ"],["木村","きむら"],["林","はやし"],["斎藤","さいとう"],["清水","しみず"],["山崎","やまざき"],["森","もり"],["池田","いけだ"],["橋本","はしもと"],["阿部","あべ"],["石川","いしかわ"],["山下","やました"],["中島","なかじま"],["石井","いしい"],["小川","おがわ"],["前田","まえだ"],["岡田","おかだ"],["長谷川","はせがわ"],["藤田","ふじた"],["後藤","ごとう"],["近藤","こんどう"],["村上","むらかみ"],["遠藤","えんどう"],["青木","あおき"],["坂本","さかもと"],["福田","ふくだ"],["太田","おおた"],["西村","にしむら"],["藤井","ふじい"],["金子","かねこ"],["岡本","おかもと"],["藤原","ふじわら"],["中野","なかの"],["三浦","みうら"],["原田","はらだ"],["中川","なかがわ"],["松田","まつだ"],["竹内","たけうち"],["小野","おの"],["田村","たむら"],["中山","なかやま"],["和田","わだ"],["石田","いしだ"],["上田","うえだ"],["森田","もりた"],["柴田","しばた"],["酒井","さかい"],["工藤","くどう"],["横山","よこやま"],["宮崎","みやざき"],["宮本","みやもと"],["内田","うちだ"],["高木","たかぎ"],["安藤","あんどう"],["島田","しまだ"]],"boys":[["蓮","れん"],["陽翔","はると"],["湊","みなと"],["蒼","あおい"],["樹","いつき"],["悠真","ゆうま"],["大和","やまと"],["律","りつ"],["朝陽","あさひ"],["颯真","そうま"],["陽太","ようた"],["新","あらた"],["伊織","いおり"],["奏太","そうた"],["結翔","ゆいと"],["碧","あお"],["蒼空","そら"],["晴","はる"],["瑛太","えいた"],["悠人","ゆうと"],["大翔","ひろと"],["陸","りく"],["海斗","かいと"],["颯","はやて"],["健太","けんた"],["拓海","たくみ"],["航","わたる"],["遥斗","はると"],["柊","しゅう"],["凪","なぎ"]],"girls":[["陽葵","ひまり"],["芽依","めい"],["凛","りん"],["結菜","ゆいな"],["葵","あおい"],["紬","つむぎ"],["澪","みお"],["結衣","ゆい"],["杏","あん"],["咲良","さくら"],["莉子","りこ"],["心春","こはる"],["花","はな"],["詩","うた"],["陽菜","ひな"],["結月","ゆづき"],["楓","かえで"],["千尋","ちひろ"],["彩葉","いろは"],["美月","みづき"],["栞","しおり"],["朱莉","あかり"],["菜々","なな"],["琴葉","ことは"],["小春","こはる"],["柚葉","ゆずは"],["美羽","みう"],["茉白","ましろ"],["絢","あや"],["実桜","みお"]],"mothers":[["美咲","みさき"],["彩","あや"],["愛","あい"],["麻衣","まい"],["由佳","ゆか"],["恵","めぐみ"],["真由美","まゆみ"],["智子","ともこ"],["沙織","さおり"],["舞","まい"],["香織","かおり"],["優子","ゆうこ"],["奈々","なな"],["理恵","りえ"],["千夏","ちなつ"],["綾香","あやか"],["早苗","さなえ"],["瞳","ひとみ"],["陽子","ようこ"],["亜希","あき"]],"fathers":[["翔","しょう"],["健","けん"],["大輔","だいすけ"],["拓也","たくや"],["直樹","なおき"],["誠","まこと"],["剛","つよし"],["和也","かずや"],["亮","りょう"],["修","おさむ"],["達也","たつや"],["雄一","ゆういち"],["慎吾","しんご"],["隆","たかし"],["浩二","こうじ"],["洋平","ようへい"],["智之","ともゆき"],["康介","こうすけ"],["圭","けい"],["俊介","しゅんすけ"]],"grandmothers":[["和子","かずこ"],["洋子","ようこ"],["幸子","さちこ"],["節子","せつこ"],["京子","きょうこ"],["恵子","けいこ"],["久美子","くみこ"],["典子","のりこ"],["悦子","えつこ"],["文子","ふみこ"]],"grandfathers":[["一郎","いちろう"],["正","ただし"],["茂","しげる"],["勝","まさる"],["清","きよし"],["進","すすむ"],["博","ひろし"],["実","みのる"],["昭","あきら"],["武","たけし"]],"features":["眼鏡をかけた白髪の男性","背が高く短髪の男性","帽子をかぶった小柄な男性","黒いリュックを持った白髪の女性","眼鏡をかけたショートヘアの女性","グレーの髪をひとつに結んだ女性","杖を使っている男性","ベージュのコートの女性"]},"inRate":0.88,"absentRate":0.04},"scenario":{"school":"nakahara","children":[{"id":"c1","name":"山田 ひなた","kana":"やまだ ひなた","sfx":"ちゃん","cls":"ひまわり組","age":"5歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false},{"id":"c2","name":"佐藤 蓮","kana":"さとう れん","sfx":"くん","cls":"ひまわり組","age":"5歳児","fam":"c2","offset":3,"by":"母 佐藤 美咲","st":"waiting"},{"id":"c3","name":"鈴木 あかり","kana":"すずき あかり","sfx":"ちゃん","cls":"ゆり組","age":"4歳児","fam":"c3","offset":1,"by":"祖父 鈴木 一郎","st":"waiting","proxy":true},{"id":"c4","name":"田中 大和","kana":"たなか やまと","sfx":"くん","cls":"ゆり組","age":"4歳児","fam":"c4","offset":-5,"by":"父 田中 健","st":"waiting"},{"id":"c5","name":"髙橋 結衣","kana":"たかはし ゆい","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c5","offset":-12,"by":"母 髙橋 沙織","st":"arrived"},{"id":"c6","name":"伊藤 悠真","kana":"いとう ゆうま","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c6","offset":-20,"by":"母 伊藤 彩","st":"released"},{"id":"c7","name":"小林 さくら","kana":"こばやし さくら","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c7","offset":22,"by":"母 小林 愛","st":"waiting"},{"id":"c8","name":"加藤 湊","kana":"かとう みなと","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c8","offset":34,"by":"父 加藤 翔","st":"waiting"},{"id":"c9","name":"山田 そら","kana":"やまだ そら","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false}],"proxies":{"c1":[{"id":"p1","name":"山田 花子","kana":"やまだ はなこ","rel":"母","tel":"090-1234-5678","photo":1,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p2","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性","prio":2,"ok":true,"period":"current"},{"id":"p4","name":"山田 健司","kana":"やまだ けんじ","rel":"叔父","tel":"070-3456-7890","photo":0,"memo":"背が高く短髪の男性","prio":3,"ok":true,"period":"previous"}],"c3":[{"id":"p5","name":"鈴木 由佳","kana":"すずき ゆか","rel":"母","tel":"090-2222-3333","photo":0,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p3","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性。杖を使用","prio":2,"ok":true,"period":"current"}]},"posts":[{"id":"m1","who":"事務 渡辺","kind":"clerk","minutesAgo":8,"txt":"田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。","ackBy":["高田","森"],"auto":false},{"id":"m2","who":"ゆり組 高田","kind":"teacher","minutesAgo":6,"txt":"鈴木 あかりちゃんは絵本を読んで待機しています。","ackBy":[],"auto":false}],"diary":{"c1":[{"d":"昨日","temp":"36.6","mood":"良好","txt":"夜はよく眠れました。朝の食欲もあります。","reply":"園でも元気に過ごしていました。"}],"c2":[{"d":"今日","temp":"36.8","mood":"ふつう","txt":"少し咳が出ています。外遊びは様子を見てください。","reply":""}],"c4":[{"d":"今日","temp":"37.0","mood":"少し不調","txt":"朝ごはんをあまり食べませんでした。","reply":""}]},"notices":[{"id":"n2","fam":"c1","kind":"連絡帳","title":"園から返信がありました","body":"園でも元気に過ごしていました。","minutesAgo":180,"read":false}],"stats":{"app":0,"phone":1}},"schoolsData":{}};}</script>
+<script>if(!window.OKAERI_DATA){window.OKAERI_DATA_BUILTIN=true;window.OKAERI_DATA={"format":"okaeri-dataset/1","title":"川崎市 公立保育所（サンプルデータ）","notice":"園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。","source":{"name":"川崎市「交流保育実施公立保育園一覧」（令和8年6月）","url":"https://www.city.kawasaki.jp/nakahara/cmsfiles/contents/0000117/117989/R8ikea.pdf","asOf":"2026-06"},"defaultSchool":"nakahara","schools":[{"id":"oshima","name":"大島保育園","ward":"川崎区","address":"川崎区大島4-17-2","center":"保育・子育て総合支援センター内"},{"id":"fujisaki","name":"藤崎保育園","ward":"川崎区","address":"川崎区藤崎1-7-1"},{"id":"higashioda","name":"東小田保育園","ward":"川崎区","address":"川崎区小田5-14-1"},{"id":"kawaramachi","name":"河原町保育園","ward":"幸区","address":"幸区河原町1（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"furukawa","name":"古川保育園","ward":"幸区","address":"幸区古川町120"},{"id":"yumemigasaki","name":"夢見ヶ崎保育園","ward":"幸区","address":"幸区南加瀬3-4-8"},{"id":"nakahara","name":"中原保育園","ward":"中原区","address":"中原区小杉陣屋町2-3-1","center":"保育・子育て総合支援センター内"},{"id":"shimokodanaka","name":"下小田中保育園","ward":"中原区","address":"中原区下小田中4-4-17"},{"id":"nakamaruko","name":"中丸子保育園","ward":"中原区","address":"中原区中丸子1155"},{"id":"kajigaya","name":"梶ヶ谷保育園","ward":"高津区","address":"高津区梶ヶ谷5-8-2"},{"id":"tsudayama","name":"津田山保育園","ward":"高津区","address":"高津区下作延5-3-11（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"kanigaya","name":"蟹ヶ谷保育園","ward":"高津区","address":"高津区蟹ヶ谷339"},{"id":"tsuchihashi","name":"土橋保育園","ward":"宮前区","address":"宮前区土橋2-14-1","center":"保育・子育て総合支援センター内"},{"id":"nakaarima","name":"中有馬保育園","ward":"宮前区","address":"宮前区有馬3-2-10"},{"id":"sugao","name":"菅生保育園","ward":"宮前区","address":"宮前区菅生5-4-10"},{"id":"tsuchifuchi","name":"土渕保育園","ward":"多摩区","address":"多摩区生田2-14-5","center":"保育・子育て総合支援センター内"},{"id":"ikuta","name":"生田保育園","ward":"多摩区","address":"多摩区西生田3-15-10"},{"id":"suge","name":"菅保育園","ward":"多摩区","address":"多摩区菅1-5-24"},{"id":"hakusan","name":"白山保育園","ward":"麻生区","address":"麻生区白山4-2-1"},{"id":"takaishi","name":"高石保育園","ward":"麻生区","address":"麻生区高石1-14-15"},{"id":"kamiasao","name":"上麻生保育園","ward":"麻生区","address":"麻生区上麻生7-2-35"}],"classes":[{"name":"ひよこ組","age":"0歳児","size":[6,9]},{"name":"りす組","age":"1歳児","size":[12,15]},{"name":"うさぎ組","age":"2歳児","size":[14,18]},{"name":"ちゅうりっぷ組","age":"3歳児","size":[17,21]},{"name":"ゆり組","age":"4歳児","size":[18,22]},{"name":"ひまわり組","age":"5歳児","size":[18,22]}],"commonNotices":[{"id":"n1","fam":"parents","kind":"園からのお知らせ","title":"プールの持ち物について","body":"明日は水遊びを行います。タオルと着替えをお持ちください。","minutesAgo":1440,"read":false}],"generator":{"seed":20261021,"siblingRate":0.18,"pickupWindow":[-150,180],"appChangeRate":0.08,"phoneChangeRate":0.03,"diaryRate":0.12,"names":{"surnames":[["佐藤","さとう"],["鈴木","すずき"],["高橋","たかはし"],["田中","たなか"],["伊藤","いとう"],["渡辺","わたなべ"],["山本","やまもと"],["中村","なかむら"],["小林","こばやし"],["加藤","かとう"],["吉田","よしだ"],["山田","やまだ"],["佐々木","ささき"],["山口","やまぐち"],["松本","まつもと"],["井上","いのうえ"],["木村","きむら"],["林","はやし"],["斎藤","さいとう"],["清水","しみず"],["山崎","やまざき"],["森","もり"],["池田","いけだ"],["橋本","はしもと"],["阿部","あべ"],["石川","いしかわ"],["山下","やました"],["中島","なかじま"],["石井","いしい"],["小川","おがわ"],["前田","まえだ"],["岡田","おかだ"],["長谷川","はせがわ"],["藤田","ふじた"],["後藤","ごとう"],["近藤","こんどう"],["村上","むらかみ"],["遠藤","えんどう"],["青木","あおき"],["坂本","さかもと"],["福田","ふくだ"],["太田","おおた"],["西村","にしむら"],["藤井","ふじい"],["金子","かねこ"],["岡本","おかもと"],["藤原","ふじわら"],["中野","なかの"],["三浦","みうら"],["原田","はらだ"],["中川","なかがわ"],["松田","まつだ"],["竹内","たけうち"],["小野","おの"],["田村","たむら"],["中山","なかやま"],["和田","わだ"],["石田","いしだ"],["上田","うえだ"],["森田","もりた"],["柴田","しばた"],["酒井","さかい"],["工藤","くどう"],["横山","よこやま"],["宮崎","みやざき"],["宮本","みやもと"],["内田","うちだ"],["高木","たかぎ"],["安藤","あんどう"],["島田","しまだ"]],"boys":[["蓮","れん"],["陽翔","はると"],["湊","みなと"],["蒼","あおい"],["樹","いつき"],["悠真","ゆうま"],["大和","やまと"],["律","りつ"],["朝陽","あさひ"],["颯真","そうま"],["陽太","ようた"],["新","あらた"],["伊織","いおり"],["奏太","そうた"],["結翔","ゆいと"],["碧","あお"],["蒼空","そら"],["晴","はる"],["瑛太","えいた"],["悠人","ゆうと"],["大翔","ひろと"],["陸","りく"],["海斗","かいと"],["颯","はやて"],["健太","けんた"],["拓海","たくみ"],["航","わたる"],["遥斗","はると"],["柊","しゅう"],["凪","なぎ"]],"girls":[["陽葵","ひまり"],["芽依","めい"],["凛","りん"],["結菜","ゆいな"],["葵","あおい"],["紬","つむぎ"],["澪","みお"],["結衣","ゆい"],["杏","あん"],["咲良","さくら"],["莉子","りこ"],["心春","こはる"],["花","はな"],["詩","うた"],["陽菜","ひな"],["結月","ゆづき"],["楓","かえで"],["千尋","ちひろ"],["彩葉","いろは"],["美月","みづき"],["栞","しおり"],["朱莉","あかり"],["菜々","なな"],["琴葉","ことは"],["小春","こはる"],["柚葉","ゆずは"],["美羽","みう"],["茉白","ましろ"],["絢","あや"],["実桜","みお"]],"mothers":[["美咲","みさき"],["彩","あや"],["愛","あい"],["麻衣","まい"],["由佳","ゆか"],["恵","めぐみ"],["真由美","まゆみ"],["智子","ともこ"],["沙織","さおり"],["舞","まい"],["香織","かおり"],["優子","ゆうこ"],["奈々","なな"],["理恵","りえ"],["千夏","ちなつ"],["綾香","あやか"],["早苗","さなえ"],["瞳","ひとみ"],["陽子","ようこ"],["亜希","あき"]],"fathers":[["翔","しょう"],["健","けん"],["大輔","だいすけ"],["拓也","たくや"],["直樹","なおき"],["誠","まこと"],["剛","つよし"],["和也","かずや"],["亮","りょう"],["修","おさむ"],["達也","たつや"],["雄一","ゆういち"],["慎吾","しんご"],["隆","たかし"],["浩二","こうじ"],["洋平","ようへい"],["智之","ともゆき"],["康介","こうすけ"],["圭","けい"],["俊介","しゅんすけ"]],"grandmothers":[["和子","かずこ"],["洋子","ようこ"],["幸子","さちこ"],["節子","せつこ"],["京子","きょうこ"],["恵子","けいこ"],["久美子","くみこ"],["典子","のりこ"],["悦子","えつこ"],["文子","ふみこ"]],"grandfathers":[["一郎","いちろう"],["正","ただし"],["茂","しげる"],["勝","まさる"],["清","きよし"],["進","すすむ"],["博","ひろし"],["実","みのる"],["昭","あきら"],["武","たけし"]],"features":["眼鏡をかけた白髪の男性","背が高く短髪の男性","帽子をかぶった小柄な男性","黒いリュックを持った白髪の女性","眼鏡をかけたショートヘアの女性","グレーの髪をひとつに結んだ女性","杖を使っている男性","ベージュのコートの女性"]},"inRate":0.88,"absentRate":0.04},"scenario":{"school":"nakahara","children":[{"id":"c1","name":"山田 ひなた","kana":"やまだ ひなた","sfx":"ちゃん","cls":"ひまわり組","age":"5歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false},{"id":"c2","name":"佐藤 蓮","kana":"さとう れん","sfx":"くん","cls":"ひまわり組","age":"5歳児","fam":"c2","offset":3,"by":"母 佐藤 美咲","st":"waiting"},{"id":"c3","name":"鈴木 あかり","kana":"すずき あかり","sfx":"ちゃん","cls":"ゆり組","age":"4歳児","fam":"c3","offset":1,"by":"祖父 鈴木 一郎","st":"waiting","proxy":true},{"id":"c4","name":"田中 大和","kana":"たなか やまと","sfx":"くん","cls":"ゆり組","age":"4歳児","fam":"c4","offset":-5,"by":"父 田中 健","st":"waiting"},{"id":"c5","name":"髙橋 結衣","kana":"たかはし ゆい","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c5","offset":-12,"by":"母 髙橋 沙織","st":"arrived"},{"id":"c6","name":"伊藤 悠真","kana":"いとう ゆうま","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c6","offset":-20,"by":"母 伊藤 彩","st":"released"},{"id":"c7","name":"小林 さくら","kana":"こばやし さくら","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c7","offset":22,"by":"母 小林 愛","st":"waiting"},{"id":"c8","name":"加藤 湊","kana":"かとう みなと","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c8","offset":34,"by":"父 加藤 翔","st":"waiting"},{"id":"c9","name":"山田 そら","kana":"やまだ そら","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false}],"proxies":{"c1":[{"id":"p1","name":"山田 花子","kana":"やまだ はなこ","rel":"母","tel":"090-1234-5678","photo":1,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p2","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性","prio":2,"ok":true,"period":"current"},{"id":"p4","name":"山田 健司","kana":"やまだ けんじ","rel":"叔父","tel":"070-3456-7890","photo":0,"memo":"背が高く短髪の男性","prio":3,"ok":true,"period":"previous"}],"c3":[{"id":"p5","name":"鈴木 由佳","kana":"すずき ゆか","rel":"母","tel":"090-2222-3333","photo":0,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p3","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性。杖を使用","prio":2,"ok":true,"period":"current"}]},"posts":[{"id":"m1","who":"事務 渡辺","kind":"clerk","minutesAgo":8,"txt":"田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。","ackBy":["高田","森"],"auto":false},{"id":"m2","who":"ゆり組 高田","kind":"teacher","minutesAgo":6,"txt":"鈴木 あかりちゃんは絵本を読んで待機しています。","ackBy":[],"auto":false}],"diary":{"c1":[{"d":"昨日","temp":"36.6","mood":"良好","txt":"夜はよく眠れました。朝の食欲もあります。","reply":"園でも元気に過ごしていました。"}],"c2":[{"d":"今日","temp":"36.8","mood":"ふつう","txt":"少し咳が出ています。外遊びは様子を見てください。","reply":""}],"c4":[{"d":"今日","temp":"37.0","mood":"少し不調","txt":"朝ごはんをあまり食べませんでした。","reply":""}]},"notices":[{"id":"n2","fam":"c1","kind":"連絡帳","title":"園から返信がありました","body":"園でも元気に過ごしていました。","minutesAgo":180,"read":false}],"stats":{"app":0,"phone":1}},"schoolsData":{},"pickupRules":{"extFrom":"18:00","close":"20:00","maxLateMin":30}};}</script>
 <div class="stage" id="stage"></div>
 <div id="overlay"></div>
 <button id="hshow" onclick="act('hbarShow')" aria-label="操作バーを表示"></button>
@@ -638,9 +706,10 @@ function shoot(){
   const v=document.getElementById('camView');
   if(!v||!v.videoWidth){toast('カメラの準備ができていません');return;}
   if(state.cam.live){state.camStep='live';state.liveMsg='';render();runLiveness();return;}
-  state.liveDone=false;
+  state.liveDone=false;state.capturing=true;
+  const b=document.getElementById('shootBtn');if(b){b.disabled=true;b.textContent='撮影しています…';}
   (async()=>{const sh=[];for(let i=0;i<3;i++){sh.push(grabFrame());if(i<2)await sleep(220);}
-    state.shots=sh.filter(Boolean);state.shot=state.shots[state.shots.length-1]||'';stopCam();verifyFace();})();
+    state.capturing=false;state.shots=sh.filter(Boolean);state.shot=state.shots[state.shots.length-1]||'';stopCam();verifyFace();})();
 }
 /* なりすまし対策：毎回ランダムに左右を2回指示し、その通りに首を動かすかを見る。
    印刷した写真やスマホの画面は首を動かせず、録画した動画は順番を合わせられない。
@@ -887,7 +956,7 @@ function checkIn(dist){
     addPost('受付カメラ','sys',`【到着】${c.name}${c.sfx}：${p.name}さん（${p.rel}）の${byFace?'顔照合が完了':'受付が完了'}しました。${c.cls}の保育室で引き渡しをお願いします。`);
   });
   if(byFace)bump('camOK');
-  state.notices.unshift({id:'n'+Date.now(),fam:famKey(c0.id),kind:'お迎え連絡',title:'受付が完了しました',
+  state.notices.unshift({id:'n'+rid(),fam:famKey(c0.id),kind:'お迎え連絡',title:'受付が完了しました',
     body:kids.map(c=>c.name.split(' ')[1]+c.sfx).join('・')+'の先生にお迎えをお知らせしました。保育室でお待ちください。',t:now(),read:false});
   state.camDoneKids=kids.map(c=>c.id);
   state.camStep='done';state.shotTmp=state.shot;state.shot='';state.liveDone=false;render();
@@ -945,9 +1014,12 @@ function hashStr(x){let h=2166136261;for(const ch of String(x)){h^=ch.charCodeAt
 /* "17:30" → 今日のその時刻 */
 function todayAt(hhmm){const [h,m]=String(hhmm).split(':').map(Number);const d=new Date(Date.now());d.setHours(h||0,m||0,0,0);return d.getTime();}
 /* データの器の1件を、アプリで使う形にする（offset＝今から何分後、pickup＝"17:30" のどちらでも書ける） */
+/* お迎えの予定は、デモの時刻に関係なく今日の夕方（17:00）を基準にする。offset＝17:00から何分後 */
 function mkChild(o,n0){
-  const at=o.pickup?todayAt(o.pickup):n0+(o.offset||0)*60000;
+  const base=todayAt('17:00'),at=o.pickup?todayAt(o.pickup):base+(o.offset||0)*60000;
   const c=Object.assign({},o,{fam:o.fam||o.id,pickupAt:at,planAt:at,changed:o.changed||null,st:o.st||'waiting'});
+  /* まだお迎えの時間になっていない（朝など）ときは、到着・お迎え済みにしない */
+  if(c.st!=='waiting'&&at-n0>60*60000)c.st='waiting';
   delete c.offset;delete c.pickup;
   if(c.st==='arrived'&&!c.arrivedAt){c.arrivedAt=at+60000;const parts=(c.by||'').split(' ');
     c.arrivedBy=parts.slice(1).join(' ')+'（'+parts[0]+'）';c.verified='px_'+c.id;}
@@ -958,8 +1030,8 @@ function mkProxy(p,F){const q=Object.assign({},p);
   delete q.period;q.style=q.style||0;
   q.auth=q.auth||(q.photo?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）');return q;}
 /* 1つの園のデータを作る：シナリオ（デモ用の家庭）＋ 明示されたデータ または 自動で作るダミー */
-function genSchool(sid){
-  const D=dataset(),sc=D.schools.find(x=>x.id===sid)||D.schools[0],F=fy(),n0=Date.now();
+function genSchool(sid,off){
+  const D=dataset(),sc=D.schools.find(x=>x.id===sid)||D.schools[0],F=fy(),n0=Date.now()+(off||0);
   const out={children:[],proxies:{},diary:{},posts:[],notices:[],absences:[],stats:{app:0,phone:0,camOK:0,camNG:0}};
   (D.commonNotices||[]).forEach(n=>out.notices.push(Object.assign({},n,{t:n0-(n.minutesAgo||0)*60000})));
   const scen=D.scenario&&D.scenario.school===sc.id?D.scenario:null;
@@ -984,7 +1056,9 @@ function genSchool(sid){
      const scen=/^c\d+$/.test(c.id),r=RI();
      if(c.in===false){delete c.in;return;}delete c.in;
      if(!scen&&r>=inRate){if(RI()<absRate/(1-inRate))out.absences.push({id:'ab0_'+c.id,t:n0-3*3600000,type:'欠席',date:ymd(n0),txt:'体調不良のため',cid:c.id});return;}
-     c.inAt=Math.min(todayAt('07:00')+Math.floor(RI()*150)*60000,n0-(5+Math.floor(RI()*55))*60000);c.inVia=RI()<0.65?'qr':'staff';c.inBy=c.inVia==='staff'?'保育士':'';});}
+     const t=todayAt('07:00')+Math.floor(RI()*150)*60000,via=RI()<0.65?'qr':'staff';
+     if(t>n0)return;                       /* デモの時刻より後に来る子は、まだ登園していない */
+     c.inAt=t;c.inVia=via;c.inBy=via==='staff'?'保育士':'';});}
   out.posts.forEach(x=>{if(!Array.isArray(x.ackBy))x.ackBy=[];if(x.auto===undefined)x.auto=x.kind==='sys';delete x.ack;});
   /* 連絡帳：「今日」「昨日」を日付に。最初から入っている記録は既読として扱う（自分で書いた記録が埋もれないように） */
   const dk=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
@@ -1029,13 +1103,17 @@ function genKids(sc,out,n0,F){
       /* 今の時刻との差で状態を決める：だいぶ前に予定を過ぎた子はお迎え済み（一部は遅れ）、
          直前に過ぎた子は到着（引き渡し待ち）か遅れ、これからの子は未到着 */
       const off=Math.round(between(win[0],win[1])/5)*5;let st='waiting';
-      if(off<-20)st=(off>-45&&R()<0.15)?'waiting':'released';
-      else if(off<0&&R()<0.35)st='arrived';
+      /* 状態は「お迎えの予定」と「デモの時刻」の差で決める（夕方なら一部はお迎え済み、朝なら全員まだ） */
+      const rel=Math.round((todayAt('17:00')+off*60000-n0)/60000);
+      /* 乱数は時刻に関係なく同じ回数だけ使う（朝でも夕方でも同じ顔ぶれになるように） */
+      const r1=R(),r2=R(),r3=R(),dmin=between(2,4)*5;
+      if(rel<-20)st=(rel>-45&&r1<0.15)?'waiting':'released';
+      else if(rel<0&&r2<0.35)st='arrived';
       const c=mkChild({id,name,kana:fam.sur[1]+' '+given[1],sfx:girl?'ちゃん':'くん',cls:k.name,age:k.age,fam:fam.key,offset:off,
         by:fam.rel+' '+fam.sur[0]+' '+fam.g[0],st},n0);
-      if(st==='waiting'){const r=R();
-        if(r<(G.appChangeRate||0)){c.planAt=c.pickupAt-between(2,4)*5*60000;c.changed='保護者アプリ';out.stats.app++;}
-        else if(r<(G.appChangeRate||0)+(G.phoneChangeRate||0)){c.planAt=c.pickupAt-between(2,4)*5*60000;c.changed='事務スタッフ 代理入力';out.stats.phone++;}}
+      if(st==='waiting'){const r=r3;
+        if(r<(G.appChangeRate||0)){c.planAt=c.pickupAt-dmin*60000;c.changed='保護者アプリ';out.stats.app++;}
+        else if(r<(G.appChangeRate||0)+(G.phoneChangeRate||0)){c.planAt=c.pickupAt-dmin*60000;c.changed='事務スタッフ 代理入力';out.stats.phone++;}}
       if(R()<(G.diaryRate||0))out.diary[id]=[{d:'今日',temp:(36.3+between(0,6)/10).toFixed(1),mood:pick(['良好','良好','ふつう','少し不調']),
         txt:pick(['朝ごはんをよく食べました。','少し鼻水が出ています。','昨夜は早く寝ました。','週末は家族で公園に行きました。']),reply:''}];
       out.children.push(c);
@@ -1056,12 +1134,12 @@ function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear(
   return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
 /* 園で共有するデータ（ログアウトしても消えない） */
 const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats'];
-function freshData(sid){
-  const g=genSchool(sid);
+function freshData(sid,off){
+  const g=genSchool(sid,off);
   return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:g.absences||[],
     notices:g.notices,records:[],alerts:[],logs:[],devStats:{},thr:{soon:5,show:10},
-    cam:{on:true,keep:false,thr:0.42,pin:'1234',list:false,live:true},
-    stats:g.stats,offset:0,clock24:false};
+    cam:{on:true,keep:false,thr:0.42,pin:'1234',list:false,live:false},
+    stats:g.stats,offset:off||0,clock24:false};
 }
 /* この端末だけの状態（画面・入力中の内容・ログイン） */
 function freshSession(){
@@ -1069,11 +1147,11 @@ function freshSession(){
     ag:{cls:'',q:'',cid:'c1'},s10cls:'',s10menu:false,newIds:[],dnew:false,showAuto:false,showAutoN:false,camq:'',camcls:'',dcls:'',dq:'',diaryChild:'',schoolId:'',focusId:'',absMulti:false,
     loginId:'',loginPw:'',settings:{pickup:true,diary:true,news:true},
     shot:'',camChild:'',camProxy:'',camKids:[],camErr:'',camStep:'pick',camResult:null,camFails:0,faceReady:false,pxWarn:'',
-    sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:''},pc:'c1',pkids:null,lastChanged:[],
+    sel:{proxy:null,dir:'late',min:null,custom:'',proxyName:'',open:false,dirChosen:false},pc:'c1',pkids:null,lastChanged:[],
     toast:null,modal:null,childId:'c1',pxPhoto:false,pxSrc:'',loginErr:'',sendErr:false,drawer:false,hbar:false,hbarHidden:false};
 }
-function reset(sid){const id=sid||(state&&state.schoolId)||dataset().defaultSchool;
-  state=Object.assign(freshSession(),freshData(id));state.schoolId=id;
+function reset(sid,off){const id=sid||(state&&state.schoolId)||dataset().defaultSchool;
+  state=Object.assign(freshSession(),freshData(id,off));state.schoolId=id;
   if(!state.children.some(c=>c.id===state.childId)&&state.children.length){state.childId=state.children[0].id;state.ag.cid=state.children[0].id;}}
 /* ログアウト：画面とログイン状態だけを初期化し、園のデータは残す */
 function logoutSession(){const keep={};DATA_KEYS.forEach(k=>keep[k]=state[k]);const hid=state.hbarHidden,sid=state.schoolId,err=state.err,km=state.kmode,mm=state.monMode;
@@ -1146,8 +1224,26 @@ const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',
 const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
 const SCR={};
 
+/* ---- スクロールの位置：同じ画面のまま描き直すときは、元の位置を保つ ---- */
+const SCROLLERS='#stage .roll,#stage .tbody,#stage .monbody,#stage .side .items';
+let lastPaintKey='',lastScroller=null;
+function paintKey(){const p=state.screen;
+  /* 画面・立場が同じなら同じページ。園児の詳細やカメラの段階が変わったときは別のページとして一番上から */
+  return [p,state.role||'',['S11','S12','S13','S14','S24','S28'].includes(p)?state.childId+'/'+(state.camChild||''):'',p==='S27'?state.camStep:''].join('|');}
+function saveScroll(){const a=[];document.querySelectorAll(SCROLLERS).forEach(el=>a.push(el.scrollTop));return {a,win:window.scrollY||0};}
+function restoreScroll(m){document.querySelectorAll(SCROLLERS).forEach((el,i)=>{if(m.a[i])el.scrollTop=m.a[i];});if(m.win)window.scrollTo(0,m.win);}
+/* 一番上に戻るボタン：少し下までスクロールしたときだけ出す */
+function activeScroller(){let best=null;document.querySelectorAll(SCROLLERS).forEach(el=>{if(!best||el.scrollTop>best.scrollTop)best=el;});
+  return lastScroller&&document.body.contains(lastScroller)&&lastScroller.scrollTop>0?lastScroller:best;}
+function updateToTop(){const b=document.getElementById('toTop');if(!b)return;const el=activeScroller();
+  const y=Math.max(el?el.scrollTop:0,window.scrollY||0);b.classList.toggle('show',y>240);}
+function toTop(){const el=activeScroller();
+  try{if(el)el.scrollTo({top:0,behavior:'smooth'});window.scrollTo({top:0,behavior:'smooth'});}catch(e){if(el)el.scrollTop=0;window.scrollTo(0,0);}}
+if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('scroll',e=>{const t=e.target;
+  if(t&&t.matches&&t.matches(SCROLLERS))lastScroller=t;updateToTop();},true);
 function render(){
   const p=state.screen;
+  const key=paintKey(),keep=key===lastPaintKey,sv=keep?saveScroll():null;lastPaintKey=key;
   document.getElementById('hid').textContent=p;
   document.getElementById('hnow').textContent=md(now())+'('+wd(now())+') '+hm(now());
   document.getElementById('errbtn').classList.toggle('on',state.err);
@@ -1160,7 +1256,14 @@ function render(){
   document.getElementById('stage').innerHTML=
     `<div class="${isPhone?'phone':'tablet'}">
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
-       <div class="scr">${inner}</div></div>`;
+       <div class="scr">${inner}</div>
+       ${state.role==='monitor'?'':`<button class="totop ${isPhone?'ph':state.role==='kiosk'?'ki':''}" id="toTop" onclick="toTop()" aria-label="一番上に戻る" title="一番上に戻る">${ic('chev',18)}</button>`}</div>`;
+  if(sv)restoreScroll(sv);else lastScroller=null;
+  /* 選んだ内容が画面の外にあるときだけ、そこまで動かす（連絡帳で下の方の園児を選んだときなど） */
+  if(state.scrollToId){const el=document.getElementById(state.scrollToId);state.scrollToId='';
+    if(el&&el.getBoundingClientRect){const r=el.getBoundingClientRect();
+      if(r.top<0||r.top>innerHeight-120){try{el.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}}}}
+  updateToTop();
   if(p==='S27'&&['shoot','live','scan'].includes(state.camStep))attachCam();else if(p!=='S27')stopCam();
   drawOverlay(); lastSig=sig();syncOut();
   if(state.focusId){const el=document.getElementById(state.focusId);
@@ -1202,6 +1305,32 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
     <div class="tiny muted" style="margin-bottom:6px">保育士・受付端末は園のデータをすべて、自治体管理者は閲覧と園の設定だけ、保護者は自分の家庭のデータだけを読み書きできます。</div>
     <pre style="font-family:var(--mono);font-size:10.5px;background:#2E2621;color:#F3E9DF;border-radius:10px;padding:12px;margin:0;max-height:220px;overflow:auto;line-height:1.55">${esc(FB_RULES)}</pre>
     <div style="margin-top:10px"><button class="btn g" onclick="act('rulesCopy')">ルールをコピー</button></div>
+    </div></div>`;}
+  if(state.modal==='lateConfirm'){
+    const R=pickRules(),c=pchild(),nt=calcNew()||c.pickupAt,lateMin=Math.round((nt-c.pickupAt)/60000);
+    const sibs=pfam().filter(k=>k.st==='waiting').map(k=>k.id),kids=(state.pkids||sibs).filter(id=>sibs.includes(id)).map(child);
+    const closeAt=clockAt(c.pickupAt,R.close),extAt=clockAt(c.pickupAt,R.extFrom);
+    const overClose=kids.some(k=>calcNew(k)>closeAt),tooLong=lateMin>R.maxLateMin,ext=!overClose&&kids.some(k=>calcNew(k)>extAt);
+    const n=lateCountThisMonth()+1;
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:440px" onclick="event.stopPropagation()">
+    ${overClose||tooLong?`
+      <div class="sec" style="margin-top:0">${ic('phone',22,'#E8735C')}園にお電話ください</div>
+      <div style="font-size:14px;line-height:1.85">${overClose?`閉園時刻（${R.close}）を過ぎるお迎えは、アプリでは受け付けていません。`
+        :`${R.maxLateMin}分を超える遅れ（今回は${lateMin}分）は、お子さまの過ごし方や職員の配置に関わるため、アプリでは受け付けていません。`}<br>
+        お手数ですが、園に直接お電話ください。</div>
+      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn" onclick="act('callSchool')">${ic('phone',18)}園に電話する</button>
+        <button class="btn g" onclick="act('closeModal')">もどる</button></div>`
+    :`<div class="sec" style="margin-top:0">${ic('clock',22,'#EE8531')}お迎えが遅れることを園に伝えます</div>
+      ${kids.map(k=>`<div class="lcrow">${face(k,40)}<div style="flex:1"><b>${k.name.split(' ')[1]}${k.sfx}</b>
+        <div class="lctime">${hm(k.pickupAt)} → <b>${hm(calcNew(k))}</b><span>（${Math.round((calcNew(k)-k.pickupAt)/60000)}分遅れ）</span></div></div></div>`).join('')}
+      <div class="lcnote">${ic('info',18,'#C9AE8E')}<div>お迎えは、できるだけ保育時間内にお願いしています。${ext?`<br><b>${R.extFrom}を過ぎるため、延長保育の扱いになります。</b>`:''}</div></div>
+      <div class="tiny" style="margin:12px 0 6px;color:#7A6B60">今月の遅れの連絡：<b style="font-size:14px;color:${n>=3?'#C0392B':'var(--o-d)'}">${n}回目</b></div>
+      <div class="tiny muted" style="margin-bottom:6px">遅れる理由（任意・先生に伝わります）</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">${LATE_REASONS.map(r=>`<button class="lcwhy ${state.lateReason===r?'on':''}" onclick="act('lateWhy','${r}')">${r}</button>`).join('')}</div>
+      <div style="display:grid;gap:9px;margin-top:16px">
+        <button class="cta" onclick="act('lateGo')">この内容で園に伝える</button>
+        <button class="btn g" style="justify-content:center" onclick="act('closeModal')">やめる</button></div>`}
     </div></div>`;}
   if(state.modal==='schools')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:860px" onclick="event.stopPropagation()">
     <div class="sec">園の切り替え</div>
@@ -1283,8 +1412,16 @@ function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=se
 function phoneShell(inner){
   const nav=[['S02','ホーム','home'],['S06','連絡帳','cal'],['S03','お迎え連絡','car'],['S21','お知らせ','mail'],['S22','メニュー','menu']];
   const nb={S06:parentNewReplies(),S21:myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length};
-  return `${offlineBar()}<div class="roll">${inner}</div>
-  <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib" style="position:relative">${ic(i,22)}${nb[id]?`<span class="badge">${nb[id]}</span>`:''}</span>${l}</button>`).join('')}</div>`;
+  const sideNav=nav.concat([['S05','欠席・遅刻の連絡','cal'],['S07','代理人の登録','users'],['S08','受付用QRコード','idcard']]);
+  /* パソコンの幅では左にメニュー、スマホ・タブレットでは下にメニュー（同じ画面を幅に合わせて切り替える） */
+  return `${offlineBar()}<div class="pcols">
+  <aside class="pside">
+    <div class="plogo">${sun(32)}<span>おかえりタイムライン<small>${esc(curSchool().name)}</small></span></div>
+    ${sideNav.map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}${nb[id]?`<span class="nb">${nb[id]}</span>`:''}</button>`).join('')}
+    <div class="pme">${face(pchild(),36)}<div style="min-width:0"><b>${esc(parentName())} さま</b><small>${pfam().map(k=>k.name.split(' ')[1]+k.sfx).join('・')}の保護者</small></div></div>
+  </aside>
+  <div class="pmain"><div class="roll">${inner}</div>
+  <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib" style="position:relative">${ic(i,22)}${nb[id]?`<span class="badge">${nb[id]}</span>`:''}</span>${l}</button>`).join('')}</div></div></div>`;
 }
 function phead(title,back){
   const un=myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length;
@@ -1376,7 +1513,7 @@ const ACCOUNTS=[
  {id:'sakura-uketsuke',pw:'genkan0001',role:'kiosk',label:'受付端末',  who:'玄関のタブレット',      ic:'idcard'},
  {id:'sakura-monitor',pw:'monitor0001',role:'monitor',label:'表示用モニター',who:'職員室の大型テレビ（表示専用）',ic:'board'},
 ];
-SCR.S01=()=>`<div class="roll"><div class="pbody" style="padding-top:34px">
+SCR.S01=()=>`<div class="roll plogin-bg"><div class="pbody plogin" style="padding-top:34px">
     <div style="text-align:center;margin-bottom:26px">
       <div style="display:grid;place-items:center">${sun(64)}</div>
       <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
@@ -1404,7 +1541,7 @@ function kidSwitch(){const ks=pfam();if(ks.length<2)return '';
     ${face(k,28)}${k.name.split(' ')[1]}${k.sfx}</button>`).join('')}</div>`;}
 SCR.S02=()=>{
   const c=pchild();
-  return `${phead('ホーム','',true)}<div class="pbody">
+  return `${phead('ホーム','',true)}<div class="pbody pwide"><div class="phome"><div>
     ${kidSwitch()}
     <div class="kidcard">${face(c,54)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div>
@@ -1422,13 +1559,15 @@ SCR.S02=()=>{
       ${[['S05','欠席・遅刻の連絡','通院・お休みの申請','cal'],['S06','連絡帳',parentNewReplies()?'園から新しい返信があります':'体調・様子の記入','book'],
          ['S07','代理人の登録',proxiesOf(state.pc).length+'人を登録中','users'],['S08','受付用QRコード','玄関のタブレットにかざす','idcard']]
         .map(([id,t,s,i])=>`<button class="tile" onclick="act('go','${id}')"><span style="color:var(--o)">${ic(i,24)}</span><b>${t}</b><small>${s}</small></button>`).join('')}
-    </div>
+    </div></div><div>
     <div class="sec">園からのお知らせ</div>
     <div class="card" style="padding:15px 17px;font-size:13px;line-height:1.75">
       <b style="font-family:var(--disp)">プールの持ち物について</b>
       <div class="tiny muted" style="margin-top:2px">${curSchool().name}・${md(now()-86400000)}</div>
       <div style="margin-top:6px">明日は水遊びを行います。タオルと着替えをお持ちください。</div></div>
-  </div>`;
+    ${myNotices().filter(n=>n.kind!=='園からのお知らせ').slice(0,3).map(n=>`<button class="card pnote" onclick="act('readNotice','${n.id}')">
+      <span class="pill ${n.kind==='連絡帳'?'orange':'green'}">${n.kind}</span><b>${n.title}</b><small>${md(n.t)} ${hm(n.t)}</small></button>`).join('')}
+  </div></div></div>`;
 };
 
 SCR.S03=()=>{
@@ -1455,27 +1594,40 @@ SCR.S03=()=>{
         <div class="tiny" style="margin-top:3px;color:${isIn(c)?'var(--ok-tx)':'var(--ink-2)'}">${isIn(c)?'登園 '+esc(inLabel(c)):'今日の登園はまだ記録されていません'}</div></div>
       <div class="timebox"><small>${c.changed?'現在のお迎え時間':'通常のお迎え時間'}</small><b>${hmx(c.pickupAt)}</b></div></div>
     <div style="position:relative">${deco}<div class="leadline">お迎えの状況をお知らせください</div></div>
-    <div class="bigchoice">
-      <button class="late ${sel.dir==='late'?'on':''}" onclick="act('dir','late')">
-        <span class="cc">${ic('clock',26,'#EE8531')}</span>遅れます<span class="arrow">${ic('chev',18)}</span></button>
-      <button class="early ${sel.dir==='early'?'on':''}" onclick="act('dir','early')">
-        <span class="cc">${ic('run',26,'#2E8B5F')}</span>早く行けそう<span class="arrow">${ic('chev',18)}</span></button>
-    </div>
-    <div class="panel ${sel.dir==='late'?'left':'right'}">
+    ${!sel.open?`
+    <button class="chgbtn" onclick="act('chgOpen')"><span class="cc">${ic('clock',28,'#EE8531')}</span>
+      <span class="tx"><b>お迎え時間の変更を連絡する</b><small>早く行けるとき・遅れそうなとき</small></span><span class="arrow">${ic('chev',20)}</span></button>
+    <div class="tiny muted" style="text-align:center;margin-top:12px">いつもの時間どおりにお迎えに来るときは、連絡は必要ありません。</div>`
+    :`<div class="chgcard">
+      <div class="chghead"><b>お迎えの時間はどう変わりそうですか？</b><button onclick="act('chgClose')">やめる</button></div>
+      <div class="bigchoice">
+        <button class="early ${sel.dirChosen&&sel.dir==='early'?'on':''}" onclick="act('dir','early')">
+          <span class="cc">${ic('run',26,'#2E8B5F')}</span>早く行けそう</button>
+        <button class="late ${sel.dirChosen&&sel.dir==='late'?'on':''}" onclick="act('dir','late')">
+          <span class="cc">${ic('clock',26,'#EE8531')}</span>遅れそう</button>
+      </div></div>`}
+    ${sel.open&&sel.dirChosen?`<div class="panel ${sel.dir==='early'?'left':'right'}">
       <h4>${ic('clock',20,'#EE8531')}${sel.dir==='late'?'どのくらい遅れそうですか？':'どのくらい早く着けそうですか？'}</h4>
-      <div class="hint">お迎え予定時刻からの${sel.dir==='late'?'遅れ':'前倒し'}時間を選択してください。</div>
+    <div class="hint">お迎え予定時刻からの${sel.dir==='late'?'遅れ':'前倒し'}時間を選択してください。${sel.dir==='late'?`<br>${pickRules().maxLateMin}分を超える遅れや、閉園（${pickRules().close}）を過ぎるときは、園にお電話ください。`:''}</div>
       <div class="slots">${[10,15,20].map(m=>`<button class="${sel.min===m?'on':''}" onclick="act('min',${m})">
         <b>${m}<i>分</i></b><small>${sel.dir==='late'?'遅れます':'早く着きます'}</small></button>`).join('')}</div>
       <div class="tipbox">${ic('bulb',20,'#D6A94E')}<div>選択された内容は、施設の先生にすぐ共有されます。<br>いつもご協力ありがとうございます。</div></div>
       <button class="rowbtn" onclick="act('focusCustom')">${ic('pencil',20,'#B69C7E')}その他の時間を入力する<span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>
       <input class="inp" id="custom" type="time" value="${sel.custom}" onchange="act('custom',this.value)" style="margin-top:10px;${sel.custom||state.showCustom?'':'display:none'}">
-    </div>
-    ${newAt?`<div class="tipbox" style="background:#FFF;box-shadow:0 1px 3px rgba(150,110,70,.09)">${ic('check',20,'#5FBF8B')}
+    </div>`:''}
+    ${newAt&&sel.open&&sel.dirChosen?`<div class="tipbox" style="background:#FFF;box-shadow:0 1px 3px rgba(150,110,70,.09)">${ic('check',20,'#5FBF8B')}
       <div>変更後のお迎え予定：<b style="font-size:15px;color:var(--o-d)">${hm(newAt)}</b>（現在 ${hm(c.pickupAt)}）</div></div>`:''}
     ${state.sendErr?`<div class="err" style="margin-top:12px"><b>送信できませんでした。</b><br>通信が不安定です。電波の良い場所で「変更を送信する」をもう一度押してください。二重に登録されることはありません。</div>`:''}
-    <div style="margin-top:14px"><button class="cta" ${newAt?'':'disabled'} onclick="act('submitPickup')">この内容で送信する</button></div>
+    ${sel.open&&sel.dirChosen?`<div style="margin-top:14px"><button class="cta" ${newAt?'':'disabled'} onclick="act('submitPickup')">この内容で送信する</button></div>`:''}
   </div>`;
 };
+/* 園のお迎えの決まり（データファイルの pickupRules。なければこの値） */
+const pickRules=()=>Object.assign({extFrom:'18:00',close:'20:00',maxLateMin:30},dataset().pickupRules||{});
+const clockAt=(base,hhmm)=>{const [h,m]=String(hhmm).split(':').map(Number);const d=new Date(base);d.setHours(h||0,m||0,0,0);return d.getTime();};
+/* この家庭の今月の「遅れます」の連絡の回数 */
+function lateCountThisMonth(){const d=new Date(now()),fk=famKey(state.pc);
+  return (state.notices||[]).filter(n=>n.late&&n.fam===fk&&new Date(n.t).getMonth()===d.getMonth()&&new Date(n.t).getFullYear()===d.getFullYear()).length;}
+const LATE_REASONS=['仕事','電車・道路の遅れ','家庭の事情','その他'];
 function calcNew(c){
   c=c||pchild();const sel=state.sel;
   if(sel.custom){const[h,m]=sel.custom.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);return d.getTime();}
@@ -1527,8 +1679,8 @@ SCR.S05=()=>{
 
 SCR.S06=()=>{
   const c=pchild(),list=state.diary[c.id]||[],te=todayEntry(c.id),h=(te&&normEntry(te).home)||{},young=isYoung(c);
-  return `${phead('連絡帳','S02')}<div class="pbody">
-    ${kidSwitch()}
+  return `${phead('連絡帳','S02')}<div class="pbody pwide">
+    ${kidSwitch()}<div class="p2col"><div>
     <div class="card" style="padding:17px">
       <div style="font-family:var(--disp);font-weight:700">${md(now())}（${wd(now())}）お家での様子</div>
       <div class="tiny muted" style="margin-top:2px">${c.name}${c.sfx}（${c.cls}）${te&&normEntry(te).home?'・送信済み（直して送ると上書きされます）':''}</div>
@@ -1547,10 +1699,11 @@ SCR.S06=()=>{
       <textarea class="inp" id="dTxt" rows="3" placeholder="例）少し咳が出ています。今日のお迎えは祖母です。">${esc(h.txt||'')}</textarea>
       ${young?'':'<div class="tiny muted" style="margin-top:6px">3歳児クラス以上は、排便の欄を省いています。気になることがあれば上の欄に書いてください。</div>'}
       <div style="margin-top:14px"><button class="cta" onclick="act('saveDiary')">園に送る</button></div></div>
-    <div class="sec">これまでの記録</div>
+    </div><div>
+    <div class="sec p2top">これまでの記録</div>
     ${list.length?list.map(e=>`<div class="card" style="padding:15px 17px;margin-bottom:10px">${entryHTML(e,(state.newIds||[]).includes(e.id)?'園から新しい返信':'')}</div>`).join('')
       :'<div class="tiny muted">まだ記録はありません。</div>'}
-  </div>`;
+  </div></div></div>`;
 };
 
 /* ---- 登園 ---- */
@@ -1929,7 +2082,7 @@ function arrivedRow(c){
       <div class="tiny muted">${c.cls}（${c.age}）</div>
       <div class="big">${c.name}${c.sfx}</div>
       <div class="room">${c.cls}の保育室へ向かっています</div>
-      <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?(c.live?'顔照合 一致・本人確認済み':'顔照合 一致（首振り未確認）'):'職員が確認して受付'}</span>
+      <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?'顔照合 一致':'職員が確認して受付'}</span>
       <div class="meta" style="margin-top:5px">お迎え：${c.arrivedBy||c.by}　${hm(c.arrivedAt||now())}受付
         ${c.prep?`<span class="pill green" style="margin-left:6px">${c.prep}が準備中</span>`:''}</div>
     </div>
@@ -2257,7 +2410,6 @@ SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hp
   <div class="sec">受付カメラ</div>
   <div class="card" style="padding:4px 16px">
     ${[['on','玄関の受付カメラを使う','お迎えの方を撮影し、登録写真と照合します'],
-       ['live','首振りで本人を確認する','写真や画面、録画した動画をかざすなりすましを防ぎます'],
        ['list','QRコードがない方はお名前でさがせる','オフにすると、QRコードを出せない場合は先生を呼ぶだけになります'],
        ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
@@ -2370,7 +2522,7 @@ SCR.S23=()=>{
         <input id="dSearch" value="${esc(state.dq)}" placeholder="園児の名前で検索" oninput="act('dq',this.value)"></div>
       <div id="dList">${dListHTML()}</div>
     </div>
-    <div>${sel?`
+    <div class="dsticky" id="dDetail">${sel?`
       <div class="card" style="padding:18px">
         <div style="display:flex;gap:12px;align-items:center">${face(sel,46)}
           <div><b style="font-family:var(--disp);font-size:17px">${sel.name}${sel.sfx}</b>
@@ -2572,25 +2724,26 @@ SCR.S27=()=>{
   }
   if((step==='shoot'||step==='live')&&sel){
     const p=proxiesOf(sel.id).find(x=>x.id===state.camProxy)||proxiesOf(sel.id)[0];
-    const err=state.camErr, live=step==='live';
-    return `<div class="tbody"><div class="kiosk" style="padding-top:8px">
-      <h3>${live?'画面の指示に合わせて動いてください':'カメラに顔を向けてください'}</h3>
-      <div class="lead" id="liveMsg">${live?(state.liveMsg||'① カメラの正面を向いてください'):`${p.name}さん（${p.rel}）
-        <span class="pill ${state.faceReady?'green':'gray'}" style="margin-left:6px">${state.faceReady?'照合の準備完了':'照合を準備しています'}</span>`}</div>
-      <div class="camwrap">
+    const err=state.camErr;
+    return `<div class="tbody"><div class="kiosk shootbox">
+      <div class="shootcam"><div class="camwrap">
         ${camStream?`<video id="camView" autoplay playsinline muted></video><div class="guide"></div>`
-         :err?`<div class="ph">カメラを使えませんでした。<br>${err==='denied'?'ブラウザでカメラの使用を許可してください。':'この端末ではカメラを直接使えません。'}<br>下のボタンから撮影できます。</div>`
+         :err?`<div class="ph">カメラを使えませんでした。<br>${err==='denied'?'ブラウザでカメラの使用を許可してください。':'この端末ではカメラを直接使えません。'}<br>右のボタンから撮影できます。</div>`
          :`<div class="ph">「カメラを開始」を押してください。</div>`}
-      </div>
-      ${live?`<div class="tiny muted" style="margin-top:12px">毎回ちがう向きへの首振り（2回）で、目の前にご本人がいることを確かめています。照合は複数の画像で行います</div>
-          <div style="margin-top:12px"><button class="btn g" onclick="act('camRetake')">やり直す</button></div>`
-       :camStream?`<button class="shutter" onclick="act('shoot')">${ic('idcard',30,'#E4762A')}</button>
-        <div class="tiny muted" style="margin-top:8px">${state.cam.live?'ボタンを押したあと、画面の指示に合わせて首の向きを変えると撮影します':'ボタンを押すと撮影し、登録写真と照合します'}</div>`
-       :`<div style="margin-top:14px;display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
-          <button class="btn" onclick="act('camStart')">${ic('idcard',20)}カメラを開始</button>
-          <input type="file" id="camFile" accept="image/*" capture="user" style="display:none" onchange="act('camFile',this)">
-          <button class="btn g" onclick="document.getElementById('camFile').click()">端末のカメラで撮影</button></div>`}
-      ${live?'':back}</div></div>`;
+      </div></div>
+      <div class="shootside">
+        <h3>カメラに顔を向けてください</h3>
+        <div class="shootwho">${state.role==='kiosk'?`<div style="width:46px;height:46px;border-radius:50%;background:var(--o-l);display:grid;place-items:center;color:var(--o);flex:none">${ic('user',24)}</div>`
+          :`<div style="width:46px;height:52px;border-radius:10px;overflow:hidden;background:#EFEDEA;flex:none">${pic(p)}</div>`}<div><b>${esc(p.name)}さん</b><small>${esc(p.rel)}／${sel.name.split(' ')[1]}${sel.sfx}のお迎え</small></div></div>
+        <span class="pill ${state.faceReady?'green':'gray'}">${state.faceReady?'照合の準備完了':'照合を準備しています'}</span>
+        <div class="tiny muted" style="margin:10px 0 14px;line-height:1.8">点線の枠に顔が入るようにして、ボタンを押してください。<br>3枚続けて撮影し、登録写真と照合します。</div>
+        ${camStream?`<button class="cta" id="shootBtn" ${state.capturing?'disabled':''} onclick="act('shoot')">${ic('idcard',22)}${state.capturing?'撮影しています…':'撮影して照合する'}</button>`
+         :`<div style="display:grid;gap:10px">
+            <button class="btn" style="justify-content:center" onclick="act('camStart')">${ic('idcard',20)}カメラを開始</button>
+            <input type="file" id="camFile" accept="image/*" capture="user" style="display:none" onchange="act('camFile',this)">
+            <button class="btn g" style="justify-content:center" onclick="document.getElementById('camFile').click()">端末のカメラで撮影</button></div>`}
+        <div style="margin-top:10px">${back}</div>
+      </div></div></div>`;
   }
   if(step==='scan'){
     const err=state.camErr;
@@ -2845,7 +2998,8 @@ function act(name,arg){
   if(state.role==='monitor'&&blocked.includes(name)){toast('表示用モニターは表示のみです');return;}
   if(!['agq','tlq','dq'].includes(name))state.focusId='';
   switch(name){
-    case 'go': state.screen=arg; state.sendErr=false; state.drawer=false; state.newIds=[];
+    case 'go': if(arg==='S03'&&state.screen!=='S03')Object.assign(state.sel,{open:false,dirChosen:false,min:null,custom:''});
+      state.screen=arg; state.sendErr=false; state.drawer=false; state.newIds=[];
       if(arg==='S06'&&state.role==='parent')markParentSeen(); break;
     case 'drawer': state.drawer=!state.drawer; break;
     case 'hbar': state.hbar=!state.hbar; break;
@@ -2866,7 +3020,9 @@ function act(name,arg){
     case 'viewonly': toast('保育課のアカウントは閲覧のみです');break;
     case 'toggleSet': state.settings[arg]=!state.settings[arg];break;
     case 'callSchool': toast(curSchool().name+'　044-000-0000（サンプル）');break;
-    case 'dir': state.sel.dir=arg;state.sel.min=null;state.sel.custom='';break;
+    case 'dir': state.sel.dir=arg;state.sel.dirChosen=true;state.sel.open=true;state.sel.min=null;state.sel.custom='';break;
+    case 'chgOpen': Object.assign(state.sel,{open:true,dirChosen:false,min:null,custom:''});state.showCustom=false;break;
+    case 'chgClose': Object.assign(state.sel,{open:false,dirChosen:false,min:null,custom:''});state.showCustom=false;state.sendErr=false;break;
     case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
     case 'custom': state.sel.custom=arg;state.sel.min=null;break;
     case 'focusCustom': state.showCustom=true;break;
@@ -2875,6 +3031,9 @@ function act(name,arg){
       let t=state.pkids||sibs.slice();t=t.includes(arg)?t.filter(x=>x!==arg):t.concat(arg);
       if(!t.length){toast('お子さまを1人以上選んでください');return;}state.pkids=t;break;}
     case 'submitPickup':{const nt=calcNew();if(!nt)break;
+      /* 遅れるときは、送る前に確認の画面をはさむ（早く行けるときはそのまま送る） */
+      if(nt>pchild().pickupAt&&!state.lateOk){state.modal='lateConfirm';state.lateReason=state.lateReason||'';break;}
+      state.lateOk=false;
       if(state.err){state.sendErr=true;
         state.pending={label:'お迎え時間の変更（'+hm(nt)+'）',at:now()};
         toast('園に届きませんでした');break;}
@@ -2882,14 +3041,18 @@ function act(name,arg){
       const ids=(state.pkids||sibs).filter(id=>sibs.includes(id));
       if(!ids.length){toast('すでにお迎えの受付が済んでいます');break;}
       const targets=ids.map(child);
+      const isLate=nt>pchild().pickupAt,why=isLate&&state.lateReason?'（理由：'+state.lateReason+'）':'';
       targets.forEach(c=>{const before=c.pickupAt,after=calcNew(c);if(!c.changed)c.planAt=before;
-        c.pickupAt=after;c.changed='保護者アプリ';c.changedAt=now();
-        addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(after)}</b> に変わります。`);});
-      state.notices.unshift({id:'n'+Date.now(),fam:famKey(state.pc),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',
-        body:targets.map(c=>c.name.split(' ')[1]+c.sfx+'：'+hm(c.planAt)+' → '+hm(c.pickupAt)).join('／'),t:now(),read:false});
+        c.pickupAt=after;c.changed='保護者アプリ';c.changedAt=now();if(isLate)c.lateReason=state.lateReason||'';
+        addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者の方から連絡があり、<br>お迎えが ${hm(before)} → <b>${hm(after)}</b> に変わります。${why}`);});
+      state.notices.unshift({id:'n'+rid(),fam:famKey(state.pc),kind:'お迎え連絡',title:'お迎え時間の変更を園が受け取りました',late:isLate,reason:isLate?state.lateReason||'':'',
+        body:targets.map(c=>c.name.split(' ')[1]+c.sfx+'：'+hm(c.planAt)+' → '+hm(c.pickupAt)).join('／')+why,t:now(),read:false});
+      state.lateReason='';
       bump('app');state.lastChanged=targets.map(c=>c.id);state.pending=null;
-      state.sendErr=false;state.sel.min=null;state.sel.custom='';state.screen='S04';toast('園のタイムラインに反映しました');break;}
+      state.sendErr=false;Object.assign(state.sel,{min:null,custom:'',open:false,dirChosen:false});state.screen='S04';toast('園のタイムラインに反映しました');break;}
 
+    case 'lateGo': state.modal=null;state.lateOk=true;return act('submitPickup');
+    case 'lateWhy': state.lateReason=state.lateReason===arg?'':arg;drawOverlay();return;
     case 'absMulti': state.absMulti=!!arg;break;
     case 'submitAbsence':{const t=document.getElementById('abType').value,x=document.getElementById('abTxt').value;
       let d;
@@ -2909,7 +3072,7 @@ function act(name,arg){
       if(home.temp&&!/^\d{2}(\.\d{1,2})?$/.test(home.temp)){toast('体温は 36.5 のように入力してください');return;}
       let e=todayEntry(c.id);
       if(e){e.home=home;e.staffSeen=false;e.at=now();}
-      else{e={id:'d'+Date.now()+c.id,key:today(),d:md(now())+'（'+wd(now())+'）',at:now(),home,nursery:null,staffSeen:false,parentSeen:true};list.unshift(e);}
+      else{e={id:'d'+rid()+c.id,key:today(),d:md(now())+'（'+wd(now())+'）',at:now(),home,nursery:null,staffSeen:false,parentSeen:true};list.unshift(e);}
       toast('連絡帳を園に送りました');break;}
     case 'pxFile': readImage(arg&&arg.files&&arg.files[0],d=>{state.pxSrc=d;state.pxPhoto=true;state.pxWarn='wait';state.pxDesc=null;render();
         checkRegPhoto(d,(desc,ng)=>{if(state.pxSrc!==d)return;state.pxDesc=desc;state.pxWarn=desc?'ok':(ng?'ng':'');render();});});return;
@@ -3023,7 +3186,7 @@ function act(name,arg){
     case 'agPick':{const c=child(arg);if(c&&c.st==='released'){toast('お迎え済みの園児です');return;}state.ag.cid=arg;break;}
     case 'dcls': state.dcls=arg;state.dnew=false;break;
     case 'dq': state.dq=arg;{const el=document.getElementById('dList');if(el){el.innerHTML=dListHTML();return;}}break;
-    case 'pickDiary': state.diaryChild=arg;markStaffSeen(arg);break;
+    case 'pickDiary': state.diaryChild=arg;markStaffSeen(arg);state.scrollToId='dDetail';break;
     case 'dnew': state.dnew=!state.dnew;break;
     case 'dnewOpen': state.dnew=true;state.screen='S23';break;
     case 'saveReply':{const g=id=>{const el=document.getElementById(id);return el?String(el.value||'').trim():'';};
@@ -3033,10 +3196,10 @@ function act(name,arg){
       if(!nursery.txt&&!nursery.napFrom&&!nursery.temp&&!nursery.lunch){toast('返信の内容を入力してください');break;}
       if(nursery.temp&&!/^\d{2}(\.\d{1,2})?$/.test(nursery.temp)){toast('体温は 36.5 のように入力してください');return;}
       const list=state.diary[cid]=state.diary[cid]||[];let e=todayEntry(cid);
-      if(!e){e={id:'d'+Date.now()+cid,key:today(),d:md(now())+'（'+wd(now())+'）',at:now(),home:null,staffSeen:true};list.unshift(e);}
+      if(!e){e={id:'d'+rid()+cid,key:today(),d:md(now())+'（'+wd(now())+'）',at:now(),home:null,staffSeen:true};list.unshift(e);}
       e.nursery=nursery;e.repliedAt=now();e.repliedBy=me().short;e.parentSeen=false;e.staffSeen=true;
       const c=child(cid);
-      state.notices.unshift({id:'n'+Date.now(),fam:famKey(cid),kind:'連絡帳',title:'連絡帳に園から返信がありました',
+      state.notices.unshift({id:'n'+rid(),fam:famKey(cid),kind:'連絡帳',title:'連絡帳に園から返信がありました',
         body:c.name+c.sfx+'：'+(nursery.txt?nursery.txt.slice(0,40):'園での様子が届きました'),t:now(),read:false});
       toast('保護者に返信しました');break;}
     case 'readNotice':{const n=state.notices.find(x=>x.id===arg);if(n)n.read=true;break;}
@@ -3143,7 +3306,11 @@ function act(name,arg){
       logoutSession();state.modal=null;state.loginPw='';state.loginErr='';stopCam();applyAccount(a);
       toast((a.role==='parent'?parentName()+'さん（保護者）':a.label)+'に切り替えました');break;}
     case 'closeModal': state.modal=null;break;
-    case 'reset':{const hid=state.hbarHidden;stopCam();reset();state.hbarHidden=hid;toast('すべてのデータを初期状態に戻しました');break;}
+    case 'reset':case 'resetAt':{const hid=state.hbarHidden;stopCam();
+      /* データを初期状態に戻し、デモの時刻をそろえる（8:00＝登園、17:00＝お迎え。リセットだけなら demoStart か 17:00） */
+      const st=name==='resetAt'&&arg?arg:(dataset().demoStart||'17:00'),off=todayAt(st)-Date.now();
+      reset(undefined,off);state.hbarHidden=hid;
+      toast('データを初期状態にして、'+st+'から始めます'+(st<'11:00'?'（登園のデモ）':'（お迎えのデモ）'));break;}
   }
   render();
 }
@@ -3217,6 +3384,7 @@ function applyMap(M){
   const di={};vals('diary').forEach(o=>di[o.cid]=mergeSameDay(o.list));state.diary=di;
   const st=M['meta/settings'];['thr','cam','stats','offset','clock24'].forEach(k=>{if(k in st)state[k]=st[k];});
   if(state.cam&&THR_OLD[state.cam.thr])state.cam.thr=THR_OLD[state.cam.thr];
+  if(state.cam)state.cam.live=false;     /* 首振りの確認はやめた（保存済みの設定も切る） */
   if(M['meta/stats']&&M['meta/stats'].stats)state.stats=M['meta/stats'].stats;
   const ds={};Object.keys(M).filter(k=>k.startsWith('stats/')).forEach(k=>ds[k.slice(6)]=M[k]);state.devStats=ds;
   return true;
@@ -3267,10 +3435,14 @@ function japply(root,ops){
   }
   return root;
 }
+/* 端末どうしで重ならない id（同じ瞬間に作っても別のものになる） */
+const rid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 function arrOp(arr,op){
   if(op.add)op.add.forEach(x=>{if(!arr.includes(x))arr.push(x);});
   if(op.rm)op.rm.forEach(x=>{const i=arr.indexOf(x);if(i>=0)arr.splice(i,1);});
-  if(op.ins&&!arr.some(x=>x&&x.id===op.ins.id))arr.splice(Math.min(op.at||0,arr.length),0,JSON.parse(JSON.stringify(op.ins)));
+  if(op.ins){const ex=arr.find(x=>x&&x.id===op.ins.id);
+    if(!ex)arr.splice(Math.min(op.at||0,arr.length),0,JSON.parse(JSON.stringify(op.ins)));
+    else Object.keys(op.ins).forEach(k=>{if(ex[k]==null&&op.ins[k]!=null)ex[k]=JSON.parse(JSON.stringify(op.ins[k]));});}
   if(op.rmid){const i=arr.findIndex(x=>x&&x.id===op.rmid);if(i>=0)arr.splice(i,1);}
 }
 function jsonMap(){const m=entityMap(),j={};for(const k in m)j[k]=JSON.stringify(m[k]);return j;}
@@ -3444,7 +3616,7 @@ async function fbStart(cfg,pw){
   if(!mem.exists){Sync.status='error';Sync.err=email+' は園の利用者として登録されていません（okaeri_members）';render();return;}
   const m=mem.data()||{};Sync.role=m.role||'';Sync.fams=Array.isArray(m.fams)?m.fams:[];Sync.email=email;
   if(!ROLE_LABEL[Sync.role]){Sync.status='error';Sync.err='役割（role）の登録が正しくありません';render();return;}
-  if(m.school&&m.school!==state.schoolId&&schoolsAll().some(x=>x.id===m.school)){state.schoolId=m.school;Object.assign(state,freshData(m.school));}
+  if(m.school&&m.school!==state.schoolId&&schoolsAll().some(x=>x.id===m.school)){state.schoolId=m.school;Object.assign(state,freshData(m.school,state.offset));}
   Sync.col=Sync.fs.collection('okaeri_'+state.schoolId);
   const q=Sync.role==='parent'?Sync.col.where('fam','in',Sync.fams.concat(['all','parents']).slice(0,30)):Sync.col;
   const seeds=Sync.role==='staff'||Sync.role==='kiosk';
@@ -3493,7 +3665,7 @@ function stopSync(){try{Sync.bc&&Sync.bc.close();}catch(e){}Sync.bc=null;try{Syn
 function switchSchool(id){
   if(!schoolsAll().some(x=>x.id===id))return;
   stopSync();stopCam();
-  state.schoolId=id;Object.assign(state,freshData(id));
+  state.schoolId=id;Object.assign(state,freshData(id,state.offset));
   const first=state.children[0]?state.children[0].id:'';
   Object.assign(state,{childId:first,ag:{cls:'',q:'',cid:first},camStep:'pick',camChild:'',camKids:[],camProxy:'',
     s10cls:(state.me&&state.me.cls)||'',dcls:'',dq:'',camq:'',diaryChild:'',pc:'c1',hold:null,pending:null,lastChanged:[],q:''});
