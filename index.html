@@ -288,6 +288,40 @@ table.tbl td:first-child{white-space:nowrap}
 .bigchoice .early.on{background:var(--mint);color:#1F7A50;box-shadow:0 6px 16px rgba(110,190,150,.35);outline:2.5px solid #6FC49B;outline-offset:2px}
 .bigchoice .arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.7}
 .phone,.tablet{position:relative}
+.dztag{display:inline-block;color:#D32F2F;font-weight:700;font-size:13px;margin-left:8px;white-space:nowrap;font-family:var(--disp);vertical-align:middle}
+.arrbig .dztag{margin-left:0;margin-top:2px;font-size:14px}
+.clsec{display:flex;align-items:center;gap:8px}.clsec .pill{font-size:12px}
+.langsw{display:inline-flex;background:#fff;border:1.5px solid #EBDDD1;border-radius:999px;padding:3px;gap:2px}
+.langsw button{padding:6px 13px;border-radius:999px;font-size:12.5px;font-family:var(--disp);font-weight:700;color:#8B7E74}
+.langsw button.on{background:var(--o);color:#fff}
+.s13photo{max-width:420px;margin:0 auto}
+@media (max-width:900px){.s13photo{max-width:300px}}
+.kh-big{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kh-name{min-width:0}
+@media (max-width:560px){.kidhead{flex-wrap:wrap;gap:12px!important}.kidhead .kh-name{flex:1 1 calc(100% - 90px)!important}
+  .kidhead>div:last-child{text-align:left!important;display:flex;align-items:center;gap:10px;width:100%;flex-wrap:wrap}
+  .kidhead>div:last-child>div{margin-top:0!important}.kh-big{font-size:21px!important}}
+.dzlow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:28px;padding:14px 16px;border-top:1px dashed #E6D5C8;color:#8B7E74}
+.dzlow b{font-family:var(--disp);font-size:13.5px;display:block;color:#7A6B60}.dzlow small{font-size:12px}
+.dzlow>div{flex:1;min-width:220px}
+.hpill.dzbtn{border:1.5px solid #E57373;color:#C62828;background:#FFF5F5}
+.dzbar{display:flex;gap:12px;align-items:flex-start;background:#FDECEC;border:2px solid #E57373;border-radius:18px;padding:14px 16px;margin-bottom:14px;color:#B71C1C}
+.dzbar b{font-family:var(--disp);font-size:15px;display:block}.dzbar small{display:block;font-size:12.5px;line-height:1.7;margin-top:3px;color:#8E2B2B}
+.dzcounts{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;font-weight:700}.dzcounts b{font-size:18px;display:inline}
+.dzq{display:flex;gap:7px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.dzq button{border:1.5px solid #F0B8B8;color:#C62828;background:#fff;border-radius:999px;padding:6px 13px;font-size:12.5px;font-family:var(--disp);font-weight:700}
+.btn.dzsend{background:linear-gradient(180deg,#E25B5B,#C62828)!important;color:#fff!important;box-shadow:0 4px 12px rgba(198,40,40,.3)}
+.dzcard{background:#FFF1F1;border:2.5px solid #E53935;border-radius:20px;padding:0 0 14px;margin:4px 0 16px;overflow:hidden}
+.dzh{background:#E53935;color:#fff;font-family:var(--disp);font-weight:900;font-size:16px;padding:10px 16px;display:flex;align-items:center;gap:8px}
+.dzmsg{padding:12px 16px 4px;font-size:14px;line-height:1.8;color:#7F1D1D;font-weight:700}
+.dzdone{margin:6px 16px 0;background:#fff;border-radius:12px;padding:9px 12px;font-size:13px;color:#B71C1C;line-height:1.7}
+.dzbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 4px}
+.dzbtns button{border-radius:16px;padding:16px 8px;font-family:var(--disp);font-weight:900;font-size:16px;border:2.5px solid #E53935;background:#fff;color:#C62828}
+.dzbtns button.on{background:#E53935;color:#fff}
+.dzfoot{padding:6px 16px 0;font-size:12px;color:#8E2B2B}
+.dzstrip{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#E53935;color:#fff;font-family:var(--disp);font-weight:700;font-size:13.5px;padding:10px 12px;border:0}
+.logobtn{cursor:pointer;text-align:left;border-radius:12px;transition:background .15s}
+.logobtn:hover{background:rgba(242,145,63,.10)}
+.logobtn:focus-visible{outline:2px solid var(--o);outline-offset:2px}
 .dsticky{position:sticky;top:4px;align-self:start;max-height:calc(100vh - 210px);overflow-y:auto;border-radius:22px}
 @media (max-width:820px){.dsticky{position:static;max-height:none;overflow:visible}}
 .totop{position:absolute;right:14px;bottom:78px;z-index:40;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);
@@ -543,10 +577,16 @@ body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bo
   .phome>div:last-child>.sec:first-child,.p2top{margin-top:0}
   .totop.ph{bottom:22px}
 }
-/* 職員・自治体：とても広い画面では、中身を読みやすい幅で中央に */
-@media (min-width:1500px){
-  .main .tbody,.main .thead,.main .tabs{padding-left:calc((100% - 1260px) / 2);padding-right:calc((100% - 1260px) / 2)}
-}
+/* 職員・自治体：画面の幅に合わせる。中身は画面ごとの読みやすい幅（--maxw）で中央にそろえ、
+   スクロールは画面全体で行う（左右の余白の上でもスクロールできる） */
+.main{--pad:26px}
+.main .thead,.main .tabs,.main .tbody{padding-left:max(var(--pad),calc((100% - var(--maxw,1260px)) / 2));padding-right:max(var(--pad),calc((100% - var(--maxw,1260px)) / 2))}
+@media (max-width:900px){.main{--pad:14px}}
+/* 表は狭い画面では横にスクロールし、列が細くなって文字が縦に並ばないようにする */
+.tablewrap table.tbl{min-width:660px}
+.tablewrap table.tbl.wide{min-width:880px}
+table.tbl th,table.tbl td{white-space:normal}
+table.tbl td:first-child,table.tbl th{white-space:nowrap}
 </style>
 
 <div class="harness">
@@ -1133,11 +1173,11 @@ const famKids=id=>{const k=famKey(id);return state.children.filter(c=>(c.fam||c.
 function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();
   return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
 /* 園で共有するデータ（ログアウトしても消えない） */
-const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats'];
+const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats','disaster'];
 function freshData(sid,off){
   const g=genSchool(sid,off);
   return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:g.absences||[],
-    notices:g.notices,records:[],alerts:[],logs:[],devStats:{},thr:{soon:5,show:10},
+    notices:g.notices,records:[],alerts:[],logs:[],devStats:{},disaster:null,thr:{soon:5,show:10},
     cam:{on:true,keep:false,thr:0.42,pin:'1234',list:false,live:false},
     stats:g.stats,offset:off||0,clock24:false};
 }
@@ -1224,6 +1264,80 @@ const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',
 const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
 const SCR={};
 
+/* ---- 英語表示（外国人の保護者向け）。保護者の画面とログイン画面だけを英語にする。
+   職員や保護者が入力した文（連絡帳・メッセージなど）と名前は、そのまま表示する ---- */
+const LANG_KEY='okaeri:lang';
+let LANG=(()=>{try{return localStorage.getItem(LANG_KEY)||'ja';}catch(e){return 'ja';}})();
+const isEnView=()=>LANG==='en'&&(state.role==='parent'||state.screen==='S01');
+const EN={"おかえりタイムライン": "Okaeri Timeline", "川崎市 公立認可保育所": "Kawasaki City public nursery schools", "ホーム": "Home", "連絡帳": "Notebook", "お迎え連絡": "Pickup", "お知らせ": "Notices", "メニュー": "Menu", "欠席・遅刻の連絡": "Absence / late arrival", "代理人の登録": "Pickup persons", "受付用QRコード": "Check-in QR code", "ホームに戻る": "Back to home", "一番上に戻る": "Back to top", "戻る": "Back", "ホームへ戻る": "Back to home", "もどる": "Back", "やめる": "Cancel", "ログアウトしました": "Logged out", "ログアウト": "Log out", "利用者ID": "User ID", "パスワード": "Password", "例）yamada-h": "e.g. yamada-h", "ログイン": "Log in", "IDとパスワードは入園時に園からお渡ししています。": "The nursery gives you your ID and password when your child enrolls.", "分からないときは園にお問い合わせください。": "If you are not sure, please contact the nursery.", "園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。": "Nursery names, wards and addresses are real public information from Kawasaki City. All children, parents, staff and numbers are fictional.", "データファイル（okaeri-data.js）を読み込めませんでした。HTMLと同じフォルダにあるか確認してください。": "The data file (okaeri-data.js) could not be loaded. Please check that it is in the same folder as the HTML file.", "今日はどうしますか？": "What would you like to do today?", "お迎えの状況を知らせる": "Update pickup status", "通院・お休みの申請": "Doctor visits and days off", "体調・様子の記入": "Health and daily notes", "園から新しい返信があります": "New reply from the nursery", "玄関のタブレットにかざす": "Show it at the entrance tablet", "園からのお知らせ": "From the nursery", "通常のお迎え時間": "Usual pickup time", "変更後のお迎え": "New pickup time", "今日の登園はまだ記録されていません": "Today's drop-off has not been recorded yet", "園から返信がありました": "The nursery replied", "お迎えの状況をお知らせください": "Let us know about pickup", "お迎え時間の変更を連絡する": "Report a change in pickup time", "早く行けるとき・遅れそうなとき": "When you can come early or may be late", "いつもの時間どおりにお迎えに来るときは、連絡は必要ありません。": "If you are picking up at the usual time, you do not need to contact us.", "連絡するお子さま": "Children", "お迎えの時間はどう変わりそうですか？": "How will your pickup time change?", "早く行けそう": "I can come early", "遅れそう": "I may be late", "どのくらい遅れそうですか？": "How late will you be?", "どのくらい早く着けそうですか？": "How early will you arrive?", "お迎え予定時刻からの遅れ時間を選択してください。": "Choose how many minutes after the scheduled pickup time.", "お迎え予定時刻からの前倒し時間を選択してください。": "Choose how many minutes before the scheduled pickup time.", "遅れます": "later", "早く着きます": "earlier", "分": "min", "選択された内容は、施設の先生にすぐ共有されます。": "Your choice is shared with the teachers right away.", "いつもご協力ありがとうございます。": "Thank you for your cooperation.", "その他の時間を入力する": "Enter another time", "変更後のお迎え予定：": "New pickup time: ", "この内容で送信する": "Send", "現在のお迎え時間": "Current pickup time", "お迎えが遅れることを園に伝えます": "Tell the nursery you will be late", "お迎えは、できるだけ保育時間内にお願いしています。": "We kindly ask you to pick up within care hours whenever possible.", "今月の遅れの連絡：": "Late notices this month: ", "遅れる理由（任意・先生に伝わります）": "Reason (optional — shared with the teachers)", "仕事": "Work", "電車・道路の遅れ": "Train or traffic delay", "家庭の事情": "Family reasons", "その他": "Other", "この内容で園に伝える": "Send to the nursery", "園にお電話ください": "Please call the nursery", "お手数ですが、園に直接お電話ください。": "Sorry for the trouble, but please call the nursery directly.", "園に電話する": "Call the nursery", "送信しました": "Sent", "園に伝えました": "Sent to the nursery", "送信した連絡": "What you sent", "お迎え時間の変更": "Pickup time change", "園のタイムラインに反映済み": "Shown on the nursery timeline", "先生の画面にすぐ反映されています。": "It is already showing on the teachers' screens.", "園が確認済み": "Received by the nursery", "園のタイムラインに反映しました": "Shown on the nursery timeline", "送信できませんでした。": "Could not send.", "園に届きませんでした": "Not delivered to the nursery", "通信が不安定です。電波の良い場所で「変更を送信する」をもう一度押してください。二重に登録されることはありません。": "The connection is unstable. Please press “Send” again where the signal is better. It will not be registered twice.", "もう一度送る": "Send again", "園に届いていない連絡があります。": "A message has not reached the nursery.", "通信が切れています。送った連絡は園に届いていません。お急ぎの場合は園にお電話ください。": "You are offline. Your messages have not reached the nursery. If it is urgent, please call the nursery.", "この端末の通信が切れた状態を再現します": "Simulating a lost connection on this device", "つながりました": "Connected", "欠席": "Absent", "遅刻（登園が遅れます）": "Late arrival (drop-off will be late)", "通院のため一時外出": "Leaving for a doctor visit", "長期のお休み": "Long absence", "連絡の種類": "Type", "対象の日": "Date", "1日だけ": "One day", "期間を指定": "Date range", "開始日": "Start date", "終了日": "End date", "園に伝えること": "Message to the nursery", "例）朝から熱があるため受診します。": "e.g. Seeing a doctor because of a fever since this morning.", "連絡を送信する": "Send", "通院・長期のお休み": "Doctor visits and long absences", "長期のお休みは、開始日と終了日をまとめて連絡できます。土日祝は園の休園日として扱われます。": "For a long absence, you can send the start and end dates together. Weekends and holidays are treated as days the nursery is closed.", "欠席の連絡を送りました": "Absence notice sent", "園に連絡しました": "Sent to the nursery", "お家での様子": "At home", "体温": "Temperature", "に測った": "taken at", "睡眠": "Sleep", "に寝て": "went to bed,", "に起きた": "woke up", "排便": "Bowel movement", "ごろ": "around", "朝食": "Breakfast", "機嫌": "Mood", "そのほか伝えたいこと": "Anything else to tell us", "例）少し咳が出ています。今日のお迎えは祖母です。": "e.g. A slight cough. Grandma will pick up today.", "3歳児クラス以上は、排便の欄を省いています。気になることがあれば上の欄に書いてください。": "For classes age 3 and up, the bowel movement field is not shown. Please write any concerns in the box above.", "園に送る": "Send to the nursery", "これまでの記録": "Past entries", "まだ記録はありません。": "No entries yet.", "園での様子": "At the nursery", "午睡": "Nap", "給食": "Lunch", "おやつ": "Snack", "なし": "None", "ふつう": "Normal", "やわらかい": "Soft", "かたい": "Hard", "下痢": "Diarrhea", "全部": "All", "ほとんど": "Most", "半分": "Half", "少し": "A little", "食べていない": "Didn't eat", "良好": "Good", "少し不調": "Not feeling well", "連絡帳を園に送りました": "Sent to the nursery", "園から新しい返信": "New reply from the nursery", "体温は 36.5 のように入力してください": "Please enter a temperature such as 36.5", "代理人リスト": "Pickup persons", "お迎えを代理でお願いできる方の一覧です。顔写真の登録は任意です。": "People who can pick up your child on your behalf. Adding a photo is optional.", "承認済み": "Approved", "承認待ち": "Waiting for approval", "有効期限切れ": "Expired", "照合用の写真が未登録": "No photo for the face check", "特徴メモ 未入力": "No description", "写真を登録": "Add photo", "写真を変更": "Change photo", "代理人を追加する": "Add a pickup person", "代理人の追加・変更は、園の承認が完了すると利用できます。": "Additions and changes can be used after the nursery approves them.", "氏名": "Name", "例）山田 太郎": "e.g. Taro Yamada", "続柄": "Relationship", "例）祖父": "e.g. Grandfather", "電話番号": "Phone number", "写真がない場合の特徴メモ": "Description (if there is no photo)", "例）眼鏡をかけた白髪の男性": "e.g. A man with glasses and white hair", "顔写真（任意）": "Face photo (optional)", "写真を選ぶ": "Choose photo", "正面を向いた、顔がはっきり写った写真を選んでください。玄関の顔照合に使います。": "Choose a clear photo of the face looking at the camera. It is used for the face check at the entrance.", "保存する": "Save", "未登録": "Not registered", "代理人の登録・確認": "Pickup persons", "お迎えをお願いできる方": "People who can pick up", "QRコードが読み取れないときは、この番号を入力してください": "If the QR code cannot be read, enter this number", "QRコードと番号を作り直す": "Reissue the QR code and number", "画面を他の人に見られた・共有を取り消したいとき。今までのQRコードと番号は使えなくなります": "Use this if someone else saw this screen or you want to cancel sharing. The current QR code and number will stop working.", "玄関の受付タブレットのカメラに、この画面をかざしてください。画面を明るくすると読み取りやすくなります。代理人の方にお迎えをお願いするときは、この画面を見せるか共有してください。": "Hold this screen up to the camera of the entrance tablet. A brighter screen is easier to read. When someone picks up on your behalf, show or share this screen with them.", "QRコードを表示できません。": "The QR code cannot be shown.", "下の8桁の番号を玄関で入力してください。": "Enter the 8-digit number below at the entrance.", "QRコードと番号を作り直しました。以前のものは使えません": "The QR code and number were reissued. The old ones no longer work.", "すべて既読にする": "Mark all as read", "園からのお知らせ・連絡帳": "From the nursery / notebook", "登園の記録、お迎え時間の変更の受付、玄関での受付完了など": "Drop-off records, pickup change receipts, entrance check-ins, etc.", "ひらく": "Open", "たたむ": "Close", "緊急": "Urgent", "登園": "Drop-off", "園からのお知らせはありません。": "There are no notices from the nursery.", "お迎え時間の変更を園が受け取りました": "The nursery received your pickup time change", "受付が完了しました": "Check-in completed", "登園を受け付けました": "Drop-off received", "保育士が登園を記録しました": "A teacher recorded drop-off", "連絡帳に園から返信がありました": "The nursery replied in the notebook", "よく使う機能": "Shortcuts", "お迎えのときに玄関でかざす": "Show it at the entrance when picking up", "お知らせの受け取り": "Notifications", "園からの連絡": "Messages from the nursery", "連絡帳の返信": "Notebook replies", "時刻を24時間表示にする": "Use 24-hour time", "園の連絡先": "Nursery contact", "【緊急】お迎えの確認": "[URGENT] Pickup check", "【緊急】お迎えの確認：ここを押して回答してください": "[URGENT] Pickup check: tap here to answer", "お迎えに行けます": "I can pick up", "お迎えに行けません": "I cannot pick up", "回答済み：": "Answered: ", "お子さまは園でお預かりします。園からの連絡をお待ちください。": "We will look after your child at the nursery. Please wait for our message.", "園に「お迎えに行けます」と伝えました": "Told the nursery: “I can pick up”", "園に「お迎えに行けません」と伝えました": "Told the nursery: “I cannot pick up”", "【緊急】地震のため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an earthquake, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】台風・大雨のため、早めのお迎えをお願いしています。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of a typhoon or heavy rain, we ask you to pick up early. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】園で緊急の事態が起きたため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an emergency at the nursery, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "（園からの日本語のメッセージです）": "(This message from the nursery is in Japanese.)", "言語": "Language"};
+const EN_CLASS={'ひまわり組':'Sunflower Class','ゆり組':'Lily Class','ちゅうりっぷ組':'Tulip Class','ひよこ組':'Chick Class','りす組':'Squirrel Class','うさぎ組':'Rabbit Class'};
+const EN_REL={'母':'Mother','父':'Father','祖父':'Grandfather','祖母':'Grandmother','叔父':'Uncle','叔母':'Aunt','兄':'Brother','姉':'Sister'};
+const EN_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],EN_WD={'日':'Sun','月':'Mon','火':'Tue','水':'Wed','木':'Thu','金':'Fri','土':'Sat'};
+const schoolEn=n=>{const x=schoolsAll().find(v=>v.name===n);return x?x.id.charAt(0).toUpperCase()+x.id.slice(1)+' Nursery School':n;};
+/* 名前・時刻・日付などが入る文は、形で見分けて訳す */
+const EN_RULES=[
+  [/^(\d+)月(\d+)日（(.)）お家での様子$/,(m,a,b,w)=>`${EN_WD[w]}, ${EN_MON[a-1]} ${b} — At home`],
+  [/^(\d+)分を超える遅れや、閉園（(.+?)）を過ぎるときは、園にお電話ください。$/,(m,a,b)=>`For delays of more than ${a} minutes, or after closing time (${b}), please call the nursery.`],
+  [/^(\d+)分を超える遅れ（今回は(\d+)分）は、お子さまの過ごし方や職員の配置に関わるため、アプリでは受け付けていません。$/,(m,a,b)=>`Delays of more than ${a} minutes (this time: ${b} minutes) affect your child's care and staffing, so they cannot be sent through the app.`],
+  [/^閉園時刻（(.+?)）を過ぎるお迎えは、アプリでは受け付けていません。$/,(m,a)=>`Pickups after closing time (${a}) cannot be sent through the app.`],
+  [/^(.+?)を過ぎるため、延長保育の扱いになります。$/,(m,a)=>`Because it is after ${a}, this counts as extended care.`],
+  [/^(\d+)回目$/,(m,a)=>`#${a}`],
+  [/^（(\d+)分遅れ）$/,(m,a)=>`(${a} min late)`],
+  [/^（現在 (.+)）$/,(m,a)=>`(now ${a})`],
+  [/^(.+?)に送信した「お迎え時間の変更（(.+?)）」は通信が切れたため届いていません。$/,(m,a,b)=>`Your pickup time change (${b}) sent at ${a} was not delivered because the connection was lost.`],
+  [/^(.+?) から$/,(m,a)=>`Changed from ${a} to`],
+  [/^に変更済みです。園に共有されています（(.+?)送信）。$/,(m,a)=>`. Shared with the nursery (sent at ${a}).`],
+  [/^(.+?)について、園に伝わります。回答はあとから変えられます。$/,(m,a)=>`This will be sent to the nursery for ${a}. You can change your answer later.`],
+  [/^(.+?)について、園に伝わります。$/,(m,a)=>`This will be sent to the nursery for ${a}.`],
+  [/^(.+?)のお迎え予定を変更しました。$/,(m,a)=>`Pickup time changed for ${a}.`],
+  [/^(.+?)・送信済み（直して送ると上書きされます）$/,(m,a)=>`${a} · Sent (sending again will replace it)`],
+  [/^(.+?)の連絡$/,(m,a)=>`Notice for ${a}`],
+  [/^(.+?)の保護者$/,(m,a)=>`Parent of ${a}`],
+  [/^(.+?) さま$/,(m,a)=>a],
+  [/^(.+?)さん（保護者）(?:に切り替えました|としてログインしました)$/,(m,a)=>`Signed in as ${a} (parent)`],
+  [/^ID：(.+?)／(.+)$/,(m,a,b)=>`ID: ${a} / ${b}`],
+  [/^(\d+)人を登録中$/,(m,a)=>`${a} registered`],
+  [/^優先順位 (\d+)$/,(m,a)=>`Priority ${a}`],
+  [/^有効期間：(\d+)年(\d+)月(\d+)日 〜 (\d+)年(\d+)月(\d+)日$/,(m,y,mo,d,y2,mo2,d2)=>`Valid: ${EN_MON[mo-1]} ${d}, ${y} – ${EN_MON[mo2-1]} ${d2}, ${y2}`],
+  [/^(母|父|祖父|祖母|叔父|叔母|兄|姉)・(.+)$/,(m,a,b)=>`${EN_REL[a]} · ${b}`],
+  [/^園からの未読 (\d+)件$/,(m,a)=>`${a} unread from the nursery`],
+  [/^自動のお知らせ (\d+)件$/,(m,a)=>`${a} automatic notices`],
+  [/^登園 (.+?)（QRコード）$/,(m,a)=>`Dropped off at ${a} (QR code)`],
+  [/^登園 (.+?)（(.+?)が記録）$/,(m,a,b)=>`Dropped off at ${a} (recorded by ${b})`],
+  [/^(.+?)の登園を (.+?) に記録しました。(?:（記録：(.+?)）)?$/,(m,a,b,c)=>`Drop-off of ${a} was recorded at ${b}.${c?` (recorded by ${c})`:''}`],
+  [/^(.+?)の先生にお迎えをお知らせしました。保育室でお待ちください。$/,(m,a)=>`We told ${a}'s teacher that you have arrived. Please wait at the classroom.`],
+  [/^（理由：(.+?)）$/,(m,a)=>`(Reason: ${EN[a]||a})`],
+  [/^つながりました。未送信の(\d+)件を送りました$/,(m,a)=>`Connected. Sent ${a} unsent items.`],
+  [/^(.+?)　お迎えの受付$/,(m,a)=>`${schoolEn(a)} — Pickup check-in`],
+  [/^(.+?)・(\d+)月(\d+)日$/,(m,a,mo,d)=>`${schoolEn(a)} · ${EN_MON[mo-1]} ${d}`],
+  [/^(\d+)月(\d+)日（(.)）$/,(m,a,b,w)=>`${EN_WD[w]}, ${EN_MON[a-1]} ${b}`],
+  [/^(\d+)月(\d+)日 (.+)$/,(m,a,b,t)=>`${EN_MON[a-1]} ${b} ${t}`],
+  [/^(.+?)（(.+?)）$/,(m,a,b)=>EN_REL[b]?`${a} (${EN_REL[b]})`:m],
+];
+function trText(t){
+  if(!t||!/[\u3040-\u30ff\u4e00-\u9fff]/.test(t))return t;
+  const lead=t.match(/^\s*/)[0],trail=t.match(/\s*$/)[0];let core=t.trim();
+  if(EN[core]!=null)return lead+EN[core]+trail;
+  for(const [re,fn] of EN_RULES){if(re.test(core)){core=core.replace(re,fn);break;}}
+  /* 文の中の組・年齢・園名・続柄も置き換える */
+  core=core.replace(/(ひまわり|ゆり|ちゅうりっぷ|ひよこ|りす|うさぎ)組/g,m=>EN_CLASS[m]||m).replace(/(\d)歳児/g,'Age $1');
+  schoolsAll().forEach(x=>{if(core.includes(x.name))core=core.split(x.name).join(schoolEn(x.name));});
+  core=core.replace(/（/g,' (').replace(/）/g,')').replace(/／/g,' / ').replace(/：/g,': ');
+  if(/[A-Za-z]/.test(core))core=core.replace(/・/g,', ');   /* 英語の文の中の「・」は「, 」に */
+  return (/^[.,]/.test(core)?'':lead)+core+trail;
+}
+/* 画面の文字を英語にする（選択肢の値は日本語のまま残し、保存される内容は変えない） */
+function translateDom(root){
+  if(!root||!document.createTreeWalker)return;
+  root.querySelectorAll('option').forEach(o=>{if(!o.hasAttribute('value'))o.setAttribute('value',o.textContent);});
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const list=[];
+  while(n=w.nextNode())list.push(n);
+  list.forEach(x=>{const v=trText(x.nodeValue);if(v!==x.nodeValue)x.nodeValue=v;});
+  root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(e=>['placeholder','aria-label','title'].forEach(a=>{const v=e.getAttribute(a);if(v){const t=trText(v);if(t!==v)e.setAttribute(a,t);}}));
+}
+function langToggle(){return `<div class="langsw" role="group" aria-label="言語 / Language">
+  <button class="${LANG==='ja'?'on':''}" onclick="act('lang','ja')">日本語</button><button class="${LANG==='en'?'on':''}" onclick="act('lang','en')">English</button></div>`;}
+
 /* ---- スクロールの位置：同じ画面のまま描き直すときは、元の位置を保つ ---- */
 const SCROLLERS='#stage .roll,#stage .tbody,#stage .monbody,#stage .side .items';
 let lastPaintKey='',lastScroller=null;
@@ -1258,6 +1372,8 @@ function render(){
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
        <div class="scr">${inner}</div>
        ${state.role==='monitor'?'':`<button class="totop ${isPhone?'ph':state.role==='kiosk'?'ki':''}" id="toTop" onclick="toTop()" aria-label="一番上に戻る" title="一番上に戻る">${ic('chev',18)}</button>`}</div>`;
+  if(isEnView())translateDom(document.getElementById('stage'));
+  if(document.documentElement)document.documentElement.lang=isEnView()?'en':'ja';
   if(sv)restoreScroll(sv);else lastScroller=null;
   /* 選んだ内容が画面の外にあるときだけ、そこまで動かす（連絡帳で下の方の園児を選んだときなど） */
   if(state.scrollToId){const el=document.getElementById(state.scrollToId);state.scrollToId='';
@@ -1332,6 +1448,19 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
         <button class="cta" onclick="act('lateGo')">この内容で園に伝える</button>
         <button class="btn g" style="justify-content:center" onclick="act('closeModal')">やめる</button></div>`}
     </div></div>`;}
+  if(state.modal==='dzCompose'){const st=dzStats();
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:540px" onclick="event.stopPropagation()">
+    <div class="sec" style="margin-top:0;color:#C62828">${ic('bell',22,'#C62828')}災害時の緊急連絡を一斉送信</div>
+    <div class="tiny" style="line-height:1.8;color:#6E6259">お迎え前の園児がいる全家庭（${st.total}家庭）の保護者に、アプリのお知らせとメールで送ります。<br>
+      保護者は「お迎えに行ける／行けない」を回答し、お帰りタイムラインの園児の名前の横に赤字で表示されます。</div>
+    <div class="dzq"><span class="tiny muted">定型文：</span>
+      <button onclick="act('dzTpl','quake')">地震</button><button onclick="act('dzTpl','storm')">台風・大雨</button><button onclick="act('dzTpl','other')">その他</button></div>
+    <label class="fieldl">送る内容（書き換えられます）</label>
+    <textarea class="inp" id="dzMsg" rows="5">${esc(DZ_TPL.quake)}</textarea>
+    ${dzOn()?`<div class="err" style="margin-top:10px">送信中の一斉連絡（${hm(state.disaster.at)}）があります。新しく送ると、これまでの回答はリセットされます。</div>`:''}
+    <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+      <button class="btn dzsend" onclick="act('dzSend')">${ic('bell',18)}一斉送信する</button>
+      <button class="btn g" onclick="act('closeModal')">やめる</button></div></div></div>`;}
   if(state.modal==='schools')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" style="max-width:860px" onclick="event.stopPropagation()">
     <div class="sec">園の切り替え</div>
     <div class="tiny muted">表示する園を選びます。園ごとに園児・記録・連動先が分かれています。いま：<b>${esc(curSchool().name)}</b></div>
@@ -1400,6 +1529,7 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
     ${Object.keys(TITLES).map(k=>`<div class="maprow"><code>${k}</code><span>${TITLES[k]}</span><button onclick="act('jump','${k}')">開く</button></div>`).join('')}
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   document.getElementById('overlay').innerHTML=h;
+  if(isEnView())translateDom(document.getElementById('overlay'));
   if(state.modal==='demoface'){const v=document.getElementById('dfView');
     if(v&&demoStream&&v.srcObject!==demoStream){v.srcObject=demoStream;const pr=v.play&&v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
   else demoCamStop();
@@ -1414,11 +1544,13 @@ function phoneShell(inner){
   const nb={S06:parentNewReplies(),S21:myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length};
   const sideNav=nav.concat([['S05','欠席・遅刻の連絡','cal'],['S07','代理人の登録','users'],['S08','受付用QRコード','idcard']]);
   /* パソコンの幅では左にメニュー、スマホ・タブレットでは下にメニュー（同じ画面を幅に合わせて切り替える） */
-  return `${offlineBar()}<div class="pcols">
+  const dzNeed=dzOn()&&state.screen!=='S02'&&!pfam().some(dzAns);
+  return `${offlineBar()}${dzNeed?`<button class="dzstrip" onclick="act('go','S02')">${ic('bell',18,'#fff')}【緊急】お迎えの確認：ここを押して回答してください</button>`:''}<div class="pcols">
   <aside class="pside">
-    <div class="plogo">${sun(32)}<span>おかえりタイムライン<small>${esc(curSchool().name)}</small></span></div>
+    <button class="plogo logobtn" onclick="act('logoHome')" aria-label="ホームに戻る">${sun(32)}<span>おかえりタイムライン<small>${esc(curSchool().name)}</small></span></button>
     ${sideNav.map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}${nb[id]?`<span class="nb">${nb[id]}</span>`:''}</button>`).join('')}
-    <div class="pme">${face(pchild(),36)}<div style="min-width:0"><b>${esc(parentName())} さま</b><small>${pfam().map(k=>k.name.split(' ')[1]+k.sfx).join('・')}の保護者</small></div></div>
+    <div style="padding:10px 8px 0;margin-top:auto">${langToggle()}</div>
+    <div class="pme" style="margin-top:8px">${face(pchild(),36)}<div style="min-width:0"><b>${esc(parentName())} さま</b><small>${pfam().map(k=>k.name.split(' ')[1]+k.sfx).join('・')}の保護者</small></div></div>
   </aside>
   <div class="pmain"><div class="roll">${inner}</div>
   <div class="pnav">${nav.map(([id,l,i])=>`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span class="ib" style="position:relative">${ic(i,22)}${nb[id]?`<span class="badge">${nb[id]}</span>`:''}</span>${l}</button>`).join('')}</div></div></div>`;
@@ -1426,8 +1558,8 @@ function phoneShell(inner){
 function phead(title,back){
   const un=myNotices().filter(n=>!n.read&&n.kind!=='お迎え連絡'&&n.kind!=='登園').length;
   return `<div class="phead">
-    ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74">${ic('back',22)}</button>`
-          :`<span style="width:26px;display:grid;place-items:center">${sun(26)}</span>`}
+    <button class="logobtn" onclick="act('logoHome')" aria-label="ホームに戻る" style="width:30px;display:grid;place-items:center;flex:none">${sun(26)}</button>
+    ${back?`<button onclick="act('go','${back}')" style="color:#8B7E74;flex:none" aria-label="戻る">${ic('back',22)}</button>`:''}
     <div class="ttl">${title}</div>
     <button style="color:#8B7E74;position:relative" onclick="act('go','S21')">${ic('bell',22)}${un?`<span class="badge" style="top:-2px;right:-4px">${un}</span>`:''}</button></div>`;
 }
@@ -1450,7 +1582,7 @@ function tabletShell(inner){
   return `<div class="t-wrap">
     ${state.drawer?`<div class="scrim" onclick="act('drawer')"></div>`:''}
     <div class="side ${state.drawer?'open':''}">
-      <div class="logo">${sun(30)}<span style="min-width:0">${state.role==='admin'?'川崎市 保育課':esc(curSchool().name)}<small style="display:block;font-size:10.5px;font-weight:500;opacity:.9">サンプルデータ</small></span>
+      <div class="logo"><button class="logobtn logohome" onclick="act('logoHome')" aria-label="ホームに戻る" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:inherit;text-align:left">${sun(30)}<span style="min-width:0">${state.role==='admin'?'川崎市 保育課':esc(curSchool().name)}<small style="display:block;font-size:10.5px;font-weight:500;opacity:.9">サンプルデータ</small></span></button>
         <button class="drawerbtn" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
       <div class="items">
         ${menu.concat(extra).map(([id,l,i])=>{const n=state.role==='admin'?0:id==='S23'?diaryNewCount():id==='S15'?myUnread():0;
@@ -1458,7 +1590,7 @@ function tabletShell(inner){
       </div>
       <div class="me">${flower(who[2],38)}<div style="flex:1"><b>${who[0]}</b><span class="tiny muted">${who[1]}</span></div><span style="color:#C9BAAE">${ic('chev',16)}</span></div>
     </div>
-    <div class="main">
+    <div class="main" style="--maxw:${({S11:900,S14:700,S16:720,S17:800,S20:820,S24:800})[state.screen]||1260}px">
       ${offlineBar()}
       ${(state.role==='admin'&&!['S19','S20','S26'].includes(state.screen))?`<div class="vobar">${ic('info',18)}
         <span>保育課のアカウントで<b>${curSchool().name}</b>を閲覧しています。投稿・引き渡しなどの操作はできません。</span>
@@ -1514,6 +1646,7 @@ const ACCOUNTS=[
  {id:'sakura-monitor',pw:'monitor0001',role:'monitor',label:'表示用モニター',who:'職員室の大型テレビ（表示専用）',ic:'board'},
 ];
 SCR.S01=()=>`<div class="roll plogin-bg"><div class="pbody plogin" style="padding-top:34px">
+    <div style="display:flex;justify-content:flex-end;margin:-14px -4px 6px">${langToggle()}</div>
     <div style="text-align:center;margin-bottom:26px">
       <div style="display:grid;place-items:center">${sun(64)}</div>
       <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
@@ -1541,7 +1674,7 @@ function kidSwitch(){const ks=pfam();if(ks.length<2)return '';
     ${face(k,28)}${k.name.split(' ')[1]}${k.sfx}</button>`).join('')}</div>`;}
 SCR.S02=()=>{
   const c=pchild();
-  return `${phead('ホーム','',true)}<div class="pbody pwide"><div class="phome"><div>
+  return `${phead('ホーム','',true)}<div class="pbody pwide">${dzOn()?dzParentCard():''}<div class="phome"><div>
     ${kidSwitch()}
     <div class="kidcard">${face(c,54)}
       <div><div class="nm">${c.name.split(' ')[1]}${c.sfx}</div><div class="cls">${c.cls}</div>
@@ -1706,6 +1839,40 @@ SCR.S06=()=>{
   </div></div></div>`;
 };
 
+/* ---- 災害時の一斉連絡（新しい画面は作らず、確認の窓と赤い表示で行う） ---- */
+const DZ_TPL={
+  quake:'【緊急】地震のため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。',
+  storm:'【緊急】台風・大雨のため、早めのお迎えをお願いしています。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。',
+  other:'【緊急】園で緊急の事態が起きたため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。'};
+const canDz=()=>state.role==='teacher'||state.role==='clerk';
+const dzOn=()=>!!(state.disaster&&state.disaster.active);
+const dzAns=c=>dzOn()&&c&&c.dz&&c.dz.id===state.disaster.id?c.dz:null;
+/* お迎えタイムラインの園児の名前の横に出す赤い表示 */
+function dzTag(c){if(!dzOn()||isAbsent(c)||c.st==='released')return '';const a=dzAns(c);
+  return `<span class="dztag ${a?(a.ans==='can'?'can':'cannot'):'none'}">【災害】${a?(a.ans==='can'?'お迎え可':'お迎え不可')+'（'+hm(a.at)+'）':'未回答'}</span>`;}
+/* 家庭ごとの回答数（お迎え済み・欠席の家庭はのぞく） */
+function dzStats(){const fams={};state.children.forEach(c=>{if(isAbsent(c)||c.st==='released')return;const k=famKey(c.id);(fams[k]=fams[k]||[]).push(c);});
+  let can=0,cannot=0,none=0;Object.values(fams).forEach(l=>{const a=l.map(dzAns).find(Boolean);if(!a)none++;else if(a.ans==='can')can++;else cannot++;});
+  return {can,cannot,none,total:Object.keys(fams).length};}
+/* 普段は使わないので、画面のいちばん下に控えめに置く */
+function dzLow(){if(!canDz()||dzOn())return '';
+  return `<div class="dzlow"><div><b>もしものとき</b><small>地震・台風などのときに、保護者へお迎えの状況を一斉に確認します。</small></div>
+    <button class="hpill dzbtn" onclick="act('dzCompose')">${ic('bell',18)}災害時の一斉連絡</button></div>`;}
+function dzBar(){const d=state.disaster,st=dzStats();
+  return `<div class="dzbar">${ic('bell',24,'#C62828')}<div style="flex:1;min-width:0">
+    <b>災害時の一斉連絡（${hm(d.at)} ${esc(d.by)}が送信）</b><small>${esc(d.msg)}</small>
+    <div class="dzcounts"><span>お迎え可 <b>${st.can}</b></span><span>お迎え不可 <b>${st.cannot}</b></span><span>未回答 <b>${st.none}</b></span><span class="muted">／${st.total}家庭</span></div></div>
+    ${canDz()?`<button class="btn g" style="flex:none" onclick="act('dzEnd')">一斉連絡を終える</button>`:''}</div>`;}
+/* 保護者の画面：赤いカードで回答してもらう */
+function dzParentCard(){const d=state.disaster,a=pfam().map(dzAns).find(Boolean);
+  return `<div class="dzcard">
+    <div class="dzh">${ic('bell',22,'#fff')}【緊急】お迎えの確認</div>
+    <div class="dzmsg">${esc(d.msg)}${LANG==='en'&&!EN[d.msg]?'<div class="tiny" style="font-weight:500;margin-top:4px">（園からの日本語のメッセージです）</div>':''}</div>
+    ${a?`<div class="dzdone">回答済み：<b>${a.ans==='can'?'お迎えに行けます':'お迎えに行けません'}</b>（${hm(a.at)}）${a.ans==='cannot'?'<br>お子さまは園でお預かりします。園からの連絡をお待ちください。':''}</div>`:''}
+    <div class="dzbtns"><button class="dzyes ${a&&a.ans==='can'?'on':''}" onclick="act('dzAns','can')">お迎えに行けます</button>
+      <button class="dzno ${a&&a.ans==='cannot'?'on':''}" onclick="act('dzAns','cannot')">お迎えに行けません</button></div>
+    <div class="dzfoot">${pfam().map(k=>k.name.split(' ')[1]+k.sfx).join('・')}について、園に伝わります。${a?'回答はあとから変えられます。':''}</div></div>`;}
+
 /* ---- 登園 ---- */
 const isIn=c=>!!(c&&c.inAt);
 /* 今日にかかる欠席・遅刻の連絡（"2026-10-30" または "2026-10-30 〜 2026-11-02（4日間）"） */
@@ -1861,7 +2028,7 @@ function monInHTML(){
   const cs=state.children,classes=[...new Set(cs.map(c=>c.cls))];
   const nIn=cs.filter(isIn).length,abs=cs.filter(isAbsent),yet=cs.filter(c=>!isIn(c)&&!isAbsent(c));
   const recent=cs.filter(isIn).sort((a,b)=>b.inAt-a.inAt).slice(0,7);
-  return `<div class="msum">
+  return `${monDz()}<div class="msum">
       <div class="mstat ok"><small>登園</small><b>${nIn}<span>／${cs.length}名</span></b></div>
       <div class="mstat warn"><small>まだ登園していない</small><b>${yet.length}<span>名</span></b></div>
       <div class="mstat gray"><small>欠席の連絡</small><b>${abs.length}<span>名</span></b></div></div>
@@ -1884,13 +2051,15 @@ function monInHTML(){
           ${abs.map(c=>`<div class="mfeed"><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')}</div>`:''}
       </div></div>`;
 }
+function monDz(){if(!dzOn())return '';const st=dzStats();
+  return `<div class="malert">${ic('bell',30)}<span>災害時の一斉連絡：お迎え可 ${st.can}・お迎え不可 ${st.cannot}・未回答 ${st.none}（${st.total}家庭）</span></div>`;}
 function monOutHTML(){
   const cs=state.children.filter(c=>!isAbsent(c));
   const arr=cs.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||0)-(b.arrivedAt||0));
   const late=cs.filter(c=>c.st==='waiting'&&stat(c).k==='late').sort((a,b)=>a.pickupAt-b.pickupAt);
   const soon=cs.filter(c=>c.st==='waiting'&&stat(c).k==='soon').sort((a,b)=>a.pickupAt-b.pickupAt);
   const rel=cs.filter(c=>c.st==='released').length;
-  return `${state.alerts.length?`<div class="malert">${ic('bell',30)}<span>玄関で確認が必要です（${state.alerts.length}件）：${state.alerts.map(a=>{const c=child(a.cid);return c?c.name+c.sfx:'';}).filter(Boolean).join('・')}</span></div>`:''}
+  return `${monDz()}${state.alerts.length?`<div class="malert">${ic('bell',30)}<span>玄関で確認が必要です（${state.alerts.length}件）：${state.alerts.map(a=>{const c=child(a.cid);return c?c.name+c.sfx:'';}).filter(Boolean).join('・')}</span></div>`:''}
     <div class="msum">
       <div class="mstat orange"><small>お迎えの方が到着</small><b>${arr.length}<span>名</span></b></div>
       <div class="mstat warn"><small>お迎えが遅れている</small><b>${late.length}<span>名</span></b></div>
@@ -1964,6 +2133,7 @@ SCR.S09=()=>{
         yet=cs.filter(c=>c.st==='waiting').length;
   const myc=(state.me&&state.me.cls)||'',ib=cs.filter(c=>!myc||c.cls===myc),nYetIn=ib.filter(c=>!isIn(c)&&!isAbsent(c)).length;
   return thead('ホーム','home',md(now())+'（'+wd(now())+'）'+curSchool().name)+`<div class="tbody">
+    ${dzOn()?dzBar()+`<div style="margin:-6px 0 14px"><button class="btn" onclick="act('go','S10')">${ic('clock',18)}お帰りタイムラインで回答を見る</button></div>`:''}
     <div class="arrsec" style="margin-bottom:16px;background:#F3FAF5;border-color:#CDE8D6">
       <div class="hd" style="color:var(--ok-tx)">${ic('check',19)}登園 ${ib.filter(isIn).length}／${ib.length}名${myc?'（'+myc+'）':''}${nYetIn?`　<span style="color:var(--am-tx)">未登園 ${nYetIn}名</span>`:''}</div>
       <button class="btn g" onclick="act('inOpen')">登園チェックを開く</button></div>
@@ -1994,29 +2164,33 @@ SCR.S09=()=>{
     <div class="sec">直近の連絡</div>
     ${state.posts.slice(-2).reverse().map(p=>`<div class="card" style="padding:13px 16px;margin-bottom:9px;font-size:13px">
       <b class="tiny" style="color:${p.kind==='clerk'?'var(--pink)':'var(--o)'}">${p.who}</b> <span class="tiny muted">${hm(p.t)}</span>
-      <div style="margin-top:4px">${p.txt}</div></div>`).join('')}</div>`;
+      <div style="margin-top:4px">${p.txt}</div></div>`).join('')}${dzLow()}
+    </div>`;
 };
 
 /* --- S10 お帰りタイムライン --- */
 SCR.S10=()=>{
   const f=state.filter,all=state.children.slice().filter(c=>!state.s10cls||c.cls===state.s10cls);
   const classes=[...new Set(state.children.map(c=>c.cls))];
-  const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='arr'&&k==='arrived')||(f==='done'&&k==='released')||(f==='late'&&k==='late');};
+  const match=c=>{const k=stat(c).k;return f==='all'||(f==='yet'&&(k==='waiting'||k==='soon'))||(f==='arr'&&k==='arrived')||(f==='done'&&k==='released')||(f==='late'&&k==='late')
+    ||(f==='dzno'&&dzOn()&&!dzAns(c)&&!isAbsent(c)&&c.st!=='released')||(f==='dzcannot'&&(dzAns(c)||{}).ans==='cannot');};
   const arrived=all.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||a.pickupAt)-(b.arrivedAt||b.pickupAt)).filter(match);
   const waiting=all.filter(c=>c.st==='waiting').sort((a,b)=>a.pickupAt-b.pickupAt);
   const done=all.filter(c=>c.st==='released').sort((a,b)=>b.pickupAt-a.pickupAt);
   const past=waiting.filter(c=>c.pickupAt<now()).filter(match),future=waiting.filter(c=>c.pickupAt>=now()).filter(match),doneF=done.filter(match);
   const counts={all:all.length,arr:all.filter(c=>c.st==='arrived').length,yet:waiting.filter(c=>c.pickupAt>=now()).length,
-                done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length};
+                done:done.length,late:waiting.filter(c=>c.pickupAt<now()).length,
+                dzno:all.filter(c=>dzOn()&&!dzAns(c)&&!isAbsent(c)&&c.st!=='released').length,dzcannot:all.filter(c=>(dzAns(c)||{}).ans==='cannot').length};
   const right=`<button class="hpill ${state.s10cls?'solid':''}" onclick="act('s10menu')">${ic('filter',18)}${state.s10cls?state.s10cls+'のみ':'クラスで絞り込み'}</button>
     <span class="pill green" style="padding:9px 13px">${ic('clock',14)}自動更新中</span>`;
   return thead('お帰りタイムライン','clock',md(now())+'（'+wd(now())+'）'+curSchool().name,right)
    +(state.s10menu?`<div class="tabs" style="padding-bottom:8px"><span class="tiny muted" style="align-self:center;margin-right:4px">クラス：</span>
        <button class="tab ${!state.s10cls?'on':''}" onclick="act('s10cls','')">すべてのクラス</button>
        ${classes.map(cl=>`<button class="tab ${state.s10cls===cl?'on':''}" onclick="act('s10cls','${cl}')">${cl}</button>`).join('')}</div>`:'')
-   +`<div class="tabs">${[['all','すべて'],['arr','到着'],['yet','未到着'],['late','遅延'],['done','受け渡し済み']].map(([k,l])=>
+   +`<div class="tabs">${[['all','すべて'],['arr','到着'],['yet','未到着'],['late','遅延'],['done','受け渡し済み']].concat(dzOn()?[['dzno','災害：未回答'],['dzcannot','災害：お迎え不可']]:[]).map(([k,l])=>
        `<button class="tab ${f===k?'on':''}" onclick="act('filter','${k}')">${l}（${counts[k]}）</button>`).join('')}</div>
      <div class="tbody">
+      ${dzOn()?dzBar():''}
       ${state.alerts.length?state.alerts.map(alertRow).join(''):''}
       ${arrived.length?`<div class="arrsec"><div class="hd">${ic('check',19)}お迎えの方が到着しています（${arrived.length}名）</div>
         ${arrived.map(arrivedRow).join('')}</div>`:''}
@@ -2025,6 +2199,7 @@ SCR.S10=()=>{
       ${future.map(cardRow).join('')}
       ${doneF.length?`<div class="sec" style="color:var(--ink-2);font-size:13px">受け渡し済み</div>`+doneF.map(cardRow).join(''):''}
       ${(!arrived.length&&!past.length&&!future.length&&!doneF.length)?`<div class="card" style="padding:34px;text-align:center;color:var(--ink-2)">この条件に当てはまる園児はいません。</div>`:''}
+      ${dzLow()}
      </div>`;
 };
 /* 確認依頼の対象のお子さま（きょうだいで受付した場合は全員） */
@@ -2080,7 +2255,7 @@ function arrivedRow(c){
     ${face(c,76)}
     <div class="ainfo">
       <div class="tiny muted">${c.cls}（${c.age}）</div>
-      <div class="big">${c.name}${c.sfx}</div>
+      <div class="big">${c.name}${c.sfx}</div>${dzTag(c)}
       <div class="room">${c.cls}の保育室へ向かっています</div>
       <span class="pill ${c.faceOK?(c.live?'green':'amber'):'gray'}" style="margin-top:6px">${c.faceOK?'顔照合 一致':'職員が確認して受付'}</span>
       <div class="meta" style="margin-top:5px">お迎え：${c.arrivedBy||c.by}　${hm(c.arrivedAt||now())}受付
@@ -2107,7 +2282,7 @@ function cardRow(c){
     ${face(c,46)}
     <div style="min-width:0">
       <div class="tiny muted">${c.cls}（${c.age}）</div>
-      <div class="nm">${c.name}${c.sfx}</div>
+      <div class="nm">${c.name}${c.sfx}${dzTag(c)}</div>
       <div class="meta">お迎え予定：${hm(c.pickupAt)}　${c.by}${c.proxy?'（代理人）':''}</div>
       ${c.changed?`<span class="chgtag">${hm(c.planAt)} → ${hm(c.pickupAt)} に変更</span>`:''}</div>
     <div class="count ${s.tone}">
@@ -2121,11 +2296,11 @@ function cardRow(c){
 SCR.S11=()=>{
   const c=child(state.childId),s=stat(c),t=countText(c),ps=proxiesOf(c.id);
   return thead('園児詳細','users','',`<button class="hpill" onclick="act('go','S10')">${ic('back',18)}お帰りタイムライン</button>`)
-  +`<div class="tbody" style="max-width:880px">
-    <div class="card" style="padding:20px;display:flex;gap:18px;align-items:center">
+  +`<div class="tbody">
+    <div class="card kidhead" style="padding:20px;display:flex;gap:18px;align-items:center">
       ${face(c,72)}
-      <div style="flex:1"><div class="tiny muted">${c.cls}（${c.age}）</div>
-        <div style="font-family:var(--disp);font-weight:900;font-size:24px">${c.name}${c.sfx}</div>
+      <div class="kh-name" style="flex:1"><div class="tiny muted">${c.cls}（${c.age}）</div>
+        <div class="kh-big" style="font-family:var(--disp);font-weight:900;font-size:24px">${c.name}${c.sfx}</div>
         <div class="tiny muted" style="margin-top:3px">本日のお迎え担当：${c.by}</div></div>
       <div style="text-align:right"><span class="pill ${s.tone}">${s.label}</span>
         <div style="font-family:var(--disp);font-weight:900;font-size:30px;color:var(--o-d);margin-top:6px">${hmx(c.pickupAt)}</div>
@@ -2181,7 +2356,7 @@ SCR.S13=()=>{
   return thead('照合結果','idcard',c.name+c.sfx+'（'+c.cls+'）のお迎え',`<button class="hpill" onclick="act('go','S12')">${ic('back',18)}代理人リストへ戻る</button>`)
   +`<div class="tbody"><div class="grid2" style="align-items:start">
     <div class="card" style="padding:18px">
-      ${p.photo?`<div style="border-radius:14px;overflow:hidden;aspect-ratio:1/1.05">${pic(p)}</div>
+      ${p.photo?`<div class="s13photo" style="border-radius:14px;overflow:hidden;aspect-ratio:1/1.05">${pic(p)}</div>
                  <div class="tiny muted" style="margin-top:9px">保護者が登録した写真</div>`
                :`<div class="memo-row" style="padding:26px;font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.8;color:#8A7549;text-align:center">${p.memo||'特徴メモが未登録です'}</div>
                  <div class="tiny muted" style="margin-top:9px">顔写真がないため、特徴メモで確認します</div>`}</div>
@@ -2206,7 +2381,7 @@ SCR.S13=()=>{
 /* --- S14 引き渡し完了 --- */
 SCR.S14=()=>{
   const c=child(state.childId),who=state.sel.proxyName||c.by;
-  return thead('引き渡し完了','check')+`<div class="tbody" style="max-width:660px">
+  return thead('引き渡し完了','check')+`<div class="tbody">
     <div class="card" style="padding:32px;text-align:center">
       <div style="width:92px;height:92px;border-radius:50%;background:#E4F4E9;display:grid;place-items:center;margin:0 auto">${ic('check',50,'#48A876')}</div>
       <div style="font-family:var(--disp);font-weight:900;font-size:23px;margin-top:16px">引き渡しを記録しました</div>
@@ -2280,7 +2455,7 @@ function tlListHTML(){
 
 /* --- S16 メモ入力 --- */
 SCR.S16=()=>thead('メモを追加','pencil','',`<button class="hpill" onclick="act('go','S15')">${ic('back',18)}タイムラインへ戻る</button>`)
- +`<div class="tbody" style="max-width:680px"><div class="card" style="padding:20px">
+ +`<div class="tbody"><div class="card" style="padding:20px">
     <label class="fieldl" style="margin-top:0">関係する園児（任意）</label>
     <select class="inp" id="memoChild"><option value="">指定しない</option>
       ${state.children.map(c=>`<option value="${c.id}">${c.name}${c.sfx}（${c.cls}）</option>`).join('')}</select>
@@ -2296,7 +2471,7 @@ SCR.S17=()=>{
   const classes=[...new Set(state.children.map(c=>c.cls))];
   const sel0=child(state.ag.cid), sel=sel0&&sel0.st!=='released'?sel0:null;
   return thead('代理入力','phone','電話で受けた連絡を登録します。')
-  +`<div class="tbody" style="max-width:760px"><div class="card" style="padding:20px">
+  +`<div class="tbody"><div class="card" style="padding:20px">
     <label class="fieldl" style="margin-top:0">園児をさがす</label>
     <div class="tabs" style="padding:0 0 9px">
       <button class="tab ${!state.ag.cls?'on':''}" onclick="act('agCls','')">すべて</button>
@@ -2342,15 +2517,27 @@ function pxApprovalHTML(){
                 :`<button class="btn ok" style="padding:10px 14px" onclick="act('pxApprove','${p.id}')">${ic('check',18)}承認する</button>`}
           <button class="btn ng" style="padding:10px 14px" onclick="act('pxReject','${p.id}')">${p.ok?'削除':'却下'}</button></div></div>`;}).join('')}`;
 }
-SCR.S18=()=>thead('園児一覧','users',curSchool().name+'・'+state.children.length+'名')+`<div class="tbody">
-  ${pxApprovalHTML()}
-  <div class="sec">園児一覧</div>
-  <div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>クラス</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>
-  ${state.children.map(c=>{const s=stat(c);
-    return `<tr><td><b>${c.name}${c.sfx}</b></td><td>${c.cls}</td><td>${hm(c.pickupAt)}</td><td>${c.by}</td>
+SCR.S18=()=>{
+  const classes=[...new Set(state.children.map(c=>c.cls))],cls=state.s18cls||'';
+  const shown=state.children.filter(c=>(!cls||c.cls===cls)&&hitChild(c,state.s18q));
+  const row=c=>{const s=stat(c);
+    return `<tr><td><b>${c.name}${c.sfx}</b><div class="tiny muted">${c.age}</div></td><td>${hm(c.pickupAt)}</td><td>${c.by}</td>
       <td>${proxiesOf(c.id).map(p=>p.name+'（'+p.rel+'）<span class="pill '+(p.src?'green':'amber')+'" style="margin-left:5px">'+(p.src?'写真':'メモ')+'</span>'+(pxValid(p)?'':' '+pxState(p))).join('<br>')}</td>
-      <td><span class="pill ${s.tone}">${s.label}</span></td></tr>`;}).join('')}</table></div>
+      <td><span class="pill ${s.tone}">${s.label}</span></td></tr>`;};
+  const table=list=>`<div class="tablewrap"><table class="tbl"><tr><th>園児</th><th>お迎え予定</th><th>本日の担当</th><th>登録代理人</th><th>状態</th></tr>${list.map(row).join('')}</table></div>`;
+  /* 「すべて」はクラスごとに見出しをつけて並べる。クラスを選ぶとそのクラスだけ */
+  const groups=(cls?[cls]:classes).map(cl=>[cl,shown.filter(c=>c.cls===cl)]).filter(([,l])=>l.length);
+  return thead('園児一覧','users',curSchool().name+'・'+state.children.length+'名')
+  +`<div class="tabs"><button class="tab ${!cls?'on':''}" onclick="act('s18cls','')">すべて（${state.children.length}）</button>
+     ${classes.map(cl=>`<button class="tab ${cls===cl?'on':''}" onclick="act('s18cls','${cl}')">${cl}（${state.children.filter(c=>c.cls===cl).length}）</button>`).join('')}</div>
+  <div class="tbody">
+  ${pxApprovalHTML()}
+  <div class="compbox" style="margin:6px 0 4px">${ic('search',18,'#BCADA1')}
+    <input id="s18Search" value="${esc(state.s18q||'')}" placeholder="園児の名前で検索（ひらがなでもOK）" oninput="act('s18q',this.value)"></div>
+  <div id="s18List">${groups.length?groups.map(([cl,l])=>`<div class="sec clsec">${esc(cl)}<span class="pill gray">${l.length}名</span></div>${table(l)}`).join('')
+    :`<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">当てはまる園児がいません。</div>`}</div>
   <div class="note" style="margin-top:15px">${ic('info',20,'#C9AE8E')}<div>代理人の追加・変更には、保護者の申請と園の承認が必要です。</div></div></div>`;
+};
 
 /* --- S19 / S20 自治体 --- */
 SCR.S19=()=>{
@@ -2386,7 +2573,7 @@ SCR.S19=()=>{
         <div class="tiny muted">到着から引き渡しまでの平均時間${camRate!=null?'／照合で受付できた割合 '+camRate+'%':''}</div></div>
     </div>
     <div class="sec">園別の利用状況</div>
-    <div class="tablewrap"><table class="tbl"><tr><th>園名</th><th>区</th><th>所在地</th><th>園児数</th><th>アプリの連絡</th><th>電話の連絡</th><th></th></tr>
+    <div class="tablewrap"><table class="tbl wide"><tr><th>園名</th><th>区</th><th>所在地</th><th>園児数</th><th>アプリの連絡</th><th>電話の連絡</th><th></th></tr>
       ${schoolsAll().map(x=>{const cur=x.id===state.schoolId,sm=schoolSummary(x.id);
         return `<tr style="${cur?'background:#FFF8F1':''}"><td><b>${esc(x.name)}</b>${x.center?'<br><span class="tiny muted">'+esc(x.center)+'</span>':''}</td>
           <td>${esc(x.ward||'')}</td><td class="tiny">${esc(x.address||'')}${x.note?'<br><span class="muted">'+esc(x.note)+'</span>':''}</td>
@@ -2399,7 +2586,7 @@ SCR.S19=()=>{
 };
 
 SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hpill" onclick="act('go','S19')">${ic('back',18)}ダッシュボード</button>`)
- +`<div class="tbody" style="max-width:780px">
+ +`<div class="tbody">
   <div class="card" style="padding:6px 18px"><div class="dl">
     <div class="row">${ic('home',19)}<span class="lb">所在地</span><span>川崎市${esc(curSchool().address||'—')}${curSchool().note?'（'+esc(curSchool().note)+'）':''}</span></div>
     <div class="row">${ic('school',19)}<span class="lb">区</span><span>${esc(curSchool().ward||'—')}${curSchool().center?'・'+esc(curSchool().center):''}</span></div>
@@ -2448,7 +2635,7 @@ SCR.S21=()=>{
   const main=all.filter(n=>!auto(n)),autos=all.filter(auto),un=main.filter(n=>!n.read).length;
   const card=n=>`<button class="card" style="padding:15px 17px;margin-bottom:10px;width:100%;text-align:left;${n.read?'opacity:.72':''}" onclick="act('readNotice','${n.id}')">
       <div style="display:flex;align-items:center;gap:8px">
-        <span class="pill ${n.kind==='お迎え連絡'||n.kind==='登園'?'green':n.kind==='連絡帳'?'orange':'gray'}">${n.kind}</span>
+        <span class="pill ${n.kind==='緊急'?'red':n.kind==='お迎え連絡'||n.kind==='登園'?'green':n.kind==='連絡帳'?'orange':'gray'}">${n.kind}</span>
         <span class="tiny muted">${md(n.t)} ${hm(n.t)}</span>
         ${n.read?'':'<span style="margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--o)"></span>'}</div>
       <b style="font-family:var(--disp);display:block;margin-top:7px">${n.title}</b>
@@ -2500,6 +2687,9 @@ SCR.S22=()=>{
         <span style="flex:1">園の連絡先</span>
         <button class="hpill" style="min-height:36px" onclick="act('callSchool')">${ic('phone',16)}044-000-0000</button></div>
     </div>
+    <div class="sec">言語 / Language</div>
+    <div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="flex:1;min-width:180px;font-size:13px;line-height:1.7">表示する言語を選べます。<br><span class="muted">Choose the display language.</span></span>${langToggle()}</div>
     <div class="tiny muted" style="margin-top:16px;line-height:1.7">${esc(dataset().notice||'')}</div>
     <div style="margin-top:12px"><button class="cta ghost" onclick="act('logout')">ログアウト</button></div>
   </div>`;
@@ -2573,7 +2763,7 @@ SCR.S24=()=>{
                ['s4','来園した方の氏名・特徴を記録する']];
   const canPass=h.steps&&h.steps.s2;
   return thead('引き渡しの保留','info',c.name+c.sfx+'（'+c.cls+'）',`<button class="hpill" onclick="act('go','S12')">${ic('back',18)}代理人リストへ</button>`)
-  +`<div class="tbody" style="max-width:760px">
+  +`<div class="tbody">
     <div class="err" style="margin-bottom:16px"><b>本人確認ができるまで引き渡さないでください。</b><br>
       登録のない方、写真や特徴メモと一致しない方には、園児をお渡ししません。確認が取れるまでこの画面の手順で対応します。</div>
     <div class="sec">確認の手順</div>
@@ -2992,7 +3182,7 @@ function act(name,arg){
   }
   /* 表示用モニターは表示だけ。ほかの画面へは移動しない */
   if(state.role==='monitor'&&name==='go'&&arg!=='S30')return;
-  const blocked=['inMark','inBulk','inCancel','inSelT','pin','quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
+  const blocked=['dzCompose','dzSend','dzEnd','inMark','inBulk','inCancel','inSelT','pin','quickPost','postMemo','submitAgent','release','matchOk','holdOk','holdNg','ack','saveReply',
     'quickRelease','prepStart','camHold','shoot','camFile','alertIn','alertInAs','alertHold','pxApprove','pxRenew','pxReject'];
   if(state.role==='admin'&&blocked.includes(name)){toast('保育課のアカウントは閲覧のみです');return;}
   if(state.role==='monitor'&&blocked.includes(name)){toast('表示用モニターは表示のみです');return;}
@@ -3002,6 +3192,10 @@ function act(name,arg){
       state.screen=arg; state.sendErr=false; state.drawer=false; state.newIds=[];
       if(arg==='S06'&&state.role==='parent')markParentSeen(); break;
     case 'drawer': state.drawer=!state.drawer; break;
+    case 'lang': LANG=arg==='en'?'en':'ja';try{localStorage.setItem(LANG_KEY,LANG);}catch(e){}
+      toast(LANG==='en'?'Language: English':'表示を日本語にしました');break;
+    case 'logoHome': state.modal=null;state.drawer=false;state.screen=homeOf(state.role||'parent');state.newIds=[];
+      if(state.screen==='S02'||state.screen==='S09')state.pfilter=state.pfilter;break;
     case 'hbar': state.hbar=!state.hbar; break;
     case 'jump': state.modal=null;
       state.role=arg==='S01'?null:arg==='S30'?'monitor':PARENT.includes(arg)?'parent':(arg==='S19'||arg==='S20'||arg==='S26')?'admin':(arg==='S17'?'clerk':'teacher');
@@ -3109,6 +3303,24 @@ function act(name,arg){
     case 'camName': state.camStep='name';state.camq='';break;
     case 'scanStart': state.camStep='scan';state.camErr='';state.scanErr='';startCam();runScan();break;
     case 'kmode': state.kmode=arg;break;
+    case 'dzCompose': if(!canDz())return;state.modal='dzCompose';break;
+    case 'dzTpl':{const el=document.getElementById('dzMsg');if(el&&DZ_TPL[arg])el.value=DZ_TPL[arg];return;}
+    case 'dzSend':{if(!canDz())return;const msg=((document.getElementById('dzMsg')||{}).value||'').trim();
+      if(!msg){toast('送る内容を入力してください');return;}
+      const n=dzStats().total;
+      state.disaster={id:'dz'+rid(),active:true,at:now(),by:me().short||meWho(),msg,via:'アプリのお知らせ・メール'};
+      state.notices.unshift({id:'n'+rid(),fam:'parents',kind:'緊急',title:'【緊急】お迎えの確認',body:msg,t:now(),read:false});
+      addPost(meWho(),meKind(),'【災害時の一斉連絡】保護者に送信しました：'+esc(msg),{auto:false,imp:true,alert:true});
+      addLog('災害時の一斉連絡を送信しました（'+n+'家庭・アプリのお知らせ／メール）');
+      state.modal=null;state.screen='S10';state.filter='all';
+      toast(n+'家庭に一斉送信しました（メールは送信したものとして記録しています）');break;}
+    case 'dzEnd':{if(!canDz()||!state.disaster)return;const st=dzStats();state.disaster.active=false;state.disaster.endAt=now();
+      addLog(`災害時の一斉連絡を終えました（お迎え可 ${st.can}・不可 ${st.cannot}・未回答 ${st.none}）`);
+      if(state.filter==='dzno'||state.filter==='dzcannot')state.filter='all';toast('災害時の一斉連絡を終えました');break;}
+    case 'dzAns':{if(!dzOn()||state.role!=='parent')return;const t=now(),id=state.disaster.id;
+      pfam().forEach(c=>{c.dz={id,ans:arg,at:t,by:parentName()};});
+      myNotices().filter(n=>n.kind==='緊急').forEach(n=>n.read=true);
+      toast(arg==='can'?'園に「お迎えに行けます」と伝えました':'園に「お迎えに行けません」と伝えました');break;}
     case 'monMode': state.monMode=arg;break;
     case 'inUndo':{const d=state.inDone||{};(d.kids||[]).forEach(id=>unmarkIn(child(id)));
       state.notices=state.notices.filter(n=>!(d.nids||[]).includes(n.id));clearTimeout(kioskBack);
@@ -3188,6 +3400,8 @@ function act(name,arg){
     case 'dq': state.dq=arg;{const el=document.getElementById('dList');if(el){el.innerHTML=dListHTML();return;}}break;
     case 'pickDiary': state.diaryChild=arg;markStaffSeen(arg);state.scrollToId='dDetail';break;
     case 'dnew': state.dnew=!state.dnew;break;
+    case 's18cls': state.s18cls=arg;break;
+    case 's18q':{state.s18q=arg;const keep=state.focusId;state.focusId='s18Search';render();state.focusId=keep;return;}
     case 'dnewOpen': state.dnew=true;state.screen='S23';break;
     case 'saveReply':{const g=id=>{const el=document.getElementById(id);return el?String(el.value||'').trim():'';};
       const cid=state.diaryChild;if(!cid)return;
@@ -3361,6 +3575,7 @@ function entityMap(){
   Object.entries(state.diary).forEach(([cid,list])=>put('diary/'+cid,{cid,list}));
   put('meta/settings',{thr:state.thr,cam:state.cam,offset:state.offset,clock24:state.clock24,dsVer:dataset()._ver});
   put('meta/stats',{stats:state.stats});
+  put('meta/disaster',state.disaster||{id:''});
   Object.entries(state.devStats||{}).forEach(([d,o])=>put('stats/'+d,o));
   return m;
 }
@@ -3386,6 +3601,7 @@ function applyMap(M){
   if(state.cam&&THR_OLD[state.cam.thr])state.cam.thr=THR_OLD[state.cam.thr];
   if(state.cam)state.cam.live=false;     /* 首振りの確認はやめた（保存済みの設定も切る） */
   if(M['meta/stats']&&M['meta/stats'].stats)state.stats=M['meta/stats'].stats;
+  {const dz=M['meta/disaster'];state.disaster=dz&&dz.id?dz:null;}
   const ds={};Object.keys(M).filter(k=>k.startsWith('stats/')).forEach(k=>ds[k.slice(6)]=M[k]);state.devStats=ds;
   return true;
 }
