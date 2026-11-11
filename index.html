@@ -1,6 +1,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>リアルタイムお迎え動向共有システム｜プロトタイプ</title>
+<title>おかえりタイムライン｜お迎え動向共有システム</title>
+<meta name="description" content="保育園のお迎え・登園の状況を、保護者と保育士がリアルタイムで共有するシステム">
+<meta name="theme-color" content="#F2913F">
+<!-- スクリプトを読み込める場所を、この画面・データファイルと、使っている部品の配信元（顔照合・QR・Firebase）だけに限る -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: file: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="おかえり">
+<meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -300,6 +307,8 @@ table.tbl td:first-child{white-space:nowrap}
 @media (max-width:560px){.kidhead{flex-wrap:wrap;gap:12px!important}.kidhead .kh-name{flex:1 1 calc(100% - 90px)!important}
   .kidhead>div:last-child{text-align:left!important;display:flex;align-items:center;gap:10px;width:100%;flex-wrap:wrap}
   .kidhead>div:last-child>div{margin-top:0!important}.kh-big{font-size:21px!important}}
+body.prod .harness{display:none!important}
+.ccard{content-visibility:auto;contain-intrinsic-size:auto 88px}
 .dzlow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:28px;padding:14px 16px;border-top:1px dashed #E6D5C8;color:#8B7E74}
 .dzlow b{font-family:var(--disp);font-size:13.5px;display:block;color:#7A6B60}.dzlow small{font-size:12px}
 .dzlow>div{flex:1;min-width:220px}
@@ -432,6 +441,8 @@ body.tvmode .statusbar{display:none}
 .mfeed.late b{color:#C0392B}
 .mempty{color:#9A8C81;font-size:16px;padding:10px 2px}.mempty.big{font-size:22px;padding:60px 10px;text-align:center}
 .malert{display:flex;align-items:center;gap:14px;background:#FCE3DE;border:3px solid #E8735C;color:#A8402E;border-radius:20px;padding:14px 20px;margin-bottom:16px;font-family:var(--disp);font-weight:700;font-size:24px}
+@media(max-width:700px){.monbar{flex-wrap:wrap;padding:12px 14px;gap:10px}.monbar .mt{flex:1;min-width:0}
+  .monbar .mt b{font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.monmodes{order:3;margin-left:0}.monclock b{font-size:26px}}
 @media(max-width:900px){.msum{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr}.mstat b{font-size:42px}.monclock b{font-size:30px}.monbar .mt b{font-size:22px}}
 .lcrow{display:flex;gap:12px;align-items:center;background:#FFF6EE;border-radius:14px;padding:10px 12px;margin-bottom:8px}
 .lcrow b{font-family:var(--disp)}.lctime{font-size:14px;margin-top:2px}.lctime b{color:var(--o-d);font-size:17px}.lctime span{color:var(--ink-2);font-size:12.5px;margin-left:4px}
@@ -674,7 +685,11 @@ function flower(color,size){size=size||46;const petals=Array.from({length:5},(_,
  return `<svg viewBox="0 0 48 48" width="${size}" height="${size}"><circle cx="24" cy="24" r="24" fill="${color}"/>${petals}<circle cx="24" cy="24" r="5" fill="${color}"/></svg>`;}
 /* 園児アバター（顔イラスト） */
 const KID=[['#F6D3B8','#4A342A','#F7B7C4'],['#F3D0B4','#2F2723','#A9D3EF'],['#F8D9C2','#6B4A32','#FBD9A0'],['#F2CDB0','#3B2E28','#C7E3C0'],['#F7D6BC','#54382A','#E5CDEF'],['#F4D2B6','#251E1A','#F9C9B0']];
-function kid(id,size){size=size||46;const k=KID[(id.charCodeAt(id.length-1)||0)%KID.length];
+const KID_URL={};
+function kid(id,size){size=size||46;const i=(String(id).charCodeAt(String(id).length-1)||0)%KID.length;
+  if(!KID_URL[i])KID_URL[i]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(kidSvg(KID[i],48).replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" '));
+  return `<img class="kidface" src="${KID_URL[i]}" width="${size}" height="${size}" alt="" decoding="async" style="width:${size}px;height:${size}px;flex:none;display:block">`;}
+function kidSvg(k,size){
  return `<svg viewBox="0 0 48 48" width="${size}" height="${size}"><circle cx="24" cy="24" r="24" fill="${k[2]}"/>
  <circle cx="24" cy="26" r="14" fill="${k[0]}"/>
  <path d="M10 25c0-9 6-14 14-14s14 5 14 14c0-4.6-4-8-14-8s-14 3.4-14 8z" fill="${k[1]}"/>
@@ -697,6 +712,14 @@ function norm(t){return String(t||'').replace(/<[^>]+>/g,'').replace(/[\s\u3000]
   .replace(/[\u30a1-\u30f6]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60)).toLowerCase();}
 function hitChild(c,q){const k=norm(q);return !k||[c.name,c.kana,c.cls,c.name+c.sfx].some(v=>norm(v).includes(k));}
 function esc(t){return String(t||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+/* 入力された文から、画面を書き換えられる記号（< >）を取り除く */
+const plain=v=>String(v==null?'':v).replace(/[<>"`]/g,'').trim();
+/* 投稿・お知らせの本文：改行と太字だけを許し、ほかはすべて文字として表示する */
+const safeHTML=v=>esc(String(v==null?'':v)).replace(/&lt;br\s*\/?&gt;/gi,'<br>').replace(/&lt;(\/?)b&gt;/gi,'<$1b>');
+/* ほかの端末から届いたデータの文字からも < > を取り除く（アプリを通さずに書き込まれても画面が書き換わらないように） */
+function stripTags(o,skip){if(!o||typeof o!=='object')return;
+  for(const k in o){const v=o[k];if(typeof v==='string'){if(/[<>"`]/.test(v)&&!(skip&&skip.includes(k))&&!/^data:/.test(v))o[k]=v.replace(/[<>"`]/g,'');}
+    else if(v&&typeof v==='object')stripTags(v,skip);}}
 function stPill(c){return c.st==='released'?'<span class="pill gray">お迎え済み</span>':c.st==='arrived'?'<span class="pill orange">受付済み</span>':'';}
 
 /* 登録写真（端末から選んだ画像があればそれを表示） */
@@ -875,10 +898,12 @@ async function runChecks(){
   try{localStorage.setItem('okaeri:check','1');const ok=localStorage.getItem('okaeri:check')==='1';localStorage.removeItem('okaeri:check');
     set('store',ok?'ok':'ng',ok?'使えます':'使えません');}catch(e){set('store','ng','使えません（プライベートブラウズなど）');}
   set('bc',typeof BroadcastChannel!=='undefined'?'ok':'ng',typeof BroadcastChannel!=='undefined'?'使えます':'このブラウザでは使えません');
+  state.checkErrs=ERRLOG.slice(0,5);
   if(Sync.mode==='firebase')set('fb',Sync.status==='connected'?'ok':'ng',Sync.status==='connected'?(Sync.email||'')+'／'+roleLabel(Sync.role)+'／'+Object.keys(Sync.sent).length+'件のデータ':(Sync.err||syncLabel()));
   else set('fb','skip','未設定（操作バー「端末の連動」から設定できます）');
 }
 function checkText(){return (state.checks||[]).map(c=>({ok:'○',ng:'×',skip:'－',wait:'…'}[c.st])+' '+c.n+'：'+c.d).join('\n')
+  +'\n最近のエラー：'+ERRLOG.length+'件'+ERRLOG.slice(0,5).map(e=>'\n  '+new Date(e.t).toLocaleTimeString()+' '+e.where+'：'+e.msg).join('')
   +'\n'+(typeof navigator!=='undefined'?navigator.userAgent:'');}
 function copyText(t){
   const done=()=>toast('コピーしました');
@@ -1057,7 +1082,8 @@ function todayAt(hhmm){const [h,m]=String(hhmm).split(':').map(Number);const d=n
 /* お迎えの予定は、デモの時刻に関係なく今日の夕方（17:00）を基準にする。offset＝17:00から何分後 */
 function mkChild(o,n0){
   const base=todayAt('17:00'),at=o.pickup?todayAt(o.pickup):base+(o.offset||0)*60000;
-  const c=Object.assign({},o,{fam:o.fam||o.id,pickupAt:at,planAt:at,changed:o.changed||null,st:o.st||'waiting'});
+  const d0=new Date(at),c=Object.assign({},o,{fam:o.fam||o.id,pickupAt:at,planAt:at,changed:o.changed||null,st:o.st||'waiting',
+    usual:String(d0.getHours()).padStart(2,'0')+':'+String(d0.getMinutes()).padStart(2,'0'),byDefault:o.by||''});
   /* まだお迎えの時間になっていない（朝など）ときは、到着・お迎え済みにしない */
   if(c.st!=='waiting'&&at-n0>60*60000)c.st='waiting';
   delete c.offset;delete c.pickup;
@@ -1173,13 +1199,14 @@ const famKids=id=>{const k=famKey(id);return state.children.filter(c=>(c.fam||c.
 function fy(){const d=new Date(Date.now());const y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();
   return{from:y+'-04-01',to:(y+1)+'-03-31',prevTo:y+'-03-31',prevFrom:(y-1)+'-04-01'};}
 /* 園で共有するデータ（ログアウトしても消えない） */
-const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats','disaster'];
+const DATA_KEYS=['children','proxies','posts','diary','absences','notices','records','alerts','thr','cam','stats','offset','clock24','cards','logs','devStats','disaster','day'];
 function freshData(sid,off){
-  const g=genSchool(sid,off);
+  const g=genSchool(sid,off),d0=new Date(Date.now()+(off||0));
+  const day=d0.getFullYear()+'-'+String(d0.getMonth()+1).padStart(2,'0')+'-'+String(d0.getDate()).padStart(2,'0');
   return {children:g.children,proxies:g.proxies,cards:cardsFor(g.children),posts:g.posts,diary:g.diary,absences:g.absences||[],
     notices:g.notices,records:[],alerts:[],logs:[],devStats:{},disaster:null,thr:{soon:5,show:10},
     cam:{on:true,keep:false,thr:0.42,pin:'1234',list:false,live:false},
-    stats:g.stats,offset:off||0,clock24:false};
+    stats:g.stats,offset:off||0,clock24:false,day};
 }
 /* この端末だけの状態（画面・入力中の内容・ログイン） */
 function freshSession(){
@@ -1270,6 +1297,11 @@ const LANG_KEY='okaeri:lang';
 let LANG=(()=>{try{return localStorage.getItem(LANG_KEY)||'ja';}catch(e){return 'ja';}})();
 const isEnView=()=>LANG==='en'&&(state.role==='parent'||state.screen==='S01');
 const EN={"おかえりタイムライン": "Okaeri Timeline", "川崎市 公立認可保育所": "Kawasaki City public nursery schools", "ホーム": "Home", "連絡帳": "Notebook", "お迎え連絡": "Pickup", "お知らせ": "Notices", "メニュー": "Menu", "欠席・遅刻の連絡": "Absence / late arrival", "代理人の登録": "Pickup persons", "受付用QRコード": "Check-in QR code", "ホームに戻る": "Back to home", "一番上に戻る": "Back to top", "戻る": "Back", "ホームへ戻る": "Back to home", "もどる": "Back", "やめる": "Cancel", "ログアウトしました": "Logged out", "ログアウト": "Log out", "利用者ID": "User ID", "パスワード": "Password", "例）yamada-h": "e.g. yamada-h", "ログイン": "Log in", "IDとパスワードは入園時に園からお渡ししています。": "The nursery gives you your ID and password when your child enrolls.", "分からないときは園にお問い合わせください。": "If you are not sure, please contact the nursery.", "園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。": "Nursery names, wards and addresses are real public information from Kawasaki City. All children, parents, staff and numbers are fictional.", "データファイル（okaeri-data.js）を読み込めませんでした。HTMLと同じフォルダにあるか確認してください。": "The data file (okaeri-data.js) could not be loaded. Please check that it is in the same folder as the HTML file.", "今日はどうしますか？": "What would you like to do today?", "お迎えの状況を知らせる": "Update pickup status", "通院・お休みの申請": "Doctor visits and days off", "体調・様子の記入": "Health and daily notes", "園から新しい返信があります": "New reply from the nursery", "玄関のタブレットにかざす": "Show it at the entrance tablet", "園からのお知らせ": "From the nursery", "通常のお迎え時間": "Usual pickup time", "変更後のお迎え": "New pickup time", "今日の登園はまだ記録されていません": "Today's drop-off has not been recorded yet", "園から返信がありました": "The nursery replied", "お迎えの状況をお知らせください": "Let us know about pickup", "お迎え時間の変更を連絡する": "Report a change in pickup time", "早く行けるとき・遅れそうなとき": "When you can come early or may be late", "いつもの時間どおりにお迎えに来るときは、連絡は必要ありません。": "If you are picking up at the usual time, you do not need to contact us.", "連絡するお子さま": "Children", "お迎えの時間はどう変わりそうですか？": "How will your pickup time change?", "早く行けそう": "I can come early", "遅れそう": "I may be late", "どのくらい遅れそうですか？": "How late will you be?", "どのくらい早く着けそうですか？": "How early will you arrive?", "お迎え予定時刻からの遅れ時間を選択してください。": "Choose how many minutes after the scheduled pickup time.", "お迎え予定時刻からの前倒し時間を選択してください。": "Choose how many minutes before the scheduled pickup time.", "遅れます": "later", "早く着きます": "earlier", "分": "min", "選択された内容は、施設の先生にすぐ共有されます。": "Your choice is shared with the teachers right away.", "いつもご協力ありがとうございます。": "Thank you for your cooperation.", "その他の時間を入力する": "Enter another time", "変更後のお迎え予定：": "New pickup time: ", "この内容で送信する": "Send", "現在のお迎え時間": "Current pickup time", "お迎えが遅れることを園に伝えます": "Tell the nursery you will be late", "お迎えは、できるだけ保育時間内にお願いしています。": "We kindly ask you to pick up within care hours whenever possible.", "今月の遅れの連絡：": "Late notices this month: ", "遅れる理由（任意・先生に伝わります）": "Reason (optional — shared with the teachers)", "仕事": "Work", "電車・道路の遅れ": "Train or traffic delay", "家庭の事情": "Family reasons", "その他": "Other", "この内容で園に伝える": "Send to the nursery", "園にお電話ください": "Please call the nursery", "お手数ですが、園に直接お電話ください。": "Sorry for the trouble, but please call the nursery directly.", "園に電話する": "Call the nursery", "送信しました": "Sent", "園に伝えました": "Sent to the nursery", "送信した連絡": "What you sent", "お迎え時間の変更": "Pickup time change", "園のタイムラインに反映済み": "Shown on the nursery timeline", "先生の画面にすぐ反映されています。": "It is already showing on the teachers' screens.", "園が確認済み": "Received by the nursery", "園のタイムラインに反映しました": "Shown on the nursery timeline", "送信できませんでした。": "Could not send.", "園に届きませんでした": "Not delivered to the nursery", "通信が不安定です。電波の良い場所で「変更を送信する」をもう一度押してください。二重に登録されることはありません。": "The connection is unstable. Please press “Send” again where the signal is better. It will not be registered twice.", "もう一度送る": "Send again", "園に届いていない連絡があります。": "A message has not reached the nursery.", "通信が切れています。送った連絡は園に届いていません。お急ぎの場合は園にお電話ください。": "You are offline. Your messages have not reached the nursery. If it is urgent, please call the nursery.", "この端末の通信が切れた状態を再現します": "Simulating a lost connection on this device", "つながりました": "Connected", "欠席": "Absent", "遅刻（登園が遅れます）": "Late arrival (drop-off will be late)", "通院のため一時外出": "Leaving for a doctor visit", "長期のお休み": "Long absence", "連絡の種類": "Type", "対象の日": "Date", "1日だけ": "One day", "期間を指定": "Date range", "開始日": "Start date", "終了日": "End date", "園に伝えること": "Message to the nursery", "例）朝から熱があるため受診します。": "e.g. Seeing a doctor because of a fever since this morning.", "連絡を送信する": "Send", "通院・長期のお休み": "Doctor visits and long absences", "長期のお休みは、開始日と終了日をまとめて連絡できます。土日祝は園の休園日として扱われます。": "For a long absence, you can send the start and end dates together. Weekends and holidays are treated as days the nursery is closed.", "欠席の連絡を送りました": "Absence notice sent", "園に連絡しました": "Sent to the nursery", "お家での様子": "At home", "体温": "Temperature", "に測った": "taken at", "睡眠": "Sleep", "に寝て": "went to bed,", "に起きた": "woke up", "排便": "Bowel movement", "ごろ": "around", "朝食": "Breakfast", "機嫌": "Mood", "そのほか伝えたいこと": "Anything else to tell us", "例）少し咳が出ています。今日のお迎えは祖母です。": "e.g. A slight cough. Grandma will pick up today.", "3歳児クラス以上は、排便の欄を省いています。気になることがあれば上の欄に書いてください。": "For classes age 3 and up, the bowel movement field is not shown. Please write any concerns in the box above.", "園に送る": "Send to the nursery", "これまでの記録": "Past entries", "まだ記録はありません。": "No entries yet.", "園での様子": "At the nursery", "午睡": "Nap", "給食": "Lunch", "おやつ": "Snack", "なし": "None", "ふつう": "Normal", "やわらかい": "Soft", "かたい": "Hard", "下痢": "Diarrhea", "全部": "All", "ほとんど": "Most", "半分": "Half", "少し": "A little", "食べていない": "Didn't eat", "良好": "Good", "少し不調": "Not feeling well", "連絡帳を園に送りました": "Sent to the nursery", "園から新しい返信": "New reply from the nursery", "体温は 36.5 のように入力してください": "Please enter a temperature such as 36.5", "代理人リスト": "Pickup persons", "お迎えを代理でお願いできる方の一覧です。顔写真の登録は任意です。": "People who can pick up your child on your behalf. Adding a photo is optional.", "承認済み": "Approved", "承認待ち": "Waiting for approval", "有効期限切れ": "Expired", "照合用の写真が未登録": "No photo for the face check", "特徴メモ 未入力": "No description", "写真を登録": "Add photo", "写真を変更": "Change photo", "代理人を追加する": "Add a pickup person", "代理人の追加・変更は、園の承認が完了すると利用できます。": "Additions and changes can be used after the nursery approves them.", "氏名": "Name", "例）山田 太郎": "e.g. Taro Yamada", "続柄": "Relationship", "例）祖父": "e.g. Grandfather", "電話番号": "Phone number", "写真がない場合の特徴メモ": "Description (if there is no photo)", "例）眼鏡をかけた白髪の男性": "e.g. A man with glasses and white hair", "顔写真（任意）": "Face photo (optional)", "写真を選ぶ": "Choose photo", "正面を向いた、顔がはっきり写った写真を選んでください。玄関の顔照合に使います。": "Choose a clear photo of the face looking at the camera. It is used for the face check at the entrance.", "保存する": "Save", "未登録": "Not registered", "代理人の登録・確認": "Pickup persons", "お迎えをお願いできる方": "People who can pick up", "QRコードが読み取れないときは、この番号を入力してください": "If the QR code cannot be read, enter this number", "QRコードと番号を作り直す": "Reissue the QR code and number", "画面を他の人に見られた・共有を取り消したいとき。今までのQRコードと番号は使えなくなります": "Use this if someone else saw this screen or you want to cancel sharing. The current QR code and number will stop working.", "玄関の受付タブレットのカメラに、この画面をかざしてください。画面を明るくすると読み取りやすくなります。代理人の方にお迎えをお願いするときは、この画面を見せるか共有してください。": "Hold this screen up to the camera of the entrance tablet. A brighter screen is easier to read. When someone picks up on your behalf, show or share this screen with them.", "QRコードを表示できません。": "The QR code cannot be shown.", "下の8桁の番号を玄関で入力してください。": "Enter the 8-digit number below at the entrance.", "QRコードと番号を作り直しました。以前のものは使えません": "The QR code and number were reissued. The old ones no longer work.", "すべて既読にする": "Mark all as read", "園からのお知らせ・連絡帳": "From the nursery / notebook", "登園の記録、お迎え時間の変更の受付、玄関での受付完了など": "Drop-off records, pickup change receipts, entrance check-ins, etc.", "ひらく": "Open", "たたむ": "Close", "緊急": "Urgent", "登園": "Drop-off", "園からのお知らせはありません。": "There are no notices from the nursery.", "お迎え時間の変更を園が受け取りました": "The nursery received your pickup time change", "受付が完了しました": "Check-in completed", "登園を受け付けました": "Drop-off received", "保育士が登園を記録しました": "A teacher recorded drop-off", "連絡帳に園から返信がありました": "The nursery replied in the notebook", "よく使う機能": "Shortcuts", "お迎えのときに玄関でかざす": "Show it at the entrance when picking up", "お知らせの受け取り": "Notifications", "園からの連絡": "Messages from the nursery", "連絡帳の返信": "Notebook replies", "時刻を24時間表示にする": "Use 24-hour time", "園の連絡先": "Nursery contact", "【緊急】お迎えの確認": "[URGENT] Pickup check", "【緊急】お迎えの確認：ここを押して回答してください": "[URGENT] Pickup check: tap here to answer", "お迎えに行けます": "I can pick up", "お迎えに行けません": "I cannot pick up", "回答済み：": "Answered: ", "お子さまは園でお預かりします。園からの連絡をお待ちください。": "We will look after your child at the nursery. Please wait for our message.", "園に「お迎えに行けます」と伝えました": "Told the nursery: “I can pick up”", "園に「お迎えに行けません」と伝えました": "Told the nursery: “I cannot pick up”", "【緊急】地震のため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an earthquake, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】台風・大雨のため、早めのお迎えをお願いしています。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of a typhoon or heavy rain, we ask you to pick up early. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】園で緊急の事態が起きたため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an emergency at the nursery, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "（園からの日本語のメッセージです）": "(This message from the nursery is in Japanese.)", "言語": "Language"};
+Object.assign(EN,{"お迎えの時刻":"Pickup time","体温を測った時刻":"Time taken","寝た時刻":"Bedtime","起きた時刻":"Wake-up time",
+  "排便の状態":"Bowel movement","排便の時刻":"Bowel movement time","朝食の量":"Breakfast amount","朝食の時刻":"Breakfast time",
+  "日付を選んでください":"Please choose a date","今日より前の日付は選べません":"You cannot choose a date before today",
+  "開始日は今日以降の日付にしてください":"Please choose a start date from today onward","開始日と終了日を選んでください":"Please choose a start date and an end date",
+  "終了日は開始日より後にしてください":"The end date must be after the start date","園に送信しました":"Sent to the nursery"});
 const EN_CLASS={'ひまわり組':'Sunflower Class','ゆり組':'Lily Class','ちゅうりっぷ組':'Tulip Class','ひよこ組':'Chick Class','りす組':'Squirrel Class','うさぎ組':'Rabbit Class'};
 const EN_REL={'母':'Mother','父':'Father','祖父':'Grandfather','祖母':'Grandmother','叔父':'Uncle','叔母':'Aunt','兄':'Brother','姉':'Sister'};
 const EN_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],EN_WD={'日':'Sun','月':'Mon','火':'Tue','水':'Wed','木':'Thu','金':'Fri','土':'Sat'};
@@ -1338,6 +1370,10 @@ function translateDom(root){
 function langToggle(){return `<div class="langsw" role="group" aria-label="言語 / Language">
   <button class="${LANG==='ja'?'on':''}" onclick="act('lang','ja')">日本語</button><button class="${LANG==='en'?'on':''}" onclick="act('lang','en')">English</button></div>`;}
 
+/* ---- 本番モード：URLに ?mode=production をつけるか、データファイルに "mode": "production" と書くと、
+   操作バー（デモ用）や「サンプルデータ」の表示を隠す ---- */
+const isProd=()=>dataset().mode==='production'||(typeof location!=='undefined'&&/[?&]mode=production\b/.test(location.search||''));
+
 /* ---- スクロールの位置：同じ画面のまま描き直すときは、元の位置を保つ ---- */
 const SCROLLERS='#stage .roll,#stage .tbody,#stage .monbody,#stage .side .items';
 let lastPaintKey='',lastScroller=null;
@@ -1355,14 +1391,32 @@ function toTop(){const el=activeScroller();
   try{if(el)el.scrollTo({top:0,behavior:'smooth'});window.scrollTo({top:0,behavior:'smooth'});}catch(e){if(el)el.scrollTop=0;window.scrollTo(0,0);}}
 if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('scroll',e=>{const t=e.target;
   if(t&&t.matches&&t.matches(SCROLLERS))lastScroller=t;updateToTop();},true);
+/* ---- エラーの記録：起きたエラーを端末の中に最大30件残し、「動作チェック」で確認・コピーできるようにする ---- */
+const ERRLOG=[];
+function logErr(where,e){const msg=(e&&(e.message||e.reason&&e.reason.message))||String(e||'');
+  ERRLOG.unshift({t:Date.now(),where,msg:String(msg).slice(0,200)});if(ERRLOG.length>30)ERRLOG.length=30;}
+if(typeof window!=='undefined'&&window.addEventListener){
+  window.addEventListener('error',e=>logErr('画面',e.error||e.message));
+  window.addEventListener('unhandledrejection',e=>logErr('通信など',e.reason));}
+/* 万一、画面を作る途中で問題が起きても真っ白にせず、案内とホームへのボタンを出す */
 function render(){
+  try{renderCore();}
+  catch(e){console.error(e);logErr('画面の表示（'+state.screen+'）',e);
+    try{document.getElementById('stage').innerHTML=`<div class="crash"><div class="card" style="padding:26px;max-width:460px;margin:12vh auto;text-align:center">
+      <div style="font-family:var(--disp);font-weight:900;font-size:18px">画面を表示できませんでした</div>
+      <div class="tiny muted" style="margin:10px 0 16px;line-height:1.8">お手数ですが、ホームに戻るか、ページを再読み込みしてください。<br>入力した内容と記録は保存されています。</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="act('logoHome')">ホームに戻る</button>
+      <button class="btn g" onclick="location.reload()">再読み込み</button></div></div></div>`;}catch(x){}}
+}
+function renderCore(){
   const p=state.screen;
   const key=paintKey(),keep=key===lastPaintKey,sv=keep?saveScroll():null;lastPaintKey=key;
   document.getElementById('hid').textContent=p;
   document.getElementById('hnow').textContent=md(now())+'('+wd(now())+') '+hm(now());
   document.getElementById('errbtn').classList.toggle('on',state.err);
   document.getElementById('hctrls').className='hctrls'+(state.hbar?' open':'');
-  if(document.body&&document.body.classList){document.body.classList.toggle('hb-off',!!state.hbarHidden);
+  if(document.body&&document.body.classList){document.body.classList.toggle('hb-off',!!state.hbarHidden||isProd());
+    document.body.classList.toggle('prod',isProd());
     document.body.classList.toggle('tvmode',state.role==='monitor');}
   const isPhone = p==='S01'||PARENT.includes(p);
   if(state.role==='monitor'&&p!=='S30'){state.screen='S30';return render();}
@@ -1404,7 +1458,7 @@ function drawOverlay(){
       <li>Firestore に okaeri_members コレクションを作り、ドキュメントID＝メールアドレス（小文字）で、role・school（園のID）・fams を登録する。データは園ごとに okaeri_園のID に保存される</li>
       <li>各端末でこの画面を開き、設定・メールアドレス・パスワードを入れてサインインする（最初は保育士の端末から）</li></ol>
     <pre style="font-family:var(--mono);font-size:11px;background:#FBF6F1;border-radius:10px;padding:10px 12px;margin:10px 0 0;overflow-x:auto;line-height:1.6">okaeri_members / genkan@example.com  →  role: "kiosk",  school: "nakahara"
-okaeri_members / sasaki@example.com  →  role: "staff",  school: "nakahara"
+okaeri_members / sasaki@example.com  →  role: "staff",  school: "nakahara", name: "佐々木 みなみ", cls: "ひまわり組"
 okaeri_members / hoikuka@example.com →  role: "admin"   ※ school なし＝全園を閲覧
 okaeri_members / tv@example.com      →  role: "monitor", school: "nakahara"   ※ 表示用モニター（読むだけ）
 okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fams: ["c1"]   ※ c1 = 山田家（ひなた・そら）</pre>
@@ -1505,6 +1559,8 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
     ${cs.map(c=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 2px;border-bottom:1px solid #F4EEE9;font-size:13.5px">
       <span class="pill ${{ok:'green',ng:'red',skip:'gray',wait:'amber'}[c.st]}" style="min-width:58px;justify-content:center">${{ok:'使える',ng:'使えない',skip:'未設定',wait:'確認中'}[c.st]}</span>
       <span style="flex:1"><b style="font-family:var(--disp)">${c.n}</b><br><span class="tiny muted">${esc(c.d)}</span></span></div>`).join('')}
+    <div style="padding:10px 2px 0;font-size:13px"><b style="font-family:var(--disp)">最近のエラー：${ERRLOG.length}件</b>
+      ${ERRLOG.slice(0,5).map(e=>`<div class="tiny muted" style="margin-top:3px">${hm(e.t)} ${esc(e.where)}：${esc(e.msg)}</div>`).join('')||'<div class="tiny muted">ありません</div>'}</div>
     <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
       <button class="btn" onclick="act('checkRun')">もう一度確かめる</button>
       <button class="btn g" onclick="act('checkCopy')">結果をコピー</button>
@@ -1582,8 +1638,8 @@ function tabletShell(inner){
   return `<div class="t-wrap">
     ${state.drawer?`<div class="scrim" onclick="act('drawer')"></div>`:''}
     <div class="side ${state.drawer?'open':''}">
-      <div class="logo"><button class="logobtn logohome" onclick="act('logoHome')" aria-label="ホームに戻る" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:inherit;text-align:left">${sun(30)}<span style="min-width:0">${state.role==='admin'?'川崎市 保育課':esc(curSchool().name)}<small style="display:block;font-size:10.5px;font-weight:500;opacity:.9">サンプルデータ</small></span></button>
-        <button class="drawerbtn" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
+      <div class="logo"><button class="logobtn logohome" onclick="act('logoHome')" aria-label="ホームに戻る" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:inherit;text-align:left">${sun(30)}<span style="min-width:0">${state.role==='admin'?'川崎市 保育課':esc(curSchool().name)}${isProd()?'':'<small style="display:block;font-size:10.5px;font-weight:500;opacity:.9">サンプルデータ</small>'}</span></button>
+        <button class="drawerbtn" aria-label="メニューを閉じる" style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;box-shadow:none" onclick="act('drawer')">${ic('back',22)}</button></div>
       <div class="items">
         ${menu.concat(extra).map(([id,l,i])=>{const n=state.role==='admin'?0:id==='S23'?diaryNewCount():id==='S15'?myUnread():0;
           return `<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}${n?`<span class="nb">${n}</span>`:''}</button>`;}).join('')}
@@ -1598,7 +1654,7 @@ function tabletShell(inner){
       <div style="flex:1;display:flex;flex-direction:column;min-height:0">${inner}</div>
       <div class="tnav">
         ${nav.map(([id,l,i])=>id==='FAB'
-          ?`<div class="fabwrap"><button class="fab" onclick="act('${state.role==='admin'?'viewonly':"go','S16"}')">${ic('pencil',24)}</button>投稿</div>`
+          ?`<div class="fabwrap"><button class="fab" aria-label="タイムラインに投稿する" onclick="act('${state.role==='admin'?'viewonly':"go','S16"}')">${ic('pencil',24)}</button>投稿</div>`
           :`<button class="${state.screen===id?'on':''}" onclick="act('go','${id}')"><span style="position:relative">${ic(i,22)}${(id==='S15'&&unread)?`<span class="badge">${unread}</span>`:''}</span>${l}</button>`).join('')}
       </div>
     </div></div>`;
@@ -1622,7 +1678,7 @@ function kioskShell(inner){
 }
 function thead(title,iconName,sub,right){
   return `<div class="thead">
-    <button class="drawerbtn" onclick="act('drawer')">${ic('menu',24)}</button>
+    <button class="drawerbtn" aria-label="メニューを開く" onclick="act('drawer')">${ic('menu',24)}</button>
     <div><h2>${ic(iconName,26,'#F2913F')}${title}</h2>${sub?`<div class="sub">${sub}</div>`:''}</div>
     ${right?`<div class="right">${right}</div>`:''}</div>`;
 }
@@ -1652,10 +1708,11 @@ SCR.S01=()=>`<div class="roll plogin-bg"><div class="pbody plogin" style="paddin
       <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
       <div class="tiny muted" style="margin-top:5px">川崎市 公立認可保育所</div>
     </div>
-    <label class="fieldl">利用者ID</label><input class="inp" id="lid" value="${state.loginId||''}" placeholder="例）yamada-h" autocapitalize="off">
-    <label class="fieldl">パスワード</label><input class="inp" id="lpw" type="password" value="${state.loginPw||''}" placeholder="パスワード">
-    ${state.loginErr?`<div class="err" style="margin-top:12px">${state.loginErr}</div>`:''}
-    <div style="margin-top:18px"><button class="cta" onclick="act('login')">ログイン</button></div>
+    ${prodAuth()?`<label class="fieldl">メールアドレス</label><input class="inp" id="lid" type="email" autocomplete="username" value="${esc(state.loginId||'')}" placeholder="例）name@example.com" autocapitalize="off">`
+      :`<label class="fieldl">利用者ID</label><input class="inp" id="lid" autocomplete="username" value="${esc(state.loginId||'')}" placeholder="例）yamada-h" autocapitalize="off">`}
+    <label class="fieldl">パスワード</label><input class="inp" id="lpw" type="password" autocomplete="current-password" value="" placeholder="パスワード" onkeydown="if(event.key==='Enter')act('login')">
+    ${state.loginErr?`<div class="err" style="margin-top:12px">${esc(state.loginErr)}</div>`:''}
+    <div style="margin-top:18px"><button class="cta" ${state.loginBusy?'disabled':''} onclick="act('login')">${state.loginBusy?'確認しています…':'ログイン'}</button></div>
     <div class="tiny muted" style="margin-top:16px;text-align:center;line-height:1.8">
       IDとパスワードは入園時に園からお渡ししています。<br>分からないときは園にお問い合わせください。</div>
     ${dataset()._from==='fallback'?`<div class="err" style="margin-top:14px">${esc(dataset()._err||'')}</div>`:''}
@@ -1665,7 +1722,11 @@ SCR.S01=()=>`<div class="roll plogin-bg"><div class="pbody plogin" style="paddin
 /* =========================================================
    保護者側
    ========================================================= */
-const pchild=()=>child(state.pc)||child('c1')||state.children[0];
+/* 保護者の画面に出すお子さま：ログインした家庭の子だけ（ほかの家庭の子が選ばれていても、自分の家庭の子に戻す） */
+const pchild=()=>{const c=child(state.pc);
+  if(state.role==='parent'&&state.pfamKey){if(c&&(c.fam||c.id)===state.pfamKey)return c;
+    return state.children.find(k=>(k.fam||k.id)===state.pfamKey)||c||state.children[0];}
+  return c||child('c1')||state.children[0];};
 /* 保護者に見せるお知らせ：園全体のものと、自分の家庭のものだけ */
 const myNotices=()=>(state.notices||[]).filter(n=>!n.fam||n.fam==='parents'||n.fam===famKey(state.pc));
 const pfam=()=>famKids(state.pc);
@@ -1746,7 +1807,7 @@ SCR.S03=()=>{
         <b>${m}<i>分</i></b><small>${sel.dir==='late'?'遅れます':'早く着きます'}</small></button>`).join('')}</div>
       <div class="tipbox">${ic('bulb',20,'#D6A94E')}<div>選択された内容は、施設の先生にすぐ共有されます。<br>いつもご協力ありがとうございます。</div></div>
       <button class="rowbtn" onclick="act('focusCustom')">${ic('pencil',20,'#B69C7E')}その他の時間を入力する<span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>
-      <input class="inp" id="custom" type="time" value="${sel.custom}" onchange="act('custom',this.value)" style="margin-top:10px;${sel.custom||state.showCustom?'':'display:none'}">
+      <input class="inp" id="custom" aria-label="お迎えの時刻" type="time" value="${sel.custom}" onchange="act('custom',this.value)" style="margin-top:10px;${sel.custom||state.showCustom?'':'display:none'}">
     </div>`:''}
     ${newAt&&sel.open&&sel.dirChosen?`<div class="tipbox" style="background:#FFF;box-shadow:0 1px 3px rgba(150,110,70,.09)">${ic('check',20,'#5FBF8B')}
       <div>変更後のお迎え予定：<b style="font-size:15px;color:var(--o-d)">${hm(newAt)}</b>（現在 ${hm(c.pickupAt)}）</div></div>`:''}
@@ -1796,10 +1857,10 @@ SCR.S05=()=>{
       <button class="late ${state.absMulti?'on':''}" style="padding:12px 8px;font-size:14px" onclick="act('absMulti',1)">期間を指定</button>
     </div>
     ${state.absMulti?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
-        <div><label class="fieldl" style="margin-top:0">開始日</label><input class="inp" id="abFrom" type="date" value="${today}"></div>
-        <div><label class="fieldl" style="margin-top:0">終了日</label><input class="inp" id="abTo" type="date" value="${today}"></div></div>
+        <div><label class="fieldl" style="margin-top:0">開始日</label><input class="inp" id="abFrom" type="date" value="${today}" min="${today}"></div>
+        <div><label class="fieldl" style="margin-top:0">終了日</label><input class="inp" id="abTo" type="date" value="${today}" min="${today}"></div></div>
       <div class="tiny muted" style="margin-top:7px">長期のお休みは、開始日と終了日をまとめて連絡できます。土日祝は園の休園日として扱われます。</div>`
-      :`<input class="inp" id="abDate" type="date" value="${today}" style="margin-top:10px">`}
+      :`<input class="inp" id="abDate" type="date" value="${today}" min="${today}" aria-label="対象の日" style="margin-top:10px">`}
     <label class="fieldl">園に伝えること</label><textarea class="inp" id="abTxt" rows="3" placeholder="例）朝から熱があるため受診します。"></textarea>
     <div style="margin-top:16px"><button class="cta" onclick="act('submitAbsence')">連絡を送信する</button></div>
     <div class="sec">送信した連絡</div>
@@ -1818,15 +1879,15 @@ SCR.S06=()=>{
       <div style="font-family:var(--disp);font-weight:700">${md(now())}（${wd(now())}）お家での様子</div>
       <div class="tiny muted" style="margin-top:2px">${c.name}${c.sfx}（${c.cls}）${te&&normEntry(te).home?'・送信済み（直して送ると上書きされます）':''}</div>
       <div class="dform">
-        <label>体温</label><div class="drowin"><input class="inp" id="dTemp" inputmode="decimal" value="${esc(h.temp||'36.5')}" style="width:76px">℃
-          <input class="inp" id="dTempAt" type="time" value="${esc(h.tempAt||nowHM())}"><span>に測った</span></div>
-        <label>睡眠</label><div class="drowin"><input class="inp" id="dSleep" type="time" value="${esc(h.sleep||'')}"><span>に寝て</span>
-          <input class="inp" id="dWake" type="time" value="${esc(h.wake||'')}"><span>に起きた</span></div>
-        ${young?`<label>排便</label><div class="drowin"><select class="inp" id="dBm">${opts(BM,h.bm||'なし')}</select>
-          <input class="inp" id="dBmAt" type="time" value="${esc(h.bmAt||'')}"><span>ごろ</span></div>`:''}
-        <label>朝食</label><div class="drowin"><select class="inp" id="dBf">${opts(EAT,h.bf||'全部')}</select>
-          <input class="inp" id="dBfAt" type="time" value="${esc(h.bfAt||'')}"><span>ごろ</span></div>
-        <label>機嫌</label><div class="drowin"><select class="inp" id="dMood">${opts(MOOD,h.mood||'良好')}</select></div>
+        <label>体温</label><div class="drowin"><input class="inp" id="dTemp" aria-label="体温" inputmode="decimal" value="${esc(h.temp||'36.5')}" style="width:76px">℃
+          <input class="inp" id="dTempAt" aria-label="体温を測った時刻" type="time" value="${esc(h.tempAt||nowHM())}"><span>に測った</span></div>
+        <label>睡眠</label><div class="drowin"><input class="inp" id="dSleep" aria-label="寝た時刻" type="time" value="${esc(h.sleep||'')}"><span>に寝て</span>
+          <input class="inp" id="dWake" aria-label="起きた時刻" type="time" value="${esc(h.wake||'')}"><span>に起きた</span></div>
+        ${young?`<label>排便</label><div class="drowin"><select class="inp" id="dBm" aria-label="排便の状態">${opts(BM,h.bm||'なし')}</select>
+          <input class="inp" id="dBmAt" aria-label="排便の時刻" type="time" value="${esc(h.bmAt||'')}"><span>ごろ</span></div>`:''}
+        <label>朝食</label><div class="drowin"><select class="inp" id="dBf" aria-label="朝食の量">${opts(EAT,h.bf||'全部')}</select>
+          <input class="inp" id="dBfAt" aria-label="朝食の時刻" type="time" value="${esc(h.bfAt||'')}"><span>ごろ</span></div>
+        <label>機嫌</label><div class="drowin"><select class="inp" id="dMood" aria-label="機嫌">${opts(MOOD,h.mood||'良好')}</select></div>
       </div>
       <label class="fieldl">そのほか伝えたいこと</label>
       <textarea class="inp" id="dTxt" rows="3" placeholder="例）少し咳が出ています。今日のお迎えは祖母です。">${esc(h.txt||'')}</textarea>
@@ -2278,7 +2339,9 @@ function arrivedRow(c){
 }
 function cardRow(c){
   const s=stat(c),t=countText(c);
-  return `<button class="ccard ${s.tone}" data-cid="${c.id}" onclick="act('openChild','${c.id}')">
+  /* 画面の外のカードは配置の計算を後回しにするため、読み上げ用の名前をカード自体に持たせる */
+  const dz=dzAns(c),dzl=dzOn()&&!isAbsent(c)&&c.st!=='released'?'　災害：'+(dz?(dz.ans==='can'?'お迎え可':'お迎え不可'):'未回答'):'';
+  return `<button class="ccard ${s.tone}" data-cid="${c.id}" aria-label="${esc(c.name+c.sfx+'　'+c.cls+'　'+s.label+'　お迎え予定 '+hm(c.pickupAt)+dzl)}" onclick="act('openChild','${c.id}')">
     ${face(c,46)}
     <div style="min-width:0">
       <div class="tiny muted">${c.cls}（${c.age}）</div>
@@ -2417,11 +2480,12 @@ function postHTML(p,compact){
   const acks=ackList(p),mine=acks.includes(me().short),admin=state.role==='admin';
   const notYet=isStaffPost(p)?staffRoster().filter(x=>!acks.includes(x)):[];
   const color=p.alert?'#E8735C':p.kind==='clerk'?'#F2A7BC':p.kind==='sys'?'#8FC3E8':'#F5C842';
-  return `<div class="post ${p.kind}${p.imp?' imp':''}${p.alert?' alert':''}${compact?' compact':''}">
+  const kind=['teacher','clerk','sys'].includes(p.kind)?p.kind:'sys';
+  return `<div class="post ${kind}${p.imp?' imp':''}${p.alert?' alert':''}${compact?' compact':''}">
     ${flower(color,compact?36:52)}
     <div class="bub"><div class="who"><b>${esc(p.who)}</b><span class="t">${hm(p.t)}</span>
       ${p.imp?'<span class="pill orange" style="margin-left:auto">重要</span>':''}${p.alert?'<span class="pill red" style="margin-left:'+(p.imp?'4px':'auto')+'">確認依頼</span>':''}</div>
-      <div class="txt">${p.txt}</div>
+      <div class="txt">${safeHTML(p.txt)}</div>
       ${compact?'':`<div class="reacts">
         <button class="react ${mine?'on':''}" onclick="act('ack','${p.id}')">${ic('smile',17)}${mine?'了解済み':'了解しました'}</button>
         ${isStaffPost(p)&&!admin?`<button class="react ${p.imp?'on':''}" onclick="act('pin','${p.id}')">${ic('info',16)}${p.imp?'固定を外す':'重要にする'}</button>`:''}</div>
@@ -2436,7 +2500,7 @@ function tlListHTML(){
   const alias=norm(q)?state.children.filter(c=>norm(c.kana).includes(norm(q))).map(c=>norm(c.name)):[];
   const hit=p=>{if(!norm(q))return true;const t=norm(p.txt+p.who);return t.includes(norm(q))||alias.some(a=>t.includes(a));};
   const okPF=p=>pf==='all'||(pf==='staff'&&isStaffPost(p)&&!p.alert)||(pf==='imp'&&p.imp)||(pf==='alert'&&p.alert)||(pf==='auto'&&p.auto);
-  const list=state.posts.filter(p=>okPF(p)&&hit(p));
+  const list=state.posts.filter(p=>okPF(p)&&hit(p)&&(norm(q)||isToday(p.t)));
   /* 検索・絞り込み中は、当てはまる投稿をそのまま並べる */
   if(norm(q)||pf!=='all')return `<div class="daysep"><span>今日　${list.length}件</span></div>`
     +(list.length?list.map(p=>postHTML(p)).join(''):`<div class="card" style="padding:30px;text-align:center;color:var(--ink-2)">該当する投稿はありません。</div>`);
@@ -2601,26 +2665,26 @@ SCR.S20=()=>thead('園情報管理','school',curSchool().name,`<button class="hp
        ['keep','撮影した写真を記録に残す','残さない場合、確認が終わると写真は破棄されます']].map(([k,t,sub])=>`
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
         <span style="flex:1">${t}<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">${sub}</small></span>
-        <button class="sw ${state.cam[k]?'on':''}" onclick="act('camSet','${k}')"><span></span></button></div>`).join('')}
+        <button class="sw ${state.cam[k]?'on':''}" role="switch" aria-checked="${!!state.cam[k]}" aria-label="${t}" onclick="act('camSet','${k}')"><span></span></button></div>`).join('')}
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
       <span style="flex:1">顔照合の基準<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">厳しくすると別人を通しにくくなり、本人でも失敗しやすくなります</small></span>
-      <select class="inp" style="width:auto;padding:8px 10px" onchange="act('camThr',this.value)">
+      <select class="inp" aria-label="顔照合の基準" style="width:auto;padding:8px 10px" onchange="act('camThr',this.value)">
         ${THR_OPTS.map(([v,l])=>`<option value="${v}" ${(+v)===(state.cam.thr||0.42)?'selected':''}>${l}</option>`).join('')}</select></div>
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px;flex-wrap:wrap">
       <span style="flex:1;min-width:180px">受付端末を終了する暗証番号<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">保護者が受付画面から出られないようにします</small></span>
-      <input class="inp" id="kpin" type="password" inputmode="numeric" maxlength="8" value="${state.cam.pin}" style="width:120px">
+      <input class="inp" id="kpin" aria-label="受付端末を終了する暗証番号" type="password" inputmode="numeric" maxlength="8" value="${state.cam.pin}" style="width:120px">
       <button class="hpill" onclick="act('savePin')">変更</button></div>
     <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;font-size:14px">
       <span style="flex:1">時刻を24時間表示にする<small style="display:block;color:#9A8C81;font-size:11.5px;margin-top:2px">オフのときは AM・PM で表示します</small></span>
-      <button class="sw ${state.clock24?'on':''}" onclick="act('clock24')"><span></span></button></div>
+      <button class="sw ${state.clock24?'on':''}" role="switch" aria-checked="${!!state.clock24}" aria-label="時刻を24時間表示にする" onclick="act('clock24')"><span></span></button></div>
   </div>
   <div class="sec">お帰りタイムラインの色分け条件</div>
   <div class="card" style="padding:18px">
     <div class="tiny muted" style="margin-bottom:10px">お迎え予定時刻までの残り時間に応じて、園児カードの色が変わります。</div>
     <label class="fieldl" style="margin-top:0">黄（まもなく到着）に切り替える　お迎え予定の何分前から</label>
-    <input class="inp" id="thrSoon" type="number" min="1" max="30" value="${state.thr.soon}">
+    <input class="inp" id="thrSoon" aria-label="黄に切り替える時間（分）" type="number" min="1" max="30" value="${state.thr.soon}">
     <label class="fieldl">タイムラインで強調を始める　お迎え予定の何分前から</label>
-    <input class="inp" id="thrShow" type="number" min="5" max="60" value="${state.thr.show}">
+    <input class="inp" id="thrShow" aria-label="強調を始める時間（分）" type="number" min="5" max="60" value="${state.thr.show}">
     <div class="tiny muted" style="margin-top:9px">赤（遅延中）はお迎え予定時刻を過ぎた時点で自動的に切り替わります。</div>
     <div style="margin-top:15px"><button class="btn" onclick="act('saveThr')">保存する</button></div></div></div>`;
 
@@ -2639,7 +2703,7 @@ SCR.S21=()=>{
         <span class="tiny muted">${md(n.t)} ${hm(n.t)}</span>
         ${n.read?'':'<span style="margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--o)"></span>'}</div>
       <b style="font-family:var(--disp);display:block;margin-top:7px">${n.title}</b>
-      <div style="font-size:13px;margin-top:4px;line-height:1.7">${n.body}</div></button>`;
+      <div style="font-size:13px;margin-top:4px;line-height:1.7">${safeHTML(n.body)}</div></button>`;
   return `${phead('お知らせ','S02')}<div class="pbody">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
       <span class="pill orange">園からの未読 ${un}件</span>
@@ -2679,10 +2743,10 @@ SCR.S22=()=>{
       ${[['pickup','お迎え時間の変更'],['diary','連絡帳の返信'],['news','園からのお知らせ']].map(([k,t])=>`
         <div class="row" style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
           <span style="flex:1">${t}</span>
-          <button class="sw ${state.settings[k]?'on':''}" onclick="act('toggleSet','${k}')"><span></span></button></div>`).join('')}
+          <button class="sw ${state.settings[k]?'on':''}" role="switch" aria-checked="${!!state.settings[k]}" aria-label="${t}" onclick="act('toggleSet','${k}')"><span></span></button></div>`).join('')}
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #F4EEE9;font-size:14px">
         <span style="flex:1">時刻を24時間表示にする</span>
-        <button class="sw ${state.clock24?'on':''}" onclick="act('clock24')"><span></span></button></div>
+        <button class="sw ${state.clock24?'on':''}" role="switch" aria-checked="${!!state.clock24}" aria-label="時刻を24時間表示にする" onclick="act('clock24')"><span></span></button></div>
       <div style="display:flex;align-items:center;gap:12px;padding:13px 2px;font-size:14px">
         <span style="flex:1">園の連絡先</span>
         <button class="hpill" style="min-height:36px" onclick="act('callSchool')">${ic('phone',16)}044-000-0000</button></div>
@@ -2722,14 +2786,14 @@ SCR.S23=()=>{
         ${admin?`<div class="note" style="margin-top:14px">${ic('info',20,'#C9AE8E')}<div>保育課のアカウントは閲覧のみです。</div></div>`
          :`<div class="sec" style="font-size:14px">園での様子を返信する${te&&normEntry(te).nursery?'（送信済み・直して送ると上書き）':''}</div>
           <div class="dform" style="margin-top:4px">
-            <label>午睡</label><div class="drowin"><input class="inp" id="dNapFrom" type="time" value="${esc(n.napFrom||'')}"><span>から</span>
-              <input class="inp" id="dNapTo" type="time" value="${esc(n.napTo||'')}"><span>まで</span></div>
-            ${young?`<label>排便</label><div class="drowin"><select class="inp" id="dNBm">${opts(BM,n.bm||'なし')}</select>
-              <input class="inp" id="dNBmAt" type="time" value="${esc(n.bmAt||'')}"><span>ごろ</span></div>`:''}
-            <label>給食</label><div class="drowin"><select class="inp" id="dLunch">${opts(EAT,n.lunch||'全部')}</select></div>
-            <label>おやつ</label><div class="drowin"><select class="inp" id="dSnack">${opts(EAT,n.snack||'全部')}</select></div>
-            <label>体温</label><div class="drowin"><input class="inp" id="dNTemp" inputmode="decimal" value="${esc(n.temp||'')}" placeholder="36.6" style="width:76px">℃
-              <input class="inp" id="dNTempAt" type="time" value="${esc(n.tempAt||'')}"><span>に測った</span></div>
+            <label>午睡</label><div class="drowin"><input class="inp" id="dNapFrom" aria-label="午睡の始まり" type="time" value="${esc(n.napFrom||'')}"><span>から</span>
+              <input class="inp" id="dNapTo" aria-label="午睡の終わり" type="time" value="${esc(n.napTo||'')}"><span>まで</span></div>
+            ${young?`<label>排便</label><div class="drowin"><select class="inp" id="dNBm" aria-label="排便の状態">${opts(BM,n.bm||'なし')}</select>
+              <input class="inp" id="dNBmAt" aria-label="排便の時刻" type="time" value="${esc(n.bmAt||'')}"><span>ごろ</span></div>`:''}
+            <label>給食</label><div class="drowin"><select class="inp" id="dLunch" aria-label="給食の量">${opts(EAT,n.lunch||'全部')}</select></div>
+            <label>おやつ</label><div class="drowin"><select class="inp" id="dSnack" aria-label="おやつの量">${opts(EAT,n.snack||'全部')}</select></div>
+            <label>体温</label><div class="drowin"><input class="inp" id="dNTemp" aria-label="体温" inputmode="decimal" value="${esc(n.temp||'')}" placeholder="36.6" style="width:76px">℃
+              <input class="inp" id="dNTempAt" aria-label="体温を測った時刻" type="time" value="${esc(n.tempAt||'')}"><span>に測った</span></div>
           </div>
           <label class="fieldl">その日の様子</label>
           <textarea class="inp" id="dReply" rows="3" placeholder="例）園庭で元気に遊んでいました。咳は見られませんでした。">${esc(n.txt||'')}</textarea>
@@ -2746,7 +2810,7 @@ function dListHTML(){
   if(!list.length)return `<div class="card" style="padding:24px;text-align:center;color:var(--ink-2);font-size:13px">${state.dnew?'新しい記入はありません。':'「'+esc(state.dq)+'」に当てはまる園児がいません。'}</div>`;
   return list.map(c=>{const e=normEntry((state.diary[c.id]||[])[0]),nw=hasNew(c);
     const label=nw?'新しい記入あり':e?(e.nursery?'返信済み':(e.home?'保護者の記入あり・未返信':'')):'記入なし';
-    return `<button class="ccard ${nw?'orange':e?(e.nursery?'gray':'amber'):'green'} ${state.diaryChild===c.id?'sel':''}" style="margin-bottom:9px" onclick="act('pickDiary','${c.id}')">
+    return `<button class="ccard ${nw?'orange':e?(e.nursery?'gray':'amber'):'green'} ${state.diaryChild===c.id?'sel':''}" style="margin-bottom:9px" aria-label="${esc(c.name+c.sfx+'　'+c.cls+'　'+label)}" ${state.diaryChild===c.id?'aria-current="true"':''} onclick="act('pickDiary','${c.id}')">
       ${face(c,42)}
       <div style="min-width:0"><div class="tiny muted">${c.cls}</div><div class="nm">${c.name}${c.sfx}</div>
         <div class="meta">${nw?'<b style="color:var(--o-d)">'+label+'</b>':label}${e?'（'+esc(e.d||'')+'）':''}</div></div>
@@ -2781,11 +2845,14 @@ SCR.S24=()=>{
 
 /* --- S25 引き渡し記録 --- */
 SCR.S25=()=>{
-  const rs=(state.records||[]).slice().reverse();
-  return thead('引き渡し記録','clip',md(now())+'（'+wd(now())+'）')+`<div class="tbody">
+  const rng=state.recRange||'today',from=rng==='today'?dayStart():dayStart()-6*86400000;
+  const rs=(state.records||[]).filter(r=>r.t>=from).slice().reverse();
+  return thead('引き渡し記録','clip',md(now())+'（'+wd(now())+'）')
+  +`<div class="tabs"><button class="tab ${rng==='today'?'on':''}" onclick="act('recRange','today')">今日</button>
+     <button class="tab ${rng==='week'?'on':''}" onclick="act('recRange','week')">過去7日</button></div><div class="tbody">
     ${rs.length?`<div class="tablewrap"><table class="tbl">
       <tr><th>時刻</th><th>園児</th><th>渡した相手</th><th>確認方法</th><th>対応した職員</th><th>結果</th></tr>
-      ${rs.map(r=>`<tr><td>${hm(r.t)}</td><td><b>${r.child}</b></td>
+      ${rs.map(r=>`<tr><td>${rng==='today'?'':md(r.t)+' '}${hm(r.t)}</td><td><b>${r.child}</b></td>
         <td>${r.shot?`<img src="${r.shot}" alt="" style="width:34px;height:40px;object-fit:cover;border-radius:7px;vertical-align:middle;margin-right:7px">`:''}${r.to}</td>
         <td>${r.how}</td><td>${r.staff}</td>
         <td><span class="pill ${r.ng?'red':'green'}">${r.ng?'引き渡さず':'引き渡し済み'}</span></td></tr>`).join('')}</table></div>`
@@ -3156,6 +3223,35 @@ function resolveFam(f){
   if(f==='auto:single')return gen.find(k=>size(k)===1)||fams[0];
   return fams.includes(f)?f:fams[0];
 }
+/* ---- ログインの試行回数（5回続けて失敗したら30秒待つ） ---- */
+const LOGIN={fails:0,until:0};
+function loginFailed(msg){LOGIN.fails++;state.loginPw='';
+  if(LOGIN.fails>=5){LOGIN.until=Date.now()+30000;LOGIN.fails=0;state.loginErr='ログインに5回続けて失敗しました。30秒ほど待ってからお試しください。';}
+  else state.loginErr=msg;}
+/* ---- 本番のログイン：本番モードで Firebase の設定があるときは、メールアドレスとパスワードで Firebase にサインインし、
+   okaeri_members に登録された役割（role）・名前・クラス・家庭でアプリに入る ---- */
+const fbCfg=()=>{const d=dataset().firebase;if(d&&d.apiKey)return Object.assign({},d);
+  try{const c=JSON.parse(localStorage.getItem(FB_KEY)||'null');return c&&c.apiKey?c:null;}catch(e){return null;}};
+const prodAuth=()=>isProd()&&!!fbCfg();
+function fbLogin(email,pw){
+  if(!email){state.loginErr='メールアドレスを入力してください。';render();return;}
+  if(!pw){state.loginErr='パスワードを入力してください。';render();return;}
+  state.loginErr='';state.loginBusy=true;render();
+  const cfg=Object.assign(fbCfg(),{email:email.toLowerCase()});try{localStorage.setItem(FB_KEY,JSON.stringify(cfg));}catch(e){}
+  Sync.onReady=()=>{state.loginBusy=false;LOGIN.fails=0;state.loginPw='';applyFbIdentity();render();};
+  fbStart(cfg,pw).then(()=>{if(Sync.status!=='connecting'&&Sync.status!=='connected'){state.loginBusy=false;loginFailed(Sync.err||'ログインできませんでした。');render();}})
+    .catch(e=>{state.loginBusy=false;Sync.onReady=null;
+      loginFailed(/password|user|credential|invalid/i.test((e&&e.code)||'')?'メールアドレスまたはパスワードが違います。':'ログインできませんでした（通信を確認してください）。');render();});
+}
+function applyFbIdentity(){
+  const m=Sync.member||{},r=Sync.role;
+  const role=r==='staff'?(m.job==='clerk'?'clerk':'teacher'):r;
+  const nm=m.name||Sync.email||'',short=m.short||nm.split(' ')[0]||nm;
+  state.role=role;state.loginId=Sync.email;
+  state.me=(role==='teacher'||role==='clerk')?{name:nm,short,cls:m.cls||'',label:(role==='clerk'?'事務 ':(m.cls?m.cls+' ':''))+short,color:'#F5C842'}:null;
+  if(role==='parent'){const fk=(Sync.fams||[])[0];const k=state.children.find(c=>(c.fam||c.id)===fk)||state.children[0];state.pfamKey=fk;state.pc=k?k.id:'';}
+  state.s10cls=(state.me&&state.me.cls)||'';state.incls=state.s10cls;state.screen=homeOf(role);state.camStep='pick';
+}
 function applyAccount(a){
   const sid=acctSchool(a);
   if(sid&&sid!==state.schoolId&&schoolsAll().some(x=>x.id===sid))switchSchool(sid);
@@ -3174,6 +3270,10 @@ function parentName(){const ps=proxiesOf(state.pc).slice().sort((x,y)=>(x.prio||
 function homeOf(r){return r==='parent'?'S02':r==='admin'?'S19':r==='kiosk'?'S27':r==='monitor'?'S30':'S09';}
 let kioskIdle=null,kioskBack=null;
 function act(name,arg){
+  try{return actCore(name,arg);}
+  catch(e){console.error(e);logErr('操作（'+name+'）',e);try{toast('うまく処理できませんでした。もう一度お試しください');render();}catch(x){}}
+}
+function actCore(name,arg){
   /* 受付端末は受付画面から移動できない。しばらく操作がなければ最初の画面へ戻る */
   if(state.role==='kiosk'){
     if(name==='go'&&arg!=='S27')return;
@@ -3204,13 +3304,16 @@ function act(name,arg){
     case 'login':{
       const id=(document.getElementById('lid')||{}).value||'', pw=(document.getElementById('lpw')||{}).value||'';
       state.loginId=id;state.loginPw=pw;
+      if(LOGIN.until>Date.now()){state.loginErr='ログインに続けて失敗したため、'+Math.ceil((LOGIN.until-Date.now())/1000)+'秒ほど待ってからお試しください。';break;}
+      if(prodAuth()){fbLogin(id.trim(),pw);break;}
       if(!id.trim()){state.loginErr='利用者IDを入力してください。';break;}
       if(!pw){state.loginErr='パスワードを入力してください。';break;}
       const a=ACCOUNTS.find(x=>x.id===id.trim()&&x.pw===pw);
-      if(!a){state.loginErr='IDまたはパスワードが違います。もう一度確認してください。';break;}
-      state.loginErr='';state.loginPw='';applyAccount(a);
+      if(!a){loginFailed('IDまたはパスワードが違います。もう一度確認してください。');break;}
+      LOGIN.fails=0;state.loginErr='';state.loginPw='';applyAccount(a);
       toast((a.role==='parent'?parentName()+'さん（保護者）':a.label)+'としてログインしました');break;}
-    case 'logout': stopCam();logoutSession();toast('ログアウトしました');break;
+    case 'logout': if(prodAuth()&&Sync.mode==='firebase'){try{firebase.auth().signOut();}catch(e){}stopSync();Sync.mode='none';Sync.status='login';}
+      stopCam();logoutSession();toast('ログアウトしました');break;
     case 'viewonly': toast('保育課のアカウントは閲覧のみです');break;
     case 'toggleSet': state.settings[arg]=!state.settings[arg];break;
     case 'callSchool': toast(curSchool().name+'　044-000-0000（サンプル）');break;
@@ -3220,7 +3323,8 @@ function act(name,arg){
     case 'min': state.sel.min=(state.sel.min===arg?null:arg);state.sel.custom='';break;
     case 'custom': state.sel.custom=arg;state.sel.min=null;break;
     case 'focusCustom': state.showCustom=true;break;
-    case 'pc': state.pc=arg;state.pkids=null;state.sel.min=null;state.sel.custom='';if(state.screen==='S06')markParentSeen();break;
+    case 'pc': if(state.role==='parent'&&state.pfamKey&&child(arg)&&(child(arg).fam||arg)!==state.pfamKey)return;
+      state.pc=arg;state.pkids=null;state.sel.min=null;state.sel.custom='';if(state.screen==='S06')markParentSeen();break;
     case 'pkid':{const sibs=pfam().filter(k=>k.st==='waiting').map(k=>k.id);
       let t=state.pkids||sibs.slice();t=t.includes(arg)?t.filter(x=>x!==arg):t.concat(arg);
       if(!t.length){toast('お子さまを1人以上選んでください');return;}state.pkids=t;break;}
@@ -3248,18 +3352,21 @@ function act(name,arg){
     case 'lateGo': state.modal=null;state.lateOk=true;return act('submitPickup');
     case 'lateWhy': state.lateReason=state.lateReason===arg?'':arg;drawOverlay();return;
     case 'absMulti': state.absMulti=!!arg;break;
-    case 'submitAbsence':{const t=document.getElementById('abType').value,x=document.getElementById('abTxt').value;
+    case 'submitAbsence':{const t=plain(document.getElementById('abType').value),x=plain(document.getElementById('abTxt').value);
       let d;
       if(state.absMulti){const f=document.getElementById('abFrom').value,to=document.getElementById('abTo').value;
         if(!f||!to){toast('開始日と終了日を選んでください');break;}
+        if(f<today()){toast('開始日は今日以降の日付にしてください');break;}
         if(to<f){toast('終了日は開始日より後にしてください');break;}
         const days=Math.round((new Date(to)-new Date(f))/86400000)+1;
         d=f+' 〜 '+to+'（'+days+'日間）';
-      } else { d=document.getElementById('abDate').value; }
+      } else { d=document.getElementById('abDate').value;
+        if(!d){toast('日付を選んでください');break;}
+        if(d<today()){toast('今日より前の日付は選べません');break;} }
       const c=pchild();state.absences.unshift({id:'ab'+Date.now(),t:now(),type:t,date:d,txt:x,cid:c.id});bump('app');
       addPost('保護者アプリ','sys',`${c.name}${c.sfx}の保護者から「${t}」の連絡がありました。${x?'（'+x+'）':''}`);
       toast('園に送信しました');break;}
-    case 'saveDiary':{const g=id=>{const el=document.getElementById(id);return el?String(el.value||'').trim():'';};
+    case 'saveDiary':{const g=id=>{const el=document.getElementById(id);return el?plain(el.value):'';};
       const c=pchild(),list=state.diary[c.id]=state.diary[c.id]||[];
       const home={temp:normTemp(g('dTemp')),tempAt:g('dTempAt'),sleep:g('dSleep'),wake:g('dWake'),bm:g('dBm'),bmAt:g('dBmAt'),
         bf:g('dBf'),bfAt:g('dBfAt'),mood:g('dMood'),txt:g('dTxt')};
@@ -3276,13 +3383,13 @@ function act(name,arg){
         checkRegPhoto(d,(desc,ng)=>{if(px.src!==d)return;px.desc=desc;px.descV=desc?DESC_V:0;px.faceWarn=ng;render();});});return;}
     case 'pxClear': state.pxSrc='';state.pxPhoto=false;state.pxWarn='';state.pxDesc=null;break;
     case 'kidFile': readImage(arg&&arg.files&&arg.files[0],d=>{pchild().src=d;render();toast('写真を変更しました');});return;
-    case 'savePx':{const n=document.getElementById('pxName').value.trim();
+    case 'savePx':{const n=plain(document.getElementById('pxName').value);
       if(!n){toast('氏名を入力してください');break;}
       const fk=famKey(state.pc),f0=fy();if(!state.proxies[fk])state.proxies[fk]=proxiesOf(state.pc).slice();
-      state.proxies[fk].push({id:'px'+Date.now(),from:today(),to:f0.to,name:n,kana:'',rel:document.getElementById('pxRel').value||'—',
-        tel:document.getElementById('pxTel').value,photo:state.pxSrc?1:0,src:state.pxSrc||'',style:0,desc:state.pxDesc||null,faceWarn:state.pxWarn==='ng',
+      state.proxies[fk].push({id:'px'+Date.now(),from:today(),to:f0.to,name:n,kana:'',rel:plain(document.getElementById('pxRel').value)||'—',
+        tel:plain(document.getElementById('pxTel').value),photo:state.pxSrc?1:0,src:state.pxSrc||'',style:0,desc:state.pxDesc||null,faceWarn:state.pxWarn==='ng',
         auth:state.pxSrc?'写真を見て確認（登録済み）':'特徴メモで確認（事前登録）',
-        memo:document.getElementById('pxMemo').value,prio:state.proxies[fk].length+1,ok:false});
+        memo:plain(document.getElementById('pxMemo').value),prio:state.proxies[fk].length+1,ok:false});
       state.pxPhoto=false;state.pxSrc='';state.pxWarn='';state.pxDesc=null;toast('保存しました。園の承認をお待ちください');break;}
     case 'filter': state.filter=arg;break;
     case 'pxApprove':case 'pxRenew':case 'pxReject':{let hit=null,fk=null;
@@ -3305,7 +3412,7 @@ function act(name,arg){
     case 'kmode': state.kmode=arg;break;
     case 'dzCompose': if(!canDz())return;state.modal='dzCompose';break;
     case 'dzTpl':{const el=document.getElementById('dzMsg');if(el&&DZ_TPL[arg])el.value=DZ_TPL[arg];return;}
-    case 'dzSend':{if(!canDz())return;const msg=((document.getElementById('dzMsg')||{}).value||'').trim();
+    case 'dzSend':{if(!canDz())return;const msg=plain((document.getElementById('dzMsg')||{}).value||'');
       if(!msg){toast('送る内容を入力してください');return;}
       const n=dzStats().total;
       state.disaster={id:'dz'+rid(),active:true,at:now(),by:me().short||meWho(),msg,via:'アプリのお知らせ・メール'};
@@ -3400,10 +3507,11 @@ function act(name,arg){
     case 'dq': state.dq=arg;{const el=document.getElementById('dList');if(el){el.innerHTML=dListHTML();return;}}break;
     case 'pickDiary': state.diaryChild=arg;markStaffSeen(arg);state.scrollToId='dDetail';break;
     case 'dnew': state.dnew=!state.dnew;break;
+    case 'recRange': state.recRange=arg;break;
     case 's18cls': state.s18cls=arg;break;
     case 's18q':{state.s18q=arg;const keep=state.focusId;state.focusId='s18Search';render();state.focusId=keep;return;}
     case 'dnewOpen': state.dnew=true;state.screen='S23';break;
-    case 'saveReply':{const g=id=>{const el=document.getElementById(id);return el?String(el.value||'').trim():'';};
+    case 'saveReply':{const g=id=>{const el=document.getElementById(id);return el?plain(el.value):'';};
       const cid=state.diaryChild;if(!cid)return;
       const nursery={napFrom:g('dNapFrom'),napTo:g('dNapTo'),bm:g('dNBm'),bmAt:g('dNBmAt'),lunch:g('dLunch'),snack:g('dSnack'),
         temp:normTemp(g('dNTemp')),tempAt:g('dNTempAt'),txt:g('dReply')};
@@ -3434,10 +3542,10 @@ function act(name,arg){
       const w=document.getElementById('holdWho');if(w)h.who=w.value;
       h.steps[arg]=!h.steps[arg];break;}
     case 'holdOk':{const h=state.hold||{};const w=document.getElementById('holdWho');
-      state.sel.proxyName=(w&&w.value?w.value:'来園者')+'（保護者へ電話で確認）';
+      state.sel.proxyName=(w&&plain(w.value)?plain(w.value):'来園者')+'（保護者へ電話で確認）';
       state.sel.how='保護者に電話して確認';state.screen='S14';break;}
     case 'holdNg':{const c=child(state.childId);const w=document.getElementById('holdWho');
-      const who=(w&&w.value)||'来園者（氏名不明）';
+      const who=(w&&plain(w.value))||'来園者（氏名不明）';
       state.records.push({id:'r'+Date.now()+c.id,t:now(),child:c.name+c.sfx,to:who,how:'確認できず',ng:true,
         staff:staffName()});
       addPost(meWho(),meKind(),
@@ -3454,16 +3562,17 @@ function act(name,arg){
     case 'pin':{const p=state.posts.find(x=>x.id===arg);if(!p)break;p.imp=!p.imp;toast(p.imp?'重要として上に固定しました':'固定を外しました');break;}
     case 'toggleAuto': state.showAuto=!state.showAuto;break;
     case 'toggleAutoN': state.showAutoN=!state.showAutoN;break;
-    case 'quickPost':{const el=document.getElementById('quick');const txt=(el&&el.value||'').trim();
+    case 'quickPost':{const el=document.getElementById('quick');const txt=plain(el&&el.value||'');
       if(!txt){toast('投稿する内容を入力してください');break;}
       const imp=!!(document.getElementById('quickImp')||{}).checked;addPost(meWho(),meKind(),txt,{auto:false,imp});
       toast(imp?'重要として全職員に共有しました':'全職員に共有しました');break;}
-    case 'postMemo':{const txt=document.getElementById('memoTxt').value.trim(),cid=document.getElementById('memoChild').value;
+    case 'postMemo':{const txt=plain(document.getElementById('memoTxt').value),cid=document.getElementById('memoChild').value;
       if(!txt){toast('内容を入力してください');break;}
       addPost(meWho(),meKind(),(cid?`${child(cid).name}${child(cid).sfx}：`:'')+txt,{auto:false,imp:!!(document.getElementById('memoImp')||{}).checked});
       state.screen='S15';toast('全職員に共有しました');break;}
     case 'submitAgent':{const cid=state.ag.cid,ty=document.getElementById('agType').value,
-        tm=document.getElementById('agTime').value,memo=document.getElementById('agMemo').value,c=child(cid),before=c?c.pickupAt:0;
+        tm=document.getElementById('agTime').value,memo=plain(document.getElementById('agMemo').value),c=child(cid),before=c?c.pickupAt:0;
+      if((ty==='late'||ty==='early')&&!tm){toast('変更後のお迎え時刻を入力してください');return;}
       if(c&&tm&&(ty==='late'||ty==='early')){const[h,m]=tm.split(':').map(Number);const d=new Date(c.pickupAt);d.setHours(h,m,0,0);
         if(!c.changed)c.planAt=before;c.pickupAt=d.getTime();c.changed='事務スタッフ 代理入力';}
       if(c&&ty==='proxy'){const p=proxiesOf(cid)[0];c.proxy=true;c.by=p.rel+' '+p.name;}
@@ -3472,8 +3581,11 @@ function act(name,arg){
       bump('phone');
       addPost('事務スタッフ','clerk',`【代理入力】${c.name}${c.sfx}：${label}。${(ty==='late'||ty==='early')?`お迎え予定 ${hm(before)} → <b>${hm(c.pickupAt)}</b>。`:''}${memo||''}`);
       state.screen='S15';toast('全職員の端末に反映しました');break;}
-    case 'saveThr': state.thr.soon=Math.max(1,+document.getElementById('thrSoon').value||5);
-      state.thr.show=Math.max(5,+document.getElementById('thrShow').value||10);toast('色分け条件を保存しました');break;
+    case 'saveThr':{const so=Math.round(+document.getElementById('thrSoon').value),sh=Math.round(+document.getElementById('thrShow').value);
+      if(!(so>=1&&so<=30)){toast('黄に切り替える時間は 1〜30分 で入力してください');return;}
+      if(!(sh>=5&&sh<=60)){toast('強調を始める時間は 5〜60分 で入力してください');return;}
+      if(so>sh){toast('黄に切り替える時間は、強調を始める時間以下にしてください');return;}
+      state.thr.soon=so;state.thr.show=sh;toast('色分け条件を保存しました');break;}
     case 'ff': state.offset+=arg*60000;toast(arg+'分進めました');break;
     case 'toggleErr':{state.err=!state.err;
       if(state.err){Sync.pendingN=0;toast('この端末の通信が切れた状態を再現します');}
@@ -3540,7 +3652,7 @@ function addLog(txt){(state.logs=state.logs||[]).push({id:'l'+Date.now()+Math.ra
 const ackList=p=>Array.isArray(p.ackBy)?p.ackBy:[];
 const staffRoster=()=>Object.values(STAFF).map(x=>x.short);
 const isStaffPost=p=>!p.auto;
-const myUnread=()=>state.posts.filter(p=>isStaffPost(p)&&!ackList(p).includes(me().short)).length;
+const myUnread=()=>state.posts.filter(p=>isStaffPost(p)&&isToday(p.t)&&!ackList(p).includes(me().short)).length;
 
 
 /* =========================================================
@@ -3573,7 +3685,7 @@ function entityMap(){
   (state.logs||[]).forEach(x=>put('logs/'+x.id,x));
   state.absences.forEach(x=>put('absences/'+x.id,x));
   Object.entries(state.diary).forEach(([cid,list])=>put('diary/'+cid,{cid,list}));
-  put('meta/settings',{thr:state.thr,cam:state.cam,offset:state.offset,clock24:state.clock24,dsVer:dataset()._ver});
+  put('meta/settings',{thr:state.thr,cam:state.cam,offset:state.offset,clock24:state.clock24,dsVer:dataset()._ver,day:state.day||''});
   put('meta/stats',{stats:state.stats});
   put('meta/disaster',state.disaster||{id:''});
   Object.entries(state.devStats||{}).forEach(([d,o])=>put('stats/'+d,o));
@@ -3597,11 +3709,16 @@ function applyMap(M){
   state.logs=vals('logs').sort((a,b)=>a.t-b.t);
   state.absences=vals('absences').sort((a,b)=>(b.t||0)-(a.t||0));
   const di={};vals('diary').forEach(o=>di[o.cid]=mergeSameDay(o.list));state.diary=di;
-  const st=M['meta/settings'];['thr','cam','stats','offset','clock24'].forEach(k=>{if(k in st)state[k]=st[k];});
+  const st=M['meta/settings'];['thr','cam','stats','offset','clock24','day'].forEach(k=>{if(k in st)state[k]=st[k];});
   if(state.cam&&THR_OLD[state.cam.thr])state.cam.thr=THR_OLD[state.cam.thr];
   if(state.cam)state.cam.live=false;     /* 首振りの確認はやめた（保存済みの設定も切る） */
   if(M['meta/stats']&&M['meta/stats'].stats)state.stats=M['meta/stats'].stats;
   {const dz=M['meta/disaster'];state.disaster=dz&&dz.id?dz:null;}
+  state.children.forEach(o=>stripTags(o));Object.values(state.proxies).forEach(l=>l.forEach(o=>stripTags(o)));
+  [state.records,state.absences,state.alerts,state.logs||[]].forEach(l=>l.forEach(o=>stripTags(o)));
+  Object.values(state.diary||{}).forEach(l=>(l||[]).forEach(o=>stripTags(o)));
+  state.notices.forEach(o=>stripTags(o,['body']));state.posts.forEach(o=>stripTags(o,['txt']));
+  if(state.disaster)stripTags(state.disaster);
   const ds={};Object.keys(M).filter(k=>k.startsWith('stats/')).forEach(k=>ds[k.slice(6)]=M[k]);state.devStats=ds;
   return true;
 }
@@ -3724,8 +3841,12 @@ function localStart(){
   purgeOldSaves();
   try{Sync.bc=new BroadcastChannel('okaeri-sync-'+dataset()._ver+'-'+state.schoolId);Sync.bc.onmessage=e=>{if(state.err)return;if(e.data&&e.data.from!==DEVICE)syncIn(e.data.delta);};}catch(e){Sync.bc=null;}
   try{window.addEventListener('storage',e=>{if(e.key===lsKey()&&e.newValue&&!Sync.bc){try{syncIn(diffFull(JSON.parse(e.newValue)));}catch(x){}}});}catch(e){}
-  let saved=null;try{saved=JSON.parse(localStorage.getItem(lsKey())||'null');}catch(e){}
-  if(saved)adoptFull(saved);
+  let saved=null,broken=false;try{saved=JSON.parse(localStorage.getItem(lsKey())||'null');}catch(e){broken=true;}
+  if(saved&&typeof saved!=='object')broken=true;
+  else if(saved){try{adoptFull(saved);}catch(e){broken=true;logErr('保存データの読み込み',e);}}
+  if(broken){try{localStorage.removeItem(lsKey());}catch(e){}
+    const keep={role:state.role,me:state.me,screen:state.screen,hbarHidden:state.hbarHidden};reset(state.schoolId,state.offset);Object.assign(state,keep);
+    setTimeout(()=>toast('保存データが壊れていたため、初期の状態から始めます'),50);}
   Sync.ready=true;Sync.status='local';flushOut();
 }
 function localWrite(delta,full){
@@ -3830,7 +3951,7 @@ async function fbStart(cfg,pw){
   const email=String(user.email||'').toLowerCase();
   const mem=await withTimeout(Sync.fs.collection('okaeri_members').doc(email).get(),15000);
   if(!mem.exists){Sync.status='error';Sync.err=email+' は園の利用者として登録されていません（okaeri_members）';render();return;}
-  const m=mem.data()||{};Sync.role=m.role||'';Sync.fams=Array.isArray(m.fams)?m.fams:[];Sync.email=email;
+  const m=mem.data()||{};Sync.role=m.role||'';Sync.fams=Array.isArray(m.fams)?m.fams:[];Sync.email=email;Sync.member=m;
   if(!ROLE_LABEL[Sync.role]){Sync.status='error';Sync.err='役割（role）の登録が正しくありません';render();return;}
   if(m.school&&m.school!==state.schoolId&&schoolsAll().some(x=>x.id===m.school)){state.schoolId=m.school;Object.assign(state,freshData(m.school,state.offset));}
   Sync.col=Sync.fs.collection('okaeri_'+state.schoolId);
@@ -3848,7 +3969,10 @@ async function fbStart(cfg,pw){
         if(remoteVer&&remoteVer!==dataset()._ver){Sync.status='connected';
           Sync.err='データファイルが更新されています。保育士の端末で操作バーの「リセット」を押すと、全端末が新しいデータにそろいます。';
           toast('データファイルが更新されています（「端末の連動」を確認）');render();return;}}
-      Sync.status='connected';Sync.err='';render();return;}
+      Sync.status='connected';Sync.err='';
+      if(Sync.onReady){const f=Sync.onReady;Sync.onReady=null;f();}
+      else if(prodAuth()&&!state.role)applyFbIdentity();
+      render();return;}
     const delta={};
     snap.docChanges().forEach(ch=>{const x=ch.doc.data()||{};const k=x.k||ch.doc.id.replace(/__/g,'/');
       if(ch.type==='removed')delta[k]=null;else if(x.j!==Sync.sent[k])delta[k]=x.j;});
@@ -3901,7 +4025,31 @@ function syncLabel(){
    毎秒の更新
    ========================================================= */
 function sig(){return state.children.map(c=>c.id+stat(c).k+(c.pickupAt<now()?'p':'f')).join('|');}
+/* ---- 日付が変わったら、その日の状態（お迎え・登園・確認依頼・今日の数）を新しい日に切り替える。
+   引き渡し記録・連絡帳・お知らせなどの履歴は残し、古いものだけを整理する ---- */
+function dayRollover(){
+  const t=today();
+  if(!state.day){state.day=t;return false;}
+  if(state.day===t)return false;
+  state.children.forEach(c=>{
+    const d=new Date(c.planAt||c.pickupAt),u=c.usual||(pad(d.getHours())+':'+pad(d.getMinutes()));c.usual=u;
+    const at=clockAt(now(),u);
+    Object.assign(c,{st:'waiting',pickupAt:at,planAt:at,changed:null,changedAt:null,arrivedAt:null,arrivedBy:'',verified:'',faceOK:false,live:false,
+      faceDist:null,prep:'',proxy:false,shot:'',inAt:null,inVia:'',inBy:'',dz:null,lateReason:''});
+    if(c.byDefault)c.by=c.byDefault;});
+  state.alerts=[];state.hold=null;if(state.disaster&&state.disaster.active){state.disaster.active=false;state.disaster.endAt=now();}
+  const keep=(arr,days)=>(arr||[]).filter(x=>!x.t||now()-x.t<days*86400000);
+  state.posts=keep(state.posts,7);state.logs=keep(state.logs,30);state.notices=keep(state.notices,60);state.records=keep(state.records,90);
+  Object.keys(state.diary||{}).forEach(k=>{state.diary[k]=(state.diary[k]||[]).filter(e=>!e.at||now()-e.at<60*86400000);});
+  state.devStats={};state.stats={app:0,phone:0,camOK:0,camNG:0};
+  /* 受付端末・モニターの手動の切り替えも、新しい日は自動（朝は登園）に戻す */
+  state.kmode=undefined;state.monMode='auto';
+  state.day=t;return true;
+}
+const dayStart=()=>clockAt(now(),'00:00');
+const isToday=ts=>ts>=dayStart()&&ts<dayStart()+86400000;
 function tickLoop(){
+  if(state&&state.day&&state.day!==today()&&(Sync.ready||Sync.mode==='local')){if(dayRollover()){render();return;}}
   const hn=document.getElementById('hnow');if(hn)hn.textContent=md(now())+'('+wd(now())+') '+hm(now());
   const kc=document.getElementById('kclk');if(kc)kc.innerHTML=hmx(now());
   if(state.screen==='S30'){
