@@ -16,11 +16,20 @@
    ・schoolsData   園ごとに園児と家庭を直接書くときに使う
                      { "園のid": { "children": [...], "proxies": { "家庭のid": [...] } } }
                    園児のお迎え時刻は "pickup": "17:30"（時刻）か "offset": 20（今から20分後）で書く
+                   "in": false と書くと、その子は「まだ登園していない」状態で始まる（書かなければ登園済み）
    ・generator     schoolsData に書いていない園の園児を、names（名前の素材）から自動で作る設定
-                   seed を変えると顔ぶれが変わる
+                   seed を変えると顔ぶれが変わる。inRate＝登園済みの割合、absentRate＝欠席の連絡がある割合
    ・scenario      デモ用の家庭（山田家など）を入れる園と、その中身
                    posts の ackBy は「了解しました」を押した職員、auto は自動のお知らせかどうか
    ・commonNotices 全園の保護者に出すお知らせ
+   ・pickupRules   お迎えの決まり（サンプル）。extFrom＝延長保育になる時刻、close＝閉園時刻、
+                   maxLateMin＝アプリで伝えられる遅れの上限（分）。これを超える遅れは園への電話を案内する
+   ・demoStart     リセットしたときのデモの時刻（書かなければ "17:00"）
+   ・mode          "production" と書くと本番モード（デモ用の操作バーや「サンプルデータ」の表示を隠す）。
+                   データファイルを変えずに試すときは、URLの最後に ?mode=production をつける
+   ・firebase      本番モードのログインに使う Firebase の設定（apiKey・authDomain・projectId など）。
+                   これがあると、ログインはメールアドレスとパスワードになり、HTMLの中のデモ用アカウントは使わない。
+                   利用者は okaeri_members に role・school と、職員は name・cls（事務は job: "clerk"）、保護者は fams を登録する
 
    ■ 出典
    園名・区・所在地は川崎市の公開資料（令和8年6月「交流保育実施公立保育園一覧」）によります。
@@ -1026,7 +1035,9 @@ window.OKAERI_DATA = {
         "杖を使っている男性",
         "ベージュのコートの女性"
       ]
-    }
+    },
+    "inRate": 0.88,
+    "absentRate": 0.04
   },
   "scenario": {
     "school": "nakahara",
@@ -1041,7 +1052,8 @@ window.OKAERI_DATA = {
         "fam": "c1",
         "offset": 15,
         "by": "母 山田 花子",
-        "st": "waiting"
+        "st": "waiting",
+        "in": false
       },
       {
         "id": "c2",
@@ -1138,7 +1150,8 @@ window.OKAERI_DATA = {
         "fam": "c1",
         "offset": 15,
         "by": "母 山田 花子",
-        "st": "waiting"
+        "st": "waiting",
+        "in": false
       }
     ],
     "proxies": {
@@ -1275,5 +1288,10 @@ window.OKAERI_DATA = {
       "phone": 1
     }
   },
-  "schoolsData": {}
+  "schoolsData": {},
+  "pickupRules": {
+    "extFrom": "18:00",
+    "close": "20:00",
+    "maxLateMin": 30
+  }
 };
