@@ -16,15 +16,20 @@
    ・schoolsData   園ごとに園児と家庭を直接書くときに使う
                      { "園のid": { "children": [...], "proxies": { "家庭のid": [...] } } }
                    園児のお迎え時刻は "pickup": "17:30"（時刻）か "offset": 20（今から20分後）で書く
-                   "in": false と書くと、その子は「まだ登園していない」状態で始まる（書かなければ登園済み）
+                   "in": false と書くと、その子は自分で受付をするまで登園しない（書かなければ 8:00 ごろに登園）
+                   "st": "arrived" / "released" と書くと、お迎えの時刻を過ぎたときに「到着」「お迎え済み」になる
    ・generator     schoolsData に書いていない園の園児を、names（名前の素材）から自動で作る設定
-                   seed を変えると顔ぶれが変わる。inRate＝登園済みの割合、absentRate＝欠席の連絡がある割合
+                   seed を変えると顔ぶれが変わる。inRate＝朝のうちに登園する割合、absentRate＝欠席の連絡がある割合
+                   dropoffWindow＝登園の時刻の幅（8:00 から何分前〜何分後）
+                   pickupWindow＝お迎えの予定の幅（17:00 から何分前〜何分後。多くの家庭は 16:30〜17:30 に集まる）
+                   lateRate＝お迎えが予定より遅れる家庭の割合
+                   ※ 登園・到着・お迎え済みの状態は、デモの時刻（操作バーの 8:00へ／17:00へ・±5分・±15分）に合わせて決まる
    ・scenario      デモ用の家庭（山田家など）を入れる園と、その中身
                    posts の ackBy は「了解しました」を押した職員、auto は自動のお知らせかどうか
    ・commonNotices 全園の保護者に出すお知らせ
    ・pickupRules   お迎えの決まり（サンプル）。extFrom＝延長保育になる時刻、close＝閉園時刻、
                    maxLateMin＝アプリで伝えられる遅れの上限（分）。これを超える遅れは園への電話を案内する
-   ・demoStart     リセットしたときのデモの時刻（書かなければ "17:00"）
+   ・demoStart     データを最初に作り直すときのデモの時刻（書かなければ "17:00"）
    ・mode          "production" と書くと本番モード（デモ用の操作バーや「サンプルデータ」の表示を隠す）。
                    データファイルを変えずに試すときは、URLの最後に ?mode=production をつける
    ・firebase      本番モードのログインに使う Firebase の設定（apiKey・authDomain・projectId など）。
@@ -244,8 +249,8 @@ window.OKAERI_DATA = {
     "seed": 20261021,
     "siblingRate": 0.18,
     "pickupWindow": [
-      -150,
-      180
+      -60,
+      90
     ],
     "appChangeRate": 0.08,
     "phoneChangeRate": 0.03,
@@ -1037,7 +1042,12 @@ window.OKAERI_DATA = {
       ]
     },
     "inRate": 0.88,
-    "absentRate": 0.04
+    "absentRate": 0.04,
+    "dropoffWindow": [
+      -45,
+      45
+    ],
+    "lateRate": 0.12
   },
   "scenario": {
     "school": "nakahara",
@@ -1256,10 +1266,31 @@ window.OKAERI_DATA = {
       "c2": [
         {
           "d": "今日",
-          "temp": "36.8",
-          "mood": "ふつう",
-          "txt": "少し咳が出ています。外遊びは様子を見てください。",
-          "reply": ""
+          "home": {
+            "temp": "36.8",
+            "tempAt": "07:10",
+            "sleep": "20:30",
+            "wake": "06:40",
+            "bm": "ふつう",
+            "bmAt": "06:50",
+            "bf": "ほとんど",
+            "bfAt": "07:15",
+            "mood": "ふつう",
+            "txt": "少し咳が出ています。外遊びは様子を見てください。",
+            "med": {
+              "name": "せき止めのシロップ（○○小児科で処方）",
+              "form": "シロップ（水薬）",
+              "qty": "5",
+              "unit": "mL",
+              "how": [
+                "スポイトで飲ませる"
+              ],
+              "when": "食後",
+              "at": "12:30",
+              "note": "冷蔵庫で保管してください"
+            }
+          },
+          "nursery": null
         }
       ],
       "c4": [
