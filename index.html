@@ -4,7 +4,7 @@
 <meta name="description" content="保育園のお迎え・登園の状況を、保護者と保育士がリアルタイムで共有するシステム">
 <meta name="theme-color" content="#F2913F">
 <!-- スクリプトを読み込める場所を、この画面・データファイルと、使っている部品の配信元（顔照合・QR・Firebase）だけに限る -->
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: file: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: file: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.gstatic.com https://apis.google.com https://cdn.gtranslate.net https://translate.google.com https://translate.googleapis.com https://translate-pa.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="おかえり">
 <meta name="format-detection" content="telephone=no">
@@ -63,6 +63,24 @@ body.hb-off .harness{display:none}
 #hshow:hover{background:rgba(58,46,39,.95)}
 body.hb-off #hshow{display:flex}
 body.prod #hshow{display:none!important}
+#trdock{position:fixed;left:12px;bottom:calc(80px + env(safe-area-inset-bottom,0px));z-index:94;display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
+#trdock>*{pointer-events:auto}
+#gtw{display:none}body.gt-on #gtw{display:block}
+#gtw select{font-size:12px;padding:4px 8px;border-radius:10px;border:1px solid #EADBCE;background:#fff;color:#6B5A4E;max-width:200px}
+#gtw a{font-size:10.5px}
+.trprobe{position:fixed;left:-10000px;top:0;width:320px;white-space:normal}
+/* 翻訳のしくみが画面に足すもの（上の帯・吹き出し・ハイライト）は出さない */
+body{top:0!important}
+.goog-te-banner-frame,iframe.skiptranslate,#goog-gt-tt,.goog-te-balloon-frame,.goog-tooltip{display:none!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+#trbadge{display:none}
+#trbadge.on{display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);
+  background:rgba(255,255,255,.96);border:1px solid #EADBCE;border-radius:999px;padding:6px 12px;font-size:11.5px;color:#7A6B60;box-shadow:0 2px 10px rgba(120,80,40,.12)}
+#trbadge.on.ok{opacity:.85}#trbadge.on.error,#trbadge.on.none{border-color:#F0B8AE;color:#A8402E;border-radius:14px}
+#trbadge button{background:var(--o);color:#fff;border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:700;white-space:nowrap}
+#trbadge .sp{width:12px;height:12px;border:2px solid #F2C98F;border-top-color:var(--o);border-radius:50%;animation:trspin .8s linear infinite;flex:none}
+@keyframes trspin{to{transform:rotate(360deg)}}
+@media (min-width:1000px){#trdock{bottom:20px}}
 body.tvmode #hshow{bottom:calc(52px + env(safe-area-inset-bottom,0px))}
 body.hb-off:not(.prod) .totop{bottom:128px}
 body.hb-off:not(.prod) .totop.ph{bottom:132px}
@@ -485,10 +503,53 @@ body.tvmode .statusbar{display:none}
 .mfeed b{font-family:var(--disp);color:var(--o-d)}.mfeed span{font-family:var(--disp);font-weight:700}.mfeed small{color:#9A8C81;font-size:14px}
 .mfeed.late b{color:#C0392B}
 .mempty{color:#9A8C81;font-size:16px;padding:10px 2px}.mempty.big{font-size:22px;padding:60px 10px;text-align:center}
+.moncls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 22px;background:#FFF1E2;border-bottom:1px solid #F3DCC6}
+.moncls .lb{font-family:var(--disp);font-weight:700;font-size:15px;color:#9A7B62;margin-right:4px}
+.moncls button{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#fff;border:2px solid #F0D9C4;
+  font-family:var(--disp);font-weight:700;font-size:17px;color:#6B5A4E}
+.moncls button i{font-style:normal;background:#FBEBDD;color:#B5631F;border-radius:999px;padding:0 9px;font-size:15px;min-width:28px;text-align:center}
+.moncls button.on{background:var(--o);border-color:var(--o);color:#fff}.moncls button.on i{background:rgba(255,255,255,.28);color:#fff}
+.moncls .hint{margin-left:auto;font-size:13px;color:#A8988B}
+.mout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);gap:16px;align-items:start}
+.mout>*,.mout .mside>*{min-width:0}.mout .mside{grid-template-columns:minmax(0,1fr)}
+.mchips{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}.mchips i{font-style:normal;font-size:16px;border-radius:999px;padding:3px 14px;background:#FFF6DF;color:#9A6A0A}
+.mchips i b{font-size:22px;margin:0 3px 0 6px}.mchips i.late{background:#FDEDEA;color:#B0392B}
+.marrp.on{background:#FFF1E4;border:3px solid #F3B27A}.marrp.on .mhead{color:var(--o-d)}
+.mdone{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--disp);font-weight:700;font-size:19px;color:#5A4A3F}
+.mdone span{display:flex;align-items:center;gap:8px}.mdone b{font-size:38px;color:var(--ok-tx)}.mdone b small{font-size:18px;color:#9A8C81;margin-left:4px}
+.msum.slim{grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+.msum.slim .mstat{padding:9px 18px;border-left-width:8px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.msum.slim .mstat small{font-size:16px}.msum.slim .mstat b{font-size:40px;white-space:nowrap}.msum.slim .mstat b span{font-size:18px}
+.mstat.amber{border-left-color:#F2B33D}.mstat.amber b{color:#B57E0C}
+.marr{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:8px 12px;margin-top:8px}
+.marr .mn{min-width:0;flex:1}.marr .nm{display:block;font-family:var(--disp);font-weight:700;font-size:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.marr small{font-size:14px;color:#7A6B60;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.marr .melap b{font-size:24px}
+.marr .nm{font-size:22px!important}
+.mtl .mhead{margin-bottom:8px}.mcount{margin-left:8px;background:#FBEBDD;color:#B5631F;border-radius:999px;padding:1px 14px;font-size:18px}
+.mlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(410px,100%),1fr));column-gap:22px;align-items:stretch}
+.mrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:7px 8px;border-bottom:1px solid #F4EEE9}
+.mrow .mt{font-family:var(--disp);font-size:27px;color:var(--o-d);white-space:nowrap;min-width:118px}
+.mrow .nm{font-family:var(--disp);font-weight:700;font-size:26px;line-height:1.25}
+.mrow .dztag{font-size:16px;margin-left:10px}
+.mrow .mn small{display:block;font-size:14.5px;color:#8B7E74;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .mn em{font-style:normal;margin-right:8px;background:#EAF3FB;color:#2E6DA4;border-radius:6px;padding:0 6px;font-size:13px}
+.mrow .ml{font-family:var(--disp);font-weight:700;font-size:17px;color:#8B7E74;white-space:nowrap}
+.mrow.soon{background:#FFF6DF;border-radius:12px;border-bottom-color:#fff}.mrow.soon .ml{color:#B57E0C}
+.mrow.late .mt,.mrow.late .ml{color:#C0392B}.mrow.late{background:#FDEDEA;border-radius:12px;border-bottom-color:#fff}
+.mnow{grid-column:1/-1;display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:16px;color:var(--o-d);margin:8px 0}
+.mnow::before,.mnow::after{content:"";flex:1;height:2px;background:#F3B27A}
 .malert{display:flex;align-items:center;gap:14px;background:#FCE3DE;border:3px solid #E8735C;color:#A8402E;border-radius:20px;padding:14px 20px;margin-bottom:16px;font-family:var(--disp);font-weight:700;font-size:24px}
 @media(max-width:700px){.monbar{flex-wrap:wrap;padding:12px 14px;gap:10px}.monbar .mt{flex:1;min-width:0}
   .monbar .mt b{font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.monmodes{order:3;margin-left:0}.monclock b{font-size:26px}}
-@media(max-width:900px){.msum{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr}.mstat b{font-size:42px}.monclock b{font-size:30px}.monbar .mt b{font-size:22px}}
+@media(max-width:900px){.msum{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr}.mstat b{font-size:42px}.monclock b{font-size:30px}.monbar .mt b{font-size:22px}
+  .msum.slim{grid-template-columns:1fr 1fr}.msum.slim .mstat b{font-size:30px}.msum.slim .mstat small{font-size:13.5px}
+  .moncls{padding:8px 12px;gap:6px}.moncls button{font-size:14px;padding:6px 12px}.moncls .hint{display:none}
+  .mrow .mt{font-size:21px;min-width:92px}.mrow .nm{font-size:20px}.mrow .ml{font-size:14px}.mrow{gap:10px}}
+@media(max-width:1100px){.mout{grid-template-columns:minmax(0,1fr)}.mout .mside{order:-1}}
+@media(max-width:700px){.msum.slim .mstat{display:block;padding:8px 12px}.msum.slim{gap:8px}.mchips{margin-left:0;width:100%}.mchips i{font-size:13px}.mchips i b{font-size:17px}
+  .moncls{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.moncls button{flex:none}.moncls .lb{flex:none}
+  .marr{padding:8px 10px;gap:10px}.marr .nm{font-size:19px!important}.marr .melap b{font-size:20px}.mhead{flex-wrap:wrap}
+  .mrow{grid-template-columns:auto minmax(0,1fr);row-gap:0}.mrow .ml{grid-column:2;font-size:13px}.mrow .mt{min-width:0;font-size:19px}}
 .lcrow{display:flex;gap:12px;align-items:center;background:#FFF6EE;border-radius:14px;padding:10px 12px;margin-bottom:8px}
 .lcrow b{font-family:var(--disp)}.lctime{font-size:14px;margin-top:2px}.lctime b{color:var(--o-d);font-size:17px}.lctime span{color:var(--ink-2);font-size:12.5px;margin-left:4px}
 .lcnote{display:flex;gap:8px;background:#FBF6F1;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.75;margin-top:4px}
@@ -645,7 +706,7 @@ table.tbl th,table.tbl td{white-space:normal}
 table.tbl td:first-child,table.tbl th{white-space:nowrap}
 </style>
 
-<div class="harness">
+<div class="harness notranslate" translate="no">
   <div class="harness-in">
     <div class="brand">リアルタイムお迎え動向共有システム<span>PROTOTYPE</span></div>
     <div class="hgroup">
@@ -665,6 +726,7 @@ table.tbl td:first-child,table.tbl th{white-space:nowrap}
       <button class="hbtn" onclick="act('dataset')">使っているデータ</button>
       <button class="hbtn" onclick="act('demoFace')">デモ用の顔写真</button>
       <button class="hbtn" onclick="act('check')">動作チェック</button>
+      <button class="hbtn" onclick="act('trCfg')">翻訳の設定</button>
       <button class="hbtn" onclick="act('sync')">端末の連動</button>
       <button class="hbtn" onclick="act('jumpTo','08:00')">8:00へ（登園）</button>
       <button class="hbtn" onclick="act('jumpTo','17:00')">17:00へ（お迎え）</button>
@@ -683,7 +745,8 @@ table.tbl td:first-child,table.tbl th{white-space:nowrap}
 <script>if(!window.OKAERI_DATA){window.OKAERI_DATA_BUILTIN=true;window.OKAERI_DATA={"format":"okaeri-dataset/1","title":"川崎市 公立保育所（サンプルデータ）","notice":"園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。","source":{"name":"川崎市「交流保育実施公立保育園一覧」（令和8年6月）","url":"https://www.city.kawasaki.jp/nakahara/cmsfiles/contents/0000117/117989/R8ikea.pdf","asOf":"2026-06"},"defaultSchool":"nakahara","schools":[{"id":"oshima","name":"大島保育園","ward":"川崎区","address":"川崎区大島4-17-2","center":"保育・子育て総合支援センター内"},{"id":"fujisaki","name":"藤崎保育園","ward":"川崎区","address":"川崎区藤崎1-7-1"},{"id":"higashioda","name":"東小田保育園","ward":"川崎区","address":"川崎区小田5-14-1"},{"id":"kawaramachi","name":"河原町保育園","ward":"幸区","address":"幸区河原町1（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"furukawa","name":"古川保育園","ward":"幸区","address":"幸区古川町120"},{"id":"yumemigasaki","name":"夢見ヶ崎保育園","ward":"幸区","address":"幸区南加瀬3-4-8"},{"id":"nakahara","name":"中原保育園","ward":"中原区","address":"中原区小杉陣屋町2-3-1","center":"保育・子育て総合支援センター内"},{"id":"shimokodanaka","name":"下小田中保育園","ward":"中原区","address":"中原区下小田中4-4-17"},{"id":"nakamaruko","name":"中丸子保育園","ward":"中原区","address":"中原区中丸子1155"},{"id":"kajigaya","name":"梶ヶ谷保育園","ward":"高津区","address":"高津区梶ヶ谷5-8-2"},{"id":"tsudayama","name":"津田山保育園","ward":"高津区","address":"高津区下作延5-3-11（仮園舎）","note":"建替えのため仮設園舎にて運営中"},{"id":"kanigaya","name":"蟹ヶ谷保育園","ward":"高津区","address":"高津区蟹ヶ谷339"},{"id":"tsuchihashi","name":"土橋保育園","ward":"宮前区","address":"宮前区土橋2-14-1","center":"保育・子育て総合支援センター内"},{"id":"nakaarima","name":"中有馬保育園","ward":"宮前区","address":"宮前区有馬3-2-10"},{"id":"sugao","name":"菅生保育園","ward":"宮前区","address":"宮前区菅生5-4-10"},{"id":"tsuchifuchi","name":"土渕保育園","ward":"多摩区","address":"多摩区生田2-14-5","center":"保育・子育て総合支援センター内"},{"id":"ikuta","name":"生田保育園","ward":"多摩区","address":"多摩区西生田3-15-10"},{"id":"suge","name":"菅保育園","ward":"多摩区","address":"多摩区菅1-5-24"},{"id":"hakusan","name":"白山保育園","ward":"麻生区","address":"麻生区白山4-2-1"},{"id":"takaishi","name":"高石保育園","ward":"麻生区","address":"麻生区高石1-14-15"},{"id":"kamiasao","name":"上麻生保育園","ward":"麻生区","address":"麻生区上麻生7-2-35"}],"classes":[{"name":"ひよこ組","age":"0歳児","size":[6,9]},{"name":"りす組","age":"1歳児","size":[12,15]},{"name":"うさぎ組","age":"2歳児","size":[14,18]},{"name":"ちゅうりっぷ組","age":"3歳児","size":[17,21]},{"name":"ゆり組","age":"4歳児","size":[18,22]},{"name":"ひまわり組","age":"5歳児","size":[18,22]}],"commonNotices":[{"id":"n1","fam":"parents","kind":"園からのお知らせ","title":"プールの持ち物について","body":"明日は水遊びを行います。タオルと着替えをお持ちください。","minutesAgo":1440,"read":false}],"generator":{"seed":20261021,"siblingRate":0.18,"pickupWindow":[-60,90],"appChangeRate":0.08,"phoneChangeRate":0.03,"diaryRate":0.12,"names":{"surnames":[["佐藤","さとう"],["鈴木","すずき"],["高橋","たかはし"],["田中","たなか"],["伊藤","いとう"],["渡辺","わたなべ"],["山本","やまもと"],["中村","なかむら"],["小林","こばやし"],["加藤","かとう"],["吉田","よしだ"],["山田","やまだ"],["佐々木","ささき"],["山口","やまぐち"],["松本","まつもと"],["井上","いのうえ"],["木村","きむら"],["林","はやし"],["斎藤","さいとう"],["清水","しみず"],["山崎","やまざき"],["森","もり"],["池田","いけだ"],["橋本","はしもと"],["阿部","あべ"],["石川","いしかわ"],["山下","やました"],["中島","なかじま"],["石井","いしい"],["小川","おがわ"],["前田","まえだ"],["岡田","おかだ"],["長谷川","はせがわ"],["藤田","ふじた"],["後藤","ごとう"],["近藤","こんどう"],["村上","むらかみ"],["遠藤","えんどう"],["青木","あおき"],["坂本","さかもと"],["福田","ふくだ"],["太田","おおた"],["西村","にしむら"],["藤井","ふじい"],["金子","かねこ"],["岡本","おかもと"],["藤原","ふじわら"],["中野","なかの"],["三浦","みうら"],["原田","はらだ"],["中川","なかがわ"],["松田","まつだ"],["竹内","たけうち"],["小野","おの"],["田村","たむら"],["中山","なかやま"],["和田","わだ"],["石田","いしだ"],["上田","うえだ"],["森田","もりた"],["柴田","しばた"],["酒井","さかい"],["工藤","くどう"],["横山","よこやま"],["宮崎","みやざき"],["宮本","みやもと"],["内田","うちだ"],["高木","たかぎ"],["安藤","あんどう"],["島田","しまだ"]],"boys":[["蓮","れん"],["陽翔","はると"],["湊","みなと"],["蒼","あおい"],["樹","いつき"],["悠真","ゆうま"],["大和","やまと"],["律","りつ"],["朝陽","あさひ"],["颯真","そうま"],["陽太","ようた"],["新","あらた"],["伊織","いおり"],["奏太","そうた"],["結翔","ゆいと"],["碧","あお"],["蒼空","そら"],["晴","はる"],["瑛太","えいた"],["悠人","ゆうと"],["大翔","ひろと"],["陸","りく"],["海斗","かいと"],["颯","はやて"],["健太","けんた"],["拓海","たくみ"],["航","わたる"],["遥斗","はると"],["柊","しゅう"],["凪","なぎ"]],"girls":[["陽葵","ひまり"],["芽依","めい"],["凛","りん"],["結菜","ゆいな"],["葵","あおい"],["紬","つむぎ"],["澪","みお"],["結衣","ゆい"],["杏","あん"],["咲良","さくら"],["莉子","りこ"],["心春","こはる"],["花","はな"],["詩","うた"],["陽菜","ひな"],["結月","ゆづき"],["楓","かえで"],["千尋","ちひろ"],["彩葉","いろは"],["美月","みづき"],["栞","しおり"],["朱莉","あかり"],["菜々","なな"],["琴葉","ことは"],["小春","こはる"],["柚葉","ゆずは"],["美羽","みう"],["茉白","ましろ"],["絢","あや"],["実桜","みお"]],"mothers":[["美咲","みさき"],["彩","あや"],["愛","あい"],["麻衣","まい"],["由佳","ゆか"],["恵","めぐみ"],["真由美","まゆみ"],["智子","ともこ"],["沙織","さおり"],["舞","まい"],["香織","かおり"],["優子","ゆうこ"],["奈々","なな"],["理恵","りえ"],["千夏","ちなつ"],["綾香","あやか"],["早苗","さなえ"],["瞳","ひとみ"],["陽子","ようこ"],["亜希","あき"]],"fathers":[["翔","しょう"],["健","けん"],["大輔","だいすけ"],["拓也","たくや"],["直樹","なおき"],["誠","まこと"],["剛","つよし"],["和也","かずや"],["亮","りょう"],["修","おさむ"],["達也","たつや"],["雄一","ゆういち"],["慎吾","しんご"],["隆","たかし"],["浩二","こうじ"],["洋平","ようへい"],["智之","ともゆき"],["康介","こうすけ"],["圭","けい"],["俊介","しゅんすけ"]],"grandmothers":[["和子","かずこ"],["洋子","ようこ"],["幸子","さちこ"],["節子","せつこ"],["京子","きょうこ"],["恵子","けいこ"],["久美子","くみこ"],["典子","のりこ"],["悦子","えつこ"],["文子","ふみこ"]],"grandfathers":[["一郎","いちろう"],["正","ただし"],["茂","しげる"],["勝","まさる"],["清","きよし"],["進","すすむ"],["博","ひろし"],["実","みのる"],["昭","あきら"],["武","たけし"]],"features":["眼鏡をかけた白髪の男性","背が高く短髪の男性","帽子をかぶった小柄な男性","黒いリュックを持った白髪の女性","眼鏡をかけたショートヘアの女性","グレーの髪をひとつに結んだ女性","杖を使っている男性","ベージュのコートの女性"]},"inRate":0.88,"absentRate":0.04,"dropoffWindow":[-45,45],"lateRate":0.12},"scenario":{"school":"nakahara","children":[{"id":"c1","name":"山田 ひなた","kana":"やまだ ひなた","sfx":"ちゃん","cls":"ひまわり組","age":"5歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false},{"id":"c2","name":"佐藤 蓮","kana":"さとう れん","sfx":"くん","cls":"ひまわり組","age":"5歳児","fam":"c2","offset":3,"by":"母 佐藤 美咲","st":"waiting"},{"id":"c3","name":"鈴木 あかり","kana":"すずき あかり","sfx":"ちゃん","cls":"ゆり組","age":"4歳児","fam":"c3","offset":1,"by":"祖父 鈴木 一郎","st":"waiting","proxy":true},{"id":"c4","name":"田中 大和","kana":"たなか やまと","sfx":"くん","cls":"ゆり組","age":"4歳児","fam":"c4","offset":-5,"by":"父 田中 健","st":"waiting"},{"id":"c5","name":"髙橋 結衣","kana":"たかはし ゆい","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c5","offset":-12,"by":"母 髙橋 沙織","st":"arrived"},{"id":"c6","name":"伊藤 悠真","kana":"いとう ゆうま","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c6","offset":-20,"by":"母 伊藤 彩","st":"released"},{"id":"c7","name":"小林 さくら","kana":"こばやし さくら","sfx":"ちゃん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c7","offset":22,"by":"母 小林 愛","st":"waiting"},{"id":"c8","name":"加藤 湊","kana":"かとう みなと","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c8","offset":34,"by":"父 加藤 翔","st":"waiting"},{"id":"c9","name":"山田 そら","kana":"やまだ そら","sfx":"くん","cls":"ちゅうりっぷ組","age":"3歳児","fam":"c1","offset":15,"by":"母 山田 花子","st":"waiting","in":false}],"proxies":{"c1":[{"id":"p1","name":"山田 花子","kana":"やまだ はなこ","rel":"母","tel":"090-1234-5678","photo":1,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p2","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性","prio":2,"ok":true,"period":"current"},{"id":"p4","name":"山田 健司","kana":"やまだ けんじ","rel":"叔父","tel":"070-3456-7890","photo":0,"memo":"背が高く短髪の男性","prio":3,"ok":true,"period":"previous"}],"c3":[{"id":"p5","name":"鈴木 由佳","kana":"すずき ゆか","rel":"母","tel":"090-2222-3333","photo":0,"memo":"","prio":1,"ok":true,"period":"current"},{"id":"p3","name":"鈴木 一郎","kana":"すずき いちろう","rel":"祖父","tel":"080-2345-6789","photo":0,"memo":"眼鏡をかけた白髪の男性。杖を使用","prio":2,"ok":true,"period":"current"}]},"posts":[{"id":"m1","who":"事務 渡辺","kind":"clerk","minutesAgo":8,"txt":"田中 大和くんの保護者の方から連絡があり、<br>お迎えが遅くなるとのことです。","ackBy":["高田","森"],"auto":false},{"id":"m2","who":"ゆり組 高田","kind":"teacher","minutesAgo":6,"txt":"鈴木 あかりちゃんは絵本を読んで待機しています。","ackBy":[],"auto":false}],"diary":{"c1":[{"d":"昨日","temp":"36.6","mood":"良好","txt":"夜はよく眠れました。朝の食欲もあります。","reply":"園でも元気に過ごしていました。"}],"c2":[{"d":"今日","home":{"temp":"36.8","tempAt":"07:10","sleep":"20:30","wake":"06:40","bm":"ふつう","bmAt":"06:50","bf":"ほとんど","bfAt":"07:15","mood":"ふつう","txt":"少し咳が出ています。外遊びは様子を見てください。","med":{"name":"せき止めのシロップ（○○小児科で処方）","form":"シロップ（水薬）","qty":"5","unit":"mL","how":["スポイトで飲ませる"],"when":"食後","at":"12:30","note":"冷蔵庫で保管してください"}},"nursery":null}],"c4":[{"d":"今日","temp":"37.0","mood":"少し不調","txt":"朝ごはんをあまり食べませんでした。","reply":""}]},"notices":[{"id":"n2","fam":"c1","kind":"連絡帳","title":"園から返信がありました","body":"園でも元気に過ごしていました。","minutesAgo":180,"read":false}],"stats":{"app":0,"phone":1}},"schoolsData":{},"pickupRules":{"extFrom":"18:00","close":"20:00","maxLateMin":30}};}</script>
 <div class="stage" id="stage"></div>
 <div id="overlay"></div>
-<button id="hshow" onclick="act('hbarShow')" aria-label="操作バーを表示する" title="操作バーを表示する"><span aria-hidden="true">≡</span>操作バー</button>
+<div id="trdock" class="notranslate" translate="no"><div class="gtranslate_wrapper" id="gtw" aria-label="GTranslate"></div><div id="trbadge" aria-live="polite"></div></div>
+<button id="hshow" class="notranslate" translate="no" onclick="act('hbarShow')" aria-label="操作バーを表示する" title="操作バーを表示する"><span aria-hidden="true">≡</span>操作バー</button>
 
 <script>
 /* =========================================================
@@ -1326,78 +1389,203 @@ const TITLES={S01:'ログイン',S02:'保護者ホーム',S03:'お迎え連絡',
 const PARENT=['S02','S03','S04','S05','S06','S07','S08','S21','S22'];
 const SCR={};
 
-/* ---- 英語表示（外国人の保護者向け）。保護者の画面とログイン画面だけを英語にする。
-   職員や保護者が入力した文（連絡帳・メッセージなど）と名前は、そのまま表示する ---- */
+/* ---- 英語表示（外国人の保護者向け）。保護者の画面とログイン画面を、翻訳機能でその場で英語にする。
+   ・翻訳のしくみ（上から順に使える方）
+       1. Google Cloud Translation API … APIキーを設定したとき。iPhone・Android・パソコンのすべてで使える
+       2. GTranslate の無料ウィジェット … キー・登録なし。iPhone・Android・パソコンのすべてで使える
+          （個人・教育・非営利・行政の利用なら無料。画面の文は翻訳のため Google に送られる）
+       3. Chrome に内蔵の翻訳（Translator API）… GTranslate を読み込めないとき。パソコン版の Chrome だけ
+   ・園からのお知らせ・連絡帳の返信など、職員や保護者が入力した文も翻訳する
+   ・一度訳した文は端末に覚えておき、同じ文は二度翻訳しない（通信と料金を抑える）
+   ・デモ用の操作バーと、そこから開く画面（アカウント・画面一覧など）は日本語のまま
+   ・名前だけは、翻訳の前に読みがなからローマ字にする（「花」→ flower のような誤訳を防ぐ） ---- */
 const LANG_KEY='okaeri:lang';
 let LANG=(()=>{try{return localStorage.getItem(LANG_KEY)||'ja';}catch(e){return 'ja';}})();
 const isEnView=()=>LANG==='en'&&(state.role==='parent'||state.screen==='S01');
-const EN={"おかえりタイムライン": "Okaeri Timeline", "川崎市 公立認可保育所": "Kawasaki City public nursery schools", "ホーム": "Home", "連絡帳": "Notebook", "お迎え連絡": "Pickup", "お知らせ": "Notices", "メニュー": "Menu", "欠席・遅刻の連絡": "Absence / late arrival", "代理人の登録": "Pickup persons", "受付用QRコード": "Check-in QR code", "ホームに戻る": "Back to home", "一番上に戻る": "Back to top", "戻る": "Back", "ホームへ戻る": "Back to home", "もどる": "Back", "やめる": "Cancel", "ログアウトしました": "Logged out", "ログアウト": "Log out", "利用者ID": "User ID", "パスワード": "Password", "例）yamada-h": "e.g. yamada-h", "ログイン": "Log in", "IDとパスワードは入園時に園からお渡ししています。": "The nursery gives you your ID and password when your child enrolls.", "分からないときは園にお問い合わせください。": "If you are not sure, please contact the nursery.", "園名・区・所在地は川崎市の公開資料による実在の情報です。園児・保護者・職員・数値はすべて架空です。": "Nursery names, wards and addresses are real public information from Kawasaki City. All children, parents, staff and numbers are fictional.", "データファイル（okaeri-data.js）を読み込めませんでした。HTMLと同じフォルダにあるか確認してください。": "The data file (okaeri-data.js) could not be loaded. Please check that it is in the same folder as the HTML file.", "今日はどうしますか？": "What would you like to do today?", "お迎えの状況を知らせる": "Update pickup status", "通院・お休みの申請": "Doctor visits and days off", "体調・様子の記入": "Health and daily notes", "園から新しい返信があります": "New reply from the nursery", "玄関のタブレットにかざす": "Show it at the entrance tablet", "園からのお知らせ": "From the nursery", "通常のお迎え時間": "Usual pickup time", "変更後のお迎え": "New pickup time", "今日の登園はまだ記録されていません": "Today's drop-off has not been recorded yet", "園から返信がありました": "The nursery replied", "お迎えの状況をお知らせください": "Let us know about pickup", "お迎え時間の変更を連絡する": "Report a change in pickup time", "早く行けるとき・遅れそうなとき": "When you can come early or may be late", "いつもの時間どおりにお迎えに来るときは、連絡は必要ありません。": "If you are picking up at the usual time, you do not need to contact us.", "連絡するお子さま": "Children", "お迎えの時間はどう変わりそうですか？": "How will your pickup time change?", "早く行けそう": "I can come early", "遅れそう": "I may be late", "どのくらい遅れそうですか？": "How late will you be?", "どのくらい早く着けそうですか？": "How early will you arrive?", "お迎え予定時刻からの遅れ時間を選択してください。": "Choose how many minutes after the scheduled pickup time.", "お迎え予定時刻からの前倒し時間を選択してください。": "Choose how many minutes before the scheduled pickup time.", "遅れます": "later", "早く着きます": "earlier", "分": "min", "選択された内容は、施設の先生にすぐ共有されます。": "Your choice is shared with the teachers right away.", "いつもご協力ありがとうございます。": "Thank you for your cooperation.", "その他の時間を入力する": "Enter another time", "変更後のお迎え予定：": "New pickup time: ", "この内容で送信する": "Send", "現在のお迎え時間": "Current pickup time", "お迎えが遅れることを園に伝えます": "Tell the nursery you will be late", "お迎えは、できるだけ保育時間内にお願いしています。": "We kindly ask you to pick up within care hours whenever possible.", "今月の遅れの連絡：": "Late notices this month: ", "遅れる理由（任意・先生に伝わります）": "Reason (optional — shared with the teachers)", "仕事": "Work", "電車・道路の遅れ": "Train or traffic delay", "家庭の事情": "Family reasons", "その他": "Other", "この内容で園に伝える": "Send to the nursery", "園にお電話ください": "Please call the nursery", "お手数ですが、園に直接お電話ください。": "Sorry for the trouble, but please call the nursery directly.", "園に電話する": "Call the nursery", "送信しました": "Sent", "園に伝えました": "Sent to the nursery", "送信した連絡": "What you sent", "お迎え時間の変更": "Pickup time change", "園のタイムラインに反映済み": "Shown on the nursery timeline", "先生の画面にすぐ反映されています。": "It is already showing on the teachers' screens.", "園が確認済み": "Received by the nursery", "園のタイムラインに反映しました": "Shown on the nursery timeline", "送信できませんでした。": "Could not send.", "園に届きませんでした": "Not delivered to the nursery", "通信が不安定です。電波の良い場所で「変更を送信する」をもう一度押してください。二重に登録されることはありません。": "The connection is unstable. Please press “Send” again where the signal is better. It will not be registered twice.", "もう一度送る": "Send again", "園に届いていない連絡があります。": "A message has not reached the nursery.", "通信が切れています。送った連絡は園に届いていません。お急ぎの場合は園にお電話ください。": "You are offline. Your messages have not reached the nursery. If it is urgent, please call the nursery.", "この端末の通信が切れた状態を再現します": "Simulating a lost connection on this device", "つながりました": "Connected", "欠席": "Absent", "遅刻（登園が遅れます）": "Late arrival (drop-off will be late)", "通院のため一時外出": "Leaving for a doctor visit", "長期のお休み": "Long absence", "連絡の種類": "Type", "対象の日": "Date", "1日だけ": "One day", "期間を指定": "Date range", "開始日": "Start date", "終了日": "End date", "園に伝えること": "Message to the nursery", "例）朝から熱があるため受診します。": "e.g. Seeing a doctor because of a fever since this morning.", "連絡を送信する": "Send", "通院・長期のお休み": "Doctor visits and long absences", "長期のお休みは、開始日と終了日をまとめて連絡できます。土日祝は園の休園日として扱われます。": "For a long absence, you can send the start and end dates together. Weekends and holidays are treated as days the nursery is closed.", "欠席の連絡を送りました": "Absence notice sent", "園に連絡しました": "Sent to the nursery", "お家での様子": "At home", "体温": "Temperature", "に測った": "taken at", "睡眠": "Sleep", "に寝て": "went to bed,", "に起きた": "woke up", "排便": "Bowel movement", "ごろ": "around", "朝食": "Breakfast", "機嫌": "Mood", "そのほか伝えたいこと": "Anything else to tell us", "例）少し咳が出ています。今日のお迎えは祖母です。": "e.g. A slight cough. Grandma will pick up today.", "3歳児クラス以上は、排便の欄を省いています。気になることがあれば上の欄に書いてください。": "For classes age 3 and up, the bowel movement field is not shown. Please write any concerns in the box above.", "園に送る": "Send to the nursery", "これまでの記録": "Past entries", "まだ記録はありません。": "No entries yet.", "園での様子": "At the nursery", "午睡": "Nap", "給食": "Lunch", "おやつ": "Snack", "なし": "None", "ふつう": "Normal", "やわらかい": "Soft", "かたい": "Hard", "下痢": "Diarrhea", "全部": "All", "ほとんど": "Most", "半分": "Half", "少し": "A little", "食べていない": "Didn't eat", "良好": "Good", "少し不調": "Not feeling well", "連絡帳を園に送りました": "Sent to the nursery", "園から新しい返信": "New reply from the nursery", "体温は 36.5 のように入力してください": "Please enter a temperature such as 36.5", "代理人リスト": "Pickup persons", "お迎えを代理でお願いできる方の一覧です。顔写真の登録は任意です。": "People who can pick up your child on your behalf. Adding a photo is optional.", "承認済み": "Approved", "承認待ち": "Waiting for approval", "有効期限切れ": "Expired", "照合用の写真が未登録": "No photo for the face check", "特徴メモ 未入力": "No description", "写真を登録": "Add photo", "写真を変更": "Change photo", "代理人を追加する": "Add a pickup person", "代理人の追加・変更は、園の承認が完了すると利用できます。": "Additions and changes can be used after the nursery approves them.", "氏名": "Name", "例）山田 太郎": "e.g. Taro Yamada", "続柄": "Relationship", "例）祖父": "e.g. Grandfather", "電話番号": "Phone number", "写真がない場合の特徴メモ": "Description (if there is no photo)", "例）眼鏡をかけた白髪の男性": "e.g. A man with glasses and white hair", "顔写真（任意）": "Face photo (optional)", "写真を選ぶ": "Choose photo", "正面を向いた、顔がはっきり写った写真を選んでください。玄関の顔照合に使います。": "Choose a clear photo of the face looking at the camera. It is used for the face check at the entrance.", "保存する": "Save", "未登録": "Not registered", "代理人の登録・確認": "Pickup persons", "お迎えをお願いできる方": "People who can pick up", "QRコードが読み取れないときは、この番号を入力してください": "If the QR code cannot be read, enter this number", "QRコードと番号を作り直す": "Reissue the QR code and number", "画面を他の人に見られた・共有を取り消したいとき。今までのQRコードと番号は使えなくなります": "Use this if someone else saw this screen or you want to cancel sharing. The current QR code and number will stop working.", "玄関の受付タブレットのカメラに、この画面をかざしてください。画面を明るくすると読み取りやすくなります。代理人の方にお迎えをお願いするときは、この画面を見せるか共有してください。": "Hold this screen up to the camera of the entrance tablet. A brighter screen is easier to read. When someone picks up on your behalf, show or share this screen with them.", "QRコードを表示できません。": "The QR code cannot be shown.", "下の8桁の番号を玄関で入力してください。": "Enter the 8-digit number below at the entrance.", "QRコードと番号を作り直しました。以前のものは使えません": "The QR code and number were reissued. The old ones no longer work.", "すべて既読にする": "Mark all as read", "園からのお知らせ・連絡帳": "From the nursery / notebook", "登園の記録、お迎え時間の変更の受付、玄関での受付完了など": "Drop-off records, pickup change receipts, entrance check-ins, etc.", "ひらく": "Open", "たたむ": "Close", "緊急": "Urgent", "登園": "Drop-off", "園からのお知らせはありません。": "There are no notices from the nursery.", "お迎え時間の変更を園が受け取りました": "The nursery received your pickup time change", "受付が完了しました": "Check-in completed", "登園を受け付けました": "Drop-off received", "保育士が登園を記録しました": "A teacher recorded drop-off", "連絡帳に園から返信がありました": "The nursery replied in the notebook", "よく使う機能": "Shortcuts", "お迎えのときに玄関でかざす": "Show it at the entrance when picking up", "お知らせの受け取り": "Notifications", "園からの連絡": "Messages from the nursery", "連絡帳の返信": "Notebook replies", "時刻を24時間表示にする": "Use 24-hour time", "園の連絡先": "Nursery contact", "【緊急】お迎えの確認": "[URGENT] Pickup check", "【緊急】お迎えの確認：ここを押して回答してください": "[URGENT] Pickup check: tap here to answer", "お迎えに行けます": "I can pick up", "お迎えに行けません": "I cannot pick up", "回答済み：": "Answered: ", "お子さまは園でお預かりします。園からの連絡をお待ちください。": "We will look after your child at the nursery. Please wait for our message.", "園に「お迎えに行けます」と伝えました": "Told the nursery: “I can pick up”", "園に「お迎えに行けません」と伝えました": "Told the nursery: “I cannot pick up”", "【緊急】地震のため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an earthquake, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】台風・大雨のため、早めのお迎えをお願いしています。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of a typhoon or heavy rain, we ask you to pick up early. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "【緊急】園で緊急の事態が起きたため、本日のお迎えについて確認します。お子さまは園で安全に過ごしています。お迎えに来られるかどうかを、アプリで回答してください。": "[URGENT] Because of an emergency at the nursery, we are checking today's pickups. Your child is safe at the nursery. Please answer in the app whether you can come to pick up.", "（園からの日本語のメッセージです）": "(This message from the nursery is in Japanese.)", "言語": "Language"};
-Object.assign(EN,{"おかえりタイムライン・いま":"Okaeri Timeline · now",
-  "アプリを開いているあいだは、画面の上と端末の通知欄に通知が出ます（ほかのタブやアプリを見ていても届きます）。":"While the app is open, notifications appear at the top of the screen and in your device's notification area (even if you are using another tab or app).",
-  "この端末への通知":"Notifications on this device","この端末に通知を出します":"Notifications are on for this device",
-  "この端末への通知を止めています":"Notifications are off for this device","ブラウザで通知がブロックされています":"Notifications are blocked in your browser",
-  "まだ通知を許可していません":"Notifications are not allowed yet","この端末・ブラウザでは通知を使えません":"This device or browser cannot show notifications",
-  "通知を許可する":"Allow notifications","テスト通知を送る":"Send a test notification","あとで":"Later",
-  "災害時の一斉連絡は必ず通知します。園からのお知らせ・連絡帳の返信・お迎え時間の変更は、下の設定に合わせて通知します。":"Emergency messages are always notified. Notices from the nursery, notebook replies and pickup time changes follow the settings below.",
-  "アプリを開いているあいだは、ほかのタブやアプリを見ていても通知が出ます。":"While the app is open, notifications appear even if you are using another tab or app.",
-  "ブラウザの設定で、このページの通知を「許可」に変えてください。":"Please change this page's notification setting to “Allow” in your browser settings.",
-  "iPhone・iPad では、Safari の共有ボタンから「ホーム画面に追加」して、ホーム画面から開くと通知を使えます。":"On iPhone and iPad, use Safari's Share button to “Add to Home Screen”, then open the app from the Home Screen to use notifications.",
-  "大切なお知らせを通知で受け取れます":"Get important notices as notifications","災害時の連絡や園からのお知らせを、この端末に通知します。":"Emergency messages and notices from the nursery will appear on this device.",
-  "通知を許可しました":"Notifications allowed","通知は許可されませんでした":"Notifications were not allowed","テスト通知":"Test notification","この端末に通知が届きます":"Notifications will appear on this device",
-  "この端末に通知が届くようになりました":"Notifications will now appear on this device","テスト通知を送りました":"Test notification sent","通知を出せませんでした":"Could not show a notification",
-  "この端末への通知を止めました":"Notifications turned off for this device","玄関で確認が必要です":"Check needed at the entrance","おかえりタイムライン":"Okaeri Timeline",
-  "お迎えの時刻":"Pickup time","体温を測った時刻":"Time taken","寝た時刻":"Bedtime","起きた時刻":"Wake-up time",
-  "排便の状態":"Bowel movement","排便の時刻":"Bowel movement time","朝食の量":"Breakfast amount","朝食の時刻":"Breakfast time",
-  "日付を選んでください":"Please choose a date","今日より前の日付は選べません":"You cannot choose a date before today",
-  "開始日は今日以降の日付にしてください":"Please choose a start date from today onward","開始日と終了日を選んでください":"Please choose a start date and an end date",
-  "終了日は開始日より後にしてください":"The end date must be after the start date","園に送信しました":"Sent to the nursery"});
-Object.assign(EN,{"プールの持ち物について": "What to bring for pool play", "明日は水遊びを行います。タオルと着替えをお持ちください。": "We will have water play tomorrow. Please bring a towel and a change of clothes.", "夜はよく眠れました。": "Slept well last night.", "朝の食欲もあります。": "Had a good appetite this morning.", "園でも元気に過ごしていました。": "Had a good, active day at the nursery.", "朝ごはんをあまり食べませんでした。": "Did not eat much breakfast.", "少し咳が出ています。": "Has a slight cough.", "外遊びは様子を見てください。": "Please keep an eye on outdoor play.", "体調不良のため": "Not feeling well", "今日": "Today", "昨日": "Yesterday", "眼鏡をかけた白髪の男性": "A man with glasses and white hair", "背が高く短髪の男性": "A tall man with short hair", "帽子をかぶった小柄な男性": "A small man wearing a hat", "黒いリュックを持った白髪の女性": "A woman with white hair carrying a black backpack", "眼鏡をかけたショートヘアの女性": "A woman with glasses and short hair", "グレーの髪をひとつに結んだ女性": "A woman with gray hair tied back", "杖を使っている男性": "A man who uses a cane", "ベージュのコートの女性": "A woman in a beige coat", "杖を使用": "Uses a cane", "言語 / Language": "Language", "表示する言語を選べます。": ""});
-Object.assign(EN,{"園で飲ませてほしいお薬がある": "There is medicine for the nursery to give", "お薬の預かりは、園の決まり（医師が処方したお薬のみ など）に沿ってお願いします。": "Please follow the nursery's rules for medicine (for example, prescribed medicine only).", "薬の名前": "Medicine name", "剤形": "Type", "1回の量": "Dose", "単位": "Unit", "飲ませ方": "How to give", "タイミング": "Timing", "注意すること": "Notes", "飲ませる時刻の目安": "Time to give", "例）○○クリニックで処方されたせき止め": "e.g. Cough medicine prescribed by ○○ Clinic", "例）服薬ゼリーはかばんに入れています": "e.g. The medicine jelly is in the bag", "粉薬": "Powder", "シロップ（水薬）": "Syrup (liquid)", "錠剤": "Tablet", "カプセル": "Capsule", "塗り薬": "Ointment", "目薬": "Eye drops", "点鼻薬": "Nasal spray", "包": "packet(s)", "錠": "tablet(s)", "個": "piece(s)", "滴": "drop(s)", "回分": "dose(s)", "水に溶かす": "Dissolve in water", "服薬ゼリーを使う": "Use medicine jelly", "スポイトで飲ませる": "Use a dropper", "そのまま飲ませる": "Give as is", "塗る・さす": "Apply / put in", "食前": "Before meals", "食後": "After meals", "食間": "Between meals", "時刻を決めて": "At a set time", "薬の名前を入力してください": "Please enter the medicine name", "1回の量を数字で入力してください": "Please enter the dose as a number", "飲ませ方を選んでください": "Please choose how to give it", "選んでください": "Select", "お薬（園で飲ませる）": "Medicine (to be given at the nursery)", "飲ませました": "Given", "まだ飲ませていません": "Not given yet", "お薬を飲ませました": "Medicine given", "せき止めのシロップ（○○小児科で処方）": "Cough syrup (prescribed by ○○ Pediatrics)", "冷蔵庫で保管してください": "Please keep it in the refrigerator.", "アプリを開いているあいだは、端末の通知欄に通知が出ます（ほかのタブやアプリを見ていても届きます）。": "While the app is open, notifications appear in your device's notification area (even if you are using another tab or app).", "端末の通知を使えないとき（許可していない・止めているとき）は、画面の上にお知らせを出します。": "If device notifications are not available (not allowed or turned off), a notice appears at the top of the screen."});
-const EN_CLASS={'ひまわり組':'Sunflower Class','ゆり組':'Lily Class','ちゅうりっぷ組':'Tulip Class','ひよこ組':'Chick Class','りす組':'Squirrel Class','うさぎ組':'Rabbit Class'};
-const EN_REL={'母':'Mother','父':'Father','祖父':'Grandfather','祖母':'Grandmother','叔父':'Uncle','叔母':'Aunt','兄':'Brother','姉':'Sister'};
-const EN_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],EN_WD={'日':'Sun','月':'Mon','火':'Tue','水':'Wed','木':'Thu','金':'Fri','土':'Sat'};
-const schoolEn=n=>{const x=schoolsAll().find(v=>v.name===n);return x?x.id.charAt(0).toUpperCase()+x.id.slice(1)+' Nursery School':n;};
-/* 名前・時刻・日付などが入る文は、形で見分けて訳す */
-const EN_RULES=[
-  [/^(\d+)月(\d+)日（(.)）お家での様子$/,(m,a,b,w)=>`${EN_WD[w]}, ${EN_MON[a-1]} ${b} — At home`],
-  [/^(\d+)分を超える遅れや、閉園（(.+?)）を過ぎるときは、園にお電話ください。$/,(m,a,b)=>`For delays of more than ${a} minutes, or after closing time (${b}), please call the nursery.`],
-  [/^(\d+)分を超える遅れ（今回は(\d+)分）は、お子さまの過ごし方や職員の配置に関わるため、アプリでは受け付けていません。$/,(m,a,b)=>`Delays of more than ${a} minutes (this time: ${b} minutes) affect your child's care and staffing, so they cannot be sent through the app.`],
-  [/^閉園時刻（(.+?)）を過ぎるお迎えは、アプリでは受け付けていません。$/,(m,a)=>`Pickups after closing time (${a}) cannot be sent through the app.`],
-  [/^(.+?)を過ぎるため、延長保育の扱いになります。$/,(m,a)=>`Because it is after ${a}, this counts as extended care.`],
-  [/^(\d+)回目$/,(m,a)=>`#${a}`],
-  [/^（(\d+)分遅れ）$/,(m,a)=>`(${a} min late)`],
-  [/^（現在 (.+)）$/,(m,a)=>`(now ${a})`],
-  [/^(.+?)に送信した「お迎え時間の変更（(.+?)）」は通信が切れたため届いていません。$/,(m,a,b)=>`Your pickup time change (${b}) sent at ${a} was not delivered because the connection was lost.`],
-  [/^(.+?) から$/,(m,a)=>`Changed from ${a} to`],
-  [/^に変更済みです。園に共有されています（(.+?)送信）。$/,(m,a)=>`. Shared with the nursery (sent at ${a}).`],
-  [/^(.+?)について、園に伝わります。回答はあとから変えられます。$/,(m,a)=>`This will be sent to the nursery for ${a}. You can change your answer later.`],
-  [/^(.+?)について、園に伝わります。$/,(m,a)=>`This will be sent to the nursery for ${a}.`],
-  [/^(.+?)のお迎え予定を変更しました。$/,(m,a)=>`Pickup time changed for ${a}.`],
-  [/^(.+?)・送信済み（直して送ると上書きされます）$/,(m,a)=>`${a} · Sent (sending again will replace it)`],
-  [/^(.+?)の連絡$/,(m,a)=>`Notice for ${a}`],
-  [/^(.+?)の保護者$/,(m,a)=>`Parent of ${a}`],
-  [/^(.+?) さま$/,(m,a)=>a],
-  [/^(.+?)さん（保護者）(?:に切り替えました|としてログインしました)$/,(m,a)=>`Signed in as ${a} (parent)`],
-  [/^ID：(.+?)／(.+)$/,(m,a,b)=>`ID: ${a} / ${b}`],
-  [/^(\d+)人を登録中$/,(m,a)=>`${a} registered`],
-  [/^優先順位 (\d+)$/,(m,a)=>`Priority ${a}`],
-  [/^有効期間：(\d+)年(\d+)月(\d+)日 〜 (\d+)年(\d+)月(\d+)日$/,(m,y,mo,d,y2,mo2,d2)=>`Valid: ${EN_MON[mo-1]} ${d}, ${y} – ${EN_MON[mo2-1]} ${d2}, ${y2}`],
-  [/^(母|父|祖父|祖母|叔父|叔母|兄|姉)・(.+)$/,(m,a,b)=>`${EN_REL[a]} · ${b}`],
-  [/^園からの未読 (\d+)件$/,(m,a)=>`${a} unread from the nursery`],
-  [/^自動のお知らせ (\d+)件$/,(m,a)=>`${a} automatic notices`],
-  [/^登園 (.+?)（QRコード）$/,(m,a)=>`Dropped off at ${a} (QR code)`],
-  [/^登園 (.+?)（(.+?)が記録）$/,(m,a,b)=>`Dropped off at ${a} (recorded by ${b})`],
-  [/^(.+?)の登園を (.+?) に記録しました。(?:（記録：(.+?)）)?$/,(m,a,b,c)=>`Drop-off of ${a} was recorded at ${b}.${c?` (recorded by ${c})`:''}`],
-  [/^(.+?)の先生にお迎えをお知らせしました。保育室でお待ちください。$/,(m,a)=>`We told ${a}'s teacher that you have arrived. Please wait at the classroom.`],
-  [/^（理由：(.+?)）$/,(m,a)=>`(Reason: ${EN[a]||a})`],
-  [/^つながりました。未送信の(\d+)件を送りました$/,(m,a)=>`Connected. Sent ${a} unsent items.`],
-  [/^(.+?)　お迎えの受付$/,(m,a)=>`${schoolEn(a)} — Pickup check-in`],
-  [/^(.+?)・(\d+)月(\d+)日$/,(m,a,mo,d)=>`${schoolEn(a)} · ${EN_MON[mo-1]} ${d}`],
-  [/^(\d+)月(\d+)日（(.)）$/,(m,a,b,w)=>`${EN_WD[w]}, ${EN_MON[a-1]} ${b}`],
-  [/^(\d+)月(\d+)日 (.+)$/,(m,a,b,t)=>`${EN_MON[a-1]} ${b} ${t}`],
-  [/^(.+?)（(.+?)）$/,(m,a,b)=>EN_REL[b]?`${a} (${EN_REL[b]})`:m],
-];
-EN_RULES.unshift([/^(.+?)：(.+?) に飲ませました（(.*?)）$/,(m,a,b,c)=>`${a}: given at ${b}`+(c?` (by ${c})`:'')]);
+/* 全員の端末で Google の翻訳APIを使うときは、ここにAPIキーを書く（Google Cloud で、このサイトのURLからだけ使えるように制限すること） */
+const TRANSLATE_API_KEY='';
+const TR_KEY='okaeri:trkey',TR_CACHE='okaeri:trcache:v1',TR_MAX=4000;
+const TR={cache:new Map(),queue:new Set(),failed:new Set(),busy:false,state:'idle',err:'',dl:0,builtin:null,builtinP:null,mine:new WeakMap(),saveT:0};
+try{const o=JSON.parse(localStorage.getItem(TR_CACHE)||'{}');Object.keys(o).forEach(k=>TR.cache.set(k,o[k]));}catch(e){}
+const JPCH=/[ぁ-ゖァ-ヺ㐀-鿿豈-﫿]/;
+const trApiKey=()=>{try{return TRANSLATE_API_KEY||localStorage.getItem(TR_KEY)||'';}catch(e){return TRANSLATE_API_KEY;}};
+const trEngine=()=>trApiKey()?'cloud':!TR.gtFail?'gt':(typeof Translator!=='undefined'&&!TR.noBuiltin?'builtin':'');
+/* ---- GTranslate（無料の翻訳ウィジェット）。ページの中の文を、その場で英語に置きかえる。
+   英語を選んだときにだけ読み込む（日本語で使う人には、外の仕組みを読み込まない） ---- */
+const GT_SRC='https://cdn.gtranslate.net/widgets/latest/dropdown.js';
+const GT={p:null,ok:false,lang:'ja',chk:0,tries:0};
+function gtLoad(){
+  if(GT.p)return GT.p;
+  GT.p=new Promise((res,rej)=>{
+    window.gtranslateSettings={default_language:'ja',languages:['ja','en'],wrapper_selector:'.gtranslate_wrapper',native_language_names:true,detect_browser_language:false};
+    const sc=document.createElement('script');sc.src=GT_SRC;sc.async=true;
+    sc.onerror=()=>rej(new Error('GTranslate を読み込めませんでした（通信を確認してください）'));
+    document.head.appendChild(sc);
+    const t0=Date.now(),iv=setInterval(()=>{
+      if(typeof window.doGTranslate==='function'||document.querySelector('.gtranslate_wrapper select')){clearInterval(iv);res();}
+      else if(Date.now()-t0>12000){clearInterval(iv);rej(new Error('GTranslate の準備が終わりませんでした'));}},150);
+  }).then(()=>{GT.ok=true;},e=>{TR.gtFail=true;TR.err=String(e&&e.message||e);logErr('GTranslate',e);throw e;});
+  return GT.p;
+}
+/* 言語を切りかえる（ウィジェットの関数 → なければウィジェットの選択肢を動かす） */
+function gtSet(lang){
+  const pair='ja|'+lang;
+  try{
+    const sel=document.querySelector('.gtranslate_wrapper select'),
+      o=sel&&[...sel.options].find(x=>x.value===pair||x.value===lang||x.value.endsWith('|'+lang));
+    if(typeof window.doGTranslate==='function'){window.doGTranslate(pair);if(o)sel.value=o.value;}  /* 選択肢の表示も合わせる */
+    else if(o&&sel.value!==o.value){sel.value=o.value;sel.dispatchEvent(new Event('change',{bubbles:true}));}
+    GT.lang=lang;
+  }catch(e){logErr('GTranslate',e);}
+}
+/* 画面を描くたびに：保護者の画面なら英語、職員の画面なら日本語に合わせる */
+function gtSync(){
+  if(typeof document==='undefined'||trEngine()!=='gt')return;
+  const want=isEnView()?'en':'ja';
+  if(want==='ja'&&!GT.ok){GT.lang='ja';return;}
+  if(GT.ok&&GT.lang===want){if(want==='en')gtCheckSoon();return;}
+  if(!GT.ok){TR.state='busy';trBadge();}
+  gtLoad().then(()=>{gtSet(isEnView()?'en':'ja');TR.state='ok';trBadge();if(isEnView())gtCheckSoon();})
+    .catch(()=>{TR.state='idle';trBadge();if(isEnView())trApplyAll();});
+}
+/* 書き換わった画面に日本語が残ったままなら、もう一度訳しなおす（1回の表示につき1回まで） */
+function jpLeftIn(root){if(!root)return 0;let n=0;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let x;
+  while((x=w.nextNode())){const el=x.parentElement;if(!x.nodeValue||!JPCH.test(x.nodeValue)||trSkip(el))continue;if(el.offsetParent===null&&getComputedStyle(el).position!=='fixed')continue;n++;}return n;}
+function gtCheckSoon(){clearTimeout(GT.chk);GT.tries=0;GT.chk=setTimeout(gtCheck,2500);}
+function gtCheck(){
+  if(trEngine()!=='gt'||!isEnView()||!GT.ok)return;
+  const left=jpLeftIn(document.getElementById('stage'));
+  if(left&&GT.tries<1){GT.tries++;gtSet('ja');setTimeout(()=>{if(isEnView())gtSet('en');},150);GT.chk=setTimeout(gtCheck,4000);}
+  else if(left&&TR.state!=='error'){TR.state='error';TR.err='英語にならない部分があります';trBadge();}
+  else if(!left&&TR.state==='error'){TR.state='ok';trBadge();}
+}
+/* 通知の文：画面の外（見えない場所）に一度置いて、ウィジェットに訳してもらう */
+function gtProbe(v){return new Promise(res=>{const d=document.createElement('div');d.className='trprobe';d.setAttribute('aria-hidden','true');d.textContent=v;document.body.appendChild(d);let n=0;
+  const iv=setInterval(()=>{const t=(d.textContent||'').trim();if(!JPCH.test(t)||++n>=40){clearInterval(iv);d.remove();res(JPCH.test(t)?null:t);}},100);});}
+/* 名前は、ウィジェットが訳す前にローマ字にしておく */
+function trNames(root){
+  if(!root||typeof document==='undefined')return;
+  const one=x=>{const v=x.nodeValue;if(!v||!JPCH.test(v)||trSkip(x.parentElement))return;const o=nameEn(v);if(o!==v)x.nodeValue=o;};
+  if(root.nodeType===3)one(root);else{const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const l=[];while((n=w.nextNode()))l.push(n);l.forEach(one);}
+}
+function trSaveNow(){clearTimeout(TR.saveT);TR.saveT=0;
+  while(TR.cache.size>TR_MAX)TR.cache.delete(TR.cache.keys().next().value);
+  try{localStorage.setItem(TR_CACHE,JSON.stringify(Object.fromEntries(TR.cache)));}catch(e){}}
+function trSave(){clearTimeout(TR.saveT);TR.saveT=setTimeout(trSaveNow,300);}
+/* 画面を閉じる・読み込み直すときは、まだ保存していない翻訳をすぐ保存する */
+if(typeof window!=='undefined'&&window.addEventListener){window.addEventListener('pagehide',()=>{if(TR.saveT)trSaveNow();});
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&TR.saveT)trSaveNow();});}
+/* Chrome 内蔵の翻訳の準備（はじめての時は翻訳データを端末にダウンロードする。ボタンを押したときにしか始められない） */
+function trBuiltin(){
+  if(TR.builtin)return Promise.resolve(TR.builtin);
+  if(TR.builtinP)return TR.builtinP;
+  if(typeof Translator==='undefined')return Promise.reject(new Error('この端末には内蔵の翻訳がありません'));
+  const ng=m=>Object.assign(new Error(m),{name:'NotSupportedError'});
+  /* 返事がないまま止まる端末もあるので、時間を区切る（ダウンロード中は、進みが1分止まったらあきらめる） */
+  TR.builtinP=withTimeout(Promise.resolve(Translator.availability({sourceLanguage:'ja',targetLanguage:'en'})),6000).catch(e=>{throw ng('この端末では翻訳の準備ができませんでした');}).then(av=>{
+    if(av==='unavailable')throw ng('この端末では日本語→英語の翻訳を使えません');
+    let last=Date.now();
+    const cr=Translator.create({sourceLanguage:'ja',targetLanguage:'en',
+      monitor(m){try{m.addEventListener('downloadprogress',e=>{last=Date.now();TR.dl=Math.round((e.loaded||0)*100);trBadge();});}catch(x){}}});
+    return new Promise((res,rej)=>{const iv=setInterval(()=>{if(Date.now()-last>(av==='available'?15000:60000)){clearInterval(iv);rej(ng('翻訳の準備が終わりませんでした'));}},2000);
+      cr.then(t=>{clearInterval(iv);res(t);},e=>{clearInterval(iv);rej(e);});});
+  }).then(t=>{TR.builtin=t;TR.builtinP=null;return t;})
+    .catch(e=>{TR.builtinP=null;if(e&&e.name==='NotAllowedError'){TR.state='tap';trBadge();}if(e&&e.name==='NotSupportedError')TR.noBuiltin=true;throw e;});
+  return TR.builtinP;
+}
+/* 文の一覧を翻訳して、覚えておく */
+async function trRun(list){
+  const eng=trEngine();
+  if(eng==='cloud'){
+    for(let i=0;i<list.length;){
+      const chunk=[];let len=0;
+      while(i<list.length&&chunk.length<100&&(len+list[i].length<4500||!chunk.length)){len+=list[i].length;chunk.push(list[i++]);}
+      const r=await fetch('https://translation.googleapis.com/language/translate/v2?key='+encodeURIComponent(trApiKey()),
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q:chunk,source:'ja',target:'en',format:'text'})});
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok||!j.data)throw new Error('翻訳APIのエラー（'+r.status+(j.error&&j.error.message?'：'+j.error.message:'')+'）');
+      j.data.translations.forEach((t,k)=>TR.cache.set(chunk[k],t.translatedText));
+    }
+  }else if(eng==='builtin'){
+    const t=await trBuiltin();
+    for(const x of list)TR.cache.set(x,await withTimeout(t.translate(x),15000));
+  }else throw Object.assign(new Error('翻訳機能がありません'),{name:'NoEngine'});
+  trSave();
+}
+/* 翻訳が終わったら、いま出ている画面に当てはめる */
+function trPump(){
+  if(TR.busy||!TR.queue.size)return;
+  if(!trEngine()){TR.state='none';TR.queue.clear();trBadge();return;}
+  if(TR.state==='tap')return;
+  const list=[...TR.queue];TR.queue.clear();TR.busy=true;TR.state='busy';trBadge();
+  trRun(list).then(()=>{TR.state='ok';TR.err='';})
+    .catch(e=>{list.forEach(x=>TR.failed.add(x));
+      TR.state=e&&e.name==='NoEngine'?'none':e&&e.name==='NotAllowedError'?'tap':e&&e.name==='NotSupportedError'?'none':'error';
+      if(TR.state==='tap')list.forEach(x=>TR.failed.delete(x));
+      TR.err=String(e&&e.message||e);if(TR.state==='error')logErr('翻訳',e);})
+    .finally(()=>{TR.busy=false;trApplyAll();trBadge();trPump();});
+}
+/* 1つの文の英語（まだ訳していなければ、翻訳の順番待ちに入れて null） */
+function trGet(v){
+  const lead=v.match(/^\s*/)[0],trail=v.match(/\s*$/)[0],core=v.trim();
+  if(!core)return null;
+  /* 名前の読みがなだけ（「（やまだ はなこ）」など）は、英語では名前と同じになるので出さない */
+  if(/^[（(][ぁ-んー\s]+[）)]$/.test(core))return '';
+  const q=nameEn(core);
+  if(!JPCH.test(q))return lead+q+trail;
+  if(TR.cache.has(q))return lead+TR.cache.get(q)+trail;
+  if(!TR.failed.has(q))TR.queue.add(q);
+  return null;
+}
+const trSkip=el=>!el||!!el.closest('.notranslate,[translate="no"],script,style,textarea,code,input');
+function trApply(root){
+  if(!root||!isEnView()||typeof document==='undefined'||!document.createTreeWalker)return;
+  if(trEngine()==='gt'){trNames(root);return;}
+  const one=x=>{const v=x.nodeValue;if(!v||!JPCH.test(v)||TR.mine.get(x)===v)return;const el=x.parentElement;if(trSkip(el))return;
+    const out=trGet(v);if(out==null||out===v)return;
+    /* 選択肢は、保存される値を日本語のまま残す */
+    if(el.tagName==='OPTION'&&!el.hasAttribute('value'))el.setAttribute('value',el.textContent);
+    x.nodeValue=out;TR.mine.set(x,out);};
+  if(root.nodeType===3){one(root);}
+  else{const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const list=[];while((n=w.nextNode()))list.push(n);list.forEach(one);
+    const els=root.querySelectorAll?[...root.querySelectorAll('[placeholder],[aria-label],[title]')]:[];
+    if(root.matches&&root.matches('[placeholder],[aria-label],[title]'))els.push(root);
+    els.forEach(e=>{if(trSkip(e)&&!(e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return;if(e.closest('.notranslate,[translate="no"]'))return;
+      ['placeholder','aria-label','title'].forEach(a=>{const v=e.getAttribute(a);if(v&&JPCH.test(v)){const o=trGet(v);if(o!=null&&o!==v)e.setAttribute(a,o);}});});}
+  trPump();
+}
+function trApplyAll(){if(typeof document==='undefined')return;trApply(document.getElementById('stage'));trApply(document.getElementById('overlay'));}
+/* 画面が書き換わったら、その部分を訳す（表示のたびに自動で） */
+function trWatch(){
+  if(typeof MutationObserver==='undefined'||TR.obs)return;
+  TR.obs=new MutationObserver(ms=>{if(!isEnView())return;
+    ms.forEach(m=>{if(m.type==='characterData')trApply(m.target);else m.addedNodes.forEach(n=>{if(n.nodeType===1||n.nodeType===3)trApply(n);});
+      if(m.type==='attributes')trApply(m.target);});});
+  ['stage','overlay'].forEach(id=>{const el=document.getElementById(id);if(el)TR.obs.observe(el,{childList:true,subtree:true,characterData:true});});
+}
+/* 通知など、画面の外に出す文の翻訳（数秒で訳せなければ日本語のまま） */
+async function trAsync(v){
+  if(!v||!JPCH.test(v))return v;
+  const q=nameEn(String(v).trim());if(!JPCH.test(q))return q;
+  if(TR.cache.has(q))return TR.cache.get(q);
+  if(trEngine()==='gt'){if(!GT.ok||GT.lang!=='en')return q;const r=await gtProbe(q);return r||q;}
+  try{await Promise.race([trRun([q]),new Promise((_,rj)=>setTimeout(()=>rj(new Error('timeout')),5000))]);}catch(e){}
+  return TR.cache.has(q)?TR.cache.get(q):v;
+}
+/* 翻訳の状態（左下の小さな表示）。翻訳が使えないときにも読めるよう、ここだけは日本語と英語を並べて書く */
+function trBadge(){
+  if(typeof document==='undefined')return;const el=document.getElementById('trbadge');if(!el)return;
+  if(document.body)document.body.classList.toggle('gt-on',isEnView()&&trEngine()==='gt'&&GT.ok);
+  if(!isEnView()){el.className='';el.innerHTML='';return;}
+  const eng=trEngine(),st=!eng?'none':TR.state;
+  const by=eng==='cloud'?'Translated by Google':eng==='gt'?'Translated by Google (GTranslate)':'Translated by Chrome (on-device)';
+  el.className='on '+st;
+  el.innerHTML=st==='busy'?`<span class="sp"></span>翻訳しています… Translating${TR.dl&&TR.dl<100?' '+TR.dl+'%':''}`
+    :st==='tap'?`<button onclick="act('trEnable')">翻訳をオンにする／Turn on translation</button>`
+    :st==='error'?`<span>翻訳できませんでした／Translation failed</span><button onclick="act('trRetry')">もう一度／Retry</button>`
+    :st==='none'?`<span>この端末では翻訳機能を使えません／Translation is not available on this device</span>`
+    :`<span>${by}</span>`;
+}
 /* ---- 名前のローマ字：読みがな（ひらがな）をヘボン式（パスポートと同じ書き方）にする ---- */
 const KANA={'あ':'a','い':'i','う':'u','え':'e','お':'o','か':'ka','き':'ki','く':'ku','け':'ke','こ':'ko','さ':'sa','し':'shi','す':'su','せ':'se','そ':'so',
  'た':'ta','ち':'chi','つ':'tsu','て':'te','と':'to','な':'na','に':'ni','ぬ':'nu','ね':'ne','の':'no','は':'ha','ひ':'hi','ふ':'fu','へ':'he','ほ':'ho',
@@ -1447,39 +1635,7 @@ function nameMap(){
   return NAMEMAP;
 }
 const nameEn=t=>{const m=nameMap();return m.re?String(t).replace(m.re,x=>m.map.get(x)||x):t;};
-function trText(t){
-  if(!t||!/[\u3040-\u30ff\u4e00-\u9fff]/.test(t))return t;
-  const lead=t.match(/^\s*/)[0],trail=t.match(/\s*$/)[0];let core=t.trim();
-  if(EN[core]!=null)return lead+EN[core]+trail;
-  /* 読みがな（ひらがなだけの「（やまだ はなこ）」など）は、英語では名前と同じになるので出さない */
-  if(/^[（(][ぁ-んー\s]+[）)]$/.test(core))return '';
-  /* 「。」で区切られた文は、1文ずつ訳せるか試す */
-  if(core.includes('。')){const ps=core.split(/(?<=。)/).map(x=>x.trim()).filter(Boolean);
-    const tr=ps.map(x=>EN[x]!=null?EN[x]:EN[x.replace(/。$/,'')]!=null?EN[x.replace(/。$/,'')]:null);
-    if(tr.every(x=>x!=null))return lead+tr.join(' ').trim()+trail;}
-  if(!/[\u3040-\u30ff\u4e00-\u9fff]/.test(nameEn(core)))return lead+nameEn(core)+trail;
-  for(const [re,fn] of EN_RULES){if(re.test(core)){core=core.replace(re,fn);break;}}
-  /* 文の中の組・年齢・園名・続柄も置き換える */
-  core=core.replace(/(ひまわり|ゆり|ちゅうりっぷ|ひよこ|りす|うさぎ)組/g,m=>EN_CLASS[m]||m).replace(/(\d)歳児/g,'Age $1');
-  schoolsAll().forEach(x=>{if(core.includes(x.name))core=core.split(x.name).join(schoolEn(x.name));});
-  core=core.replace(/（/g,' (').replace(/）/g,')').replace(/／/g,' / ').replace(/：/g,': ');
-  core=nameEn(core);
-  core=core.replace(/(\d+)月(\d+)日\s*[（(](.)[）)]/g,(m,a,b,w)=>EN_WD[w]?`${EN_WD[w]}, ${EN_MON[a-1]} ${b}`:m).replace(/(\d+)月(\d+)日/g,(m,a,b)=>`${EN_MON[a-1]} ${b}`);
-  core=core.replace(/保育士/g,'a teacher');
-  core=core.replace(/(^|\s)(母|父|祖父|祖母|叔父|叔母|兄|姉)\s(?=[A-Z])/g,(m,a,b)=>a+EN_REL[b]+': ');
-  if(/[A-Za-z]/.test(core))core=core.replace(/・/g,', ');   /* 英語の文の中の「・」は「, 」に */
-  return (/^[.,]/.test(core)?'':lead)+core+trail;
-}
-/* 画面の文字を英語にする（選択肢の値は日本語のまま残し、保存される内容は変えない） */
-function translateDom(root){
-  if(!root||!document.createTreeWalker)return;
-  root.querySelectorAll('option').forEach(o=>{if(!o.hasAttribute('value'))o.setAttribute('value',o.textContent);});
-  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const list=[];
-  while(n=w.nextNode())list.push(n);
-  list.forEach(x=>{const v=trText(x.nodeValue);if(v!==x.nodeValue)x.nodeValue=v;});
-  root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(e=>['placeholder','aria-label','title'].forEach(a=>{const v=e.getAttribute(a);if(v){const t=trText(v);if(t!==v)e.setAttribute(a,t);}}));
-}
-function langToggle(){return `<div class="langsw" role="group" aria-label="言語 / Language">
+function langToggle(){return `<div class="langsw notranslate" translate="no" role="group" aria-label="言語 / Language">
   <button class="${LANG==='ja'?'on':''}" onclick="act('lang','ja')">日本語</button><button class="${LANG==='en'?'on':''}" onclick="act('lang','en')">English</button></div>`;}
 
 /* ---- 端末への通知（ブラウザの通知機能）。アプリを開いているあいだは、ほかのタブやアプリを見ていても通知を出す。
@@ -1501,7 +1657,7 @@ const plainText=v=>String(v||'').replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,
 async function osNotify(title,body,tag,open){
   if(!notifyReady())return false;
   const en=LANG==='en'&&state.role==='parent';
-  const t=en?trText(title):title,b=en?trText(body):body;
+  const t=en?await trAsync(title):title,b=en?await trAsync(body):body;
   const opt={body:b,tag,icon:'icon-192.png',badge:'icon-192.png',data:{open:open||''}};
   try{
     const hasSW=typeof navigator!=='undefined'&&navigator.serviceWorker;
@@ -1627,10 +1783,13 @@ function renderCore(){
        <div class="statusbar"><span>${hm(now())}　${md(now())}(${wd(now())})</span><span>${isPhone?'▮▮▮ ⌁ 100%':'⌁ 100%'}</span></div>
        <div class="scr">${inner}</div>
        ${state.role==='monitor'?'':`<button class="totop ${isPhone?'ph':state.role==='kiosk'?'ki':''}" id="toTop" onclick="toTop()" aria-label="一番上に戻る" title="一番上に戻る">${ic('chev',18)}</button>`}</div>`;
-  if(isEnView())translateDom(document.getElementById('stage'));
-  if(document.documentElement)document.documentElement.lang=isEnView()?'en':'ja';
-  {const hs=document.getElementById('hshow');if(hs){const en=isEnView();hs.innerHTML='<span aria-hidden="true">≡</span>'+(en?'Controls':'操作バー');
-    hs.setAttribute('aria-label',en?'Show the control bar':'操作バーを表示する');hs.title=hs.getAttribute('aria-label');}}
+  {const st=document.getElementById('stage'),ov=document.getElementById('overlay'),en=isEnView();
+    /* 職員・受付・モニターの画面は、翻訳のしくみに触らせない */
+    [st,ov].forEach(e=>{if(e){e.classList.toggle('notranslate',!en);if(en)e.removeAttribute('translate');else e.setAttribute('translate','no');}});
+    fixOpts(st);
+    /* GTranslate はページの言語を自分で切りかえるので、そのときは触らない */
+    if(document.documentElement&&trEngine()!=='gt')document.documentElement.lang=en?'en':'ja';}
+  trWatch();if(isEnView())trApply(document.getElementById('stage'));gtSync();trBadge();
   try{notifyScan();}catch(e){logErr('通知',e);}
   if(sv)restoreScroll(sv);else lastScroller=null;
   /* 選んだ内容が画面の外にあるときだけ、そこまで動かす（連絡帳で下の方の園児を選んだときなど） */
@@ -1803,17 +1962,49 @@ okaeri_members / yamada@example.com  →  role: "parent", school: "nakahara", fa
       <span class="chev" style="color:#C9BAAE">${ic('chev',18)}</span></button>`).join('')}
     <div class="tiny muted" style="margin-top:12px">受付の番号は、いま表示中の園（${esc(curSchool().name)}）の家庭だけ表示しています。</div>
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
+  if(state.modal==='trcfg'){const eng=trEngine(),own=(()=>{try{return localStorage.getItem(TR_KEY)||'';}catch(e){return '';}})();
+    const tt=state.trTest||'';
+    h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
+    <div class="sec">翻訳の設定（英語表示）</div>
+    <div class="card" style="padding:13px 15px;box-shadow:none;background:#FBF6F1;font-size:13.5px;line-height:1.8">
+      いま使う翻訳：<b>${eng==='cloud'?'Google Cloud Translation API':eng==='gt'?'GTranslate（無料の翻訳ウィジェット）':eng==='builtin'?'Chrome に内蔵の翻訳（パソコン版 Chrome）':'なし（この端末では英語にできません）'}</b><br>
+      ${TR.gtFail?`<span class="tiny" style="color:#B0392B">GTranslate を使えませんでした：${esc(TR.err)}</span><br>`:''}
+      <span class="tiny muted">${eng==='gt'?(GT.ok?'GTranslate：読み込み済み':'GTranslate：英語を選ぶと読み込みます'):'覚えている翻訳：'+TR.cache.size+'件'}</span></div>
+    <div class="tiny muted" style="margin-top:12px;line-height:1.9">
+      ・ふだんは GTranslate の無料ウィジェットを使います（APIキー・登録なし。iPhone・Android・パソコンで使える）。個人・教育・非営利・行政の利用なら無料です。画面の文は翻訳のため Google に送られます。<br>
+      ・GTranslate を読み込めないときは、パソコン版の Chrome に内蔵の翻訳を使います（スマホでは使えません）。<br>
+      ・APIキーを入れると、Google の翻訳API を使います（毎月50万文字まで無料）。<br>
+      ・全員の端末で使うには、index.html の <code style="font-family:var(--mono)">TRANSLATE_API_KEY</code> にキーを書いてください。キーは誰でも見られるので、Google Cloud で「このサイトのURLからだけ」「Cloud Translation API だけ」に制限してください。</div>
+    <label class="fieldl">この端末だけで試すAPIキー</label>
+    <input class="inp" id="trKeyIn" placeholder="AIza…" value="${esc(own)}" autocomplete="off">
+    ${TRANSLATE_API_KEY?'<div class="tiny muted" style="margin-top:6px">index.html にキーが書かれています（そちらが優先されます）。</div>':''}
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn" onclick="act('trKeySave')">保存</button>
+      ${own?`<button class="btn g" onclick="act('trKeyClear')">キーを消す</button>`:''}
+      <button class="btn g" onclick="act('trTest')">翻訳を試す</button>
+      <button class="btn g" onclick="act('trCacheClear')">翻訳の記録を消す</button></div>
+    ${tt?`<div class="note" style="margin-top:12px">${ic('info',18,'#D6A94E')}<div>${tt==='wait'?'翻訳しています…':tt.startsWith('ok:')?'翻訳できました：'+esc(tt.slice(3)):'翻訳できませんでした：'+esc(tt.slice(3))}</div></div>`:''}
+    <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;}
   if(state.modal==='map')h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">画面一覧（設計書 §3 に対応）</div>
     ${Object.keys(TITLES).map(k=>`<div class="maprow"><code>${k}</code><span>${TITLES[k]}</span><button onclick="act('jump','${k}')">開く</button></div>`).join('')}
     <div style="margin-top:16px"><button class="btn g" onclick="act('closeModal')">閉じる</button></div></div></div>`;
   document.getElementById('overlay').innerHTML=h;
-  if(isEnView())translateDom(document.getElementById('overlay'));
+  /* デモ用の画面（操作バーから開くもの）とデモ操作のお知らせは、英語表示でも日本語のまま */
+  {const ov=document.getElementById('overlay');
+    if(DEMO_MODALS.includes(state.modal))ov.querySelectorAll('.modal').forEach(m=>m.classList.add('notranslate'));
+    if(state.toastDemo){const t=ov.querySelector('.toast');if(t)t.classList.add('notranslate');}}
+  fixOpts(document.getElementById('overlay'));
+  if(isEnView())trApply(document.getElementById('overlay'));
   if(state.modal==='demoface'){const v=document.getElementById('dfView');
     if(v&&demoStream&&v.srcObject!==demoStream){v.srcObject=demoStream;const pr=v.play&&v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
   else demoCamStop();
 }
-function toast(t){state.toast=t;drawOverlay();clearTimeout(toast._t);toast._t=setTimeout(()=>{state.toast=null;drawOverlay();},2400);}
+const DEMO_MODALS=['sync','acc','check','dataset','demoface','map','schools','resetAsk','kexit','trcfg'];
+const DEMO_ACTS=['ff','jumpTo','resetAsk','resetKeep','reset','resetAt','hbar','hbarHide','hbarShow','toggleErr','accounts','map','schools','dataset','demoFace',
+  'check','checkRun','checkCopy','sync','useAcc','jump','school','trCfg','trKeySave','trKeyClear','trTest','trCacheClear'];
+let ACT_NOW='';
+function toast(t){state.toast=t;state.toastDemo=DEMO_ACTS.includes(ACT_NOW);drawOverlay();clearTimeout(toast._t);toast._t=setTimeout(()=>{state.toast=null;drawOverlay();},2400);}
 
 /* =========================================================
    保護者アプリ 外枠（画像3）
@@ -2171,7 +2362,7 @@ function dzBar(){const d=state.disaster,st=dzStats();
 function dzParentCard(){const d=state.disaster,a=pfam().map(dzAns).find(Boolean);
   return `<div class="dzcard">
     <div class="dzh">${ic('bell',22,'#fff')}【緊急】お迎えの確認</div>
-    <div class="dzmsg">${esc(d.msg)}${LANG==='en'&&!EN[d.msg]?'<div class="tiny" style="font-weight:500;margin-top:4px">（園からの日本語のメッセージです）</div>':''}</div>
+    <div class="dzmsg">${esc(d.msg)}</div>
     ${a?`<div class="dzdone">回答済み：<b>${a.ans==='can'?'お迎えに行けます':'お迎えに行けません'}</b>（${hm(a.at)}）${a.ans==='cannot'?'<br>お子さまは園でお預かりします。園からの連絡をお待ちください。':''}</div>`:''}
     <div class="dzbtns"><button class="dzyes ${a&&a.ans==='can'?'on':''}" onclick="act('dzAns','can')">お迎えに行けます</button>
       <button class="dzno ${a&&a.ans==='cannot'?'on':''}" onclick="act('dzAns','cannot')">お迎えに行けません</button></div>
@@ -2216,7 +2407,9 @@ const medGrid=m=>`<dl class="medgrid">
   ${m.note?`<dt>注意すること</dt><dd>${esc(m.note)}</dd>`:''}</dl>`;
 const medStatus=g=>g?`<span class="pill green"><span>飲ませました</span> <span>${hm(g.at)}</span><span>（${esc(g.by)}）</span></span>`:`<span class="pill amber">まだ飲ませていません</span>`;
 const BM=['なし','ふつう','やわらかい','かたい','下痢'],EAT=['全部','ほとんど','半分','少し','食べていない'],MOOD=['良好','ふつう','少し不調'];
-const opts=(arr,sel)=>arr.map(v=>`<option ${v===sel?'selected':''}>${v}</option>`).join('');
+const opts=(arr,sel)=>arr.map(v=>`<option value="${esc(v)}" ${v===sel?'selected':''}>${v}</option>`).join('');
+/* 翻訳で選択肢の文字が英語になっても、保存される値は日本語のまま */
+function fixOpts(root){if(root&&root.querySelectorAll)root.querySelectorAll('option:not([value])').forEach(o=>o.setAttribute('value',o.textContent));}
 /* 以前の形（体温・機嫌・様子・返信だけ）の記録も、新しい形として読めるようにする */
 function normEntry(e){if(!e)return null;
   const home=e.home!==undefined?e.home:((e.temp||e.mood||e.txt)?{temp:e.temp==='—'?'':e.temp,mood:e.mood==='—'?'':e.mood,txt:e.txt}:null);
@@ -2332,19 +2525,31 @@ SCR.S08=()=>{
 /* --- S30 園内モニター（大型テレビ用・表示専用）。朝は登園、それ以降はお迎えの状況を自動で切り替えて映す --- */
 const monMode=()=>state.monMode&&state.monMode!=='auto'?state.monMode:(new Date(now()).getHours()<11?'in':'out');
 SCR.S30=()=>monMode()==='in'?monInHTML():monOutHTML();
+/* 映す組（このモニターごとに覚える。空＝すべての組） */
+const MON={cls:(()=>{try{return localStorage.getItem('okaeri:moncls')||'';}catch(e){return '';}})()};
+const monClasses=()=>[...new Set(state.children.map(c=>c.cls))];
+const monCls=()=>MON.cls&&monClasses().includes(MON.cls)?MON.cls:'';
+const monKids=()=>state.children.filter(c=>!monCls()||c.cls===monCls());
+function monClsBar(){
+  const m=monMode(),cnt=cl=>state.children.filter(c=>(!cl||c.cls===cl)&&!isAbsent(c)&&(m==='in'?!isIn(c):c.st!=='released')).length;
+  return `<div class="moncls" role="group" aria-label="映す組"><span class="lb">表示する組</span>
+    ${[''].concat(monClasses()).map(cl=>`<button class="${monCls()===cl?'on':''}" onclick="act('monCls','${cl}')">${cl||'すべての組'}<i>${cnt(cl)}</i></button>`).join('')}
+    <span class="hint">${m==='in'?'数字：まだ登園していない人数':'数字：まだお迎えが来ていない人数'}</span></div>`;
+}
 function monitorShell(inner){
   const m=monMode();
   return `<div class="mon">
-    <div class="monbar">${sun(46)}<div class="mt"><b>${esc(curSchool().name)}</b><small>${m==='in'?'登園の状況':'お迎えの状況'}</small></div>
+    <div class="monbar">${sun(46)}<div class="mt"><b>${esc(curSchool().name)}</b><small>${m==='in'?'登園の状況':'お迎えの状況'}${monCls()?'（'+esc(monCls())+'）':''}</small></div>
       <div class="monmodes">${[['auto','自動'],['in','登園'],['out','お迎え']].map(([k,l])=>`<button class="${(state.monMode||'auto')===k?'on':''}" onclick="act('monMode','${k}')">${l}</button>`).join('')}</div>
       <div class="monclock"><small id="mdate">${md(now())}（${wd(now())}）</small><b id="mclk">${hmx(now())}</b></div></div>
     ${offlineBar()}
+    ${monClsBar()}
     <div class="monbody">${inner}</div>
     <div class="kfoot"><span style="opacity:.65">${ic('clock',14)} リアルタイムで更新しています</span><button onclick="act('kioskExit')">${ic('gear',15)}職員用</button></div>
   </div>`;
 }
 function monInHTML(){
-  const cs=state.children,classes=[...new Set(cs.map(c=>c.cls))];
+  const cs=monKids(),classes=[...new Set(cs.map(c=>c.cls))];
   const nIn=cs.filter(isIn).length,abs=cs.filter(isAbsent),yet=cs.filter(c=>!isIn(c)&&!isAbsent(c));
   const recent=cs.filter(isIn).sort((a,b)=>b.inAt-a.inAt).slice(0,7);
   return `${monDz()}<div class="msum">
@@ -2372,28 +2577,47 @@ function monInHTML(){
 }
 function monDz(){if(!dzOn())return '';const st=dzStats();
   return `<div class="malert">${ic('bell',30)}<span>災害時の一斉連絡：お迎え可 ${st.can}・お迎え不可 ${st.cannot}・未回答 ${st.none}（${st.total}家庭）</span></div>`;}
+/* お迎えまでの残り時間（毎秒書き換える） */
+function monLeft(c){
+  if(c.pickupAt<now())return Math.max(1,Math.floor((now()-c.pickupAt)/60000))+'分遅れ';
+  const m=Math.max(0,Math.ceil((c.pickupAt-now())/60000));
+  return m<1?'まもなく':m<60?'あと'+m+'分':'あと'+Math.floor(m/60)+'時間'+(m%60?m%60+'分':'');
+}
+function monRow(c,one){
+  const k=stat(c).k;
+  return `<div class="mrow ${k}">
+    <b class="mt">${hm(c.pickupAt)}</b>
+    <div class="mn"><span class="nm">${c.name}${c.sfx}</span>${dzTag(c)}
+      <small>${c.changed?`<em>${hm(c.planAt)}から変更</em>`:''}${one?'':esc(c.cls)+'／'}お迎え：${esc(c.by)}${c.proxy?'（代理人）':''}</small></div>
+    <span class="ml" data-left="${c.id}">${monLeft(c)}</span></div>`;
+}
 function monOutHTML(){
-  const cs=state.children.filter(c=>!isAbsent(c));
+  const one=!!monCls(),cs=monKids().filter(c=>!isAbsent(c));
   const arr=cs.filter(c=>c.st==='arrived').sort((a,b)=>(a.arrivedAt||0)-(b.arrivedAt||0));
-  const late=cs.filter(c=>c.st==='waiting'&&stat(c).k==='late').sort((a,b)=>a.pickupAt-b.pickupAt);
-  const soon=cs.filter(c=>c.st==='waiting'&&stat(c).k==='soon').sort((a,b)=>a.pickupAt-b.pickupAt);
-  const rel=cs.filter(c=>c.st==='released').length;
-  return `${monDz()}${state.alerts.length?`<div class="malert">${ic('bell',30)}<span>玄関で確認が必要です（${state.alerts.length}件）：${state.alerts.map(a=>{const c=child(a.cid);return c?c.name+c.sfx:'';}).filter(Boolean).join('・')}</span></div>`:''}
-    <div class="msum">
-      <div class="mstat orange"><small>お迎えの方が到着</small><b>${arr.length}<span>名</span></b></div>
-      <div class="mstat warn"><small>お迎えが遅れている</small><b>${late.length}<span>名</span></b></div>
-      <div class="mstat ok"><small>お迎え済み</small><b>${rel}<span>／${cs.length}名</span></b></div></div>
-    <div class="mgrid">
-      <div class="mpanel main"><div class="mhead">${ic('check',28)}お迎えの方が到着しています</div>
-        ${arr.length?`<div class="mcards wide">${arr.map(c=>`<div class="mcard arr" data-arr="${c.id}">${face(c,70)}<div style="min-width:0;flex:1"><b>${c.name}${c.sfx}</b>
-          <small>${esc(c.cls)}／お迎え：${esc(c.arrivedBy||c.by)}</small></div><div class="melap"><small>到着から</small><b class="js-arr">${elapsedText(c)}</b></div></div>`).join('')}</div>`
-         :`<div class="mempty big">いまお迎えを待っている方はいません</div>`}</div>
+  const wait=cs.filter(c=>c.st==='waiting').sort((a,b)=>a.pickupAt-b.pickupAt);
+  const late=wait.filter(c=>c.pickupAt<now()),next=wait.filter(c=>c.pickupAt>=now());
+  const soonN=next.filter(c=>stat(c).k==='soon').length,rel=cs.filter(c=>c.st==='released').length;
+  const alerts=state.alerts.filter(a=>{const c=child(a.cid);return !one||(c&&c.cls===monCls());});
+  return `${monDz()}${alerts.length?`<div class="malert">${ic('bell',30)}<span>玄関で確認が必要です（${alerts.length}件）：${alerts.map(a=>{const c=child(a.cid);return c?c.name+c.sfx:'';}).filter(Boolean).join('・')}</span></div>`:''}
+    <div class="mout">
+      <div class="mpanel main mtl">
+        <div class="mhead">${ic('clock',28)}まもなく到着・お迎えの予定<span class="mcount">${wait.length}名</span>
+          <span class="mchips"><i class="soon">まもなく（${state.thr.soon}分以内）<b>${soonN}</b>名</i>${late.length?`<i class="late">遅れ<b>${late.length}</b>名</i>`:''}</span></div>
+        ${wait.length?`<div class="mlist">
+          ${late.map(c=>monRow(c,one)).join('')}
+          ${late.length?`<div class="mnow">現在 ${hm(now())}</div>`:''}
+          ${next.map(c=>monRow(c,one)).join('')}</div>`
+         :`<div class="mallin">${ic('check',72,'#48A876')}<b>${rel?'お迎えの予定はすべて終わりました':'お迎えの予定はありません'}</b>
+            <small>${arr.length?'到着しているお迎えの方の対応をお願いします':''}</small></div>`}
+      </div>
       <div class="mside">
-        <div class="mpanel"><div class="mhead">${ic('clock',24)}まもなく到着</div>
-          ${soon.slice(0,8).map(c=>`<div class="mfeed"><b>${hm(c.pickupAt)}</b><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')||'<div class="mempty">10分以内の予定はありません</div>'}</div>
-        <div class="mpanel"><div class="mhead">${ic('info',24)}お迎えが遅れている</div>
-          ${late.slice(0,8).map(c=>`<div class="mfeed late"><b>${hm(c.pickupAt)}</b><span>${c.name}${c.sfx}</span><small>${esc(c.cls)}</small></div>`).join('')||'<div class="mempty">遅れている方はいません</div>'}</div>
-      </div></div>`;
+        <div class="mpanel marrp ${arr.length?'on':''}"><div class="mhead">${ic('check',24)}お迎えの方が到着<span class="mcount">${arr.length}名</span></div>
+          ${arr.length?arr.map(c=>`<div class="marr" data-arr="${c.id}">${face(c,46)}<div class="mn"><span class="nm">${c.name}${c.sfx}</span>
+            <small>${one?'':esc(c.cls)+'／'}${esc(c.arrivedBy||c.by)}</small></div><div class="melap"><small>到着から</small><b class="js-arr">${elapsedText(c)}</b></div></div>`).join('')
+           :'<div class="mempty">いま待っている方はいません</div>'}</div>
+        <div class="mpanel mdone"><span>${ic('check',22,'#48A876')}お迎え済み</span><b>${rel}<small>／${cs.length}名</small></b></div>
+      </div>
+    </div>`;
 }
 
 /* --- S29 登園チェック（保育士が保護者の代わりに登園を記録できる） --- */
@@ -3023,9 +3247,9 @@ SCR.S22=()=>{
         <span style="flex:1">園の連絡先</span>
         <button class="hpill" style="min-height:36px" onclick="act('callSchool')">${ic('phone',16)}044-000-0000</button></div>
     </div>
-    <div class="sec">言語 / Language</div>
+    <div class="sec"><span class="notranslate" translate="no">言語 / Language</span></div>
     <div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <span style="flex:1;min-width:180px;font-size:13px;line-height:1.7">表示する言語を選べます。<br><span class="muted">Choose the display language.</span></span>${langToggle()}</div>
+      <span style="flex:1;min-width:180px;font-size:13px;line-height:1.7">表示する言語を選べます。英語は翻訳機能で表示します。</span>${langToggle()}</div>
     <div class="tiny muted" style="margin-top:16px;line-height:1.7">${esc(dataset().notice||'')}</div>
     <div style="margin-top:12px"><button class="cta ghost" onclick="act('logout')">ログアウト</button></div>
   </div>`;
@@ -3551,10 +3775,10 @@ function parentName(){const ps=proxiesOf(state.pc).slice().sort((x,y)=>(x.prio||
 function homeOf(r){return r==='parent'?'S02':r==='admin'?'S19':r==='kiosk'?'S27':r==='monitor'?'S30':'S09';}
 let kioskIdle=null,kioskBack=null;
 function act(name,arg){
-  LOCAL_ACT++;
+  LOCAL_ACT++;const prevAct=ACT_NOW;ACT_NOW=name;
   try{return actCore(name,arg);}
   catch(e){console.error(e);logErr('操作（'+name+'）',e);try{toast('うまく処理できませんでした。もう一度お試しください');render();}catch(x){}}
-  finally{LOCAL_ACT--;}
+  finally{LOCAL_ACT--;ACT_NOW=prevAct;}
 }
 function actCore(name,arg){
   /* 受付端末は受付画面から移動できない。しばらく操作がなければ最初の画面へ戻る */
@@ -3576,7 +3800,24 @@ function actCore(name,arg){
       if(arg==='S06'&&state.role==='parent')markParentSeen(); break;
     case 'drawer': state.drawer=!state.drawer; break;
     case 'lang': LANG=arg==='en'?'en':'ja';try{localStorage.setItem(LANG_KEY,LANG);}catch(e){}
-      toast(LANG==='en'?'Language: English':'表示を日本語にしました');break;
+      /* Chrome 内蔵の翻訳は、ボタンを押したこの瞬間にしか準備を始められない */
+      if(LANG==='en'){TR.failed.clear();TR.noBuiltin=false;if(TR.gtFail&&!GT.ok){TR.gtFail=false;GT.p=null;}if(TR.state==='tap'||TR.state==='none'||TR.state==='error')TR.state='idle';if(trEngine()==='builtin')trBuiltin().then(()=>{TR.state='idle';trApplyAll();}).catch(()=>{});}
+      toast(LANG==='en'?'表示を英語にしました':'表示を日本語にしました');break;
+    case 'trEnable': TR.state='idle';TR.failed.clear();trBuiltin().then(()=>{trApplyAll();}).catch(e=>{TR.err=String(e&&e.message||e);trBadge();});trBadge();return;
+    case 'trRetry': TR.state='idle';TR.failed.clear();
+      if(trEngine()==='gt'&&GT.ok){TR.state='ok';gtSet('ja');setTimeout(()=>{if(isEnView()){gtSet('en');gtCheckSoon();}},150);trBadge();return;}
+      trApplyAll();trBadge();return;
+    case 'trCfg': state.modal='trcfg';state.trTest='';break;
+    case 'trKeySave':{const v=plain((document.getElementById('trKeyIn')||{}).value||'');if(!v){toast('APIキーを入力してください');return;}
+      try{localStorage.setItem(TR_KEY,v);}catch(e){}TR.failed.clear();TR.state='idle';state.trTest='';toast('この端末に翻訳APIキーを保存しました');break;}
+    case 'trKeyClear': try{localStorage.removeItem(TR_KEY);}catch(e){}TR.failed.clear();TR.state='idle';state.trTest='';toast('この端末の翻訳APIキーを消しました');break;
+    case 'trCacheClear': TR.cache.clear();try{localStorage.removeItem(TR_CACHE);}catch(e){}TR.failed.clear();toast('翻訳の記録を消しました');break;
+    case 'trTest':{state.trTest='wait';if(trEngine()==='builtin')trBuiltin().catch(()=>{});
+      const s0='明日は遠足です。お弁当と水筒をお持ちください。';TR.cache.delete(s0);
+      if(trEngine()==='gt'){const back=isEnView()?'en':'ja';
+        gtLoad().then(()=>{gtSet('en');return gtProbe(s0);}).then(r=>{state.trTest=r?'ok:'+r:'ng:時間内に英語になりませんでした';})
+          .catch(e=>{state.trTest='ng:'+String(e&&e.message||e);}).finally(()=>{gtSet(back);drawOverlay();});break;}
+      trRun([s0]).then(()=>{state.trTest='ok:'+TR.cache.get(s0);}).catch(e=>{state.trTest='ng:'+String(e&&e.message||e);}).finally(()=>drawOverlay());break;}
     case 'logoHome': state.modal=null;state.drawer=false;state.screen=homeOf(state.role||'parent');state.newIds=[];
       if(state.screen==='S02'||state.screen==='S09')state.pfilter=state.pfilter;break;
     case 'hbar': state.hbar=!state.hbar; break;
@@ -3741,6 +3982,7 @@ function actCore(name,arg){
       myNotices().filter(n=>n.kind==='緊急').forEach(n=>n.read=true);
       toast(arg==='can'?'園に「お迎えに行けます」と伝えました':'園に「お迎えに行けません」と伝えました');break;}
     case 'monMode': state.monMode=arg;break;
+    case 'monCls': MON.cls=monClasses().includes(arg)?arg:'';try{localStorage.setItem('okaeri:moncls',MON.cls);}catch(e){}break;
     case 'inUndo':{const d=state.inDone||{};(d.kids||[]).forEach(id=>unmarkIn(child(id)));
       state.notices=state.notices.filter(n=>!(d.nids||[]).includes(n.id));clearTimeout(kioskBack);
       stopCam();state.camStep='pick';state.inDone=null;toast('登園の受付を取り消しました');break;}
@@ -4387,6 +4629,7 @@ function tickLoop(){
     const mc=document.getElementById('mclk');if(mc)mc.innerHTML=hmx(now());
     const m=monMode();if(sig()!==lastSig||m!==state._monLast){state._monLast=m;render();return;}
     document.querySelectorAll('[data-arr]').forEach(el=>{const c=child(el.dataset.arr);if(!c)return;const e=el.querySelector('.js-arr');if(e)e.textContent=elapsedText(c);});
+    document.querySelectorAll('[data-left]').forEach(el=>{const c=child(el.dataset.left);if(c)el.textContent=monLeft(c);});
     return;
   }
   if(state.screen==='S10'||state.screen==='S11'){
