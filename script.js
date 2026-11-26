@@ -1097,7 +1097,7 @@ function drawOverlay(){
   let h='';
   if(state.toast)h+=`<div class="toast">${state.toast}</div>`;
   if((state.pushes||[]).length)h+=`<div class="pushwrap">${state.pushes.map(x=>`<button class="pushcard ${x.title.includes('緊急')||x.title.includes('確認が必要')?'urgent':''}" onclick="act('pushOpen','${x.id}')">
-    <span class="pushic">${ic('bell',18,'#fff')}</span><span class="pushtx"><small>おかえりタイムライン・いま</small><b>${esc(x.title)}</b><span>${esc(x.body)}</span></span></button>`).join('')}</div>`;
+    <span class="pushic">${ic('bell',18,'#fff')}</span><span class="pushtx"><small>お迎えタイムライン・いま</small><b>${esc(x.title)}</b><span>${esc(x.body)}</span></span></button>`).join('')}</div>`;
   if(state.modal==='sync'){let saved=null;try{saved=JSON.parse(localStorage.getItem(FB_KEY)||'null');}catch(e){}
     h+=`<div class="modal" onclick="act('closeModal')"><div class="box" onclick="event.stopPropagation()">
     <div class="sec">端末の連動</div>
@@ -1308,7 +1308,7 @@ function phoneShell(inner){
   const dzNeed=dzOn()&&state.screen!=='S02'&&!pfam().some(dzAns);
   return `${offlineBar()}${dzNeed?`<button class="dzstrip" onclick="act('go','S02')">${ic('bell',18,'#fff')}【緊急】お迎えの確認：ここを押して回答してください</button>`:''}<div class="pcols">
   <aside class="pside">
-    <button class="plogo logobtn" onclick="act('logoHome')" aria-label="ホームに戻る">${sun(32)}<span>おかえりタイムライン<small>${esc(curSchool().name)}</small></span></button>
+    <button class="plogo logobtn" onclick="act('logoHome')" aria-label="ホームに戻る">${sun(32)}<span>お迎えタイムライン<small>${esc(curSchool().name)}</small></span></button>
     ${sideNav.map(([id,l,i])=>`<button class="sidebtn ${state.screen===id?'on':''}" onclick="act('go','${id}')">${ic(i,21)}${l}${nb[id]?`<span class="nb">${nb[id]}</span>`:''}</button>`).join('')}
     <div style="padding:10px 8px 0;margin-top:auto">${langToggle()}</div>
     <div class="pme" style="margin-top:8px">${face(pchild(),36)}<div style="min-width:0"><b>${esc(parentName())} さま</b><small>${pfam().map(k=>k.name.split(' ')[1]+k.sfx).join('・')}の保護者</small></div></div>
@@ -1410,7 +1410,7 @@ SCR.S01=()=>`<div class="roll plogin-bg"><div class="pbody plogin" style="paddin
     <div style="display:flex;justify-content:flex-end;margin:-14px -4px 6px">${langToggle()}</div>
     <div style="text-align:center;margin-bottom:26px">
       <div style="display:grid;place-items:center">${sun(64)}</div>
-      <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">おかえりタイムライン</div>
+      <div style="font-family:var(--disp);font-weight:900;font-size:21px;margin-top:8px">お迎えタイムライン</div>
       <div class="tiny muted" style="margin-top:5px">川崎市 公立認可保育所</div>
     </div>
     ${prodAuth()?`<label class="fieldl">メールアドレス</label><input class="inp" id="lid" type="email" autocomplete="username" value="${esc(state.loginId||'')}" placeholder="例）name@example.com" autocapitalize="off">`
@@ -3237,7 +3237,7 @@ function actCore(name,arg){
     case 'notifyAsk':{if(!notifySupported()){toast('この端末・ブラウザでは通知を使えません');return;}
       Promise.resolve(Notification.requestPermission()).then(p=>{
         if(p==='granted'){NOTIFY.on=true;try{localStorage.setItem(NOTIFY_KEY,'on');}catch(e){}toast('通知を許可しました');
-          osNotify('おかえりタイムライン','この端末に通知が届くようになりました','welcome','');}
+          osNotify('お迎えタイムライン','この端末に通知が届くようになりました','welcome','');}
         else toast('通知は許可されませんでした');render();});return;}
     case 'notifyToggle': NOTIFY.on=!NOTIFY.on;try{localStorage.setItem(NOTIFY_KEY,NOTIFY.on?'on':'off');}catch(e){}
       toast(NOTIFY.on?'この端末に通知を出します':'この端末への通知を止めました');break;
