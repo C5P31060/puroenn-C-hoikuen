@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email != null
+        && exists(/databases/$(db)/documents/okaeri_members/$(request.auth.token.email.lower()));
+    }
+    function me() {
+      return get(/databases/$(db)/documents/okaeri_members/$(request.auth.token.email.lower())).data;
+    }
+    function role(r) { return signedIn() && me().role == r; }
+    function staffLike() { return role('staff') || role('kiosk'); }
+    function inSchool(col) {
+      return col.matches('okaeri_.+') && col != 'okaeri_members'
+        && (!('school' in me()) || col == 'okaeri_' + me().school);
+    }
+
+    match /okaeri_members/{email} {
+      allow read: if request.auth != null && request.auth.token.email.lower() == email;
+      allow write: if false;
+    }
+    match /{col}/{doc} {
+      allow read: if inSchool(col) && (staffLike() || role('admin') || role('monitor')
+        || (role('parent') && resource.data.fam in me().fams.concat(['all', 'parents'])));
+      allow create: if inSchool(col) && (staffLike()
+        || (role('admin') && doc == 'meta__settings')
+        || (role('parent') && (request.resource.data.fam in me().fams
+              || doc.matches('posts__.*') || doc.matches('stats__.*'))));
+      allow update: if inSchool(col) && (staffLike()
+        || (role('admin') && doc == 'meta__settings')
+        || (role('parent') && ((request.resource.data.fam in me().fams && resource.data.fam in me().fams)
+              || doc.matches('stats__.*'))));
+      allow delete: if inSchool(col) && staffLike();
+    }
+  }
+}

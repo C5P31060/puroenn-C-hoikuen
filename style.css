@@ -1,20 +1,19 @@
-
 :root{
-  --o:#F2913F;            /* メインのオレンジ */
+  --o:#F2913F;
   --o-d:#E4762A;
-  --o-l:#FDEBDD;          /* 淡いオレンジ面 */
+  --o-l:#FDEBDD;
   --o-l2:#FEF5EE;
-  --side:#FFF9F4;         /* サイドバー */
-  --peach:#FDF4EF;        /* 画面背景 */
+  --side:#FFF9F4;
+  --peach:#FDF4EF;
   --card:#FFFFFF;
   --ink:#3D332C;
   --ink-2:#9A8C81;
   --line:#F1E8E1;
   --pink:#F2A7BC;
-  --pri-bg:#FBE4DE; --pri-tx:#D9755C;   /* 優先順位 */
-  --ok-bg:#E4F4E9;  --ok-tx:#3E9A62;    /* 承認済み・未到着 */
-  --am-bg:#FDF0D9;  --am-tx:#D2941A;    /* まもなく */
-  --rd-bg:#FCE6E2;  --rd-tx:#DB5A45;    /* 遅延 */
+  --pri-bg:#FBE4DE; --pri-tx:#D9755C;
+  --ok-bg:#E4F4E9;  --ok-tx:#3E9A62;
+  --am-bg:#FDF0D9;  --am-tx:#D2941A;
+  --rd-bg:#FCE6E2;  --rd-tx:#DB5A45;
   --mint:#B4E3CC;   --mint-tx:#2E8B5F;
   --memo-bg:#FFFAEC; --memo-bd:#F0D9A8;
   --disp:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
@@ -30,7 +29,6 @@ input,select,textarea{font-family:inherit;font-size:14px;color:var(--ink)}
 svg{display:block}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ===== プロトタイプ操作バー（アプリの外側） ===== */
 .harness{position:sticky;top:0;z-index:60;background:#3A2E27;color:#E3D6CB;border-bottom:2px solid var(--o)}
 .harness-in{max-width:1200px;margin:0 auto;padding:9px 16px;display:flex;flex-wrap:wrap;gap:9px 16px;align-items:center}
 .harness .brand{font-family:var(--disp);font-weight:700;color:#fff;font-size:14px}
@@ -39,7 +37,7 @@ svg{display:block}
 .hctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .htoggle{display:none}
 body.hb-off .harness{display:none}
-/* 操作バーを隠したときに、右下に出す「操作バー」ボタン（下のメニューや一番上に戻るボタンに重ならない高さ） */
+
 #hshow{display:none;position:fixed;right:12px;bottom:calc(80px + env(safe-area-inset-bottom,0px));z-index:95;align-items:center;gap:5px;
   padding:6px 11px 6px 9px;border-radius:999px;background:rgba(58,46,39,.82);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.02em;
   box-shadow:0 3px 10px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.25);font-family:var(--disp);backdrop-filter:blur(4px)}
@@ -53,7 +51,7 @@ body.prod #hshow{display:none!important}
 #gtw select{font-size:12px;padding:4px 8px;border-radius:10px;border:1px solid #EADBCE;background:#fff;color:#6B5A4E;max-width:200px}
 #gtw a{font-size:10.5px}
 .trprobe{position:fixed;left:-10000px;top:0;width:320px;white-space:normal}
-/* 翻訳のしくみが画面に足すもの（上の帯・吹き出し・ハイライト）は出さない */
+
 body{top:0!important}
 .goog-te-banner-frame,iframe.skiptranslate,#goog-gt-tt,.goog-te-balloon-frame,.goog-tooltip{display:none!important}
 .goog-text-highlight{background:none!important;box-shadow:none!important}
@@ -75,7 +73,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .hnow{font-family:var(--mono);font-size:12px;color:#C7A98F}
 .hid{font-family:var(--mono);font-size:11px;color:#3A2E27;background:#F2C79A;padding:3px 8px;border-radius:5px;font-weight:600}
 
-/* ===== 端末フレーム ===== */
 .stage{max-width:1200px;margin:22px auto;padding:0 16px;display:flex;justify-content:center}
 .phone{width:392px;max-width:100%;border-radius:38px;border:9px solid #221B16;box-shadow:0 26px 60px rgba(60,40,25,.3);overflow:hidden;display:flex;flex-direction:column;height:800px;
        background:linear-gradient(180deg,#FFF7F0 0%,#FDEDE1 58%,#FCE7D8 100%)}
@@ -86,7 +83,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .roll::-webkit-scrollbar{width:7px}
 .roll::-webkit-scrollbar-thumb{background:#E3D2C4;border-radius:4px}
 
-/* ===== 共通 ===== */
 .pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;font-family:var(--disp);white-space:nowrap}
 .pill.green{background:var(--ok-bg);color:var(--ok-tx)}
 .pill.amber{background:var(--am-bg);color:var(--am-tx)}
@@ -108,7 +104,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .sec{font-family:var(--disp);font-weight:700;font-size:15px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 .sec:first-child{margin-top:0}
 
-/* ===== タブレット：サイドバー ===== */
 .t-wrap{display:flex;height:100%;min-height:0}
 .side{width:214px;flex:none;background:var(--side);border-right:1px solid #F3E7DD;display:flex;flex-direction:column}
 .side .logo{background:linear-gradient(100deg,#F5A55E,#F08C3B);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700;font-size:17px}
@@ -124,7 +119,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .side .me b{font-family:var(--disp);font-size:13px;display:block}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--peach)}
 
-/* ===== タブレット：ヘッダー ===== */
 .thead{background:var(--peach);padding:18px 26px 10px;display:flex;align-items:flex-start;gap:12px}
 .thead h2{margin:0;font-family:var(--disp);font-weight:700;font-size:23px;display:flex;align-items:center;gap:11px}
 .thead .sub{font-size:12.5px;color:var(--ink-2);margin-top:5px}
@@ -139,7 +133,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .tab{flex:none;white-space:nowrap;font-size:13px;font-family:var(--disp);font-weight:700;padding:8px 16px;border-radius:999px;background:#fff;color:#9A8C81;border:1px solid var(--line)}
 .tab.on{background:var(--o);color:#fff;border-color:var(--o)}
 
-/* タブレット下部ナビ */
 .tnav{background:#fff;border-top:1px solid var(--line);display:flex;align-items:flex-end;justify-content:space-around;padding:7px 0 9px;position:relative}
 .tnav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-family:var(--disp);font-weight:700;color:#B2A499;flex:1}
 .tnav button.on{color:var(--o)}
@@ -147,7 +140,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .tnav .fabwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;color:var(--o);font-family:var(--disp);font-weight:700}
 .badge{position:absolute;top:-4px;right:-9px;background:#EE5A48;color:#fff;font-size:9.5px;min-width:16px;height:16px;border-radius:9px;display:grid;place-items:center;font-family:var(--disp);font-weight:700;padding:0 4px}
 
-/* ===== 代理人リスト（画像1） ===== */
 .pxcard{background:#fff;border-radius:18px;padding:20px;display:flex;gap:20px;align-items:flex-start;margin-bottom:16px;box-shadow:0 1px 3px rgba(120,90,60,.07);width:100%;text-align:left}
 .pxcard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
 .pxphoto{width:132px;height:150px;border-radius:12px;overflow:hidden;flex:none;background:#EFEBE7}
@@ -165,7 +157,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .dl .row.memo b{font-weight:700}
 .chev{align-self:center;color:#C9BAAE;flex:none}
 
-/* ===== 職員タイムライン（画像2） ===== */
 .composer{display:flex;gap:14px;align-items:center;margin-bottom:18px}
 .compbox{flex:1;background:#fff;border-radius:16px;border:1px solid var(--line);padding:8px 8px 8px 20px;display:flex;align-items:center;gap:10px}
 .compbox input{flex:1;border:none;outline:none;font-size:15px;background:transparent}
@@ -224,7 +215,6 @@ body.hb-off:not(.prod) .totop.ph{bottom:132px}
 .drowin .inp{width:auto;min-width:0;padding:9px 10px}
 @media(max-width:560px){.dgrid{grid-template-columns:1fr}}
 
-/* ===== お帰りタイムライン ===== */
 .ccard{display:flex;align-items:center;gap:15px;background:#fff;border-radius:16px;padding:14px 18px;width:100%;text-align:left;margin-bottom:11px;box-shadow:0 1px 3px rgba(120,90,60,.07);border-left:6px solid #DDD2C8}
 .ccard:hover{box-shadow:0 4px 14px rgba(120,90,60,.13)}
 .ccard.green{border-left-color:#5FBF8B}.ccard.amber{border-left-color:#EDB53F}
@@ -307,7 +297,6 @@ table.tbl td:first-child{white-space:nowrap}
 .btn.ng{background:#fff;color:var(--rd-tx);border:1.5px solid #F2C4BB;box-shadow:none}
 .btn:disabled{opacity:.45;cursor:default;box-shadow:none}
 
-/* ===== 保護者アプリ（画像3） ===== */
 .phead{display:flex;align-items:center;padding:10px 18px 12px;gap:10px}
 .phead .ttl{flex:1;text-align:center;font-family:var(--disp);font-weight:700;font-size:19px}
 .pbody{padding:0 18px 26px;position:relative}
@@ -446,7 +435,7 @@ body.prod .harness{display:none!important}
 .yetcard .yn small{font-size:12px;color:var(--ink-2);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .yetcard .yn .btn{margin-top:7px;padding:7px 12px!important;font-size:13px;white-space:nowrap}
 .allin{display:flex;align-items:center;gap:10px;padding:8px 2px 14px;font-family:var(--disp)}.allin b{font-size:18px;color:var(--ok-tx)}.allin small{color:var(--ink-2)}
-/* 園内モニター（大型テレビ）：画面いっぱいに、遠くから読める大きさで */
+
 body.tvmode{height:100vh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
 body.tvmode .stage{flex:1;min-height:0;margin:0;padding:0;max-width:none;display:flex}
 body.tvmode .tablet{width:100%;max-width:none;height:auto;flex:1;border:0;border-radius:0;box-shadow:none}
@@ -563,7 +552,6 @@ body.tvmode .statusbar{display:none}
 .scrim{display:none}
 .roll,.tbody,.side .items{-webkit-overflow-scrolling:touch}
 
-/* ===== 実機（スマホ・タブレット）で画面いっぱいに表示 ===== */
 @media (max-width:1100px), (pointer:coarse){
   html,body{height:100%}
   body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0;overscroll-behavior:none}
@@ -578,7 +566,6 @@ body.tvmode .statusbar{display:none}
   .tab,.hpill{min-height:42px}
 }
 
-/* ===== 幅の狭い端末：サイドバーを引き出しメニューに ===== */
 @media (max-width:900px){
   .harness-in{padding:7px 12px;gap:7px 10px}
   .harness .brand{font-size:12.5px}
@@ -629,7 +616,6 @@ body.tvmode .statusbar{display:none}
   .slots button b{font-size:27px}
 }
 
-/* ===== さらに狭い端末（スマホ縦） ===== */
 @media (max-width:560px){
   .ccard{gap:11px;padding:12px 13px}
   .ccard .nm{font-size:15.5px}
@@ -643,25 +629,24 @@ body.tvmode .statusbar{display:none}
   .modal .box{padding:18px;border-radius:16px}
 }
 
-/* ===== どの端末でも画面いっぱいに表示（端末の枠は出さない）。幅に合わせて並びを変える ===== */
 html,body{height:100%}
 body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
 .stage{flex:1;min-height:0;margin:0;padding:0;max-width:none;display:flex}
 .phone,.tablet{width:100%;height:100%;max-width:none;border:0;border-radius:0;box-shadow:none;margin:0}
 .statusbar{display:none}
-/* 保護者：スマホは下にメニュー */
+
 .pcols{flex:1;display:flex;min-height:0}
 .pside{display:none}
 .pmain{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
 .pnote{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:left;padding:13px 16px;margin-top:10px}
 .pnote b{font-family:var(--disp);font-size:14px}.pnote small{font-size:11.5px;color:var(--ink-2)}
-/* 保護者：タブレット（600px〜）は読みやすい幅で中央に */
+
 @media (min-width:600px){
   .phone .pbody,.phone .phead{max-width:700px;margin-left:auto;margin-right:auto;width:100%;box-sizing:border-box}
   .plogin-bg{display:flex;align-items:flex-start;justify-content:center}
   .plogin{max-width:440px!important;background:#fff;border-radius:26px;box-shadow:0 10px 40px rgba(120,80,40,.12);margin:6vh auto!important;padding:34px 34px 28px!important}
 }
-/* 保護者：パソコン（1000px〜）は左にメニュー、中身を広く使う */
+
 @media (min-width:1000px){
   .pside{display:flex;flex-direction:column;width:244px;flex:none;background:var(--side);border-right:1px solid #F3E7DD;padding:16px 12px;overflow-y:auto}
   .plogo{display:flex;align-items:center;gap:10px;padding:4px 8px 18px;font-family:var(--disp);font-weight:900;font-size:16px;color:var(--o-d)}
@@ -678,12 +663,11 @@ body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bo
   .phome>div:last-child>.sec:first-child,.p2top{margin-top:0}
   .totop.ph{bottom:22px}
 }
-/* 職員・自治体：画面の幅に合わせる。中身は画面ごとの読みやすい幅（--maxw）で中央にそろえ、
-   スクロールは画面全体で行う（左右の余白の上でもスクロールできる） */
+
 .main{--pad:26px}
 .main .thead,.main .tabs,.main .tbody{padding-left:max(var(--pad),calc((100% - var(--maxw,1260px)) / 2));padding-right:max(var(--pad),calc((100% - var(--maxw,1260px)) / 2))}
 @media (max-width:900px){.main{--pad:14px}}
-/* 表は狭い画面では横にスクロールし、列が細くなって文字が縦に並ばないようにする */
+
 .tablewrap table.tbl{min-width:660px}
 .tablewrap table.tbl.wide{min-width:880px}
 table.tbl th,table.tbl td{white-space:normal}
